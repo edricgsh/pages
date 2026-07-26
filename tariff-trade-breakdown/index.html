@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tariffs, Trade &amp; Trump's Strategy — Interactive Breakdown</title>
+<style>
+  /* ─── PASSWORD GATE ─── */
+  #password-gate {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    background: #0a0a0f;
+    font-family: 'Inter', -apple-system, sans-serif;
+  }
+  #password-gate.hidden { display: none; }
+  .gate-box {
+    text-align: center; padding: 40px; max-width: 380px;
+  }
+  .gate-box h1 {
+    font-size: 24px; font-weight: 700; color: #f0f0f0; margin-bottom: 8px;
+  }
+  .gate-box p {
+    font-size: 14px; color: #888; margin-bottom: 24px;
+  }
+  .gate-box input {
+    width: 100%; padding: 12px 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; color: #fff; font-size: 15px;
+    outline: none; text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 2px;
+  }
+  .gate-box input:focus { border-color: #60a5fa; }
+  .gate-box .error {
+    color: #f87171; font-size: 13px; margin-top: 10px; display: none;
+  }
+  .gate-box .error.show { display: block; }
+  .gate-box .lock-icon { font-size: 40px; margin-bottom: 16px; }
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0a0a0f;
+    color: #e0e0e0;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── Navigation ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; gap: 6px;
+    padding: 12px 24px;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav a {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px; font-weight: 500;
+    color: #888;
+    text-decoration: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  nav a:hover, nav a.active { color: #fff; background: rgba(255,255,255,0.08); }
+  nav .sep { color: #333; font-size: 12px; margin: 0 2px; }
+
+  /* ─── Hero ─── */
+  .hero {
+    padding: 80px 24px 60px;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(59,130,246,0.08) 0%, transparent 100%);
+  }
+  .hero h1 {
+    font-size: clamp(28px,5vw,48px); font-weight: 800;
+    background: linear-gradient(135deg,#60a5fa,#a78bfa,#f472b6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p.sub {
+    margin-top: 12px; font-size: 16px; color: #888;
+    max-width: 640px; margin-left: auto; margin-right: auto;
+  }
+  .hero .meta {
+    margin-top: 16px; display: flex; gap: 20px; justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero .meta span {
+    font-size: 13px; color: #666;
+    background: rgba(255,255,255,0.04);
+    padding: 4px 12px; border-radius: 20px;
+  }
+
+  /* ─── Sections ─── */
+  section { padding: 48px 24px; max-width: 900px; margin: 0 auto; }
+  section h2 {
+    font-size: 22px; font-weight: 700; margin-bottom: 20px;
+    color: #f0f0f0;
+    display: flex; align-items: center; gap: 10px;
+  }
+  section h2 .badge {
+    font-size: 11px; font-weight: 600;
+    padding: 2px 10px; border-radius: 20px;
+    background: rgba(59,130,246,0.15); color: #60a5fa;
+  }
+  section h3 {
+    font-size: 17px; font-weight: 600; margin: 28px 0 12px;
+    color: #ccc;
+  }
+  section p { font-size: 15px; color: #aaa; margin-bottom: 14px; }
+  section p b, section p strong { color: #e0e0e0; font-weight: 600; }
+
+  /* ─── Cards / Diagrams ─── */
+  .diagram {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+  .diagram h4 {
+    font-size: 14px; font-weight: 600; color: #999; text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 16px;
+  }
+
+  /* TARIFF FLOW */
+  .tariff-flow {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; flex-wrap: wrap; margin: 16px 0;
+  }
+  .tariff-flow .box {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 14px 18px;
+    text-align: center;
+    min-width: 90px;
+  }
+  .tariff-flow .box .price { font-size: 22px; font-weight: 700; color: #f0f0f0; }
+  .tariff-flow .box .label { font-size: 12px; color: #777; margin-top: 4px; }
+  .tariff-flow .arrow { font-size: 20px; color: #555; }
+  .tariff-flow .box.gov { border-color: rgba(59,130,246,0.3); background: rgba(59,130,246,0.06); }
+  .tariff-flow .box.consumer { border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.06); }
+  .tariff-flow .box.producer { border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.06); }
+
+  /* WINNER/LOSER TABLE */
+  .win-loss {
+    display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    gap: 12px; margin: 16px 0;
+  }
+  .wl-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px; padding: 16px;
+  }
+  .wl-card.win { border-color: rgba(34,197,94,0.25); }
+  .wl-card.loss { border-color: rgba(239,68,68,0.25); }
+  .wl-card h5 { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+  .wl-card.win h5 { color: #4ade80; }
+  .wl-card.loss h5 { color: #f87171; }
+  .wl-card ul { list-style: none; font-size: 13px; color: #999; }
+  .wl-card ul li::before { content: "• "; color: #555; }
+
+  /* GAME THEORY MATRIX */
+  .matrix-wrapper { display:flex; justify-content:center; }
+  .matrix {
+    display: inline-grid;
+    grid-template-columns: auto repeat(2,1fr);
+    gap: 0;
+    margin: 16px auto;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 13px;
+  }
+  .matrix .cell {
+    padding: 12px 18px;
+    border: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+    min-width: 100px;
+  }
+  .matrix .cell.header { font-weight: 600; color: #888; background: rgba(255,255,255,0.03); }
+  .matrix .cell.label { font-weight: 500; color: #aaa; }
+  .matrix .cell.payoff { font-family: 'JetBrains Mono', monospace; color: #f0f0f0; }
+  .matrix .cell.best { background: rgba(34,197,94,0.08); }
+  .matrix .cell.worst { background: rgba(239,68,68,0.08); }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 24px; margin: 16px 0; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: rgba(255,255,255,0.06);
+  }
+  .tl-item { position: relative; margin-bottom: 16px; }
+  .tl-item::before {
+    content: ''; position: absolute; left: -20px; top: 6px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 2px solid #333;
+  }
+  .tl-item .year { font-size: 12px; font-weight: 600; color: #60a5fa; }
+  .tl-item p { font-size: 14px; margin: 2px 0 0; }
+
+  /* BALANCE OF PAYMENTS */
+  .bop-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    margin: 16px 0;
+  }
+  .bop-card {
+    padding: 16px; border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+  }
+  .bop-card .bop-title { font-size: 13px; color: #777; text-transform: uppercase; letter-spacing: 0.3px; }
+  .bop-card .bop-value { font-size: 28px; font-weight: 700; margin: 6px 0 2px; }
+  .bop-card .bop-desc { font-size: 12px; color: #666; }
+  .bop-card.deficit { border-color: rgba(239,68,68,0.2); }
+  .bop-card.deficit .bop-value { color: #f87171; }
+  .bop-card.surplus { border-color: rgba(34,197,94,0.2); }
+  .bop-card.surplus .bop-value { color: #4ade80; }
+
+  /* KPI METER */
+  .kpi-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 8px;
+    margin: 6px 0;
+  }
+  .kpi-row .kpi-label { flex: 1; font-size: 13px; color: #aaa; }
+  .kpi-row .kpi-meter {
+    flex: 2; height: 6px; border-radius: 3px;
+    background: rgba(255,255,255,0.06);
+    position: relative; overflow: hidden;
+  }
+  .kpi-row .kpi-meter .fill {
+    height: 100%; border-radius: 3px; transition: width 0.5s;
+  }
+  .kpi-row .kpi-tag { font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 12px; }
+
+  .core .fill { background: #4ade80; }
+  .compromise .fill { background: #facc15; }
+  .not-priority .fill { background: #666; }
+
+  .tag-core { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .tag-comp { background: rgba(250,204,21,0.15); color: #facc15; }
+  .tag-low { background: rgba(255,255,255,0.06); color: #888; }
+
+  /* MAR-A-LAGO */
+  .strategy-cards {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  }
+  .strat-card {
+    padding: 16px; border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .strat-card h5 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .strat-card p { font-size: 13px; color: #888; }
+  .strat-card.multilateral { border-color: rgba(59,130,246,0.2); }
+  .strat-card.multilateral h5 { color: #60a5fa; }
+  .strat-card.unilateral { border-color: rgba(168,85,247,0.2); }
+  .strat-card.unilateral h5 { color: #a78bfa; }
+
+  /* CONTRADICTIONS */
+  .paradox { display: flex; gap: 12px; margin: 12px 0; flex-wrap: wrap; }
+  .paradox-item {
+    flex: 1; min-width: 200px;
+    padding: 14px; border-radius: 10px;
+    background: rgba(239,68,68,0.04);
+    border: 1px solid rgba(239,68,68,0.12);
+  }
+  .paradox-item h5 { font-size: 13px; color: #f87171; margin-bottom: 6px; }
+  .paradox-item p { font-size: 13px; color: #999; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .tariff-flow { flex-direction: column; }
+    .bop-grid { grid-template-columns: 1fr; }
+    .strategy-cards { grid-template-columns: 1fr; }
+    .matrix .cell { padding: 8px 10px; min-width: 70px; font-size: 12px; }
+    .kpi-row { flex-wrap: wrap; }
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 32px 24px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    font-size: 13px; color: #555;
+  }
+  footer a { color: #60a5fa; text-decoration: none; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  section { animation: fadeUp 0.5s ease-out; }
+</style>
+</head>
+<body>
+
+<!-- ═══ PASSWORD GATE ═══ -->
+<div id="password-gate">
+  <div class="gate-box">
+    <div class="lock-icon">🔒</div>
+    <h1>Restricted Page</h1>
+    <p>Enter the password to view this research artifact.</p>
+    <input type="password" id="password-input" placeholder="Enter password" autocomplete="off">
+    <div class="error" id="password-error">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<div id="content" style="display:none;">
+
+<nav>
+  <a href="#overview">Overview</a><span class="sep">/</span>
+  <a href="#part1">Mechanics</a><span class="sep">/</span>
+  <a href="#game-theory">Game Theory</a><span class="sep">/</span>
+  <a href="#history">History</a><span class="sep">/</span>
+  <a href="#part2">Trade Deficit</a><span class="sep">/</span>
+  <a href="#triffin">Triffin</a><span class="sep">/</span>
+  <a href="#part3">Trump's Strategy</a><span class="sep">/</span>
+  <a href="#contradictions">Contradictions</a>
+</nav>
+
+<div class="hero">
+  <h1>Tariffs, Trade &amp; The New World Order</h1>
+  <p class="sub">A 3-part visual breakdown of 小Lin说's economics trilogy — from tariff mechanics to the Triffin dilemma to Trump's radical restructuring playbook.</p>
+  <div class="meta">
+    <span>📺 小Lin说</span>
+    <span>⏱ 3 videos · 73 min</span>
+    <span>📐 Economics · Trade Policy · Geopolitics</span>
+  </div>
+</div>
+
+<!-- PART 1 -->
+<section id="overview">
+  <h2>1. How Tariffs Work <span class="badge">Part 1</span></h2>
+  <h3>The Basic Mechanism</h3>
+  <p>A tariff is a tax on imported goods. When the <strong>Milk Tea Kingdom</strong> imposes a 20% tariff on milk powder:</p>
+  <div class="tariff-flow">
+    <div class="box"><div class="price">100</div><div class="label">Original Price</div></div>
+    <div class="arrow">→</div>
+    <div class="box gov"><div class="price">+20</div><div class="label">Tariff (Gov Revenue)</div></div>
+    <div class="arrow">→</div>
+    <div class="box consumer"><div class="price">120</div><div class="label">Consumer Pays</div></div>
+  </div>
+
+  <h3>Who Wins, Who Loses?</h3>
+  <div class="win-loss">
+    <div class="wl-card win"><h5>✅ Government</h5><ul><li>Collects tariff revenue</li></ul></div>
+    <div class="wl-card win"><h5>✅ Domestic Producers</h5><ul><li>Less competition</li><li>Can raise prices &amp; expand</li><li>More jobs in protected industries</li></ul></div>
+    <div class="wl-card loss"><h5>❌ Consumers</h5><ul><li>Pay higher prices (+34% on 2018 washing machines)</li><li>Fewer choices</li></ul></div>
+    <div class="wl-card loss"><h5>❌ Downstream Industries</h5><ul><li>Steel tariffs cost Ford $1B+</li><li>Ripple effects through supply chains</li></ul></div>
+  </div>
+
+  <div class="diagram">
+    <h4>Deadweight Loss — The Textbook View</h4>
+    <p>Classical economics: trade liberalization is most efficient. Tariffs create two "deadweight loss" triangles — lost welfare nobody recovers. <strong>First-year economics says tariffs are always bad.</strong></p>
+    <p style="color:#888;font-size:14px;margin-top:8px;">But real-world trade policy is more nuanced. Tariffs have additional effects the simple model misses...</p>
+  </div>
+
+  <h3>Why Tariffs Exist Despite Deadweight Loss</h3>
+  <div class="win-loss">
+    <div class="wl-card win"><h5>🏭 Infant Industry Protection</h5><ul><li>Hamilton's 18th-century argument</li><li>US (19th C): tariffs &gt;40% → steel output ↑500×</li><li>China: car tariffs &gt;200% nurtured domestic auto</li><li>India: "Make in India" via high tariffs</li></ul></div>
+    <div class="wl-card win"><h5>🤝 Negotiation Leverage</h5><ul><li>Tariffs damage opponents → bargaining chip</li><li>Trump: NAFTA renegotiation via tariff threats</li><li>Canada retaliated on swing-state goods (ketchup, orange juice, toilet paper)</li></ul></div>
+    <div class="wl-card win"><h5>🗳️ Political Appeal</h5><ul><li>"Protect jobs" resonates during downturns</li><li>Swing-state targeting: Pennsylvania steel unions</li><li>Biden &amp; Trump both blocked Japan Steel's US Steel deal</li></ul></div>
+    <div class="wl-card loss"><h5>⚔️ Retaliation Risk</h5><ul><li>1963 Chicken-Truck War</li><li>Trade wars escalate unpredictably</li><li>Consumers on both sides pay</li></ul></div>
+  </div>
+</section>
+
+<!-- GAME THEORY -->
+<section id="game-theory">
+  <h2>2. The Tariff Game <span class="badge">Prisoner's Dilemma</span></h2>
+  <p>Trade between two countries becomes a <strong>prisoner's dilemma</strong>. Each chooses: <strong>Open</strong> (free trade) or <strong>Protect</strong> (tariffs).</p>
+  <div class="matrix-wrapper">
+  <div class="matrix">
+    <div class="cell header"></div>
+    <div class="cell header">Country B: Open</div>
+    <div class="cell header">Country B: Protect</div>
+    <div class="cell label">Country A: Open</div>
+    <div class="cell payoff best">A: +3, B: +3</div>
+    <div class="cell payoff">A: -5, B: +8</div>
+    <div class="cell label">Country A: Protect</div>
+    <div class="cell payoff">A: +8, B: -5</div>
+    <div class="cell payoff worst">A: -3, B: -3</div>
+  </div>
+  </div>
+  <p style="margin-top:12px;"><strong>Nash equilibrium:</strong> Both protect (mutual loss). In <strong>repeated games</strong>, <strong>tit-for-tat</strong> (start open, mirror opponent's move) breaks the trap. Key: <strong>the threat must be communicated</strong>.</p>
+  <div class="win-loss">
+    <div class="wl-card win"><h5>🔄 Tit-for-Tat</h5><ul><li>Start open, warn retaliation</li><li>Mirror opponent's last move</li><li>Make your threat credible</li></ul></div>
+    <div class="wl-card win"><h5>🤝 Institutions</h5><ul><li>WTO (166 members, 98% of world trade)</li><li>EU: extreme interest alignment</li><li>NAFTA/USMCA: regional agreements</li></ul></div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section id="history">
+  <h2>3. 300 Years of Global Trade <span class="badge">Timeline</span></h2>
+  <div class="timeline">
+    <div class="tl-item"><div class="year">1700s–1800s</div><p><strong>Mercantilism.</strong> Britain's avg tariff ~50%. Colonies exist for the empire.</p></div>
+    <div class="tl-item"><div class="year">1817</div><p><strong>Ricardo's Comparative Advantage.</strong> Free trade cornerstone. Britain lowers tariffs.</p></div>
+    <div class="tl-item"><div class="year">1800s</div><p><strong>US &amp; Germany ignore free trade.</strong> Hamilton's infant-industry argument. Tariffs &gt;40%. Steel ↑500× in 30 years. US overtakes Britain.</p></div>
+    <div class="tl-item"><div class="year">1930</div><p><strong>Smoot-Hawley Tariff Act.</strong> US tariffs 20–60% on 20,000+ goods. Europe retaliates. US imports/exports ↓66%. Great Depression deepens.</p></div>
+    <div class="tl-item"><div class="year">1947</div><p><strong>GATT signed.</strong> Post-WWII tariff reductions. Avg: 22% (1947) → 5% (2000). Exports: 5% → 25% of global GDP.</p></div>
+    <div class="tl-item"><div class="year">2018–Now</div><p><strong>New protectionism.</strong> US-China trade war, Brexit, pandemic nationalism. WTO paralyzed. Deglobalization trend.</p></div>
+  </div>
+</section>
+
+<!-- PART 2 -->
+<section id="part2">
+  <h2>4. The US Trade Deficit <span class="badge">Part 2</span></h2>
+  <div class="bop-grid">
+    <div class="bop-card deficit"><div class="bop-title">Current Account</div><div class="bop-value">−Trillions</div><div class="bop-desc">Trade deficit since 1970s · Buying &gt; selling</div></div>
+    <div class="bop-card surplus"><div class="bop-title">Financial + Capital Account</div><div class="bop-value">+Trillions</div><div class="bop-desc">Global capital flows in · Everyone buys US assets</div></div>
+  </div>
+  <p style="font-size:14px;text-align:center;color:#888;">These always balance. The US trade deficit is <strong>mirrored</strong> by America's financial account surplus.</p>
+
+  <h3>The Circular Flow</h3>
+  <div class="diagram">
+    <p style="font-size:14px;line-height:1.8;">
+    1️⃣ Countries earn USD from trade surpluses<br>
+    2️⃣ Central banks accumulate USD reserves → print local currency<br>
+    3️⃣ Reserves reinvested into US assets (Treasuries, stocks, MBS)<br>
+    4️⃣ Capital inflow <strong>drives up USD</strong> exchange rate<br>
+    5️⃣ Strong dollar makes US exports expensive, imports cheap → deficit widens<br>
+    6️⃣ <strong>Repeat</strong> for 50+ years
+    </p>
+  </div>
+
+  <h3>Why Doesn't the Dollar Depreciate to Fix It?</h3>
+  <ul style="font-size:14px;color:#999;list-style:none;padding:0;">
+    <li style="padding:6px 0;">🌍 <strong>Global demand for USD</strong> is structural — it's the world's reserve currency</li>
+    <li style="padding:6px 0;">🏦 <strong>Central banks peg/manage currencies</strong>, suppressing automatic adjustment</li>
+    <li style="padding:6px 0;">📈 <strong>"Better economy = bigger deficit"</strong> — strong economy attracts investment → dollar appreciates → deficit grows</li>
+  </ul>
+</section>
+
+<!-- TRIFFIN -->
+<section id="triffin">
+  <h2>5. The Triffin Dilemma <span class="badge">Root Cause</span></h2>
+  <div class="diagram" style="border-color:rgba(168,85,247,0.2);">
+    <p style="font-size:15px;"><strong>"A country that issues the world's reserve currency will inevitably run a trade deficit."</strong></p>
+    <p style="font-size:14px;color:#999;margin-top:8px;">— Robert Triffin, 1960s (predicted the 50+ year US deficit before it happened)</p>
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.06);margin:16px 0;">
+    <p style="font-size:14px;">The dollar's reserve currency status means the US <strong>must supply USD to the world</strong> by running a trade deficit — effectively <strong>printing money to buy goods</strong>.</p>
+    <p style="font-size:14px;margin-top:8px;color:#f87171;">The Fed admits this. Most media &amp; politicians show only half the picture.</p>
+  </div>
+  <h3>Is the Trade Deficit Bad? → <span style="color:#888;font-weight:400;">It depends.</span></h3>
+  <div class="win-loss">
+    <div class="wl-card win"><h5>🟢 Healthy</h5><ul><li>Australia: decades of deficit driven by strong investment demand</li><li>Fast-growing economies attract capital naturally</li></ul></div>
+    <div class="wl-card loss"><h5>🔴 Unhealthy</h5><ul><li>Pre-2010 Eurozone: Greece/Spain overheated, borrowing too much</li><li>Sri Lanka: currency collapse + foreign debt → goods shortage</li></ul></div>
+  </div>
+</section>
+
+<!-- PART 3 -->
+<section id="part3">
+  <h2>6. Trump's Strategy <span class="badge">Part 3</span></h2>
+  <p>Based on <strong>Stephen Milan's</strong> "A User's Guide to Restructuring the Global Trading System." <span style="color:#888;font-size:13px;">(Milan: now Chair of White House Economic Council)</span></p>
+
+  <h3>Trump's 7 Goals — Priority Ranking</h3>
+  <div class="kpi-row"><div class="kpi-label">🔴 Govt Finances / Deficit</div><div class="kpi-meter"><div class="fill core" style="width:95%"></div></div><span class="kpi-tag tag-core">Core</span></div>
+  <div class="kpi-row"><div class="kpi-label">🏭 Manufacturing Reshoring</div><div class="kpi-meter"><div class="fill core" style="width:85%"></div></div><span class="kpi-tag tag-core">Core</span></div>
+  <div class="kpi-row"><div class="kpi-label">🔒 Restrict Rivals (China)</div><div class="kpi-meter"><div class="fill core" style="width:80%"></div></div><span class="kpi-tag tag-core">Core</span></div>
+  <div class="kpi-row"><div class="kpi-label">📈 Economic Growth</div><div class="kpi-meter"><div class="fill compromise" style="width:50%"></div></div><span class="kpi-tag tag-comp">Compromise</span></div>
+  <div class="kpi-row"><div class="kpi-label">🏷️ Price Stability</div><div class="kpi-meter"><div class="fill compromise" style="width:40%"></div></div><span class="kpi-tag tag-comp">Defer to Fed</span></div>
+  <div class="kpi-row"><div class="kpi-label">💵 Dollar Hegemony</div><div class="kpi-meter"><div class="fill not-priority" style="width:30%"></div></div><span class="kpi-tag tag-low">Sacrificeable</span></div>
+  <p style="margin-top:12px;font-size:14px;color:#888;">Key shift: <strong>Economic growth is no longer #1.</strong> Trump sacrifices growth to achieve other goals — a radical departure from decades of US policy.</p>
+
+  <h3>Milan's Two-Pronged Strategy</h3>
+  <div class="strategy-cards">
+    <div class="strat-card multilateral">
+      <h5>🌐 Multilateral: Mar-a-Lago Accord</h5>
+      <p><strong>Goal:</strong> Devalue USD with allies' help</p>
+      <p style="margin-top:6px;">1️⃣ Countries help sell USD → weaker dollar<br>
+      2️⃣ Roll Treasuries into 50–100 year bonds → lower long-term rates<br>
+      3️⃣ Fed provides USD swap lines<br><br>
+      <span style="color:#f87171;">Problem:</span> Disguised debt default. Hedgies arbitrage it. Near-impossible.</p>
+    </div>
+    <div class="strat-card unilateral">
+      <h5>🇺🇸 Unilateral: Charge for Treasury Access</h5>
+      <p><strong>Goal:</strong> Revenue + discourage USD holdings</p>
+      <p style="margin-top:6px;">Charge foreign institutions a "usage fee" to hold US Treasuries → reduces dollar attractiveness.<br><br>
+      <span style="color:#f87171;">Problem:</span> Everyone sells → rates spike → govt debt costs explode.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:24px;">Tariffs As a Negotiation Tool</h3>
+  <div class="diagram">
+    <p style="font-size:14px;"><strong>The Milan Formula:</strong></p>
+    <ol style="font-size:14px;color:#aaa;padding-left:18px;margin-top:8px;">
+      <li>Impose <strong>very high tariffs</strong> on everyone (shock value)</li>
+      <li>Offer to <strong>lower them</strong> in exchange for:</li>
+      <ul style="padding-left:18px;margin:4px 0;">
+        <li>Cooperating on tariffs against China</li>
+        <li>Investing in the US / writing a check</li>
+        <li>Giving up security umbrella demands</li>
+      </ul>
+      <li>If no deal → tariffs stay, generating revenue + protecting manufacturing</li>
+    </ol>
+    <p style="font-size:14px;color:#888;margin-top:10px;">Think of it like haggling: merchant asks $1,000 knowing cost is $50. Both know the number is ridiculous — that's the game.</p>
+    <p style="font-size:14px;color:#f87171;margin-top:8px;">But sovereign nations don't have this "industry rule." The April 2 Excel tariff list crashed the bond market (10-year yield spiked 60bp in a week). He suspended tariffs for 90 days.</p>
+  </div>
+
+  <h3>The Numbers Game</h3>
+  <div class="win-loss">
+    <div class="wl-card loss"><h5>GDP</h5><p style="font-size:24px;font-weight:700;color:#f0f0f0;">$29T</p></div>
+    <div class="wl-card loss"><h5>Govt Spending</h5><p style="font-size:24px;font-weight:700;color:#f0f0f0;">$6.75T</p></div>
+    <div class="wl-card loss"><h5>Revenue</h5><p style="font-size:24px;font-weight:700;color:#f0f0f0;">$4.9T</p></div>
+    <div class="wl-card loss"><h5>Deficit</h5><p style="font-size:24px;font-weight:700;color:#f87171;">$1.8T</p></div>
+    <div class="wl-card loss"><h5>Net Interest</h5><p style="font-size:24px;font-weight:700;color:#f87171;">$880B</p></div>
+    <div class="wl-card loss"><h5>Total Imports</h5><p style="font-size:24px;font-weight:700;color:#f87171;">$3.3T</p></div>
+    <div class="wl-card win"><h5>Current Tariff Revenue</h5><p style="font-size:24px;font-weight:700;color:#f0f0f0;">$80B</p></div>
+    <div class="wl-card win"><h5>20% Universal Tariff (best case)</h5><p style="font-size:24px;font-weight:700;color:#4ade80;">$660B</p><p style="font-size:12px;color:#888;">assuming no volume drop</p></div>
+  </div>
+</section>
+
+<!-- CONTRADICTIONS -->
+<section id="contradictions">
+  <h2>7. The Contradictions <span class="badge">Why It Might Fail</span></h2>
+  <div class="paradox">
+    <div class="paradox-item"><h5>Tariff Paradox #1</h5><p>Tariffs raise prices → Fed hikes rates → govt debt costs explode → contradicts #1 goal.</p></div>
+    <div class="paradox-item"><h5>Tariff Paradox #2</h5><p>Milan's "currency offset" theory: tariffs make USD appreciate. But that makes manufacturing worse.</p></div>
+    <div class="paradox-item"><h5>Dollar Paradox</h5><p>US wants allies to sell USD (weaker dollar) but maintain dollar supremacy. Can't have both.</p></div>
+  </div>
+  <div class="paradox">
+    <div class="paradox-item"><h5>Fed Paradox</h5><p>Trump wants low rates. Fed wants to raise to fight tariff inflation. Irreconcilable.</p></div>
+    <div class="paradox-item"><h5>China Alignment</h5><p>Trump wants manufacturing reshoring + rate cuts. China also wants US rate cuts + domestic consumption. Adversaries, aligned incentives.</p></div>
+    <div class="paradox-item"><h5>Execution Paradox</h5><p>Shock-and-retreat destroyed trust in Treasuries as "risk-free." Now there's a <strong>Trump Risk Premium</strong>.</p></div>
+  </div>
+
+  <div class="diagram" style="border-color:rgba(250,204,21,0.2);">
+    <h4 style="color:#facc15;">The Ironic Takeaway</h4>
+    <p style="font-size:14px;">Trump's policies aim to <strong>weaken the dollar, cut rates, bring manufacturing home</strong>. But he needs the Fed's cooperation — and he's undermining Fed independence. The tariff chaos has created a "Trump risk premium," making his core fiscal goal <strong>harder to achieve</strong>.</p>
+    <p style="font-size:14px;color:#888;margin-top:8px;">As 小Lin说 puts it: "Like an obstacle race where you planned the route, but slipped at the first step and fell into the water."</p>
+  </div>
+</section>
+
+<section style="padding-bottom:60px;">
+  <h2>The Bottom Line</h2>
+  <div class="diagram" style="border-color:rgba(59,130,246,0.2);background:rgba(59,130,246,0.03);">
+    <p style="font-size:15px;line-height:1.8;">
+      <strong>Tariffs are a double-edged sword.</strong> Targeted protection <em>can</em> nurture infant industries (US 1800s, China 1990s). Blanket tariffs risk retaliation spirals and deadweight loss.<br><br>
+      <strong>The US trade deficit is not a bug — it's a feature</strong> of dollar reserve status (Triffin Dilemma). Tariffs on individual countries just shift import sources; they can't fix the structural deficit.<br><br>
+      <strong>Trump's playbook is not crazy — it's radical.</strong> Milan's logic is consistent: use tariff shock + security threats as leverage. But contradictions are deep: tariffs inflate → Fed raises → debt costs spike.<br><br>
+      <strong>The real question:</strong> Is the US willing to sacrifice dollar hegemony to save manufacturing? Milan's answer, buried under denial, appears to be <em>yes</em> — the most consequential shift since Bretton Woods.
+    </p>
+  </div>
+</section>
+
+<footer>
+  Based on 小Lin说's 3-part series: <a href="https://youtu.be/uiMsul6sKus" target="_blank">Tariffs 101</a> · <a href="https://youtu.be/XDXeZk6a170" target="_blank">Trade Deficit</a> · <a href="https://youtu.be/Op_lsH_ys5g" target="_blank">Trump's Strategy</a><br>
+  Published via Hermes Agent research artifacts · July 2026
+</footer>
+
+</div><!-- /content -->
+
+<script>
+  // ─── Password Gate ───
+  (function(){
+    // SHA-256 of "recon2026"
+    const HASH = '5d8839cb88c78d3194f9ef1458794b281f68a30b3c219b939a3cd980787d8c5b';
+    const gate = document.getElementById('password-gate');
+    const content = document.getElementById('content');
+    const input = document.getElementById('password-input');
+    const error = document.getElementById('password-error');
+
+    async function sha256(str) {
+      const buf = new TextEncoder().encode(str);
+      const hash = await crypto.subtle.digest('SHA-256', buf);
+      return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+    }
+
+    // Check sessionStorage first
+    if (sessionStorage.getItem('unlocked') === 'true') {
+      gate.classList.add('hidden');
+      content.style.display = 'block';
+    }
+
+    input.addEventListener('keydown', async function(e) {
+      if (e.key === 'Enter') {
+        const val = this.value.trim();
+        const hash = await sha256(val);
+        if (hash === HASH) {
+          sessionStorage.setItem('unlocked', 'true');
+          gate.classList.add('hidden');
+          content.style.display = 'block';
+        } else {
+          error.classList.add('show');
+          this.value = '';
+          this.focus();
+        }
+      }
+    });
+  })();
+
+  // ─── Nav Scroll ───
+  document.querySelectorAll('nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        const id = entry.target.id || entry.target.querySelector('[id]')?.id;
+        if (id) {
+          const link = document.querySelector(`nav a[href="#${id}"]`);
+          if (link) link.classList.add('active');
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('section').forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
