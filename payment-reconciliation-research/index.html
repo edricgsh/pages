@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Reconciliation Research — Market Map & Signals</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a28;
+    --surface3: #22223a;
+    --border: #2a2a44;
+    --text: #e4e4ed;
+    --text2: #9898b8;
+    --text3: #6868a0;
+    --accent: #6c5ce7;
+    --accent2: #a29bfe;
+    --green: #00b894;
+    --green-bg: rgba(0,184,148,0.1);
+    --red: #e17055;
+    --red-bg: rgba(225,112,85,0.1);
+    --orange: #fdcb6e;
+    --orange-bg: rgba(253,203,110,0.1);
+    --blue: #0984e3;
+    --blue-bg: rgba(9,132,227,0.1);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 80px 24px 60px;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(108,92,231,0.08) 0%, transparent 100%);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(108,92,231,0.03) 0%, transparent 60%);
+    animation: pulse 8s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+  .hero * { position: relative; z-index: 1; }
+  .hero .tag {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
+  .hero p {
+    font-size: 18px;
+    color: var(--text2);
+    max-width: 640px;
+    margin: 0 auto 24px;
+  }
+  .hero .subtitle {
+    color: var(--text3);
+    font-size: 14px;
+  }
+  .hero .subtitle strong { color: var(--text2); }
+
+  /* ── Nav pills ── */
+  .nav-pills {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 24px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-pills a {
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text2);
+    text-decoration: none;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .nav-pills a:hover {
+    color: var(--text);
+    border-color: var(--accent);
+    background: rgba(108,92,231,0.1);
+  }
+
+  /* ── Container ── */
+  .container { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 60px;
+  }
+  .section-header {
+    margin-bottom: 32px;
+  }
+  .section-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-header h2 .num {
+    background: var(--accent);
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .section-header p { color: var(--text2); margin-top: 8px; font-size: 15px; }
+
+  /* ── Problem Block ── */
+  .problem-grid {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .problem-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: border-color 0.2s;
+    cursor: default;
+  }
+  .problem-card:hover { border-color: var(--accent); }
+  .problem-card .label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent2);
+    margin-bottom: 8px;
+  }
+  .problem-card h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .problem-card p, .problem-card li {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.7;
+  }
+  .problem-card ul { padding-left: 18px; }
+  .problem-card li { margin-bottom: 4px; }
+
+  /* ── Tabs ── */
+  .tabs {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .tabs button {
+    flex: 1;
+    padding: 14px 20px;
+    border: none;
+    background: var(--surface);
+    color: var(--text2);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-right: 1px solid var(--border);
+  }
+  .tabs button:last-child { border-right: none; }
+  .tabs button.active { background: var(--accent); color: #fff; }
+  .tabs button:hover:not(.active) { background: var(--surface2); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ── Persona ── */
+  .persona {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .persona-header {
+    background: var(--accent);
+    padding: 24px;
+    color: #fff;
+  }
+  .persona-header h2 { font-size: 22px; font-weight: 700; }
+  .persona-header .role { opacity: 0.85; font-size: 14px; margin-top: 4px; }
+  .persona-body { padding: 24px; }
+  .persona-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .persona-stat {
+    background: var(--surface3);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    text-align: center;
+  }
+  .persona-stat .value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent2);
+  }
+  .persona-stat .lbl {
+    font-size: 12px;
+    color: var(--text3);
+    margin-top: 4px;
+  }
+  .day-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .day-entry {
+    display: flex;
+    gap: 16px;
+    padding: 12px 16px;
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--border);
+    transition: border-color 0.2s;
+  }
+  .day-entry:hover { border-left-color: var(--accent); }
+  .day-entry .time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text3);
+    min-width: 80px;
+    padding-top: 2px;
+  }
+  .day-entry .desc {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+  .day-entry .desc strong { color: var(--text); }
+
+  /* ── Signal cards ── */
+  .signal-list { display: grid; gap: 16px; }
+  .signal-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .signal-card:hover { border-color: var(--accent); }
+  .signal-card.open { border-color: var(--accent); background: rgba(108,92,231,0.04); }
+  .signal-card .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .signal-card .top .left { flex: 1; }
+  .signal-card .strength {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .signal-card .strength.strong { background: var(--green-bg); color: var(--green); }
+  .signal-card .strength.medium { background: var(--orange-bg); color: var(--orange); }
+  .signal-card .strength.signal { background: var(--blue-bg); color: var(--blue); }
+  .signal-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .signal-card .preview {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+  .signal-card .expand-icon {
+    font-size: 18px;
+    color: var(--text3);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .signal-card.open .expand-icon { transform: rotate(180deg); }
+  .signal-card .detail {
+    display: none;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.7;
+  }
+  .signal-card.open .detail { display: block; }
+
+  /* ── Competitor Table ── */
+  .comp-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+  }
+  .comp-table th {
+    background: var(--surface2);
+    color: var(--text);
+    font-weight: 600;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 2px solid var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .comp-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    vertical-align: top;
+  }
+  .comp-table tr:hover td { background: rgba(108,92,231,0.03); }
+  .comp-table .company-name { font-weight: 600; color: var(--text); }
+  .comp-table .gap-highlight { color: var(--green); font-size: 12px; }
+  .comp-table .gap-warning { color: var(--orange); font-size: 12px; }
+
+  /* ── Quote ── */
+  .quote-block {
+    background: var(--surface);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-sm);
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+  .quote-block p {
+    font-size: 15px;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .quote-block .attr {
+    font-size: 12px;
+    color: var(--text3);
+    margin-top: 8px;
+    font-style: normal;
+  }
+
+  /* ── Communities ── */
+  .comm-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+  }
+  .comm-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    transition: border-color 0.2s;
+  }
+  .comm-card:hover { border-color: var(--accent); }
+  .comm-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .comm-card .url { font-size: 12px; color: var(--accent2); word-break: break-all; }
+  .comm-card p { font-size: 13px; color: var(--text3); margin-top: 6px; }
+
+  /* ── CTA ── */
+  .cta-box {
+    background: linear-gradient(135deg, rgba(108,92,231,0.1) 0%, rgba(162,155,254,0.05) 100%);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 32px;
+    text-align: center;
+    margin-top: 40px;
+  }
+  .cta-box h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .cta-box p { color: var(--text2); font-size: 14px; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--text3);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .container { padding: 24px 16px; }
+    .persona-stats { grid-template-columns: repeat(2, 1fr); }
+    .day-entry { flex-direction: column; gap: 4px; }
+    .day-entry .time { min-width: auto; }
+    .comp-table { font-size: 12px; }
+    .comp-table th, .comp-table td { padding: 10px 12px; }
+    .tabs { flex-direction: column; }
+    .tabs button { border-right: none; border-bottom: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="tag">Deep Research — Jul 2026</div>
+  <h1>Payment Reconciliation<br>Market Map &amp; Signal Analysis</h1>
+  <p>Cross-gateway payout reconciliation for marketplace platforms — the problem, the players, and the white space.</p>
+  <div class="subtitle">
+    Research compiled from <strong>12 Reddit threads</strong> · <strong>10 competitor analyses</strong> · <strong>8 industry reports</strong>
+  </div>
+</section>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="nav-pills">
+  <a href="#problem">The Problem</a>
+  <a href="#persona">Persona</a>
+  <a href="#signals">Signals</a>
+  <a href="#competitors">Competitors</a>
+  <a href="#quotes">Quotes</a>
+  <a href="#communities">Communities</a>
+</nav>
+
+<!-- ═══════════════ THE PROBLEM ═══════════════ -->
+<div class="container">
+<section id="problem" class="section">
+  <div class="section-header">
+    <h2><span class="num">1</span> The Three Problems</h2>
+    <p>Reddit comments reveal three distinct but conflated problems. Most tools solve A or B. Nobody solves C.</p>
+  </div>
+
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="label">Problem A — Universal</div>
+      <h3>"The deposit never matches gross sales"</h3>
+      <p>Stripe/Adyen takes a $1,000 sale, deducts fees ($30), refunds ($20), deposits $950. The bank shows $950, the dashboard shows $1,000. The accountant spends hours finding the $50 difference.</p>
+      <ul>
+        <li><strong>Who feels it:</strong> Everyone — from Shopify solo stores to enterprise platforms</li>
+        <li><strong>Solved by:</strong> Leapfin, Optimus, A2X (partial), clearing account workarounds</li>
+      </ul>
+    </div>
+
+    <div class="problem-card">
+      <div class="label">Problem B — Enterprise</div>
+      <h3>"The clearing account never zeroes out"</h3>
+      <p>NetSuite/QuickBooks users route payments through a clearing account. At month-end, it should be $0. It never is — because of timing mismatches, hidden fees, currency conversions, and integration errors.</p>
+      <ul>
+        <li><strong>Who feels it:</strong> NetSuite/ERP users processing 1K+ orders/day</li>
+        <li><strong>Solved by:</strong> Optimus (partial), custom scripts, manual adjusting entries</li>
+      </ul>
+    </div>
+
+    <div class="problem-card" style="border-color: var(--accent); background: rgba(108,92,231,0.04);">
+      <div class="label">Problem C — YOUR OPPORTUNITY</div>
+      <h3>"Did Gateway A AND Gateway B both pay out correctly?"</h3>
+      <p>You run Stripe + Adyen + PayPal. Seller A sold $10K across all three. Stripe paid $4K (fees deducted). Adyen paid $3.5K. PayPal paid $2K. Total net: $9.5K. But Seller A was supposed to get $10K. Which gateway shorted them? Was it fees or an error?</p>
+      <ul>
+        <li><strong>Who feels it:</strong> Multi-PSP marketplaces with shared sellers across gateways</li>
+        <li><strong>Solved by:</strong> <em>Nobody.</em> This is the white space.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="active" onclick="switchTab('current-flow')">Current Workflow</button>
+    <button onclick="switchTab('why-broken')">Why It's Broken</button>
+  </div>
+
+  <div id="current-flow" class="tab-content active">
+    <div class="problem-card">
+      <h3>The Stack of Band-Aids</h3>
+      <ol style="padding-left: 20px;">
+        <li><strong>Sales happen</strong> across Stripe, Adyen, PayPal, Shopify Payments</li>
+        <li><strong>Each gateway</strong> generates its own settlement file (different CSV/API format)</li>
+        <li><strong>Someone exports</strong> all files into Excel or a custom script</li>
+        <li><strong>They manually match</strong> gross sales per gateway → net payout → bank deposit</li>
+        <li><strong>Fees arrive separately</strong> — interchange files, scheme fees, processor markups</li>
+        <li><strong>Refunds + chargebacks</strong> create cross-month timing nightmares</li>
+        <li><strong>Currency conversions</strong> introduce FX rate differences vs the accounting system</li>
+        <li><strong>The clearing account</strong> is "adjusted" with manual journal entries to force zero</li>
+        <li><strong>No one checks</strong> whether all gateways paid all sellers correctly — this is invisible</li>
+      </ol>
+    </div>
+  </div>
+
+  <div id="why-broken" class="tab-content">
+    <div class="problem-card">
+      <h3>Why Existing Tools Fail</h3>
+      <ul>
+        <li><strong>Celigo</strong> — market standard middleware. Users report: doesn't support Shop Pay, breaks at high volume (script timeout), variance records too complicated, doesn't handle partial fulfillments</li>
+        <li><strong>A2X / Link My Books</strong> — single-channel only (Shopify → QBO). Can't handle multi-PSP or cross-gateway</li>
+        <li><strong>Leapfin / Ledge / BlackLine</strong> — accounting-shaped, not payment-shaped. They solve GL problems, not payout consistency problems</li>
+        <li><strong>Stripe Connect</strong> — moves money but doesn't reconcile. You still need to verify correctness yourself</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PERSONA ═══════════════ -->
+<section id="persona" class="section">
+  <div class="section-header">
+    <h2><span class="num">2</span> The Persona: Mei Ling</h2>
+    <p>Synthesized directly from Reddit comments — she's the person who "cried a lot over this integration."</p>
+  </div>
+
+  <div class="persona">
+    <div class="persona-header">
+      <h2>Mei Ling</h2>
+      <div class="role">Finance Operations Lead — Mid-market Marketplace Platform</div>
+    </div>
+    <div class="persona-body">
+      <div class="persona-stats">
+        <div class="persona-stat">
+          <div class="value">4</div>
+          <div class="lbl">Years in role</div>
+        </div>
+        <div class="persona-stat">
+          <div class="value">3</div>
+          <div class="lbl">Accountants on her team</div>
+        </div>
+        <div class="persona-stat">
+          <div class="value">3K</div>
+          <div class="lbl">Orders reconciled/day</div>
+        </div>
+        <div class="persona-stat">
+          <div class="value">4</div>
+          <div class="lbl">Payment gateways</div>
+        </div>
+        <div class="persona-stat">
+          <div class="value">70%</div>
+          <div class="lbl">Of week spent on reconciliation</div>
+        </div>
+        <div class="persona-stat">
+          <div class="value">Singapore</div>
+          <div class="lbl">Location (cross-currency)</div>
+        </div>
+      </div>
+
+      <h4 style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:12px;">Her Week — Mapped from Reddit Testimony</h4>
+      <div class="day-grid">
+        <div class="day-entry">
+          <div class="time">Mon 9AM</div>
+          <div class="desc">Opens <strong>5 payout reports</strong> from Stripe, Adyen, PayPal, 4 bank statements. Starts exporting CSVs.</div>
+        </div>
+        <div class="day-entry">
+          <div class="time">Mon 10:30AM</div>
+          <div class="desc">In Excel — VLOOKUP formulas matching gross sales to net deposits per gateway. Her master workbook has <strong>12 sheets</strong>. It crashes past 50K rows.</div>
+        </div>
+        <div class="day-entry">
+          <div class="time">Mon 2PM</div>
+          <div class="desc">Finds first discrepancy: Stripe shows $248,700 gross sales, bank shows $237,400. Spends <strong>2 hours tracing</strong>: $6,200 fees, $3,100 refunds from prior month, $1,800 reserve, $200 FX variance.</div>
+        </div>
+        <div class="day-entry">
+          <div class="time">Tue 10AM</div>
+          <div class="desc">Celigo alert: <strong>Shop Pay transactions failed</strong> to sync again. Manually looks up 47 Shop Pay orders. "This is my entire job. I've cried a lot over this integration."</div>
+        </div>
+        <div class="day-entry">
+          <div class="time">Tue 3PM</div>
+          <div class="desc">Controller asks: "Why does Stripe clearing show a <strong>$12,000 balance</strong>?" Creates a manual adjusting entry. Does this every month.</div>
+        </div>
+        <div class="day-entry">
+          <div class="time">Wed 11AM</div>
+          <div class="desc">Adyen sends a <strong>revised settlement file</strong> — error in interchange fees. Re-runs 2 weeks of reconciliation.</div>
+        </div>
+        <div class="day-entry">
+          <div class="time">Thu 9AM</div>
+          <div class="desc">CEO asks: "What's our <strong>true cost per gateway</strong> after fees, FX, settlement delays?" She doesn't have an answer. Never does.</div>
+        </div>
+        <div class="day-entry">
+          <div class="time">Fri 4PM</div>
+          <div class="desc">Exports seller payout data. Top merchant ($500K/month) uses all 3 gateways. Manually checks if each gateway paid correctly. Finds <strong>PayPal was $12K late</strong>. Flags it. No follow-up.</div>
+        </div>
+        <div class="day-entry">
+          <div class="time">Fri 6:30PM</div>
+          <div class="desc"><strong>Month isn't closed.</strong> 3 unresolved variances worth $4,700 — small enough to close, large enough auditors will ask.</div>
+        </div>
+      </div>
+
+      <div class="quote-block" style="margin-top:20px;">
+        <p>"Integration tools solve 'did the data move?' but they don't solve 'did the data move correctly?' Without AI-aware matching that understands these two transactions are the same even though the dates and amounts differ, you're always fixing stuff."</p>
+        <div class="attr">— Reddit r/Netsuite, April 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SIGNALS ═══════════════ -->
+<section id="signals" class="section">
+  <div class="section-header">
+    <h2><span class="num">3</span> Key Signals from the Comments</h2>
+    <p>10 signals extracted from Reddit comments — ranked by evidence strength and implication for your product.</p>
+  </div>
+
+  <div class="signal-list">
+    <!-- Signal 1 -->
+    <div class="signal-card" onclick="toggleSignal(this)">
+      <div class="top">
+        <div class="left">
+          <span class="strength strong">Strong</span>
+          <h3>Manual reconciliation breaks at ~1,000 orders/day</h3>
+          <div class="preview">Multiple shop owners reporting 30K orders/month requiring full-time manual reconciliation. One offered to build a solution themselves.</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="detail">
+        <p><strong>Evidence:</strong> r/smallbusiness: "We're doing ~1000 orders/day = 30K orders/month. Accounting team MANUALLY reconciling each payout. Becoming a LOT of pain." Another comment: "I'd love to solve this with some good old coding, possibly also an AI Agent System."</p>
+        <p><strong>Implication:</strong> Your unit economics need to work at 1K–10K orders/day. This is the sweet spot where manual breaks but enterprise tools (BlackLine at $50K+/yr) are overkill.</p>
+        <p><strong>Sources:</strong> r/smallbusiness (Mar 2025), r/SaaS (Dec 2025), r/Netsuite (Apr 2026)</p>
+      </div>
+    </div>
+
+    <!-- Signal 2 -->
+    <div class="signal-card" onclick="toggleSignal(this)">
+      <div class="top">
+        <div class="left">
+          <span class="strength strong">Strong</span>
+          <h3>The clearing account NEVER zeroes out</h3>
+          <div class="preview">Multiple NetSuite users independently confirm this systemic failure. Integration tools move data but don't verify it.</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="detail">
+        <p><strong>Evidence:</strong> "The clearing account not zeroing at month-end is a dead giveaway you're manually fixing integration output." Reddit user describes creating "settlement JEs from payouts to zero out clearing accounts and match the bank automatically" — exactly what your product would generate.</p>
+        <p><strong>Implication:</strong> Your "reconciliation-ready journal entries" feature directly solves this. Instead of fixing integration output, your product produces entries that balance.</p>
+        <p><strong>Sources:</strong> r/Netsuite (Apr 2026, Jan 2025)</p>
+      </div>
+    </div>
+
+    <!-- Signal 3 -->
+    <div class="signal-card" onclick="toggleSignal(this)">
+      <div class="top">
+        <div class="left">
+          <span class="strength strong">Strong</span>
+          <h3>Multi-PSP is inevitable, not optional</h3>
+          <div class="preview">Stripe outages, regional payment methods, and seller preferences make multi-gateway unavoidable at scale.</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="detail">
+        <p><strong>Evidence:</strong> "Stripe had a massive outage today — it's good to have a backup. I would have lost sales otherwise." (r/smallbusiness). "Losing 10-20% sales for a minor accounting convenience is not a good trade-off." Multiple commenters confirm that regional APMs (PayPal, Klarna, local methods, buy-now-pay-later) can't all be served by one gateway. Horizon Labs data: 62% of sellers leave for real-time payouts.</p>
+        <p><strong>Implication:</strong> Cross-gateway matching addresses a growing, structural need. The trend is strongly towards 2-5 gateways per platform.</p>
+        <p><strong>Sources:</strong> r/smallbusiness (Feb 2025), r/fintech (Oct 2024), Horizon Labs (Jul 2026)</p>
+      </div>
+    </div>
+
+    <!-- Signal 4 -->
+    <div class="signal-card" onclick="toggleSignal(this)">
+      <div class="top">
+        <div class="left">
+          <span class="strength strong">Strong</span>
+          <h3>Integration tools (Celigo, FarApp) are NOT the answer</h3>
+          <div class="preview">The market standard middleware still fails on basic payout reconciliation. Users build custom solutions anyway.</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="detail">
+        <p><strong>Evidence:</strong> "I built my own reconciliation because I was so fed up with Celigo's payout shortcomings. They don't support Shop Pay, don't handle partial fulfillments." "Celigo's payout flow is incredibly underdeveloped and way too complicated with their variance records." Celigo rep even jumped into the thread to apologize — "Can you email me directly?"</p>
+        <p><strong>Implication:</strong> Your product doesn't compete with Celigo — it sits on top and validates correctness. "Did the data move correctly?" is unserved.</p>
+        <p><strong>Sources:</strong> r/Netsuite (Jan 2025), r/Netsuite (Apr 2026)</p>
+      </div>
+    </div>
+
+    <!-- Signal 5 -->
+    <div class="signal-card" onclick="toggleSignal(this)">
+      <div class="top">
+        <div class="left">
+          <span class="strength strong">Strong</span>
+          <h3>Fee deduction mismatch is the #1 source of anxiety</h3>
+          <div class="preview">Every single thread mentions fee discrepancy as the core pain. Users don't trust their numbers because of hidden deductions.</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="detail">
+        <p><strong>Evidence:</strong> "$950 deposit vs $1,000 sales" (r/SaaS). "Stripe deducts fees before sending" (r/Odoo). "Interchange fees arrive in separate files" (Optimus blog). Odoo users set 5% tolerance to "reconcile" — they're accepting non-matching as a workaround. Their quote: "First I set account tolerance to 0.05 so invoices reconcile even with Stripe fees deducted."</p>
+        <p><strong>Implication:</strong> Your "true cost-to-payout per gateway" feature (fees + FX + settlement lag) hits exactly this pain point. No competitor does fee validation at transaction level except Optimus (and they're accounting-side, not payout-side).</p>
+        <p><strong>Sources:</strong> r/SaaS (Dec 2025), r/Odoo (Apr 2026), Optimus blog (Jul 2026)</p>
+      </div>
+    </div>
+
+    <!-- Signal 6 -->
+    <div class="signal-card" onclick="toggleSignal(this)">
+      <div class="top">
+        <div class="left">
+          <span class="strength medium">Medium</span>
+          <h3>Shop Pay / Apple Pay / Google Pay creates blind spots</h3>
+          <div class="preview">Celigo explicitly doesn't support Shop Pay. Modern checkout flows are invisible to standard reconciliation tooling.</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="detail">
+        <p><strong>Evidence:</strong> Direct from r/Netsuite: "Celigo does not support Shop Pay transactions." If the market standard middleware can't handle it, everyone is manually reconciling those transactions. Shop Pay alone is massive on Shopify.</p>
+        <p><strong>Implication:</strong> Your product must handle "wallet" payments (Shop Pay, Apple Pay, Google Pay) which present differently in payout reports. This is a wedge: incumbents ignore it.</p>
+        <p><strong>Sources:</strong> r/Netsuite (Jan 2025)</p>
+      </div>
+    </div>
+
+    <!-- Signal 7 -->
+    <div class="signal-card" onclick="toggleSignal(this)">
+      <div class="top">
+        <div class="left">
+          <span class="strength medium">Medium</span>
+          <h3>Users want CLARITY, not just automation</h3>
+          <div class="preview">Opaque automation creates fear. Users will accept some manual work if they understand what's happening.</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="detail">
+        <p><strong>Evidence:</strong> "The issue isn't trust in automation — it's trust in CLARITY. Automation is actually safer than manual." "The big tools feel bloated for small stores, and most people just want the payout to reconcile cleanly without digging through CSVs."</p>
+        <p><strong>Implication:</strong> Your dashboard should be transparent. Show matching logic. Let users see why two records matched (or didn't). Don't be a black box.</p>
+        <p><strong>Sources:</strong> r/SaaS (Dec 2025)</p>
+      </div>
+    </div>
+
+    <!-- Signal 8 -->
+    <div class="signal-card" onclick="toggleSignal(this)">
+      <div class="top">
+        <div class="left">
+          <span class="strength medium">Medium</span>
+          <h3>Chargeback lifecycle and reconciliation are connected</h3>
+          <div class="preview">High-risk merchants explicitly link reconciliation gaps to chargeback problems.</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="detail">
+        <p><strong>Evidence:</strong> "Does reconciliation effectively help chargeback management? If a seller doesn't want chargebacks for failed transactions, can reconciliation adjust refunds based on orders?" — directly from r/PaymentProcessing.</p>
+        <p><strong>Implication:</strong> Consider adding basic chargeback flags on payout events. Even a "chargeback detected on this payout" indicator would differentiate you from pure accounting tools.</p>
+        <p><strong>Sources:</strong> r/PaymentProcessing (Jun 2025)</p>
+      </div>
+    </div>
+
+    <!-- Signal 9 -->
+    <div class="signal-card" onclick="toggleSignal(this)">
+      <div class="top">
+        <div class="left">
+          <span class="strength signal">Signal</span>
+          <h3>Cross-gateway seller payout verification is unserved</h3>
+          <div class="preview">All competitors verify accounting OR calculate splits. None verify payout consistency across gateways.</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="detail">
+        <p><strong>Evidence:</strong> Competitive analysis confirms: Optimus verifies internal accounting against PSPs. Allocora calculates what sellers should get. Payrails routes payments. None answer: "Did Stripe AND Adyen BOTH pay out Seller A correctly this period?"</p>
+        <p><strong>Implication:</strong> "Orphan detection" — paid by one gateway but not another — is completely unserved. "True cost per gateway" (aggregating fees + FX + settlement lag into one metric) doesn't exist in any product.</p>
+        <p><strong>Sources:</strong> Competitive analysis across 10 products</p>
+      </div>
+    </div>
+
+    <!-- Signal 10 -->
+    <div class="signal-card" onclick="toggleSignal(this)">
+      <div class="top">
+        <div class="left">
+          <span class="strength signal">Signal</span>
+          <h3>"I've cried a lot over this integration" — emotional validation</h3>
+          <div class="preview">This is not mild inconvenience. People's careers are defined by this problem. They will pay to solve it.</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="detail">
+        <p><strong>Evidence:</strong> Direct quote from a NetSuite professional. Multiple threads show professionals spending full work weeks just on reconciliation. One comment: "This is my entire job." Another: "If someone asks, I don't need to explain assumptions — I just pull the report. That would be heaven."</p>
+        <p><strong>Implication:</strong> Validates B2B SaaS pricing ($500–5K/mo). The pain is severe enough that businesses will pay.</p>
+        <p><strong>Sources:</strong> r/Netsuite (Jan 2025), Leapfin customer testimonial</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ COMPETITORS ═══════════════ -->
+<section id="competitors" class="section">
+  <div class="section-header">
+    <h2><span class="num">4</span> Competitive Landscape</h2>
+    <p>All existing solutions address Problems A or B. Problem C (cross-gateway seller payout consistency) is the white space.</p>
+  </div>
+
+  <div style="overflow-x:auto;">
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th>Layer</th>
+        <th>What It Solves</th>
+        <th>What It Doesn't</th>
+        <th>Gap</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="company-name">Optimus</span></td>
+        <td>Payment → GL</td>
+        <td>N-way matching, fee validation, chargeback lifecycle, sub-merchant reconciliation</td>
+        <td>Cross-gateway seller payout verification, orphan detection</td>
+        <td class="gap-warning">Accounting-side, not payout-side</td>
+      </tr>
+      <tr>
+        <td><span class="company-name">Leapfin</span></td>
+        <td>Payment → GL</td>
+        <td>Revenue recognition, payment-to-GL automation, Luca AI agent</td>
+        <td>Multi-PSP verification, seller-level payout reconciliation</td>
+        <td class="gap-warning">Revenue recognition, not payout ops</td>
+      </tr>
+      <tr>
+        <td><span class="company-name">Kani Payments</span></td>
+        <td>Payment data</td>
+        <td>Fragmented data unification, audit-ready reporting, fintech compliance</td>
+        <td>Seller-level payout matching, cross-gateway orphan detection</td>
+        <td class="gap-warning">Regulatory reporting focus</td>
+      </tr>
+      <tr>
+        <td><span class="company-name">Rexi</span></td>
+        <td>Payment → GL</td>
+        <td>AI-native reconciliation for fintechs/banks</td>
+        <td>Marketplace payout reconciliation, cross-gateway matching</td>
+        <td class="gap-warning">Fintech/banking focused</td>
+      </tr>
+      <tr>
+        <td><span class="company-name">Allocora</span></td>
+        <td>Payout calculation</td>
+        <td>Calculates revenue splits, commissions, refunds, exports payment files</td>
+        <td>Verifies actual payouts, detects orphans, gateway cost comparison</td>
+        <td class="gap-warning">Calculates, doesn't verify</td>
+      </tr>
+      <tr>
+        <td><span class="company-name">ReconPe</span></td>
+        <td>Settlement (IN)</td>
+        <td>Amazon/Flipkart/Meesho settlement reconciliation, bank matching</td>
+        <td>Cross-gateway matching, multi-PSP marketplaces</td>
+        <td class="gap-warning">India-only, seller-side</td>
+      </tr>
+      <tr>
+        <td><span class="company-name">Payrails</span></td>
+        <td>Orchestration</td>
+        <td>Multi-PSP routing, intelligent failover</td>
+        <td>Post-settlement reconciliation, payout verification</td>
+        <td class="gap-warning">Routes money, doesn't verify</td>
+      </tr>
+      <tr>
+        <td><span class="company-name">Ledge</span></td>
+        <td>GL layer</td>
+        <td>AI agents for NetSuite close prep, journal entries</td>
+        <td>PSP file ingestion, fee validation, sub-merchant reconciliation</td>
+        <td class="gap-warning">GL-layer only</td>
+      </tr>
+      <tr>
+        <td><span class="company-name">BlackLine</span></td>
+        <td>GL layer</td>
+        <td>Enterprise close governance, SOX, audit trails</td>
+        <td>Payment operations, multi-PSP reconciliation</td>
+        <td class="gap-warning">Months to implement</td>
+      </tr>
+      <tr>
+        <td><span class="company-name">A2X / Taxomate</span></td>
+        <td>Connector</td>
+        <td>Shopify/Amazon → QBO/Xero sync</td>
+        <td>Multi-PSP, cross-gateway, marketplace payout</td>
+        <td class="gap-warning">Single channel only</td>
+      </tr>
+      <tr style="border-top: 2px solid var(--accent);">
+        <td><span class="company-name" style="color:var(--accent2)">YOUR PRODUCT</span></td>
+        <td><span style="color:var(--accent2)">Cross-gateway payout ops</span></td>
+        <td><span style="color:var(--accent2)">Normalize multi-PSP payouts, detect orphans, true cost/gateway, auto JE</span></td>
+        <td><span style="color:var(--text2)">—</span></td>
+        <td><span class="gap-highlight">WHITE SPACE</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="quote-block" style="margin-top:24px;">
+    <p>"For fintechs and marketplaces, payment reconciliation is not a subset of the accounting close. It is a distinct operational discipline that requires purpose-built tooling."</p>
+    <div class="attr">— Optimus comparison blog, Jul 2026</div>
+  </div>
+</section>
+
+<!-- ═══════════════ QUOTES ═══════════════ -->
+<section id="quotes" class="section">
+  <div class="section-header">
+    <h2><span class="num">5</span> Real Quotes from Reddit</h2>
+    <p>Direct testimony from the people living this pain every day.</p>
+  </div>
+
+  <div class="quote-block">
+    <p>"I built my own reconciliation because I was so fed up with Celigo's payout shortcomings. From not supporting Shop Pay, they don't support if you utilize payments in addition to deposits, and their reconciliation doesn't handle partial fulfillments."</p>
+    <div class="attr">— r/Netsuite, Jan 2025 — NetSuite user who built custom reconciliation</div>
+  </div>
+
+  <div class="quote-block">
+    <p>"This is the exact pain point that gets worse the faster you scale. The integration tools solve 'did the data move?' but they don't solve 'did the data move correctly?' The clearing account problem is a dead giveaway you're manually fixing integration output."</p>
+    <div class="attr">— r/Netsuite, Apr 2026 — On the clearing account never zeroing</div>
+  </div>
+
+  <div class="quote-block">
+    <p>"I run a small online store, and the end-of-month bookkeeping is always the same nightmare. My bank shows a $950 Stripe deposit, but my sales dashboard clearly says $1,000. Then comes the fun part: logging into the dashboard, exporting CSVs, calculating fees, subtracting refunds... it's a total mess."</p>
+    <div class="attr">— r/SaaS, Dec 2025 — Founder describing the Stripe fee mismatch</div>
+  </div>
+
+  <div class="quote-block">
+    <p>"This is my entire job. I'm here for you. I've cried a lot over this integration."</p>
+    <div class="attr">— r/Netsuite, Jan 2025 — Comment on Celigo Shopify→NetSuite integration woes</div>
+  </div>
+
+  <div class="quote-block">
+    <p>"We're doing approximately 1000 orders a day. That's close to 30K orders a month. We have an accounting team that is manually reconciling each payout to all the orders every day and it is becoming a lot of pain."</p>
+    <div class="attr">— r/smallbusiness, Mar 2025 — Ops manager at a mid-market store</div>
+  </div>
+
+  <div class="quote-block">
+    <p>"The abstraction layer approach sounds solid in theory, but there's a fundamental business risk you need to consider: payment providers intentionally make switching costly because they profit from lock-in."</p>
+    <div class="attr">— r/SaaS, Nov 2025 — On multi-PSP integration risks</div>
+  </div>
+
+  <div class="quote-block">
+    <p>"The issue isn't trust in automation — it's trust in clarity. Automation is actually safer than manual. I don't think the big tools are the answer — I'd use something simple and affordable."</p>
+    <div class="attr">— r/SaaS, Dec 2025 — On what users actually want from a reconciliation tool</div>
+  </div>
+
+  <div class="quote-block">
+    <p>"If you're staring at a spreadsheet with 12,000 rows from four payment gateways, a PayPal CSV that refuses to format cleanly, and a $0.47 discrepancy you've been chasing since Tuesday..."</p>
+    <div class="attr">— tiptipk.com, 2026 — The most vivid pain description found</div>
+  </div>
+</section>
+
+<!-- ═══════════════ COMMUNITIES ═══════════════ -->
+<section id="communities" class="section">
+  <div class="section-header">
+    <h2><span class="num">6</span> Communities &amp; Channels to Join</h2>
+    <p>Where the people with this problem hang out, and where you can validate your product.</p>
+  </div>
+
+  <div class="comm-grid">
+    <div class="comm-card">
+      <h4>r/PaymentReconciliation</h4>
+      <div class="url">reddit.com/r/PaymentReconciliation</div>
+      <p>Dedicated subreddit for marketplace payment reconciliation. Small but targeted.</p>
+    </div>
+    <div class="comm-card">
+      <h4>r/Netsuite</h4>
+      <div class="url">reddit.com/r/Netsuite</div>
+      <p>High signal — every week someone posts about Shopify/Stripe reconciliation. Best place to find Mei Ling.</p>
+    </div>
+    <div class="comm-card">
+      <h4>r/fintech / r/SaaS / r/smallbusiness</h4>
+      <div class="url">Search "reconciliation"</div>
+      <p>Monthly posts about the pain. Great for validation and feedback on your pitch.</p>
+    </div>
+    <div class="comm-card">
+      <h4>AI Finance Club (Nicolas Boucher)</h4>
+      <div class="url">ai-finance.club</div>
+      <p>~10K finance professionals. Webinars, community chat, AI-in-finance focus. Paid membership (~$1K/yr).</p>
+    </div>
+    <div class="comm-card">
+      <h4>FP&A Hub</h4>
+      <div class="url">thefpahub.com</div>
+      <p>FP&A professionals — many also do reconciliation. Free community, regular events.</p>
+    </div>
+    <div class="comm-card">
+      <h4>Merchant Risk Council</h4>
+      <div class="url">merchantriskcouncil.org</div>
+      <p>Multi-PSP strategy and payment operations. Conferences, working groups.</p>
+    </div>
+    <div class="comm-card">
+      <h4>Stripe Sessions 2026</h4>
+      <div class="url">stripe.com/sessions/2026</div>
+      <p>Annual Stripe conference. "Agentic commerce" theme — payments getting more complex.</p>
+    </div>
+    <div class="comm-card">
+      <h4>Sibos 2026 (Miami, Sep 28–Oct 1)</h4>
+      <div class="url">sibos.com</div>
+      <p>Banking/payments conference. Core reconciliation and settlement topics.</p>
+    </div>
+    <div class="comm-card">
+      <h4>AFP Conference</h4>
+      <div class="url">financialprofessionals.org</div>
+      <p>Association for Financial Professionals. 1000s of treasury and finance ops attendees.</p>
+    </div>
+    <div class="comm-card">
+      <h4>PAY360</h4>
+      <div class="url">pay360event.com</div>
+      <p>UK-based payments event. Reconciliation is a recurring track topic.</p>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <h3>The White Space Is Real</h3>
+    <p>Nobody solves "Did Gateway A AND Gateway B both pay Seller A correctly?"<br>
+    Orphan detection + true cost per gateway + auto journal entries = differentiated product.</p>
+  </div>
+</section>
+</div>
+
+<footer class="footer">
+  Payment Reconciliation Research — Compiled Jul 2026 from Reddit, competitor analysis, and industry reports
+</footer>
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function toggleSignal(el) {
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>
