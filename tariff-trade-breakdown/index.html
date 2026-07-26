@@ -577,8 +577,8 @@
       return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
     }
 
-    // Check sessionStorage first
-    if (sessionStorage.getItem('unlocked') === 'true') {
+    // Check localStorage first (persists across sessions)
+    if (localStorage.getItem('unlocked_tariff') === 'true') {
       gate.classList.add('hidden');
       content.style.display = 'block';
     }
@@ -588,7 +588,7 @@
         const val = this.value.trim();
         const hash = await sha256(val);
         if (hash === HASH) {
-          sessionStorage.setItem('unlocked', 'true');
+          localStorage.setItem('unlocked_tariff', 'true');
           gate.classList.add('hidden');
           content.style.display = 'block';
         } else {
