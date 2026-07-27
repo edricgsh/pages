@@ -1,630 +1,571 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tariffs, Trade &amp; Trump's Strategy — Interactive Breakdown</title>
-<link rel="stylesheet" href="/pages/_shared/menu.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tariffs, Trade &amp; The New World Order — Interactive Knowledge Graph</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
-  /* ─── PASSWORD GATE ─── */
-  #password-gate {
-    position: fixed; inset: 0; z-index: 9999;
-    display: flex; align-items: center; justify-content: center;
-    background: #0a0a0f;
-    font-family: 'Inter', -apple-system, sans-serif;
-  }
-  #password-gate.hidden { display: none; }
-  .gate-box {
-    text-align: center; padding: 40px; max-width: 380px;
-  }
-  .gate-box h1 {
-    font-size: 24px; font-weight: 700; color: #f0f0f0; margin-bottom: 8px;
-  }
-  .gate-box p {
-    font-size: 14px; color: #888; margin-bottom: 24px;
-  }
-  .gate-box input {
-    width: 100%; padding: 12px 16px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 10px; color: #fff; font-size: 15px;
-    outline: none; text-align: center;
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: 2px;
-  }
-  .gate-box input:focus { border-color: #60a5fa; }
-  .gate-box .error {
-    color: #f87171; font-size: 13px; margin-top: 10px; display: none;
-  }
-  .gate-box .error.show { display: block; }
-  .gate-box .lock-icon { font-size: 40px; margin-bottom: 16px; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0a0a0f;
+  --surface: #12121a;
+  --surface2: #1a1a26;
+  --border: #25253a;
+  --text: #e4e4ed;
+  --text-muted: #8888a0;
+  --accent-blue: #60a5fa;
+  --accent-amber: #f59e0b;
+  --accent-purple: #a855f7;
+  --accent-green: #10b981;
+  --accent-orange: #f97316;
+  --accent-red: #ef4444;
+  --accent-gold: #fbbf24;
+}
 
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+html, body, #root {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--text);
+}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Inter', -apple-system, sans-serif;
-    background: #0a0a0f;
-    color: #e0e0e0;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
+/* ─── password gate ─── */
+.pw-gate {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 100%; height: 100%;
+  background: radial-gradient(ellipse at center, #12122a 0%, #0a0a0f 70%);
+}
+.pw-gate h1 {
+  font-size: 1.75rem; font-weight: 700; color: var(--text);
+  margin-bottom: 0.5rem; text-align: center; line-height: 1.3;
+}
+.pw-gate p.sub { color: var(--text-muted); margin-bottom: 2rem; font-size: 0.9rem; }
+.pw-gate form {
+  display: flex; gap: 0.75rem; align-items: center;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 0.5rem; padding-left: 1rem;
+}
+.pw-gate input {
+  background: transparent; border: none; outline: none;
+  color: var(--text); font-size: 1rem; width: 220px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.pw-gate input::placeholder { color: #555; }
+.pw-gate button {
+  background: var(--accent-purple); color: #fff; border: none;
+  padding: 0.6rem 1.4rem; border-radius: 8px; font-weight: 600;
+  cursor: pointer; font-size: 0.9rem; transition: background 0.2s;
+}
+.pw-gate button:hover { background: #7c3aed; }
+.pw-gate .err {
+  color: var(--accent-red); font-size: 0.8rem; margin-top: 0.75rem;
+  min-height: 1.2em;
+}
+.pw-gate .hint {
+  margin-top: 1.5rem; color: var(--text-muted); font-size: 0.75rem;
+  opacity: 0.5;
+}
 
-  /* ─── Navigation ─── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex; align-items: center; gap: 6px;
-    padding: 12px 24px;
-    background: rgba(10,10,15,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  nav::-webkit-scrollbar { display: none; }
-  nav a {
-    flex-shrink: 0;
-    padding: 6px 14px;
-    border-radius: 8px;
-    font-size: 13px; font-weight: 500;
-    color: #888;
-    text-decoration: none;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-  nav a:hover, nav a.active { color: #fff; background: rgba(255,255,255,0.08); }
-  nav .sep { color: #333; font-size: 12px; margin: 0 2px; }
+/* ─── main layout ─── */
+.app-shell {
+  width: 100%; height: 100%; display: flex; flex-direction: column;
+}
 
-  /* ─── Hero ─── */
-  .hero {
-    padding: 80px 24px 60px;
-    text-align: center;
-    background: linear-gradient(180deg, rgba(59,130,246,0.08) 0%, transparent 100%);
-  }
-  .hero h1 {
-    font-size: clamp(28px,5vw,48px); font-weight: 800;
-    background: linear-gradient(135deg,#60a5fa,#a78bfa,#f472b6);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .hero p.sub {
-    margin-top: 12px; font-size: 16px; color: #888;
-    max-width: 640px; margin-left: auto; margin-right: auto;
-  }
-  .hero .meta {
-    margin-top: 16px; display: flex; gap: 20px; justify-content: center;
-    flex-wrap: wrap;
-  }
-  .hero .meta span {
-    font-size: 13px; color: #666;
-    background: rgba(255,255,255,0.04);
-    padding: 4px 12px; border-radius: 20px;
-  }
+/* top bar */
+.topbar {
+  height: 52px; flex-shrink: 0;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; padding: 0 1.25rem;
+  z-index: 20;
+}
+.topbar h2 {
+  font-size: 1rem; font-weight: 600; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
 
-  /* ─── Sections ─── */
-  section { padding: 48px 24px; max-width: 900px; margin: 0 auto; }
-  section h2 {
-    font-size: 22px; font-weight: 700; margin-bottom: 20px;
-    color: #f0f0f0;
-    display: flex; align-items: center; gap: 10px;
-  }
-  section h2 .badge {
-    font-size: 11px; font-weight: 600;
-    padding: 2px 10px; border-radius: 20px;
-    background: rgba(59,130,246,0.15); color: #60a5fa;
-  }
-  section h3 {
-    font-size: 17px; font-weight: 600; margin: 28px 0 12px;
-    color: #ccc;
-  }
-  section p { font-size: 15px; color: #aaa; margin-bottom: 14px; }
-  section p b, section p strong { color: #e0e0e0; font-weight: 600; }
+/* graph area */
+.graph-area {
+  flex: 1; position: relative; overflow: hidden;
+}
 
-  /* ─── Cards / Diagrams ─── */
-  .diagram {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 14px;
-    padding: 24px;
-    margin: 20px 0;
-  }
-  .diagram h4 {
-    font-size: 14px; font-weight: 600; color: #999; text-transform: uppercase;
-    letter-spacing: 0.5px; margin-bottom: 16px;
-  }
+/* detail panel */
+.detail-overlay {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: min(420px, 100vw);
+  background: var(--surface2);
+  border-left: 1px solid var(--border);
+  z-index: 15;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex; flex-direction: column;
+  box-shadow: -8px 0 30px rgba(0,0,0,0.5);
+}
+.detail-overlay.open { transform: translateX(0); }
+.detail-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  padding: 1.25rem 1.25rem 0.75rem 1.25rem;
+  flex-shrink: 0;
+}
+.detail-header h3 {
+  font-size: 1.15rem; font-weight: 700; padding-right: 0.5rem;
+  line-height: 1.3;
+}
+.detail-close {
+  background: var(--border); color: var(--text-muted); border: none;
+  width: 32px; height: 32px; border-radius: 8px; font-size: 1.1rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background 0.15s;
+}
+.detail-close:hover { background: #33334d; color: #fff; }
+.detail-body {
+  flex: 1; overflow-y: auto; padding: 0 1.25rem 1.25rem 1.25rem;
+}
+.detail-body p {
+  font-size: 0.9rem; line-height: 1.7; color: var(--text-muted);
+}
+.detail-body .cat-badge {
+  display: inline-block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.05em; padding: 0.2rem 0.6rem; border-radius: 6px;
+  margin-bottom: 1rem;
+}
 
-  /* TARIFF FLOW */
-  .tariff-flow {
-    display: flex; align-items: center; justify-content: center;
-    gap: 12px; flex-wrap: wrap; margin: 16px 0;
-  }
-  .tariff-flow .box {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px;
-    padding: 14px 18px;
-    text-align: center;
-    min-width: 90px;
-  }
-  .tariff-flow .box .price { font-size: 22px; font-weight: 700; color: #f0f0f0; }
-  .tariff-flow .box .label { font-size: 12px; color: #777; margin-top: 4px; }
-  .tariff-flow .arrow { font-size: 20px; color: #555; }
-  .tariff-flow .box.gov { border-color: rgba(59,130,246,0.3); background: rgba(59,130,246,0.06); }
-  .tariff-flow .box.consumer { border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.06); }
-  .tariff-flow .box.producer { border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.06); }
+/* bottom bar */
+.bottombar {
+  height: 40px; flex-shrink: 0;
+  background: var(--surface); border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 1rem; gap: 1.25rem;
+  font-size: 0.72rem; color: var(--text-muted);
+  z-index: 20;
+}
+.bottombar a { color: var(--accent-blue); text-decoration: none; }
+.bottombar a:hover { text-decoration: underline; }
+.bottombar .sep { color: #444; }
 
-  /* WINNER/LOSER TABLE */
-  .win-loss {
-    display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
-    gap: 12px; margin: 16px 0;
-  }
-  .wl-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 10px; padding: 16px;
-  }
-  .wl-card.win { border-color: rgba(34,197,94,0.25); }
-  .wl-card.loss { border-color: rgba(239,68,68,0.25); }
-  .wl-card h5 { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
-  .wl-card.win h5 { color: #4ade80; }
-  .wl-card.loss h5 { color: #f87171; }
-  .wl-card ul { list-style: none; font-size: 13px; color: #999; }
-  .wl-card ul li::before { content: "• "; color: #555; }
+/* ─── react flow overrides ─── */
+.react-flow__attribution { display: none !important; }
+.react-flow__minimap {
+  border-radius: 10px !important;
+  border: 1px solid var(--border) !important;
+  background: var(--surface) !important;
+}
+.react-flow__controls {
+  border-radius: 10px !important; overflow: hidden;
+  border: 1px solid var(--border) !important;
+  background: var(--surface) !important;
+}
+.react-flow__controls-button {
+  background: var(--surface) !important;
+  border-bottom: 1px solid var(--border) !important;
+  fill: var(--text-muted) !important;
+  width: 30px !important; height: 30px !important;
+}
+.react-flow__controls-button:hover {
+  background: var(--surface2) !important;
+}
 
-  /* GAME THEORY MATRIX */
-  .matrix-wrapper { display:flex; justify-content:center; }
-  .matrix {
-    display: inline-grid;
-    grid-template-columns: auto repeat(2,1fr);
-    gap: 0;
-    margin: 16px auto;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    font-size: 13px;
-  }
-  .matrix .cell {
-    padding: 12px 18px;
-    border: 1px solid rgba(255,255,255,0.06);
-    text-align: center;
-    min-width: 100px;
-  }
-  .matrix .cell.header { font-weight: 600; color: #888; background: rgba(255,255,255,0.03); }
-  .matrix .cell.label { font-weight: 500; color: #aaa; }
-  .matrix .cell.payoff { font-family: 'JetBrains Mono', monospace; color: #f0f0f0; }
-  .matrix .cell.best { background: rgba(34,197,94,0.08); }
-  .matrix .cell.worst { background: rgba(239,68,68,0.08); }
+/* ─── custom node ─── */
+.kg-node {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+  min-width: 240px; max-width: 280px;
+  cursor: grab;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.kg-node:hover {
+  box-shadow: 0 0 18px rgba(108,92,231,0.18);
+  border-color: #444;
+}
+.kg-node .accent-bar {
+  position: absolute; left: 0; top: 9px; bottom: 9px;
+  width: 3px; border-radius: 0 3px 3px 0;
+}
+.kg-node .node-title {
+  font-size: 0.82rem; font-weight: 600; color: var(--text);
+  margin-bottom: 0.25rem; line-height: 1.25;
+  padding-left: 8px;
+}
+.kg-node .node-summary {
+  font-size: 0.7rem; color: var(--text-muted); line-height: 1.4;
+  padding-left: 8px;
+}
 
-  /* TIMELINE */
-  .timeline { position: relative; padding-left: 24px; margin: 16px 0; }
-  .timeline::before {
-    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
-    width: 2px; background: rgba(255,255,255,0.06);
-  }
-  .tl-item { position: relative; margin-bottom: 16px; }
-  .tl-item::before {
-    content: ''; position: absolute; left: -20px; top: 6px;
-    width: 10px; height: 10px; border-radius: 50%;
-    background: rgba(255,255,255,0.1);
-    border: 2px solid #333;
-  }
-  .tl-item .year { font-size: 12px; font-weight: 600; color: #60a5fa; }
-  .tl-item p { font-size: 14px; margin: 2px 0 0; }
-
-  /* BALANCE OF PAYMENTS */
-  .bop-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
-    margin: 16px 0;
-  }
-  .bop-card {
-    padding: 16px; border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.06);
-    text-align: center;
-  }
-  .bop-card .bop-title { font-size: 13px; color: #777; text-transform: uppercase; letter-spacing: 0.3px; }
-  .bop-card .bop-value { font-size: 28px; font-weight: 700; margin: 6px 0 2px; }
-  .bop-card .bop-desc { font-size: 12px; color: #666; }
-  .bop-card.deficit { border-color: rgba(239,68,68,0.2); }
-  .bop-card.deficit .bop-value { color: #f87171; }
-  .bop-card.surplus { border-color: rgba(34,197,94,0.2); }
-  .bop-card.surplus .bop-value { color: #4ade80; }
-
-  /* KPI METER */
-  .kpi-row {
-    display: flex; align-items: center; gap: 14px;
-    padding: 10px 14px;
-    background: rgba(255,255,255,0.02);
-    border-radius: 8px;
-    margin: 6px 0;
-  }
-  .kpi-row .kpi-label { flex: 1; font-size: 13px; color: #aaa; }
-  .kpi-row .kpi-meter {
-    flex: 2; height: 6px; border-radius: 3px;
-    background: rgba(255,255,255,0.06);
-    position: relative; overflow: hidden;
-  }
-  .kpi-row .kpi-meter .fill {
-    height: 100%; border-radius: 3px; transition: width 0.5s;
-  }
-  .kpi-row .kpi-tag { font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 12px; }
-
-  .core .fill { background: #4ade80; }
-  .compromise .fill { background: #facc15; }
-  .not-priority .fill { background: #666; }
-
-  .tag-core { background: rgba(34,197,94,0.15); color: #4ade80; }
-  .tag-comp { background: rgba(250,204,21,0.15); color: #facc15; }
-  .tag-low { background: rgba(255,255,255,0.06); color: #888; }
-
-  /* MAR-A-LAGO */
-  .strategy-cards {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
-  }
-  .strat-card {
-    padding: 16px; border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.06);
-  }
-  .strat-card h5 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
-  .strat-card p { font-size: 13px; color: #888; }
-  .strat-card.multilateral { border-color: rgba(59,130,246,0.2); }
-  .strat-card.multilateral h5 { color: #60a5fa; }
-  .strat-card.unilateral { border-color: rgba(168,85,247,0.2); }
-  .strat-card.unilateral h5 { color: #a78bfa; }
-
-  /* CONTRADICTIONS */
-  .paradox { display: flex; gap: 12px; margin: 12px 0; flex-wrap: wrap; }
-  .paradox-item {
-    flex: 1; min-width: 200px;
-    padding: 14px; border-radius: 10px;
-    background: rgba(239,68,68,0.04);
-    border: 1px solid rgba(239,68,68,0.12);
-  }
-  .paradox-item h5 { font-size: 13px; color: #f87171; margin-bottom: 6px; }
-  .paradox-item p { font-size: 13px; color: #999; }
-
-  /* RESPONSIVE */
-  @media (max-width: 640px) {
-    .tariff-flow { flex-direction: column; }
-    .bop-grid { grid-template-columns: 1fr; }
-    .strategy-cards { grid-template-columns: 1fr; }
-    .matrix .cell { padding: 8px 10px; min-width: 70px; font-size: 12px; }
-    .kpi-row { flex-wrap: wrap; }
-  }
-
-  /* FOOTER */
-  footer {
-    text-align: center; padding: 32px 24px;
-    border-top: 1px solid rgba(255,255,255,0.04);
-    font-size: 13px; color: #555;
-  }
-  footer a { color: #60a5fa; text-decoration: none; }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  section { animation: fadeUp 0.5s ease-out; }
+/* ─── mobile ─── */
+@media (max-width: 640px) {
+  .detail-overlay { width: 100vw; }
+  .topbar h2 { font-size: 0.82rem; }
+  .bottombar { font-size: 0.65rem; gap: 0.6rem; }
+  .kg-node { min-width: 180px; max-width: 220px; }
+  .kg-node .node-title { font-size: 0.74rem; }
+  .kg-node .node-summary { font-size: 0.65rem; }
+  .pw-gate h1 { font-size: 1.3rem; }
+  .pw-gate input { width: 160px; font-size: 0.85rem; }
+}
 </style>
-<link rel="stylesheet" href="/pages/_shared/menu.css">
 </head>
 <body>
+<div id="root"></div>
 
-<!-- ═══ PASSWORD GATE ═══ -->
-<div id="password-gate">
-  <div class="gate-box">
-    <div class="lock-icon">🔒</div>
-    <h1>Restricted Page</h1>
-    <p>Enter the password to view this research artifact.</p>
-    <input type="password" id="password-input" placeholder="Enter password" autocomplete="off">
-    <div class="error" id="password-error">Incorrect password. Try again.</div>
-  </div>
-</div>
-
-<div id="content" style="display:none;">
-
-<nav>
-  <a href="#overview">Overview</a><span class="sep">/</span>
-  <a href="#part1">Mechanics</a><span class="sep">/</span>
-  <a href="#game-theory">Game Theory</a><span class="sep">/</span>
-  <a href="#history">History</a><span class="sep">/</span>
-  <a href="#part2">Trade Deficit</a><span class="sep">/</span>
-  <a href="#triffin">Triffin</a><span class="sep">/</span>
-  <a href="#part3">Trump's Strategy</a><span class="sep">/</span>
-  <a href="#contradictions">Contradictions</a>
-</nav>
-
-<div class="hero">
-  <h1>Tariffs, Trade &amp; The New World Order</h1>
-  <p class="sub">A 3-part visual breakdown of 小Lin说's economics trilogy — from tariff mechanics to the Triffin dilemma to Trump's radical restructuring playbook.</p>
-  <div class="meta">
-    <span>📺 小Lin说</span>
-    <span>⏱ 3 videos · 73 min</span>
-    <span>📐 Economics · Trade Policy · Geopolitics</span>
-  </div>
-</div>
-
-<!-- PART 1 -->
-<section id="overview">
-  <h2>1. How Tariffs Work <span class="badge">Part 1</span></h2>
-  <h3>The Basic Mechanism</h3>
-  <p>A tariff is a tax on imported goods. When the <strong>Milk Tea Kingdom</strong> imposes a 20% tariff on milk powder:</p>
-  <div class="tariff-flow">
-    <div class="box"><div class="price">100</div><div class="label">Original Price</div></div>
-    <div class="arrow">→</div>
-    <div class="box gov"><div class="price">+20</div><div class="label">Tariff (Gov Revenue)</div></div>
-    <div class="arrow">→</div>
-    <div class="box consumer"><div class="price">120</div><div class="label">Consumer Pays</div></div>
-  </div>
-
-  <h3>Who Wins, Who Loses?</h3>
-  <div class="win-loss">
-    <div class="wl-card win"><h5>✅ Government</h5><ul><li>Collects tariff revenue</li></ul></div>
-    <div class="wl-card win"><h5>✅ Domestic Producers</h5><ul><li>Less competition</li><li>Can raise prices &amp; expand</li><li>More jobs in protected industries</li></ul></div>
-    <div class="wl-card loss"><h5>❌ Consumers</h5><ul><li>Pay higher prices (+34% on 2018 washing machines)</li><li>Fewer choices</li></ul></div>
-    <div class="wl-card loss"><h5>❌ Downstream Industries</h5><ul><li>Steel tariffs cost Ford $1B+</li><li>Ripple effects through supply chains</li></ul></div>
-  </div>
-
-  <div class="diagram">
-    <h4>Deadweight Loss — The Textbook View</h4>
-    <p>Classical economics: trade liberalization is most efficient. Tariffs create two "deadweight loss" triangles — lost welfare nobody recovers. <strong>First-year economics says tariffs are always bad.</strong></p>
-    <p style="color:#888;font-size:14px;margin-top:8px;">But real-world trade policy is more nuanced. Tariffs have additional effects the simple model misses...</p>
-  </div>
-
-  <h3>Why Tariffs Exist Despite Deadweight Loss</h3>
-  <div class="win-loss">
-    <div class="wl-card win"><h5>🏭 Infant Industry Protection</h5><ul><li>Hamilton's 18th-century argument</li><li>US (19th C): tariffs &gt;40% → steel output ↑500×</li><li>China: car tariffs &gt;200% nurtured domestic auto</li><li>India: "Make in India" via high tariffs</li></ul></div>
-    <div class="wl-card win"><h5>🤝 Negotiation Leverage</h5><ul><li>Tariffs damage opponents → bargaining chip</li><li>Trump: NAFTA renegotiation via tariff threats</li><li>Canada retaliated on swing-state goods (ketchup, orange juice, toilet paper)</li></ul></div>
-    <div class="wl-card win"><h5>🗳️ Political Appeal</h5><ul><li>"Protect jobs" resonates during downturns</li><li>Swing-state targeting: Pennsylvania steel unions</li><li>Biden &amp; Trump both blocked Japan Steel's US Steel deal</li></ul></div>
-    <div class="wl-card loss"><h5>⚔️ Retaliation Risk</h5><ul><li>1963 Chicken-Truck War</li><li>Trade wars escalate unpredictably</li><li>Consumers on both sides pay</li></ul></div>
-  </div>
-</section>
-
-<!-- GAME THEORY -->
-<section id="game-theory">
-  <h2>2. The Tariff Game <span class="badge">Prisoner's Dilemma</span></h2>
-  <p>Trade between two countries becomes a <strong>prisoner's dilemma</strong>. Each chooses: <strong>Open</strong> (free trade) or <strong>Protect</strong> (tariffs).</p>
-  <div class="matrix-wrapper">
-  <div class="matrix">
-    <div class="cell header"></div>
-    <div class="cell header">Country B: Open</div>
-    <div class="cell header">Country B: Protect</div>
-    <div class="cell label">Country A: Open</div>
-    <div class="cell payoff best">A: +3, B: +3</div>
-    <div class="cell payoff">A: -5, B: +8</div>
-    <div class="cell label">Country A: Protect</div>
-    <div class="cell payoff">A: +8, B: -5</div>
-    <div class="cell payoff worst">A: -3, B: -3</div>
-  </div>
-  </div>
-  <p style="margin-top:12px;"><strong>Nash equilibrium:</strong> Both protect (mutual loss). In <strong>repeated games</strong>, <strong>tit-for-tat</strong> (start open, mirror opponent's move) breaks the trap. Key: <strong>the threat must be communicated</strong>.</p>
-  <div class="win-loss">
-    <div class="wl-card win"><h5>🔄 Tit-for-Tat</h5><ul><li>Start open, warn retaliation</li><li>Mirror opponent's last move</li><li>Make your threat credible</li></ul></div>
-    <div class="wl-card win"><h5>🤝 Institutions</h5><ul><li>WTO (166 members, 98% of world trade)</li><li>EU: extreme interest alignment</li><li>NAFTA/USMCA: regional agreements</li></ul></div>
-  </div>
-</section>
-
-<!-- HISTORY -->
-<section id="history">
-  <h2>3. 300 Years of Global Trade <span class="badge">Timeline</span></h2>
-  <div class="timeline">
-    <div class="tl-item"><div class="year">1700s–1800s</div><p><strong>Mercantilism.</strong> Britain's avg tariff ~50%. Colonies exist for the empire.</p></div>
-    <div class="tl-item"><div class="year">1817</div><p><strong>Ricardo's Comparative Advantage.</strong> Free trade cornerstone. Britain lowers tariffs.</p></div>
-    <div class="tl-item"><div class="year">1800s</div><p><strong>US &amp; Germany ignore free trade.</strong> Hamilton's infant-industry argument. Tariffs &gt;40%. Steel ↑500× in 30 years. US overtakes Britain.</p></div>
-    <div class="tl-item"><div class="year">1930</div><p><strong>Smoot-Hawley Tariff Act.</strong> US tariffs 20–60% on 20,000+ goods. Europe retaliates. US imports/exports ↓66%. Great Depression deepens.</p></div>
-    <div class="tl-item"><div class="year">1947</div><p><strong>GATT signed.</strong> Post-WWII tariff reductions. Avg: 22% (1947) → 5% (2000). Exports: 5% → 25% of global GDP.</p></div>
-    <div class="tl-item"><div class="year">2018–Now</div><p><strong>New protectionism.</strong> US-China trade war, Brexit, pandemic nationalism. WTO paralyzed. Deglobalization trend.</p></div>
-  </div>
-</section>
-
-<!-- PART 2 -->
-<section id="part2">
-  <h2>4. The US Trade Deficit <span class="badge">Part 2</span></h2>
-  <div class="bop-grid">
-    <div class="bop-card deficit"><div class="bop-title">Current Account</div><div class="bop-value">−Trillions</div><div class="bop-desc">Trade deficit since 1970s · Buying &gt; selling</div></div>
-    <div class="bop-card surplus"><div class="bop-title">Financial + Capital Account</div><div class="bop-value">+Trillions</div><div class="bop-desc">Global capital flows in · Everyone buys US assets</div></div>
-  </div>
-  <p style="font-size:14px;text-align:center;color:#888;">These always balance. The US trade deficit is <strong>mirrored</strong> by America's financial account surplus.</p>
-
-  <h3>The Circular Flow</h3>
-  <div class="diagram">
-    <p style="font-size:14px;line-height:1.8;">
-    1️⃣ Countries earn USD from trade surpluses<br>
-    2️⃣ Central banks accumulate USD reserves → print local currency<br>
-    3️⃣ Reserves reinvested into US assets (Treasuries, stocks, MBS)<br>
-    4️⃣ Capital inflow <strong>drives up USD</strong> exchange rate<br>
-    5️⃣ Strong dollar makes US exports expensive, imports cheap → deficit widens<br>
-    6️⃣ <strong>Repeat</strong> for 50+ years
-    </p>
-  </div>
-
-  <h3>Why Doesn't the Dollar Depreciate to Fix It?</h3>
-  <ul style="font-size:14px;color:#999;list-style:none;padding:0;">
-    <li style="padding:6px 0;">🌍 <strong>Global demand for USD</strong> is structural — it's the world's reserve currency</li>
-    <li style="padding:6px 0;">🏦 <strong>Central banks peg/manage currencies</strong>, suppressing automatic adjustment</li>
-    <li style="padding:6px 0;">📈 <strong>"Better economy = bigger deficit"</strong> — strong economy attracts investment → dollar appreciates → deficit grows</li>
-  </ul>
-</section>
-
-<!-- TRIFFIN -->
-<section id="triffin">
-  <h2>5. The Triffin Dilemma <span class="badge">Root Cause</span></h2>
-  <div class="diagram" style="border-color:rgba(168,85,247,0.2);">
-    <p style="font-size:15px;"><strong>"A country that issues the world's reserve currency will inevitably run a trade deficit."</strong></p>
-    <p style="font-size:14px;color:#999;margin-top:8px;">— Robert Triffin, 1960s (predicted the 50+ year US deficit before it happened)</p>
-    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.06);margin:16px 0;">
-    <p style="font-size:14px;">The dollar's reserve currency status means the US <strong>must supply USD to the world</strong> by running a trade deficit — effectively <strong>printing money to buy goods</strong>.</p>
-    <p style="font-size:14px;margin-top:8px;color:#f87171;">The Fed admits this. Most media &amp; politicians show only half the picture.</p>
-  </div>
-  <h3>Is the Trade Deficit Bad? → <span style="color:#888;font-weight:400;">It depends.</span></h3>
-  <div class="win-loss">
-    <div class="wl-card win"><h5>🟢 Healthy</h5><ul><li>Australia: decades of deficit driven by strong investment demand</li><li>Fast-growing economies attract capital naturally</li></ul></div>
-    <div class="wl-card loss"><h5>🔴 Unhealthy</h5><ul><li>Pre-2010 Eurozone: Greece/Spain overheated, borrowing too much</li><li>Sri Lanka: currency collapse + foreign debt → goods shortage</li></ul></div>
-  </div>
-</section>
-
-<!-- PART 3 -->
-<section id="part3">
-  <h2>6. Trump's Strategy <span class="badge">Part 3</span></h2>
-  <p>Based on <strong>Stephen Milan's</strong> "A User's Guide to Restructuring the Global Trading System." <span style="color:#888;font-size:13px;">(Milan: now Chair of White House Economic Council)</span></p>
-
-  <h3>Trump's 7 Goals — Priority Ranking</h3>
-  <div class="kpi-row"><div class="kpi-label">🔴 Govt Finances / Deficit</div><div class="kpi-meter"><div class="fill core" style="width:95%"></div></div><span class="kpi-tag tag-core">Core</span></div>
-  <div class="kpi-row"><div class="kpi-label">🏭 Manufacturing Reshoring</div><div class="kpi-meter"><div class="fill core" style="width:85%"></div></div><span class="kpi-tag tag-core">Core</span></div>
-  <div class="kpi-row"><div class="kpi-label">🔒 Restrict Rivals (China)</div><div class="kpi-meter"><div class="fill core" style="width:80%"></div></div><span class="kpi-tag tag-core">Core</span></div>
-  <div class="kpi-row"><div class="kpi-label">📈 Economic Growth</div><div class="kpi-meter"><div class="fill compromise" style="width:50%"></div></div><span class="kpi-tag tag-comp">Compromise</span></div>
-  <div class="kpi-row"><div class="kpi-label">🏷️ Price Stability</div><div class="kpi-meter"><div class="fill compromise" style="width:40%"></div></div><span class="kpi-tag tag-comp">Defer to Fed</span></div>
-  <div class="kpi-row"><div class="kpi-label">💵 Dollar Hegemony</div><div class="kpi-meter"><div class="fill not-priority" style="width:30%"></div></div><span class="kpi-tag tag-low">Sacrificeable</span></div>
-  <p style="margin-top:12px;font-size:14px;color:#888;">Key shift: <strong>Economic growth is no longer #1.</strong> Trump sacrifices growth to achieve other goals — a radical departure from decades of US policy.</p>
-
-  <h3>Milan's Two-Pronged Strategy</h3>
-  <div class="strategy-cards">
-    <div class="strat-card multilateral">
-      <h5>🌐 Multilateral: Mar-a-Lago Accord</h5>
-      <p><strong>Goal:</strong> Devalue USD with allies' help</p>
-      <p style="margin-top:6px;">1️⃣ Countries help sell USD → weaker dollar<br>
-      2️⃣ Roll Treasuries into 50–100 year bonds → lower long-term rates<br>
-      3️⃣ Fed provides USD swap lines<br><br>
-      <span style="color:#f87171;">Problem:</span> Disguised debt default. Hedgies arbitrage it. Near-impossible.</p>
-    </div>
-    <div class="strat-card unilateral">
-      <h5>🇺🇸 Unilateral: Charge for Treasury Access</h5>
-      <p><strong>Goal:</strong> Revenue + discourage USD holdings</p>
-      <p style="margin-top:6px;">Charge foreign institutions a "usage fee" to hold US Treasuries → reduces dollar attractiveness.<br><br>
-      <span style="color:#f87171;">Problem:</span> Everyone sells → rates spike → govt debt costs explode.</p>
-    </div>
-  </div>
-
-  <h3 style="margin-top:24px;">Tariffs As a Negotiation Tool</h3>
-  <div class="diagram">
-    <p style="font-size:14px;"><strong>The Milan Formula:</strong></p>
-    <ol style="font-size:14px;color:#aaa;padding-left:18px;margin-top:8px;">
-      <li>Impose <strong>very high tariffs</strong> on everyone (shock value)</li>
-      <li>Offer to <strong>lower them</strong> in exchange for:</li>
-      <ul style="padding-left:18px;margin:4px 0;">
-        <li>Cooperating on tariffs against China</li>
-        <li>Investing in the US / writing a check</li>
-        <li>Giving up security umbrella demands</li>
-      </ul>
-      <li>If no deal → tariffs stay, generating revenue + protecting manufacturing</li>
-    </ol>
-    <p style="font-size:14px;color:#888;margin-top:10px;">Think of it like haggling: merchant asks $1,000 knowing cost is $50. Both know the number is ridiculous — that's the game.</p>
-    <p style="font-size:14px;color:#f87171;margin-top:8px;">But sovereign nations don't have this "industry rule." The April 2 Excel tariff list crashed the bond market (10-year yield spiked 60bp in a week). He suspended tariffs for 90 days.</p>
-  </div>
-
-  <h3>The Numbers Game</h3>
-  <div class="win-loss">
-    <div class="wl-card loss"><h5>GDP</h5><p style="font-size:24px;font-weight:700;color:#f0f0f0;">$29T</p></div>
-    <div class="wl-card loss"><h5>Govt Spending</h5><p style="font-size:24px;font-weight:700;color:#f0f0f0;">$6.75T</p></div>
-    <div class="wl-card loss"><h5>Revenue</h5><p style="font-size:24px;font-weight:700;color:#f0f0f0;">$4.9T</p></div>
-    <div class="wl-card loss"><h5>Deficit</h5><p style="font-size:24px;font-weight:700;color:#f87171;">$1.8T</p></div>
-    <div class="wl-card loss"><h5>Net Interest</h5><p style="font-size:24px;font-weight:700;color:#f87171;">$880B</p></div>
-    <div class="wl-card loss"><h5>Total Imports</h5><p style="font-size:24px;font-weight:700;color:#f87171;">$3.3T</p></div>
-    <div class="wl-card win"><h5>Current Tariff Revenue</h5><p style="font-size:24px;font-weight:700;color:#f0f0f0;">$80B</p></div>
-    <div class="wl-card win"><h5>20% Universal Tariff (best case)</h5><p style="font-size:24px;font-weight:700;color:#4ade80;">$660B</p><p style="font-size:12px;color:#888;">assuming no volume drop</p></div>
-  </div>
-</section>
-
-<!-- CONTRADICTIONS -->
-<section id="contradictions">
-  <h2>7. The Contradictions <span class="badge">Why It Might Fail</span></h2>
-  <div class="paradox">
-    <div class="paradox-item"><h5>Tariff Paradox #1</h5><p>Tariffs raise prices → Fed hikes rates → govt debt costs explode → contradicts #1 goal.</p></div>
-    <div class="paradox-item"><h5>Tariff Paradox #2</h5><p>Milan's "currency offset" theory: tariffs make USD appreciate. But that makes manufacturing worse.</p></div>
-    <div class="paradox-item"><h5>Dollar Paradox</h5><p>US wants allies to sell USD (weaker dollar) but maintain dollar supremacy. Can't have both.</p></div>
-  </div>
-  <div class="paradox">
-    <div class="paradox-item"><h5>Fed Paradox</h5><p>Trump wants low rates. Fed wants to raise to fight tariff inflation. Irreconcilable.</p></div>
-    <div class="paradox-item"><h5>China Alignment</h5><p>Trump wants manufacturing reshoring + rate cuts. China also wants US rate cuts + domestic consumption. Adversaries, aligned incentives.</p></div>
-    <div class="paradox-item"><h5>Execution Paradox</h5><p>Shock-and-retreat destroyed trust in Treasuries as "risk-free." Now there's a <strong>Trump Risk Premium</strong>.</p></div>
-  </div>
-
-  <div class="diagram" style="border-color:rgba(250,204,21,0.2);">
-    <h4 style="color:#facc15;">The Ironic Takeaway</h4>
-    <p style="font-size:14px;">Trump's policies aim to <strong>weaken the dollar, cut rates, bring manufacturing home</strong>. But he needs the Fed's cooperation — and he's undermining Fed independence. The tariff chaos has created a "Trump risk premium," making his core fiscal goal <strong>harder to achieve</strong>.</p>
-    <p style="font-size:14px;color:#888;margin-top:8px;">As 小Lin说 puts it: "Like an obstacle race where you planned the route, but slipped at the first step and fell into the water."</p>
-  </div>
-</section>
-
-<section style="padding-bottom:60px;">
-  <h2>The Bottom Line</h2>
-  <div class="diagram" style="border-color:rgba(59,130,246,0.2);background:rgba(59,130,246,0.03);">
-    <p style="font-size:15px;line-height:1.8;">
-      <strong>Tariffs are a double-edged sword.</strong> Targeted protection <em>can</em> nurture infant industries (US 1800s, China 1990s). Blanket tariffs risk retaliation spirals and deadweight loss.<br><br>
-      <strong>The US trade deficit is not a bug — it's a feature</strong> of dollar reserve status (Triffin Dilemma). Tariffs on individual countries just shift import sources; they can't fix the structural deficit.<br><br>
-      <strong>Trump's playbook is not crazy — it's radical.</strong> Milan's logic is consistent: use tariff shock + security threats as leverage. But contradictions are deep: tariffs inflate → Fed raises → debt costs spike.<br><br>
-      <strong>The real question:</strong> Is the US willing to sacrifice dollar hegemony to save manufacturing? Milan's answer, buried under denial, appears to be <em>yes</em> — the most consequential shift since Bretton Woods.
-    </p>
-  </div>
-</section>
-
-<footer>
-  Based on 小Lin说's 3-part series: <a href="https://youtu.be/uiMsul6sKus" target="_blank">Tariffs 101</a> · <a href="https://youtu.be/XDXeZk6a170" target="_blank">Trade Deficit</a> · <a href="https://youtu.be/Op_lsH_ys5g" target="_blank">Trump's Strategy</a><br>
-  Published via Hermes Agent research artifacts · July 2026
-</footer>
-
-</div><!-- /content -->
-
-<script>
-  // ─── Password Gate ───
-  (function(){
-    // SHA-256 of "recon2026"
-    const HASH = '2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e';
-    const gate = document.getElementById('password-gate');
-    const content = document.getElementById('content');
-    const input = document.getElementById('password-input');
-    const error = document.getElementById('password-error');
-
-    async function sha256(str) {
-      const buf = new TextEncoder().encode(str);
-      const hash = await crypto.subtle.digest('SHA-256', buf);
-      return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
-    }
-
-    // Check localStorage first (persists across sessions)
-    if (localStorage.getItem('unlocked_tariff') === 'true') {
-      gate.classList.add('hidden');
-      content.style.display = 'block';
-    }
-
-    input.addEventListener('keydown', async function(e) {
-      if (e.key === 'Enter') {
-        const val = this.value.trim();
-        const hash = await sha256(val);
-        if (hash === HASH) {
-          localStorage.setItem('unlocked_tariff', 'true');
-          gate.classList.add('hidden');
-          content.style.display = 'block';
-        } else {
-          error.classList.add('show');
-          this.value = '';
-          this.focus();
-        }
-      }
-    });
-  })();
-
-  // ─── Nav Scroll ───
-  document.querySelectorAll('nav a').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-        const id = entry.target.id || entry.target.querySelector('[id]')?.id;
-        if (id) {
-          const link = document.querySelector(`nav a[href="#${id}"]`);
-          if (link) link.classList.add('active');
-        }
-      }
-    });
-  }, { threshold: 0.3 });
-  document.querySelectorAll('section').forEach(s => observer.observe(s));
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.3.1",
+    "react-dom": "https://esm.sh/react-dom@18.3.1",
+    "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime",
+    "@xyflow/react": "https://esm.sh/@xyflow/react@12.6.0",
+    "dagre": "https://esm.sh/dagre@0.8.5"
+  }
+}
 </script>
+<script type="module">
+import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import { createRoot } from 'react-dom/client';
+import {
+  ReactFlow,
+  Background,
+  Controls,
+  MiniMap,
+  useNodesState,
+  useEdgesState,
+  MarkerType,
+  Position,
+  Handle
+} from '@xyflow/react';
+import dagre from 'dagre';
 
-<script src="/pages/_shared/menu.js"></script>
+/* ─── colours ─── */
+const CAT = {
+  mechanics:  { hex:'#60a5fa', label:'Tariff Mechanics',  icon:'⚙️' },
+  history:    { hex:'#f59e0b', label:'Historical Events', icon:'📜' },
+  players:    { hex:'#a855f7', label:'Players / Countries', icon:'🌍' },
+  economics:  { hex:'#10b981', label:'Economic Concepts', icon:'📊' },
+  strategy:   { hex:'#f97316', label:'Strategy',         icon:'🎯' },
+  paradox:    { hex:'#ef4444', label:'Paradox',           icon:'⚠️' },
+  bottomline: { hex:'#fbbf24', label:'The Bottom Line',   icon:'💡' },
+};
+
+/* ─── data ─── */
+const rawNodes = [
+  { id:'n1',  cat:'mechanics',  title:'What Is a Tariff?',            summary:'A tax on imported goods paid by the importer but ultimately borne by consumers.',                          detail:'A tariff is a tax levied by a government on goods imported from another country. While importers pay the tax at the border, the cost is usually passed on to consumers through higher prices. Tariffs are one of the oldest trade policy tools, used both for revenue and for protecting domestic industries from foreign competition.' },
+  { id:'n2',  cat:'mechanics',  title:'Milk Tea Example',             summary:'20% tariff: $100 item → $120 for consumer, $20 goes to government revenue.',                               detail:'Consider Milk Tea Kingdom, which imposes a 20% tariff on imported milk tea. A product originally priced at $100 now incurs a $20 tariff, pushing the consumer price to $120. The government collects $20 in revenue. This simple example illustrates the mechanics: the importer pays the tax, but the end consumer bears the cost. Domestic milk tea producers benefit because the imported version is now relatively more expensive.' },
+  { id:'n3',  cat:'mechanics',  title:'Winners of Tariffs',           summary:'Government (revenue) and domestic producers (less competition, higher prices, more jobs).',                   detail:'Tariffs produce clear winners: (1) Government collects revenue directly from every imported unit. (2) Domestic producers face less foreign competition, allowing them to raise prices, expand production, and hire more workers. In the US, steel tariffs boosted domestic steel profits. In the 19th century, high US tariffs (>40%) helped domestic industry grow 500x.' },
+  { id:'n4',  cat:'mechanics',  title:'Losers of Tariffs',            summary:'Consumers pay 34% more. Downstream industries suffer — steel tariffs cost Ford $1B+.',                       detail:'Tariffs hurt two key groups: (1) Consumers pay higher prices — washing machine tariffs in 2018 caused prices to rise 34% on average. (2) Downstream industries that use imported inputs face cost increases. When US steel tariffs were imposed, Ford Motor Company estimated they cost the company over $1 billion. The auto industry employs far more workers than steel — making the trade-off questionable.' },
+  { id:'n5',  cat:'mechanics',  title:'Deadweight Loss',              summary:'Classical economics: tariffs always create a net welfare loss for society.',                                detail:'In classical economics, tariffs invariably generate deadweight loss — a net destruction of value. Even though the government gains revenue and domestic producers gain market share, the losses to consumers exceed those gains. The triangle of deadweight loss represents transactions that would have occurred at the free-market price but are prevented by the tariff. This is the foundational argument for free trade.' },
+  { id:'n6',  cat:'mechanics',  title:'Why Tariffs Still Exist',      summary:'Infant industry protection, negotiation leverage, political appeal, and strategic rivalry.',                detail:'Despite the deadweight loss argument, tariffs persist for several reasons: (1) Infant Industry Protection — shielding nascent domestic industries until they reach global competitiveness. (2) Negotiation Leverage — tariffs serve as bargaining chips in trade negotiations. (3) Political Appeal — protecting domestic jobs resonates with voters, especially in swing states. (4) National Security — protecting critical supply chains from adversarial nations. The world is messier than the textbook.' },
+  { id:'n7',  cat:'mechanics',  title:'Infant Industry Success',      summary:'Hamilton\'s US tariffs >40% → steel output 500x. China car tariffs >200%.',                                   detail:'Alexander Hamilton championed protective tariffs for the young United States. Throughout the 1800s, US tariffs exceeded 40%, and the result was explosive industrial growth: steel output increased 500-fold and the US overtook Britain as the world\'s largest economy. Modern China applies the same playbook — tariffs on imported cars exceed 200%, forcing foreign automakers to manufacture locally and transfer technology to Chinese joint ventures.' },
+  { id:'n8',  cat:'mechanics',  title:'The Chicken-Truck War',        summary:'1963: a tit-for-tat tariff spiral between the US and Europe that escalated out of control.',                   detail:'In 1963, the US imposed tariffs on European chicken imports. Europe retaliated with tariffs on American trucks, targeting the Volkswagen-competitive US auto sector. The retaliation worked so well that the 25% "chicken tax" on light trucks remains in place to this day. This episode is a textbook case of how tariff retaliation can spiral, creating lasting distortions that far outlive the original dispute.' },
+  { id:'n9',  cat:'economics',  title:'Prisoner\'s Dilemma',          summary:'Two countries choose between Open (free trade) or Protect (tariffs).',                                    detail:'Trade policy is a classic Prisoner\'s Dilemma. Each country faces two choices: maintain open markets (cooperate) or impose tariffs (defect). If both cooperate, they share prosperity. But each is tempted to defect — imposing tariffs while the other stays open yields a huge unilateral gain. When both defect, they create mutual destruction. The structure of incentives pushes rational actors toward a collectively bad outcome.' },
+  { id:'n10', cat:'economics',  title:'The Payoff Matrix',            summary:'Both open = +3/+3. One protects = +8/−5. Both protect = −3/−3.',                                        detail:'The payoff matrix: When both countries keep free trade, each gains +3 (mutual prosperity). If Country A imposes tariffs while Country B stays open, A gains +8 (tariff revenue + protected industry) while B loses −5 (lost exports). If both impose tariffs, both lose −3 (collapsed trade, higher prices). The dominant strategy for a self-interested rational actor is to protect — even though both would be better off cooperating.' },
+  { id:'n11', cat:'economics',  title:'Nash Equilibrium',             summary:'Rational self-interest leads both countries to protect → mutual loss.',                                  detail:'The Nash Equilibrium of the trade Prisoner\'s Dilemma is (Protect, Protect). Neither country can unilaterally improve its outcome by switching — if the other country protects, any deviation to "open" yields an even worse outcome (−5). This is why, without institutions or repeated interaction, the default outcome of international trade relations is protectionism and mutual loss.' },
+  { id:'n12', cat:'economics',  title:'Tit-for-Tat & Repeated Games', summary:'In repeated interactions, cooperating first and mirroring the partner\'s last move breaks the trap.',          detail:'When trade relationships are repeated (not one-shot), the tit-for-tat strategy becomes powerful: start by cooperating, then do whatever the other party did last round. If both sides use tit-for-tat, cooperation becomes self-reinforcing. Fear of future retaliation deters defection. This is why long-term trade relationships, rather than one-off decisions, tend toward free trade — but only if both parties trust the game will continue.' },
+  { id:'n13', cat:'economics',  title:'WTO & Institutions',           summary:'166 members, 98% of world trade. EU, NAFTA/USMCA provide the trust that breaks the trap.',                detail:'Institutions solve the Prisoner\'s Dilemma by providing trust and enforcement. The WTO (166 members, covering ~98% of world trade) establishes rules, adjudicates disputes, and authorizes retaliatory measures — converting the game from anarchy to rule-of-law. Regional blocs like the EU and USMCA deepen integration further, eliminating the "defect" option for entire categories of trade. These institutions are the scaffolding that makes free trade stable.' },
+  { id:'n14', cat:'history',    title:'Mercantilism (1700s–1800s)',   summary:'Britain averaged ~50% tariffs. Colonies existed to supply the mother country.',                            detail:'In the mercantilist era, European powers viewed trade as zero-sum. Britain imposed average tariffs of ~50%, and colonial possessions were restricted to trading only with the mother country. The goal was to accumulate gold, maintain a trade surplus, and build national power. Adam Smith\'s The Wealth of Nations (1776) attacked this system, arguing that the true wealth of nations came from specialization and exchange, not hoarding precious metals.' },
+  { id:'n15', cat:'history',    title:'Comparative Advantage (1817)', summary:'David Ricardo: specialize in what you do relatively best, trade for everything else.',                     detail:'In 1817, David Ricardo articulated the theory of Comparative Advantage — the intellectual cornerstone of free trade. Even if one country is better at producing everything, both countries still benefit from trade by specializing in what they do relatively best. This insight shifted economics from a zero-sum to a positive-sum framework. It remains the most powerful argument for free trade, though critics note its assumptions (full employment, immobile capital) rarely hold perfectly in reality.' },
+  { id:'n16', cat:'history',    title:'US & Germany Industrialize',   summary:'1800s: Both ignored free trade advice. Tariffs >40%. US steel grew 500x and overtook Britain.',            detail:'Despite Ricardo\'s elegant theory, the two great industrializers of the 19th century — the United States and Germany — explicitly rejected free trade. Friedrich List argued that Britain\'s free trade advocacy was "kicking away the ladder" that Britain itself had used to industrialize. The US maintained tariffs above 40% throughout the 1800s, growing steel output 500-fold and overtaking Britain as the world\'s largest economy.' },
+  { id:'n17', cat:'history',    title:'Smoot-Hawley Tariff (1930)',   summary:'20–60% tariffs on 20,000+ goods. World trade collapsed by 66%. Deepened the Great Depression.',                detail:'The Smoot-Hawley Tariff Act of 1930 raised US tariffs to 20–60% on over 20,000 imported goods. Other countries retaliated fiercely. Global trade collapsed by ~66% over the next few years, turning a severe recession into the Great Depression. Smoot-Hawley became the canonical example of what NOT to do — a catastrophic failure of protectionism that economists still invoke whenever new tariffs are proposed.' },
+  { id:'n18', cat:'history',    title:'GATT & Free Trade Era (1947)', summary:'Average tariffs fell from 22% → 5%. Global exports rose from 5% → 25% of GDP. The golden age of trade.',     detail:'After WWII, 23 nations signed the General Agreement on Tariffs and Trade (GATT) in 1947 — later evolving into the WTO. Over the next 50 years, average tariffs fell from ~22% to ~5%, and exports grew from 5% to over 25% of global GDP. This was the golden age of trade liberalization. Hundreds of millions of people were lifted out of poverty, particularly in East Asia, through export-led growth made possible by open global markets.' },
+  { id:'n19', cat:'history',    title:'US-China Trade War (2018–Now)',summary:'Tariffs, tech restrictions, supply chain decoupling. Brexit, pandemic nationalism, and the return of deglobalization.', detail:'Starting in 2018, the US launched a sweeping tariff campaign against China, imposing duties on hundreds of billions of dollars of goods. China retaliated. The conflict expanded beyond tariffs into technology restrictions (Huawei, semiconductors), supply chain decoupling, and broader strategic rivalry. Combined with Brexit and pandemic-era nationalism, the era of deglobalization began — reversing a 70-year trend toward economic integration.' },
+  { id:'n20', cat:'economics',  title:'The US Trade Deficit',         summary:'Current Account: −Trillions since the 1970s. The US imports far more than it exports.',                     detail:'The US has run a persistent current account deficit — importing more goods and services than it exports — every year since the mid-1970s. By 2024, the annual trade deficit exceeded $1 trillion. This is the mirror image of other countries\' trade surpluses with the US (China, Japan, Germany). Importantly, this deficit is matched dollar-for-dollar by a surplus on the financial/capital account: foreign capital flowing into US assets.' },
+  { id:'n21', cat:'economics',  title:'The Circular Flow',            summary:'Countries earn USD → buy Treasuries → USD appreciates → deficit widens → repeat for 50+ years.',            detail:'The US trade deficit creates a self-reinforcing cycle: (1) Exporting countries earn US dollars from their trade surpluses. (2) Central banks accumulate USD reserves and reinvest them in US Treasuries. (3) This capital inflow strengthens the US dollar, making imports cheaper and US exports more expensive. (4) The trade deficit widens further, supplying even more dollars to the world. The cycle has been running for over 50 years — it\'s not a bug; it\'s a structural feature.' },
+  { id:'n22', cat:'economics',  title:'The Triffin Dilemma',          summary:'A reserve-currency issuer MUST run trade deficits to supply the world with its currency.',                   detail:'Robert Triffin predicted in the 1960s that the country issuing the world\'s reserve currency would inevitably run trade deficits. To supply the global economy with dollars for trade, reserves, and financial markets, the US must spend more abroad than it earns — i.e., run a deficit. This is not a policy failure; it\'s a structural necessity. The dilemma: the system needs US deficits to function, but persistent deficits erode confidence in the dollar\'s value over the long run.' },
+  { id:'n23', cat:'economics',  title:'Healthy vs Unhealthy Deficits',summary:'Australia: investment-driven ✓. Greece/Spain pre-2010: overheated ✗. Sri Lanka: currency collapse ✗.',          detail:'Not all trade deficits are equal. Australia has run deficits for decades, but foreign capital flows into productive investments (mines, infrastructure), driving growth. In contrast, Greece and Spain pre-2010 used foreign borrowing for consumption and housing bubbles — unsustainable. Sri Lanka\'s deficit was financed by borrowing that it could not repay, leading to a 2022 currency collapse and sovereign default. The key distinction: what is the borrowed money used for?' },
+  { id:'n24', cat:'strategy',   title:'The Milan Framework',          summary:'Stephen Milan\'s 7-goal framework. Economic growth is no longer #1 — a radical departure from orthodoxy.',       detail:'Stephen Milan\'s "A User\'s Guide to Restructuring the Global Trading System" lays out a 7-goal framework for Trump\'s trade strategy. Core goals: (1) Government Finances, (2) Manufacturing Reshoring, (3) Restricting China. Compromise goals: (4) Economic Growth, (5) Price Stability. Sacrificeable: (6) Dollar Hegemony. The framework is radical because economic growth — traditionally the #1 objective of all economic policy — is demoted to a "compromise" that can be sacrificed if it conflicts with higher priorities.' },
+  { id:'n25', cat:'strategy',   title:'Mar-a-Lago Accord (Multilateral)',summary:'Devalue USD with allied agreement. Roll Treasuries into 50–100yr bonds. Fed provides swap lines.',            detail:'The multilateral prong of the Milan framework envisions a "Mar-a-Lago Accord" — a negotiated agreement with allied economies (Japan, EU, UK) to jointly devalue the US dollar, similar to the 1985 Plaza Accord but far more ambitious. Allies would agree to strengthen their currencies. The US would restructure its debt by rolling short-term Treasuries into ultra-long 50–100 year bonds. The Fed would provide swap lines to smooth the transition. This requires willing cooperation from partners.' },
+  { id:'n26', cat:'strategy',   title:'Unilateral Strategy',          summary:'Charge foreign institutions a fee to hold US Treasuries — a tax on dollar reserves.',                        detail:'If allies refuse to cooperate, the unilateral backup is more aggressive: charge foreign official institutions (central banks, sovereign wealth funds) a fee — essentially a tax — on their holdings of US Treasuries. By making it costly for foreigners to hold US debt, the US would force reserve diversification away from the dollar, achieving depreciation without needing anyone\'s permission. This is a nuclear option with unpredictable consequences for global financial stability.' },
+  { id:'n27', cat:'strategy',   title:'The Milan Formula',            summary:'Impose very high tariffs → offer to lower them in exchange for cooperation, investment, or security concessions.', detail:'The Milan Formula is a negotiation strategy: impose extremely high tariffs unilaterally, creating maximum disruption, then offer to lower them — but only in exchange for specific concessions. These concessions could include: Chinese cooperation on trade rules, foreign investment in US manufacturing, security commitments from allies, or agreement to coordinated currency realignment. The tariffs are not an end; they are a bargaining tool. The higher the initial tariff, the more valuable the concession.' },
+  { id:'n28', cat:'strategy',   title:'April 2 Bond Crash',           summary:'The "Excel tariff list" announced on April 2 crashed bond markets: 10yr yield +60bp in a single week.',         detail:'On April 2, a list of specific tariff rates for each country — reportedly calculated in Excel and announced without consultation — triggered a bond market shock. The 10-year Treasury yield surged 60 basis points in a single week, a move typically seen over months or years. Bond prices crashed as investors reassessed "risk-free" assumptions about US debt. This wasn\'t just a market tantrum; it was a signal that the strategy itself carried severe financial risks.' },
+  { id:'n29', cat:'strategy',   title:'The Numbers',                  summary:'GDP $29T. Gov spending $6.75T. Deficit $1.8T. Imports $3.3T. 20% universal tariff best case: $660B.',        detail:'The fiscal math is stark: US GDP is ~$29 trillion. Government spending is $6.75T against revenue of $4.9T, creating a $1.8T deficit. Net interest on the debt is already $880B and rising. Total imports are $3.3T per year. A 20% universal tariff would, in the best case (assuming no decline in imports), raise $660B — which covers only about one-third of the annual deficit. Current tariff revenue is just $80B. Tariffs alone cannot close the fiscal gap.' },
+  { id:'n30', cat:'paradox',    title:'Tariff Paradox #1',            summary:'Tariffs raise prices → Fed hikes interest rates → debt servicing costs explode.',                           detail:'Paradox #1: The strategy\'s core goals conflict. Tariffs raise consumer prices (inflation). In response, the Federal Reserve would raise interest rates to fight inflation. But higher rates dramatically increase the cost of servicing the $34+ trillion national debt — interest payments, already at $880B/year, would explode further. Tariffs meant to strengthen government finances end up making the fiscal situation worse through higher debt service costs. The medicine harms the patient.' },
+  { id:'n31', cat:'paradox',    title:'Tariff Paradox #2',            summary:'Tariffs make the USD appreciate → stronger dollar hurts manufacturing competitiveness.',                    detail:'Paradox #2: Tariffs reduce imports, which reduces the supply of dollars in global markets. Less dollar supply means a stronger dollar. But a stronger dollar makes US exports more expensive and imports cheaper — the exact opposite of what manufacturing reshoring requires. Tariffs intended to boost domestic manufacturing inadvertently create currency conditions that undermine manufacturing competitiveness. The strategy fights itself.' },
+  { id:'n32', cat:'paradox',    title:'The Dollar Paradox',           summary:'Want allies to sell the dollar AND maintain dollar supremacy — mutually exclusive goals.',                 detail:'The Dollar Paradox is the deepest tension in the entire strategy: The US wants allies to voluntarily weaken their USD holdings and diversify away from the dollar (to achieve depreciation). But it simultaneously wants to maintain dollar supremacy as the world\'s reserve currency for global influence, sanctions power, and cheap borrowing. These goals are mutually exclusive. If allies sell dollars, hegemony erodes. If hegemony is preserved, depreciation fails. You cannot have both.' },
+  { id:'n33', cat:'paradox',    title:'The Fed Paradox',              summary:'Trump wants low rates for growth. The Fed wants to raise rates to fight tariff-driven inflation.',           detail:'The Fed Paradox: President Trump wants low interest rates to fuel economic growth, keep mortgage rates affordable, and reduce government borrowing costs. But the Federal Reserve, an independent institution, is mandated to control inflation. Since tariffs are inherently inflationary, the Fed would respond by raising rates. The White House and the central bank are pointed in opposite directions. Pressuring the Fed to keep rates low despite inflation risks destroying its credibility.' },
+  { id:'n34', cat:'paradox',    title:'China Alignment',              summary:'Adversaries with aligned incentives: both want rate cuts AND domestic consumption growth.',                  detail:'A strange bedfellow: The US and China, despite being strategic adversaries, find their incentives aligned in surprising ways. Both want lower interest rates (China to boost its property sector, the US to finance its debt). Both want to shift toward domestic consumption (China away from exports, the US toward reshoring). Both benefit from a weaker dollar (China because it holds trillions in dollar reserves that would gain value if the dollar falls). Enemies with overlapping interests is a fragile and dangerous alignment.' },
+  { id:'n35', cat:'paradox',    title:'The Execution Paradox',        summary:'Shock-and-retreat destroyed the "risk-free" trust in US Treasuries. The Trump Risk Premium is born.',         detail:'The Execution Paradox: The manner of implementation — sudden announcements, Excel-formula tariff lists, reversals, and uncertainty — proved as damaging as the tariffs themselves. Markets rely on predictability. When the world\'s largest economy suddenly appears erratic, the "risk-free" status of US Treasuries erodes. Investors now demand a "Trump Risk Premium" — higher yields to compensate for policy unpredictability. Once risk-free status is lost, it may take decades to restore. The cost of lost credibility may exceed any tariff revenue gained.' },
+  { id:'n36', cat:'bottomline', title:'The Bottom Line',              summary:'The global trading system is being fundamentally restructured. Economic growth is no longer the #1 priority.',   detail:'The 70-year era of trade liberalization that began with GATT in 1947 is over. We are entering a new period where strategic rivalry, national security, and fiscal pressures drive trade policy more than the pursuit of efficiency and growth. The contradictions — tariff paradoxes, dollar paradox, Fed paradox — suggest the current strategy may be internally unsustainable. The question is not whether the global trading system will change, but whether that change will be managed cooperatively or chaotically. The cost of getting this wrong is measured in trillions of dollars and millions of livelihoods.' },
+];
+
+const rawEdges = [
+  { id:'e1',  source:'n1',  target:'n2' },
+  { id:'e2',  source:'n2',  target:'n3' },
+  { id:'e3',  source:'n2',  target:'n4' },
+  { id:'e4',  source:'n3',  target:'n5' },
+  { id:'e5',  source:'n4',  target:'n5' },
+  { id:'e6',  source:'n5',  target:'n6' },
+  { id:'e7',  source:'n6',  target:'n7' },
+  { id:'e8',  source:'n6',  target:'n8' },
+  { id:'e9',  source:'n6',  target:'n9' },
+  { id:'e10', source:'n9',  target:'n10'},
+  { id:'e11', source:'n10', target:'n11'},
+  { id:'e12', source:'n11', target:'n12'},
+  { id:'e13', source:'n12', target:'n13'},
+  { id:'e14', source:'n7',  target:'n14'},
+  { id:'e15', source:'n14', target:'n15'},
+  { id:'e16', source:'n15', target:'n16'},
+  { id:'e17', source:'n16', target:'n17'},
+  { id:'e18', source:'n17', target:'n18'},
+  { id:'e19', source:'n18', target:'n19'},
+  { id:'e20', source:'n19', target:'n20'},
+  { id:'e21', source:'n20', target:'n21'},
+  { id:'e22', source:'n21', target:'n22'},
+  { id:'e23', source:'n22', target:'n23'},
+  { id:'e24', source:'n23', target:'n24'},
+  { id:'e25', source:'n20', target:'n24'},
+  { id:'e26', source:'n24', target:'n25'},
+  { id:'e27', source:'n24', target:'n26'},
+  { id:'e28', source:'n25', target:'n27'},
+  { id:'e29', source:'n26', target:'n27'},
+  { id:'e30', source:'n27', target:'n28'},
+  { id:'e31', source:'n28', target:'n29'},
+  { id:'e32', source:'n29', target:'n30'},
+  { id:'e33', source:'n24', target:'n30'},
+  { id:'e34', source:'n30', target:'n31'},
+  { id:'e35', source:'n31', target:'n32'},
+  { id:'e36', source:'n32', target:'n33'},
+  { id:'e37', source:'n33', target:'n34'},
+  { id:'e38', source:'n34', target:'n35'},
+  { id:'e39', source:'n35', target:'n36'},
+  { id:'e40', source:'n22', target:'n32'},
+  { id:'e41', source:'n32', target:'n35'},
+  { id:'e42', source:'n13', target:'n18'},
+];
+
+/* ─── dagre layout ─── */
+function getLayoutedElements(nodes, edges) {
+  const g = new dagre.graphlib.Graph();
+  g.setDefaultEdgeLabel(() => ({}));
+  g.setGraph({ rankdir: 'TB', ranksep: 110, nodesep: 90, marginx: 60, marginy: 60 });
+
+  const NODE_W = 270;
+  const NODE_H = 95;
+
+  nodes.forEach(n => { g.setNode(n.id, { width: NODE_W, height: NODE_H }); });
+  edges.forEach(e => { g.setEdge(e.source, e.target); });
+
+  dagre.layout(g);
+
+  const layoutedNodes = nodes.map(n => {
+    const pos = g.node(n.id);
+    return {
+      ...n,
+      type: 'knowledgeNode',
+      position: { x: pos.x - NODE_W / 2, y: pos.y - NODE_H / 2 },
+      data: { ...n, width: NODE_W },
+    };
+  });
+
+  const styledEdges = edges.map(e => ({
+    ...e,
+    type: 'smoothstep',
+    animated: true,
+    style: { stroke: '#33335a', strokeWidth: 1.5 },
+    markerEnd: { type: MarkerType.ArrowClosed, color: '#44446a', width: 16, height: 16 },
+  }));
+
+  return { nodes: layoutedNodes, edges: styledEdges };
+}
+
+/* ─── custom node ─── */
+const KnowledgeNode = React.memo(({ data, selected }) => {
+  const cat = CAT[data.cat] || CAT.mechanics;
+  return (
+    <div
+      className="kg-node"
+      style={{
+        borderColor: selected ? cat.hex : undefined,
+        boxShadow: selected ? `0 0 20px ${cat.hex}33` : undefined,
+      }}
+    >
+      <Handle type="target" position={Position.Top} style={{ background: cat.hex, width: 8, height: 8, border: 'none' }} />
+      <div className="accent-bar" style={{ background: cat.hex }} />
+      <div className="node-title">{data.title}</div>
+      <div className="node-summary">{data.summary}</div>
+      <Handle type="source" position={Position.Bottom} style={{ background: cat.hex, width: 8, height: 8, border: 'none' }} />
+    </div>
+  );
+});
+KnowledgeNode.displayName = 'KnowledgeNode';
+
+const nodeTypes = { knowledgeNode: KnowledgeNode };
+
+/* ─── detail panel ─── */
+function DetailPanel({ node, onClose }) {
+  if (!node) return null;
+  const cat = CAT[node.cat] || CAT.mechanics;
+  return (
+    <div className={`detail-overlay ${node ? 'open' : ''}`}>
+      <div className="detail-header">
+        <h3 style={{ color: cat.hex }}>{node.title}</h3>
+        <button className="detail-close" onClick={onClose}>&#10005;</button>
+      </div>
+      <div className="detail-body">
+        <span className="cat-badge" style={{ background: cat.hex + '22', color: cat.hex, border: `1px solid ${cat.hex}44` }}>
+          {cat.icon} {cat.label}
+        </span>
+        <p>{node.detail}</p>
+      </div>
+    </div>
+  );
+}
+
+/* ─── graph view ─── */
+function GraphView() {
+  const initial = useMemo(() => getLayoutedElements(rawNodes, rawEdges), []);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initial.nodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initial.edges);
+  const [selectedNode, setSelectedNode] = useState(null);
+  const reactFlowRef = useRef(null);
+
+  const onNodeClick = useCallback((_evt, node) => {
+    setSelectedNode(node);
+  }, []);
+
+  const closePanel = useCallback(() => setSelectedNode(null), []);
+
+  const onPaneClick = useCallback(() => setSelectedNode(null), []);
+
+  // fit view after mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      reactFlowRef.current?.fitView({ padding: 0.2, duration: 800 });
+    }, 200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className="graph-area">
+      <ReactFlow
+        ref={reactFlowRef}
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onNodeClick={onNodeClick}
+        onPaneClick={onPaneClick}
+        nodeTypes={nodeTypes}
+        fitView={false}
+        minZoom={0.15}
+        maxZoom={2.5}
+        defaultViewport={{ x: 0, y: 0, zoom: 1 }}
+        proOptions={{ hideAttribution: true }}
+        style={{ background: '#0a0a0f' }}
+      >
+        <Background color="#1e1e30" gap={24} size={1} />
+        <Controls
+          position="bottom-left"
+          style={{ margin: 16 }}
+        />
+        <MiniMap
+          position="bottom-right"
+          style={{ margin: 16, borderRadius: 10, border: '1px solid #25253a', background: '#12121a' }}
+          nodeColor={(n) => {
+            const c = CAT[n.data?.cat];
+            return c ? c.hex : '#888';
+          }}
+          maskColor="rgba(10,10,15,0.7)"
+        />
+      </ReactFlow>
+      <DetailPanel node={selectedNode} onClose={closePanel} />
+    </div>
+  );
+}
+
+/* ─── password gate ─── */
+const EXPECTED_HASH = '2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e';
+
+async function hashPassword(password) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function PasswordGate({ onUnlock }) {
+  const [pw, setPw] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    try {
+      const h = await hashPassword(pw);
+      if (h === EXPECTED_HASH) {
+        localStorage.setItem('unlocked_tariff', '1');
+        onUnlock();
+      } else {
+        setError('Incorrect password. Try again.');
+      }
+    } catch {
+      setError('Error verifying password.');
+    }
+    setLoading(false);
+  };
+
+  return (
+    <div className="pw-gate">
+      <h1>Tariffs, Trade &amp;<br/>The New World Order</h1>
+      <p className="sub">Interactive Knowledge Graph</p>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="password"
+          placeholder="Enter password"
+          value={pw}
+          onChange={e => { setPw(e.target.value); setError(''); }}
+          autoFocus
+        />
+        <button type="submit" disabled={loading}>
+          {loading ? '...' : 'Unlock'}
+        </button>
+      </form>
+      <div className="err">{error}</div>
+      <div className="hint">Restricted access — enter password to continue</div>
+    </div>
+  );
+}
+
+/* ─── app ─── */
+function App() {
+  const [unlocked, setUnlocked] = useState(() => {
+    try { return localStorage.getItem('unlocked_tariff') === '1'; } catch { return false; }
+  });
+
+  if (!unlocked) {
+    return <PasswordGate onUnlock={() => setUnlocked(true)} />;
+  }
+
+  return (
+    <div className="app-shell">
+      <div className="topbar">
+        <h2>Tariffs, Trade &amp; The New World Order — Interactive Knowledge Graph</h2>
+      </div>
+      <GraphView />
+      <div className="bottombar">
+        <span>Based on 小Lin说's 3-part series</span>
+        <span className="sep">|</span>
+        <a href="https://youtu.be/uiMsul6sKus" target="_blank" rel="noopener">Tariffs 101</a>
+        <span className="sep">·</span>
+        <a href="https://youtu.be/XDXeZk6a170" target="_blank" rel="noopener">Trade Deficit</a>
+        <span className="sep">·</span>
+        <a href="https://youtu.be/Op_lsH_ys5g" target="_blank" rel="noopener">Trump's Strategy</a>
+        <span className="sep">|</span>
+        <span>Published via Hermes Agent</span>
+      </div>
+    </div>
+  );
+}
+
+const root = createRoot(document.getElementById('root'));
+root.render(React.createElement(App));
+</script>
 </body>
 </html>
