@@ -1129,6 +1129,43 @@ svg.react-flow__connectionline {
 .graph-expand-btn:hover{background:rgba(255,255,255,0.06);color:#fff;border-color:#555}
 .graph-overlay{position:fixed;inset:0;z-index:997;background:rgba(0,0,0,0.5);cursor:pointer}
 .graph-hint{font-size:.72rem;color:#555}
+
+/* responsive */
+@media(max-width:640px){
+.nav-bar{gap:2px;padding:0 8px;overflow-x:auto}
+.nav-bar a{font-size:.72rem;padding:4px 8px;flex-shrink:0}
+.hero{padding:40px 16px 28px}
+.hero .meta{gap:8px}
+.hero .meta span{font-size:.7rem}
+.article-section{padding:28px 16px}
+.article-section h2{font-size:1.1rem}
+.article-section p{font-size:.82rem;line-height:1.6}
+.tariff-flow{gap:4px}
+.t-box{padding:6px 10px;min-width:60px}
+.t-box .t-price{font-size:1rem}
+.win-loss{grid-template-columns:1fr}
+.matrix{font-size:.72rem}
+.m-row span{padding:6px 10px}
+.timeline{padding-left:16px}
+.tl-item p{font-size:.78rem}
+.paradox-grid{grid-template-columns:1fr}
+.kpi-row{flex-wrap:wrap;gap:6px;padding:6px 10px}
+.kpi-label{flex:auto;font-size:.75rem;width:100%}
+.kpi-bar{flex:1}
+.map-section .graph-inner{height:280px}
+.detail-overlay{width:100vw!important}
+.detail-header h3{font-size:.82rem}
+.detail-body p{font-size:.78rem}
+.graph-actions{flex-wrap:wrap;gap:4px}
+.graph-hint{font-size:.65rem}
+.graph-expand-btn{width:28px;height:28px;font-size:.85rem}
+.graph-wrap.expanded .graph-inner{height:100dvh}
+}
+
+@media(max-width:380px){
+.article-section{padding:20px 12px}
+.hero h1{font-size:1.3rem}
+}
 </style>
 </head>
 <body>
