@@ -1,0 +1,165 @@
+/* ─── Hamburger Button ─── */
+#menu-toggle {
+  position: fixed;
+  top: 10px;
+  left: 14px;
+  z-index: 10001;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  color: #aaa;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+#menu-toggle:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+/* ─── Backdrop ─── */
+#menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10002;
+  background: rgba(0,0,0,0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+#menu-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ─── Sidebar ─── */
+#menu-sidebar {
+  position: fixed;
+  top: 0;
+  left: -320px;
+  bottom: 0;
+  z-index: 10003;
+  width: 300px;
+  max-width: 85vw;
+  background: #12121a;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  overflow-y: auto;
+  transition: left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+#menu-sidebar.open {
+  left: 0;
+}
+
+/* ─── Sidebar Header ─── */
+#menu-sidebar .menu-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#menu-sidebar .menu-header h2 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f0f0f0;
+  margin: 0;
+}
+#menu-sidebar .menu-close {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: rgba(255,255,255,0.04);
+  border-radius: 6px;
+  color: #888;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+#menu-sidebar .menu-close:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+/* ─── Artifact List ─── */
+#menu-sidebar .menu-list {
+  padding: 12px;
+  flex: 1;
+}
+#menu-sidebar .menu-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.15s;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+#menu-sidebar .menu-item:hover {
+  background: rgba(255,255,255,0.04);
+}
+#menu-sidebar .menu-item.active {
+  background: rgba(59,130,246,0.08);
+  border: 1px solid rgba(59,130,246,0.15);
+}
+#menu-sidebar .menu-item .item-emoji {
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+#menu-sidebar .menu-item .item-text {
+  flex: 1;
+  min-width: 0;
+}
+#menu-sidebar .menu-item .item-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f0f0f0;
+  margin-bottom: 2px;
+}
+#menu-sidebar .menu-item .item-desc {
+  font-size: 12px;
+  color: #777;
+  line-height: 1.4;
+}
+#menu-sidebar .menu-item.active .item-title {
+  color: #60a5fa;
+}
+
+/* ─── Sidebar Footer ─── */
+#menu-sidebar .menu-footer {
+  padding: 14px 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 11px;
+  color: #555;
+  text-align: center;
+}
+
+/* ─── Push content right on desktop when sidebar is open (optional elegance) ─── */
+@media (max-width: 640px) {
+  #menu-toggle {
+    top: 8px;
+    left: 10px;
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+  #menu-sidebar {
+    width: 280px;
+  }
+}

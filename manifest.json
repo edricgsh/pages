@@ -1,0 +1,22 @@
+{
+  "pages": [
+    {
+      "slug": "tariff-trade-breakdown",
+      "title": "Tariffs, Trade & Trump's Strategy",
+      "description": "3-part visual breakdown — tariff mechanics, Triffin dilemma, Trump's restructuring playbook",
+      "emoji": "🌐"
+    },
+    {
+      "slug": "payment-reconciliation-research",
+      "title": "Payment Reconciliation Market Map",
+      "description": "Cross-gateway payout reconciliation — problems, players, and white space",
+      "emoji": "💳"
+    },
+    {
+      "slug": "pragmatic-engineer",
+      "title": "The Pragmatic Engineer",
+      "description": "Last 5 editions — AI job market, napkin math, quality paradox",
+      "emoji": "📬"
+    }
+  ]
+}
