@@ -17,6 +17,12 @@
       "title": "The Pragmatic Engineer",
       "description": "Last 5 editions — AI job market, napkin math, quality paradox",
       "emoji": "📬"
+    },
+    {
+      "slug": "jensen-huang-mindset",
+      "title": "Jensen Huang: The Mindset That Built NVIDIA",
+      "description": "10 core ideas from YC Startup School 2026 — algorithm domains, F1 driving, eating glass, and building NVIDIA",
+      "emoji": "⚡"
     }
   ]
 }
