@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Artifacts — Password Gate</title>
+<style>
+  /* ─── PASSWORD GATE ─── */
+  #password-gate {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    background: #0a0a0f;
+    font-family: 'Inter', -apple-system, sans-serif;
+  }
+  #password-gate.hidden { display: none; }
+  .gate-box {
+    text-align: center; padding: 40px; max-width: 380px;
+  }
+  .gate-box h1 {
+    font-size: 24px; font-weight: 700; color: #f0f0f0; margin-bottom: 8px;
+  }
+  .gate-box p {
+    font-size: 14px; color: #888; margin-bottom: 24px;
+  }
+  .gate-box input {
+    width: 100%; padding: 12px 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; color: #fff; font-size: 15px;
+    outline: none; text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 2px;
+  }
+  .gate-box input:focus { border-color: #60a5fa; }
+  .gate-box .error {
+    color: #f87171; font-size: 13px; margin-top: 10px; display: none;
+  }
+  .gate-box .error.show { display: block; }
+  .gate-box .lock-icon { font-size: 40px; margin-bottom: 16px; }
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0a0a0f;
+    color: #e0e0e0;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ─── Hero ─── */
+  .hero {
+    padding: 100px 24px 60px;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(59,130,246,0.06) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 800;
+    background: linear-gradient(135deg,#60a5fa,#a78bfa,#f472b6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .hero .sub {
+    font-size: 16px; color: #888; max-width: 540px;
+    margin: 0 auto;
+  }
+
+  /* ─── Artifact Grid ─── */
+  .grid {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .card:hover {
+    border-color: rgba(59,130,246,0.2);
+    background: rgba(59,130,246,0.03);
+    transform: translateY(-2px);
+  }
+  .card .emoji {
+    font-size: 28px;
+    line-height: 1;
+  }
+  .card .title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #f0f0f0;
+  }
+  .card .desc {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.5;
+    flex: 1;
+  }
+  .card .tag {
+    font-size: 12px;
+    color: #60a5fa;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .card .tag .arrow { font-size: 14px; }
+
+  /* ─── Footer ─── */
+  footer {
+    text-align: center;
+    padding: 24px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    font-size: 13px;
+    color: #555;
+  }
+</style>
+<link rel="stylesheet" href="/pages/_shared/menu.css">
+</head>
+<body>
+
+<!-- ═══ PASSWORD GATE ═══ -->
+<div id="password-gate">
+  <div class="gate-box">
+    <div class="lock-icon">🔒</div>
+    <h1>Restricted Pages</h1>
+    <p>Enter the password to browse research artifacts.</p>
+    <input type="password" id="password-input" placeholder="Enter password" autocomplete="off">
+    <div class="error" id="password-error">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<div id="content" style="display:none;">
+
+<div class="hero">
+  <h1>📚 Research Artifacts</h1>
+  <p class="sub">Curated deep-dives on trade, fintech, AI, and engineering — password-gated research summaries.</p>
+</div>
+
+<div class="grid" id="artifact-grid">
+  <!-- Populated by JS -->
+</div>
+
+<footer>🔒 password: recon2026</footer>
+
+</div><!-- /content -->
+
+<script>
+  (function(){
+    const HASH = '2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e';
+    const gate = document.getElementById('password-gate');
+    const content = document.getElementById('content');
+    const input = document.getElementById('password-input');
+    const error = document.getElementById('password-error');
+
+    async function sha256(str) {
+      const buf = new TextEncoder().encode(str);
+      const hash = await crypto.subtle.digest('SHA-256', buf);
+      return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+    }
+
+    if (localStorage.getItem('unlocked_root') === 'true') {
+      gate.classList.add('hidden');
+      content.style.display = 'block';
+      loadArtifacts();
+    }
+
+    input.addEventListener('keydown', async function(e) {
+      if (e.key === 'Enter') {
+        const val = this.value.trim();
+        const hash = await sha256(val);
+        if (hash === HASH) {
+          localStorage.setItem('unlocked_root', 'true');
+          gate.classList.add('hidden');
+          content.style.display = 'block';
+          loadArtifacts();
+        } else {
+          error.classList.add('show');
+          this.value = '';
+          this.focus();
+        }
+      }
+    });
+
+    async function loadArtifacts() {
+      try {
+        const res = await fetch('/pages/manifest.json');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        const grid = document.getElementById('artifact-grid');
+        grid.innerHTML = data.pages.map(p => `
+          <a class="card" href="/pages/${p.slug}/">
+            <span class="emoji">${p.emoji || '📄'}</span>
+            <span class="title">${escapeHtml(p.title)}</span>
+            <span class="desc">${escapeHtml(p.description)}</span>
+            <span class="tag">Open <span class="arrow">→</span></span>
+          </a>
+        `).join('');
+      } catch (e) {
+        document.getElementById('artifact-grid').innerHTML =
+          '<p style="color:#888;grid-column:1/-1;text-align:center;">⚠️ Could not load artifacts.</p>';
+      }
+    }
+
+    function escapeHtml(str) {
+      const d = document.createElement('div');
+      d.textContent = str;
+      return d.innerHTML;
+    }
+  })();
+</script>
+<script src="/pages/_shared/menu.js"></script>
+</body>
+</html>
