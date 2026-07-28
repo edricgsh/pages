@@ -450,610 +450,78 @@
   }
 </style>
 <link rel="stylesheet" href="/pages/_shared/menu.css">
-</head>
 <body>
+<div id="protected-content"><!-- encrypted --></div>
+<noscript><p style="color:#fb7185;text-align:center;padding:40px;font-family:sans-serif;">JavaScript required to view this content.</p></noscript>
 
-<!-- ═══════════════ HERO ═══════════════ -->
-<section class="hero">
-  <div class="tag">Deep Research — Jul 2026</div>
-  <h1>Payment Reconciliation<br>Market Map &amp; Signal Analysis</h1>
-  <p>Cross-gateway payout reconciliation for marketplace platforms — the problem, the players, and the white space.</p>
-  <div class="subtitle">
-    Research compiled from <strong>12 Reddit threads</strong> · <strong>10 competitor analyses</strong> · <strong>8 industry reports</strong>
+<div id="password-gate">
+  <div class="gate-box">
+    <div style="font-size:48px;margin-bottom:16px;">🔐</div>
+    <h1>Password Required</h1>
+    <p>Enter the passcode to view this artifact.</p>
+    <input type="password" id="password-input" placeholder="Enter password" autocomplete="off" />
+    <div class="error" id="password-error">Incorrect password.</div>
   </div>
-</section>
-
-<!-- ═══════════════ NAV ═══════════════ -->
-<nav class="nav-pills">
-  <a href="#problem">The Problem</a>
-  <a href="#persona">Persona</a>
-  <a href="#signals">Signals</a>
-  <a href="#competitors">Competitors</a>
-  <a href="#quotes">Quotes</a>
-  <a href="#communities">Communities</a>
-</nav>
-
-<!-- ═══════════════ THE PROBLEM ═══════════════ -->
-<div class="container">
-<section id="problem" class="section">
-  <div class="section-header">
-    <h2><span class="num">1</span> The Three Problems</h2>
-    <p>Reddit comments reveal three distinct but conflated problems. Most tools solve A or B. Nobody solves C.</p>
-  </div>
-
-  <div class="problem-grid">
-    <div class="problem-card">
-      <div class="label">Problem A — Universal</div>
-      <h3>"The deposit never matches gross sales"</h3>
-      <p>Stripe/Adyen takes a $1,000 sale, deducts fees ($30), refunds ($20), deposits $950. The bank shows $950, the dashboard shows $1,000. The accountant spends hours finding the $50 difference.</p>
-      <ul>
-        <li><strong>Who feels it:</strong> Everyone — from Shopify solo stores to enterprise platforms</li>
-        <li><strong>Solved by:</strong> Leapfin, Optimus, A2X (partial), clearing account workarounds</li>
-      </ul>
-    </div>
-
-    <div class="problem-card">
-      <div class="label">Problem B — Enterprise</div>
-      <h3>"The clearing account never zeroes out"</h3>
-      <p>NetSuite/QuickBooks users route payments through a clearing account. At month-end, it should be $0. It never is — because of timing mismatches, hidden fees, currency conversions, and integration errors.</p>
-      <ul>
-        <li><strong>Who feels it:</strong> NetSuite/ERP users processing 1K+ orders/day</li>
-        <li><strong>Solved by:</strong> Optimus (partial), custom scripts, manual adjusting entries</li>
-      </ul>
-    </div>
-
-    <div class="problem-card" style="border-color: var(--accent); background: rgba(108,92,231,0.04);">
-      <div class="label">Problem C — YOUR OPPORTUNITY</div>
-      <h3>"Did Gateway A AND Gateway B both pay out correctly?"</h3>
-      <p>You run Stripe + Adyen + PayPal. Seller A sold $10K across all three. Stripe paid $4K (fees deducted). Adyen paid $3.5K. PayPal paid $2K. Total net: $9.5K. But Seller A was supposed to get $10K. Which gateway shorted them? Was it fees or an error?</p>
-      <ul>
-        <li><strong>Who feels it:</strong> Multi-PSP marketplaces with shared sellers across gateways</li>
-        <li><strong>Solved by:</strong> <em>Nobody.</em> This is the white space.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="tabs">
-    <button class="active" onclick="switchTab('current-flow')">Current Workflow</button>
-    <button onclick="switchTab('why-broken')">Why It's Broken</button>
-  </div>
-
-  <div id="current-flow" class="tab-content active">
-    <div class="problem-card">
-      <h3>The Stack of Band-Aids</h3>
-      <ol style="padding-left: 20px;">
-        <li><strong>Sales happen</strong> across Stripe, Adyen, PayPal, Shopify Payments</li>
-        <li><strong>Each gateway</strong> generates its own settlement file (different CSV/API format)</li>
-        <li><strong>Someone exports</strong> all files into Excel or a custom script</li>
-        <li><strong>They manually match</strong> gross sales per gateway → net payout → bank deposit</li>
-        <li><strong>Fees arrive separately</strong> — interchange files, scheme fees, processor markups</li>
-        <li><strong>Refunds + chargebacks</strong> create cross-month timing nightmares</li>
-        <li><strong>Currency conversions</strong> introduce FX rate differences vs the accounting system</li>
-        <li><strong>The clearing account</strong> is "adjusted" with manual journal entries to force zero</li>
-        <li><strong>No one checks</strong> whether all gateways paid all sellers correctly — this is invisible</li>
-      </ol>
-    </div>
-  </div>
-
-  <div id="why-broken" class="tab-content">
-    <div class="problem-card">
-      <h3>Why Existing Tools Fail</h3>
-      <ul>
-        <li><strong>Celigo</strong> — market standard middleware. Users report: doesn't support Shop Pay, breaks at high volume (script timeout), variance records too complicated, doesn't handle partial fulfillments</li>
-        <li><strong>A2X / Link My Books</strong> — single-channel only (Shopify → QBO). Can't handle multi-PSP or cross-gateway</li>
-        <li><strong>Leapfin / Ledge / BlackLine</strong> — accounting-shaped, not payment-shaped. They solve GL problems, not payout consistency problems</li>
-        <li><strong>Stripe Connect</strong> — moves money but doesn't reconcile. You still need to verify correctness yourself</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════ PERSONA ═══════════════ -->
-<section id="persona" class="section">
-  <div class="section-header">
-    <h2><span class="num">2</span> The Persona: Mei Ling</h2>
-    <p>Synthesized directly from Reddit comments — she's the person who "cried a lot over this integration."</p>
-  </div>
-
-  <div class="persona">
-    <div class="persona-header">
-      <h2>Mei Ling</h2>
-      <div class="role">Finance Operations Lead — Mid-market Marketplace Platform</div>
-    </div>
-    <div class="persona-body">
-      <div class="persona-stats">
-        <div class="persona-stat">
-          <div class="value">4</div>
-          <div class="lbl">Years in role</div>
-        </div>
-        <div class="persona-stat">
-          <div class="value">3</div>
-          <div class="lbl">Accountants on her team</div>
-        </div>
-        <div class="persona-stat">
-          <div class="value">3K</div>
-          <div class="lbl">Orders reconciled/day</div>
-        </div>
-        <div class="persona-stat">
-          <div class="value">4</div>
-          <div class="lbl">Payment gateways</div>
-        </div>
-        <div class="persona-stat">
-          <div class="value">70%</div>
-          <div class="lbl">Of week spent on reconciliation</div>
-        </div>
-        <div class="persona-stat">
-          <div class="value">Singapore</div>
-          <div class="lbl">Location (cross-currency)</div>
-        </div>
-      </div>
-
-      <h4 style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:12px;">Her Week — Mapped from Reddit Testimony</h4>
-      <div class="day-grid">
-        <div class="day-entry">
-          <div class="time">Mon 9AM</div>
-          <div class="desc">Opens <strong>5 payout reports</strong> from Stripe, Adyen, PayPal, 4 bank statements. Starts exporting CSVs.</div>
-        </div>
-        <div class="day-entry">
-          <div class="time">Mon 10:30AM</div>
-          <div class="desc">In Excel — VLOOKUP formulas matching gross sales to net deposits per gateway. Her master workbook has <strong>12 sheets</strong>. It crashes past 50K rows.</div>
-        </div>
-        <div class="day-entry">
-          <div class="time">Mon 2PM</div>
-          <div class="desc">Finds first discrepancy: Stripe shows $248,700 gross sales, bank shows $237,400. Spends <strong>2 hours tracing</strong>: $6,200 fees, $3,100 refunds from prior month, $1,800 reserve, $200 FX variance.</div>
-        </div>
-        <div class="day-entry">
-          <div class="time">Tue 10AM</div>
-          <div class="desc">Celigo alert: <strong>Shop Pay transactions failed</strong> to sync again. Manually looks up 47 Shop Pay orders. "This is my entire job. I've cried a lot over this integration."</div>
-        </div>
-        <div class="day-entry">
-          <div class="time">Tue 3PM</div>
-          <div class="desc">Controller asks: "Why does Stripe clearing show a <strong>$12,000 balance</strong>?" Creates a manual adjusting entry. Does this every month.</div>
-        </div>
-        <div class="day-entry">
-          <div class="time">Wed 11AM</div>
-          <div class="desc">Adyen sends a <strong>revised settlement file</strong> — error in interchange fees. Re-runs 2 weeks of reconciliation.</div>
-        </div>
-        <div class="day-entry">
-          <div class="time">Thu 9AM</div>
-          <div class="desc">CEO asks: "What's our <strong>true cost per gateway</strong> after fees, FX, settlement delays?" She doesn't have an answer. Never does.</div>
-        </div>
-        <div class="day-entry">
-          <div class="time">Fri 4PM</div>
-          <div class="desc">Exports seller payout data. Top merchant ($500K/month) uses all 3 gateways. Manually checks if each gateway paid correctly. Finds <strong>PayPal was $12K late</strong>. Flags it. No follow-up.</div>
-        </div>
-        <div class="day-entry">
-          <div class="time">Fri 6:30PM</div>
-          <div class="desc"><strong>Month isn't closed.</strong> 3 unresolved variances worth $4,700 — small enough to close, large enough auditors will ask.</div>
-        </div>
-      </div>
-
-      <div class="quote-block" style="margin-top:20px;">
-        <p>"Integration tools solve 'did the data move?' but they don't solve 'did the data move correctly?' Without AI-aware matching that understands these two transactions are the same even though the dates and amounts differ, you're always fixing stuff."</p>
-        <div class="attr">— Reddit r/Netsuite, April 2026</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════ SIGNALS ═══════════════ -->
-<section id="signals" class="section">
-  <div class="section-header">
-    <h2><span class="num">3</span> Key Signals from the Comments</h2>
-    <p>10 signals extracted from Reddit comments — ranked by evidence strength and implication for your product.</p>
-  </div>
-
-  <div class="signal-list">
-    <!-- Signal 1 -->
-    <div class="signal-card" onclick="toggleSignal(this)">
-      <div class="top">
-        <div class="left">
-          <span class="strength strong">Strong</span>
-          <h3>Manual reconciliation breaks at ~1,000 orders/day</h3>
-          <div class="preview">Multiple shop owners reporting 30K orders/month requiring full-time manual reconciliation. One offered to build a solution themselves.</div>
-        </div>
-        <span class="expand-icon">▼</span>
-      </div>
-      <div class="detail">
-        <p><strong>Evidence:</strong> r/smallbusiness: "We're doing ~1000 orders/day = 30K orders/month. Accounting team MANUALLY reconciling each payout. Becoming a LOT of pain." Another comment: "I'd love to solve this with some good old coding, possibly also an AI Agent System."</p>
-        <p><strong>Implication:</strong> Your unit economics need to work at 1K–10K orders/day. This is the sweet spot where manual breaks but enterprise tools (BlackLine at $50K+/yr) are overkill.</p>
-        <p><strong>Sources:</strong> r/smallbusiness (Mar 2025), r/SaaS (Dec 2025), r/Netsuite (Apr 2026)</p>
-      </div>
-    </div>
-
-    <!-- Signal 2 -->
-    <div class="signal-card" onclick="toggleSignal(this)">
-      <div class="top">
-        <div class="left">
-          <span class="strength strong">Strong</span>
-          <h3>The clearing account NEVER zeroes out</h3>
-          <div class="preview">Multiple NetSuite users independently confirm this systemic failure. Integration tools move data but don't verify it.</div>
-        </div>
-        <span class="expand-icon">▼</span>
-      </div>
-      <div class="detail">
-        <p><strong>Evidence:</strong> "The clearing account not zeroing at month-end is a dead giveaway you're manually fixing integration output." Reddit user describes creating "settlement JEs from payouts to zero out clearing accounts and match the bank automatically" — exactly what your product would generate.</p>
-        <p><strong>Implication:</strong> Your "reconciliation-ready journal entries" feature directly solves this. Instead of fixing integration output, your product produces entries that balance.</p>
-        <p><strong>Sources:</strong> r/Netsuite (Apr 2026, Jan 2025)</p>
-      </div>
-    </div>
-
-    <!-- Signal 3 -->
-    <div class="signal-card" onclick="toggleSignal(this)">
-      <div class="top">
-        <div class="left">
-          <span class="strength strong">Strong</span>
-          <h3>Multi-PSP is inevitable, not optional</h3>
-          <div class="preview">Stripe outages, regional payment methods, and seller preferences make multi-gateway unavoidable at scale.</div>
-        </div>
-        <span class="expand-icon">▼</span>
-      </div>
-      <div class="detail">
-        <p><strong>Evidence:</strong> "Stripe had a massive outage today — it's good to have a backup. I would have lost sales otherwise." (r/smallbusiness). "Losing 10-20% sales for a minor accounting convenience is not a good trade-off." Multiple commenters confirm that regional APMs (PayPal, Klarna, local methods, buy-now-pay-later) can't all be served by one gateway. Horizon Labs data: 62% of sellers leave for real-time payouts.</p>
-        <p><strong>Implication:</strong> Cross-gateway matching addresses a growing, structural need. The trend is strongly towards 2-5 gateways per platform.</p>
-        <p><strong>Sources:</strong> r/smallbusiness (Feb 2025), r/fintech (Oct 2024), Horizon Labs (Jul 2026)</p>
-      </div>
-    </div>
-
-    <!-- Signal 4 -->
-    <div class="signal-card" onclick="toggleSignal(this)">
-      <div class="top">
-        <div class="left">
-          <span class="strength strong">Strong</span>
-          <h3>Integration tools (Celigo, FarApp) are NOT the answer</h3>
-          <div class="preview">The market standard middleware still fails on basic payout reconciliation. Users build custom solutions anyway.</div>
-        </div>
-        <span class="expand-icon">▼</span>
-      </div>
-      <div class="detail">
-        <p><strong>Evidence:</strong> "I built my own reconciliation because I was so fed up with Celigo's payout shortcomings. They don't support Shop Pay, don't handle partial fulfillments." "Celigo's payout flow is incredibly underdeveloped and way too complicated with their variance records." Celigo rep even jumped into the thread to apologize — "Can you email me directly?"</p>
-        <p><strong>Implication:</strong> Your product doesn't compete with Celigo — it sits on top and validates correctness. "Did the data move correctly?" is unserved.</p>
-        <p><strong>Sources:</strong> r/Netsuite (Jan 2025), r/Netsuite (Apr 2026)</p>
-      </div>
-    </div>
-
-    <!-- Signal 5 -->
-    <div class="signal-card" onclick="toggleSignal(this)">
-      <div class="top">
-        <div class="left">
-          <span class="strength strong">Strong</span>
-          <h3>Fee deduction mismatch is the #1 source of anxiety</h3>
-          <div class="preview">Every single thread mentions fee discrepancy as the core pain. Users don't trust their numbers because of hidden deductions.</div>
-        </div>
-        <span class="expand-icon">▼</span>
-      </div>
-      <div class="detail">
-        <p><strong>Evidence:</strong> "$950 deposit vs $1,000 sales" (r/SaaS). "Stripe deducts fees before sending" (r/Odoo). "Interchange fees arrive in separate files" (Optimus blog). Odoo users set 5% tolerance to "reconcile" — they're accepting non-matching as a workaround. Their quote: "First I set account tolerance to 0.05 so invoices reconcile even with Stripe fees deducted."</p>
-        <p><strong>Implication:</strong> Your "true cost-to-payout per gateway" feature (fees + FX + settlement lag) hits exactly this pain point. No competitor does fee validation at transaction level except Optimus (and they're accounting-side, not payout-side).</p>
-        <p><strong>Sources:</strong> r/SaaS (Dec 2025), r/Odoo (Apr 2026), Optimus blog (Jul 2026)</p>
-      </div>
-    </div>
-
-    <!-- Signal 6 -->
-    <div class="signal-card" onclick="toggleSignal(this)">
-      <div class="top">
-        <div class="left">
-          <span class="strength medium">Medium</span>
-          <h3>Shop Pay / Apple Pay / Google Pay creates blind spots</h3>
-          <div class="preview">Celigo explicitly doesn't support Shop Pay. Modern checkout flows are invisible to standard reconciliation tooling.</div>
-        </div>
-        <span class="expand-icon">▼</span>
-      </div>
-      <div class="detail">
-        <p><strong>Evidence:</strong> Direct from r/Netsuite: "Celigo does not support Shop Pay transactions." If the market standard middleware can't handle it, everyone is manually reconciling those transactions. Shop Pay alone is massive on Shopify.</p>
-        <p><strong>Implication:</strong> Your product must handle "wallet" payments (Shop Pay, Apple Pay, Google Pay) which present differently in payout reports. This is a wedge: incumbents ignore it.</p>
-        <p><strong>Sources:</strong> r/Netsuite (Jan 2025)</p>
-      </div>
-    </div>
-
-    <!-- Signal 7 -->
-    <div class="signal-card" onclick="toggleSignal(this)">
-      <div class="top">
-        <div class="left">
-          <span class="strength medium">Medium</span>
-          <h3>Users want CLARITY, not just automation</h3>
-          <div class="preview">Opaque automation creates fear. Users will accept some manual work if they understand what's happening.</div>
-        </div>
-        <span class="expand-icon">▼</span>
-      </div>
-      <div class="detail">
-        <p><strong>Evidence:</strong> "The issue isn't trust in automation — it's trust in CLARITY. Automation is actually safer than manual." "The big tools feel bloated for small stores, and most people just want the payout to reconcile cleanly without digging through CSVs."</p>
-        <p><strong>Implication:</strong> Your dashboard should be transparent. Show matching logic. Let users see why two records matched (or didn't). Don't be a black box.</p>
-        <p><strong>Sources:</strong> r/SaaS (Dec 2025)</p>
-      </div>
-    </div>
-
-    <!-- Signal 8 -->
-    <div class="signal-card" onclick="toggleSignal(this)">
-      <div class="top">
-        <div class="left">
-          <span class="strength medium">Medium</span>
-          <h3>Chargeback lifecycle and reconciliation are connected</h3>
-          <div class="preview">High-risk merchants explicitly link reconciliation gaps to chargeback problems.</div>
-        </div>
-        <span class="expand-icon">▼</span>
-      </div>
-      <div class="detail">
-        <p><strong>Evidence:</strong> "Does reconciliation effectively help chargeback management? If a seller doesn't want chargebacks for failed transactions, can reconciliation adjust refunds based on orders?" — directly from r/PaymentProcessing.</p>
-        <p><strong>Implication:</strong> Consider adding basic chargeback flags on payout events. Even a "chargeback detected on this payout" indicator would differentiate you from pure accounting tools.</p>
-        <p><strong>Sources:</strong> r/PaymentProcessing (Jun 2025)</p>
-      </div>
-    </div>
-
-    <!-- Signal 9 -->
-    <div class="signal-card" onclick="toggleSignal(this)">
-      <div class="top">
-        <div class="left">
-          <span class="strength signal">Signal</span>
-          <h3>Cross-gateway seller payout verification is unserved</h3>
-          <div class="preview">All competitors verify accounting OR calculate splits. None verify payout consistency across gateways.</div>
-        </div>
-        <span class="expand-icon">▼</span>
-      </div>
-      <div class="detail">
-        <p><strong>Evidence:</strong> Competitive analysis confirms: Optimus verifies internal accounting against PSPs. Allocora calculates what sellers should get. Payrails routes payments. None answer: "Did Stripe AND Adyen BOTH pay out Seller A correctly this period?"</p>
-        <p><strong>Implication:</strong> "Orphan detection" — paid by one gateway but not another — is completely unserved. "True cost per gateway" (aggregating fees + FX + settlement lag into one metric) doesn't exist in any product.</p>
-        <p><strong>Sources:</strong> Competitive analysis across 10 products</p>
-      </div>
-    </div>
-
-    <!-- Signal 10 -->
-    <div class="signal-card" onclick="toggleSignal(this)">
-      <div class="top">
-        <div class="left">
-          <span class="strength signal">Signal</span>
-          <h3>"I've cried a lot over this integration" — emotional validation</h3>
-          <div class="preview">This is not mild inconvenience. People's careers are defined by this problem. They will pay to solve it.</div>
-        </div>
-        <span class="expand-icon">▼</span>
-      </div>
-      <div class="detail">
-        <p><strong>Evidence:</strong> Direct quote from a NetSuite professional. Multiple threads show professionals spending full work weeks just on reconciliation. One comment: "This is my entire job." Another: "If someone asks, I don't need to explain assumptions — I just pull the report. That would be heaven."</p>
-        <p><strong>Implication:</strong> Validates B2B SaaS pricing ($500–5K/mo). The pain is severe enough that businesses will pay.</p>
-        <p><strong>Sources:</strong> r/Netsuite (Jan 2025), Leapfin customer testimonial</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════ COMPETITORS ═══════════════ -->
-<section id="competitors" class="section">
-  <div class="section-header">
-    <h2><span class="num">4</span> Competitive Landscape</h2>
-    <p>All existing solutions address Problems A or B. Problem C (cross-gateway seller payout consistency) is the white space.</p>
-  </div>
-
-  <div style="overflow-x:auto;">
-  <table class="comp-table">
-    <thead>
-      <tr>
-        <th>Company</th>
-        <th>Layer</th>
-        <th>What It Solves</th>
-        <th>What It Doesn't</th>
-        <th>Gap</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="company-name">Optimus</span></td>
-        <td>Payment → GL</td>
-        <td>N-way matching, fee validation, chargeback lifecycle, sub-merchant reconciliation</td>
-        <td>Cross-gateway seller payout verification, orphan detection</td>
-        <td class="gap-warning">Accounting-side, not payout-side</td>
-      </tr>
-      <tr>
-        <td><span class="company-name">Leapfin</span></td>
-        <td>Payment → GL</td>
-        <td>Revenue recognition, payment-to-GL automation, Luca AI agent</td>
-        <td>Multi-PSP verification, seller-level payout reconciliation</td>
-        <td class="gap-warning">Revenue recognition, not payout ops</td>
-      </tr>
-      <tr>
-        <td><span class="company-name">Kani Payments</span></td>
-        <td>Payment data</td>
-        <td>Fragmented data unification, audit-ready reporting, fintech compliance</td>
-        <td>Seller-level payout matching, cross-gateway orphan detection</td>
-        <td class="gap-warning">Regulatory reporting focus</td>
-      </tr>
-      <tr>
-        <td><span class="company-name">Rexi</span></td>
-        <td>Payment → GL</td>
-        <td>AI-native reconciliation for fintechs/banks</td>
-        <td>Marketplace payout reconciliation, cross-gateway matching</td>
-        <td class="gap-warning">Fintech/banking focused</td>
-      </tr>
-      <tr>
-        <td><span class="company-name">Allocora</span></td>
-        <td>Payout calculation</td>
-        <td>Calculates revenue splits, commissions, refunds, exports payment files</td>
-        <td>Verifies actual payouts, detects orphans, gateway cost comparison</td>
-        <td class="gap-warning">Calculates, doesn't verify</td>
-      </tr>
-      <tr>
-        <td><span class="company-name">ReconPe</span></td>
-        <td>Settlement (IN)</td>
-        <td>Amazon/Flipkart/Meesho settlement reconciliation, bank matching</td>
-        <td>Cross-gateway matching, multi-PSP marketplaces</td>
-        <td class="gap-warning">India-only, seller-side</td>
-      </tr>
-      <tr>
-        <td><span class="company-name">Payrails</span></td>
-        <td>Orchestration</td>
-        <td>Multi-PSP routing, intelligent failover</td>
-        <td>Post-settlement reconciliation, payout verification</td>
-        <td class="gap-warning">Routes money, doesn't verify</td>
-      </tr>
-      <tr>
-        <td><span class="company-name">Ledge</span></td>
-        <td>GL layer</td>
-        <td>AI agents for NetSuite close prep, journal entries</td>
-        <td>PSP file ingestion, fee validation, sub-merchant reconciliation</td>
-        <td class="gap-warning">GL-layer only</td>
-      </tr>
-      <tr>
-        <td><span class="company-name">BlackLine</span></td>
-        <td>GL layer</td>
-        <td>Enterprise close governance, SOX, audit trails</td>
-        <td>Payment operations, multi-PSP reconciliation</td>
-        <td class="gap-warning">Months to implement</td>
-      </tr>
-      <tr>
-        <td><span class="company-name">A2X / Taxomate</span></td>
-        <td>Connector</td>
-        <td>Shopify/Amazon → QBO/Xero sync</td>
-        <td>Multi-PSP, cross-gateway, marketplace payout</td>
-        <td class="gap-warning">Single channel only</td>
-      </tr>
-      <tr style="border-top: 2px solid var(--accent);">
-        <td><span class="company-name" style="color:var(--accent2)">YOUR PRODUCT</span></td>
-        <td><span style="color:var(--accent2)">Cross-gateway payout ops</span></td>
-        <td><span style="color:var(--accent2)">Normalize multi-PSP payouts, detect orphans, true cost/gateway, auto JE</span></td>
-        <td><span style="color:var(--text2)">—</span></td>
-        <td><span class="gap-highlight">WHITE SPACE</span></td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
-
-  <div class="quote-block" style="margin-top:24px;">
-    <p>"For fintechs and marketplaces, payment reconciliation is not a subset of the accounting close. It is a distinct operational discipline that requires purpose-built tooling."</p>
-    <div class="attr">— Optimus comparison blog, Jul 2026</div>
-  </div>
-</section>
-
-<!-- ═══════════════ QUOTES ═══════════════ -->
-<section id="quotes" class="section">
-  <div class="section-header">
-    <h2><span class="num">5</span> Real Quotes from Reddit</h2>
-    <p>Direct testimony from the people living this pain every day.</p>
-  </div>
-
-  <div class="quote-block">
-    <p>"I built my own reconciliation because I was so fed up with Celigo's payout shortcomings. From not supporting Shop Pay, they don't support if you utilize payments in addition to deposits, and their reconciliation doesn't handle partial fulfillments."</p>
-    <div class="attr">— r/Netsuite, Jan 2025 — NetSuite user who built custom reconciliation</div>
-  </div>
-
-  <div class="quote-block">
-    <p>"This is the exact pain point that gets worse the faster you scale. The integration tools solve 'did the data move?' but they don't solve 'did the data move correctly?' The clearing account problem is a dead giveaway you're manually fixing integration output."</p>
-    <div class="attr">— r/Netsuite, Apr 2026 — On the clearing account never zeroing</div>
-  </div>
-
-  <div class="quote-block">
-    <p>"I run a small online store, and the end-of-month bookkeeping is always the same nightmare. My bank shows a $950 Stripe deposit, but my sales dashboard clearly says $1,000. Then comes the fun part: logging into the dashboard, exporting CSVs, calculating fees, subtracting refunds... it's a total mess."</p>
-    <div class="attr">— r/SaaS, Dec 2025 — Founder describing the Stripe fee mismatch</div>
-  </div>
-
-  <div class="quote-block">
-    <p>"This is my entire job. I'm here for you. I've cried a lot over this integration."</p>
-    <div class="attr">— r/Netsuite, Jan 2025 — Comment on Celigo Shopify→NetSuite integration woes</div>
-  </div>
-
-  <div class="quote-block">
-    <p>"We're doing approximately 1000 orders a day. That's close to 30K orders a month. We have an accounting team that is manually reconciling each payout to all the orders every day and it is becoming a lot of pain."</p>
-    <div class="attr">— r/smallbusiness, Mar 2025 — Ops manager at a mid-market store</div>
-  </div>
-
-  <div class="quote-block">
-    <p>"The abstraction layer approach sounds solid in theory, but there's a fundamental business risk you need to consider: payment providers intentionally make switching costly because they profit from lock-in."</p>
-    <div class="attr">— r/SaaS, Nov 2025 — On multi-PSP integration risks</div>
-  </div>
-
-  <div class="quote-block">
-    <p>"The issue isn't trust in automation — it's trust in clarity. Automation is actually safer than manual. I don't think the big tools are the answer — I'd use something simple and affordable."</p>
-    <div class="attr">— r/SaaS, Dec 2025 — On what users actually want from a reconciliation tool</div>
-  </div>
-
-  <div class="quote-block">
-    <p>"If you're staring at a spreadsheet with 12,000 rows from four payment gateways, a PayPal CSV that refuses to format cleanly, and a $0.47 discrepancy you've been chasing since Tuesday..."</p>
-    <div class="attr">— tiptipk.com, 2026 — The most vivid pain description found</div>
-  </div>
-</section>
-
-<!-- ═══════════════ COMMUNITIES ═══════════════ -->
-<section id="communities" class="section">
-  <div class="section-header">
-    <h2><span class="num">6</span> Communities &amp; Channels to Join</h2>
-    <p>Where the people with this problem hang out, and where you can validate your product.</p>
-  </div>
-
-  <div class="comm-grid">
-    <div class="comm-card">
-      <h4>r/PaymentReconciliation</h4>
-      <div class="url">reddit.com/r/PaymentReconciliation</div>
-      <p>Dedicated subreddit for marketplace payment reconciliation. Small but targeted.</p>
-    </div>
-    <div class="comm-card">
-      <h4>r/Netsuite</h4>
-      <div class="url">reddit.com/r/Netsuite</div>
-      <p>High signal — every week someone posts about Shopify/Stripe reconciliation. Best place to find Mei Ling.</p>
-    </div>
-    <div class="comm-card">
-      <h4>r/fintech / r/SaaS / r/smallbusiness</h4>
-      <div class="url">Search "reconciliation"</div>
-      <p>Monthly posts about the pain. Great for validation and feedback on your pitch.</p>
-    </div>
-    <div class="comm-card">
-      <h4>AI Finance Club (Nicolas Boucher)</h4>
-      <div class="url">ai-finance.club</div>
-      <p>~10K finance professionals. Webinars, community chat, AI-in-finance focus. Paid membership (~$1K/yr).</p>
-    </div>
-    <div class="comm-card">
-      <h4>FP&A Hub</h4>
-      <div class="url">thefpahub.com</div>
-      <p>FP&A professionals — many also do reconciliation. Free community, regular events.</p>
-    </div>
-    <div class="comm-card">
-      <h4>Merchant Risk Council</h4>
-      <div class="url">merchantriskcouncil.org</div>
-      <p>Multi-PSP strategy and payment operations. Conferences, working groups.</p>
-    </div>
-    <div class="comm-card">
-      <h4>Stripe Sessions 2026</h4>
-      <div class="url">stripe.com/sessions/2026</div>
-      <p>Annual Stripe conference. "Agentic commerce" theme — payments getting more complex.</p>
-    </div>
-    <div class="comm-card">
-      <h4>Sibos 2026 (Miami, Sep 28–Oct 1)</h4>
-      <div class="url">sibos.com</div>
-      <p>Banking/payments conference. Core reconciliation and settlement topics.</p>
-    </div>
-    <div class="comm-card">
-      <h4>AFP Conference</h4>
-      <div class="url">financialprofessionals.org</div>
-      <p>Association for Financial Professionals. 1000s of treasury and finance ops attendees.</p>
-    </div>
-    <div class="comm-card">
-      <h4>PAY360</h4>
-      <div class="url">pay360event.com</div>
-      <p>UK-based payments event. Reconciliation is a recurring track topic.</p>
-    </div>
-  </div>
-
-  <div class="cta-box">
-    <h3>The White Space Is Real</h3>
-    <p>Nobody solves "Did Gateway A AND Gateway B both pay Seller A correctly?"<br>
-    Orphan detection + true cost per gateway + auto journal entries = differentiated product.</p>
-  </div>
-</section>
 </div>
 
-<footer class="footer">
-  Payment Reconciliation Research — Compiled Jul 2026 from Reddit, competitor analysis, and industry reports
-</footer>
-
 <script>
-function switchTab(id) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  event.target.classList.add('active');
-}
+(async function(){
+  const PASSWORD_HASH = "2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e";
+  const ENCRYPTED_PAYLOAD = "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";
 
-function toggleSignal(el) {
-  el.classList.toggle('open');
-}
+  const gate = document.getElementById('password-gate');
+  const input = document.getElementById('password-input');
+  const error = document.getElementById('password-error');
+  const content = document.getElementById('protected-content');
+
+  async function sha256(str) {
+    const buf = new TextEncoder().encode(str);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  async function deriveKey(pwd, salt) {
+    const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(pwd),
+      { name: 'PBKDF2' }, false, ['deriveBits', 'deriveKey']);
+    return crypto.subtle.deriveKey(
+      { name: 'PBKDF2', salt, iterations: 600000, hash: 'SHA-256' },
+      km, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+  }
+
+  async function decryptContent(pwd) {
+    try {
+      const raw = Uint8Array.from(atob(ENCRYPTED_PAYLOAD), c => c.charCodeAt(0));
+      const salt = raw.slice(0, 16), iv = raw.slice(16, 28), ct = raw.slice(28);
+      const key = await deriveKey(pwd, salt);
+      const dec = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ct);
+      return new TextDecoder().decode(dec);
+    } catch(e) { return null; }
+  }
+
+  (async function() {
+    const stored = localStorage.getItem('pages_pass');
+    if (stored === PASSWORD_HASH) {
+      const d = await decryptContent(PASSWORD_HASH);
+      if (d) { content.innerHTML = d; if(gate) gate.classList.add('hidden'); return; }
+    }
+  })();
+
+  window.checkPassword = async function() {
+    const pwd = input ? input.value : '';
+    const digest = await sha256(pwd);
+    if (digest !== PASSWORD_HASH) {
+      if (error) { error.style.display = 'block'; setTimeout(() => error.style.display = 'none', 2000); }
+      return;
+    }
+    const d = await decryptContent(pwd);
+    if (d) {
+      content.innerHTML = d;
+      if (gate) gate.classList.add('hidden');
+      localStorage.setItem('pages_pass', digest);
+      if (window.onContentDecrypted) window.onContentDecrypted();
+    }
+  };
+  if (input) input.addEventListener('keydown', function(e){ if (e.key === 'Enter') window.checkPassword(); });
+})();
 </script>
-<script src="/pages/_shared/menu.js"></script>
 </body>
-</html>
