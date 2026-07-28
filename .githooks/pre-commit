@@ -1,0 +1,62 @@
+#!/bin/sh
+# Pre-commit hook: scan staged files for potential secrets and placeholder values.
+# Install: git config core.hooksPath .githooks
+set -e
+
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+violations=0
+
+# Get list of staged files
+staged_files=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(html?|js|ts|py|sh|ya?ml|json|toml|env|txt)$' || true)
+
+[ -z "$staged_files" ] && exit 0
+
+while IFS= read -r file; do
+  [ -z "$file" ] && continue
+
+  # Get staged content
+  content=$(git show ":${file}" 2>/dev/null || true)
+  [ -z "$content" ] && continue
+
+  lineno=0
+  while IFS= read -r line; do
+    lineno=$((lineno + 1))
+
+    # Check 1: Truncated hex hashes (e.g. "2ff51f...bf7e", 'a1b2...c3d4')
+    if echo "$line" | grep -qE '[0-9a-fA-F]{4,}\.\.\.[0-9a-fA-F]{4,}'; then
+      echo "${RED}⚠ SECURITY:${NC} $file:$lineno — Truncated hex hash detected (contains '...')"
+      echo "  $line"
+      violations=$((violations + 1))
+    fi
+
+    # Check 2: Variable assignments with placeholder patterns near sensitive names
+    if echo "$line" | grep -qiE '(TODO|FIXME|XXX|CHANGE_ME|PLACEHOLDER).*(HASH|PASSWORD|SECRET|API_KEY|TOKEN|PRIVATE_KEY)'; then
+      echo "${YELLOW}⚠ WARNING:${NC} $file:$lineno — TODO/FIXME in sensitive variable context"
+      echo "  $line"
+      violations=$((violations + 1))
+    fi
+
+    # Check 3: Variable name like HASH/PASSWORD assigned to a value containing "..."
+    if echo "$line" | grep -qiE '(HASH|PASSWORD|SECRET)\s*[=:]\s*[''"][^''"]*\.\.\.[^''"]*[''"]'; then
+      echo "${RED}⚠ SECURITY:${NC} $file:$lineno — Sensitive variable assigned truncated value"
+      echo "  $line"
+      violations=$((violations + 1))
+    fi
+  done <<EOF
+$content
+EOF
+done <<EOF
+$staged_files
+EOF
+
+if [ "$violations" -gt 0 ]; then
+  echo ""
+  echo "${RED}✗ Found $violations potential secret(s) in staged files.${NC}"
+  echo "  To bypass (e.g. for false positives): git commit --no-verify"
+  exit 1
+fi
+
+exit 0
