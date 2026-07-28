@@ -26,12 +26,50 @@
   .subtitle { color: #94a3b8; font-size: 0.875rem; margin-left: 1.75rem; }
   .subtitle a { color: #60a5fa; text-decoration: none; }
   .subtitle a:hover { text-decoration: underline; }
+  .diagram-wrapper {
+    position: relative;
+  }
   .diagram-container {
     background: rgba(15, 23, 42, 0.5);
     border-radius: 1rem; border: 1px solid #1e293b;
     padding: 1.5rem; overflow-x: auto;
+    transition: all 0.3s ease;
+  }
+  .diagram-container.fullscreen {
+    position: fixed; z-index: 9998;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw; height: 100vh;
+    max-width: none; border-radius: 0; border: none;
+    padding: 2rem; overflow: auto;
+    background: #020617;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .diagram-container.fullscreen svg {
+    max-height: 90vh; max-width: 95vw;
+    min-width: auto;
   }
   svg { width: 100%; min-width: 1000px; display: block; }
+  .fs-btn {
+    position: absolute; top: 12px; right: 12px; z-index: 2;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(6px);
+    border-radius: 8px;
+    color: #94a3b8; font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .fs-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+  .fs-btn .icon-expand { display: block; }
+  .fs-btn .icon-compress { display: none; }
+  .diagram-container.fullscreen ~ .fs-btn .icon-expand { display: none; }
+  .diagram-container.fullscreen ~ .fs-btn .icon-compress { display: block; }
+  .diagram-container.fullscreen ~ .fs-btn {
+    position: fixed; z-index: 9999;
+    top: 16px; right: 16px;
+  }
   .cards {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 1rem; margin-top: 2rem;
@@ -80,10 +118,10 @@
   </div>
 
   <!-- Main Diagram -->
-  <div class="diagram-container">
-    <svg viewBox="0 0 1000 680">
-
-      <!-- Definitions -->
+  <div class="diagram-wrapper">
+    <div class="diagram-container" id="diagram">
+      <svg viewBox="0 0 1000 680">
+        <!-- Definitions -->
       <defs>
         <marker id="arrow-invest" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
           <polygon points="0 0, 10 3.5, 0 7" fill="#34d399" />
@@ -215,7 +253,12 @@
       <text x="832" y="617" fill="#94a3b8" font-size="8" font-family="Inter, sans-serif">Demand Side</text>
 
     </svg>
-  </div>
+    </div>  <!-- /diagram-container -->
+    <button class="fs-btn" id="fs-toggle" onclick="toggleFullscreen()" aria-label="Toggle fullscreen">
+      <span class="icon-expand">⛶</span>
+      <span class="icon-compress">✕</span>
+    </button>
+  </div>  <!-- /diagram-wrapper -->
 
   <!-- Info Cards -->
   <div class="cards">
@@ -422,6 +465,18 @@
 
     input.addEventListener('keydown', function(e){ if (e.key === 'Enter') check(); });
   })();
+
+  function toggleFullscreen() {
+    const d = document.getElementById('diagram');
+    d.classList.toggle('fullscreen');
+    document.body.style.overflow = d.classList.contains('fullscreen') ? 'hidden' : '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const d = document.getElementById('diagram');
+      if (d.classList.contains('fullscreen')) toggleFullscreen();
+    }
+  });
 </script>
 <script src="/pages/_shared/menu.js"></script>
 
