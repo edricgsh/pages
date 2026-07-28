@@ -335,404 +335,73 @@
 </head>
 <body>
 
-<div id="protected-content"><!-- encrypted --></div>
-<noscript><p style="color:#fb7185;text-align:center;padding:40px;font-family:sans-serif;">JavaScript required to view this content.</p></noscript>
 <div id="password-gate">
   <div class="gate-box">
-    <div class="lock-icon">🔒</div>
-    <h1>Restricted Page</h1>
-    <p>Enter password to view this research artifact.</p>
-    <input type="password" id="password-input" placeholder="Enter password" autocomplete="off">
+    <div class="lock-icon">🔐</div>
+    <h1>Password Required</h1>
+    <p>Enter the passcode to view this artifact.</p>
+    <input type="password" id="password-input" placeholder="Enter password" autocomplete="off" />
     <div class="error" id="password-error">Incorrect password. Try again.</div>
   </div>
 </div>
-
-<!-- ═══════════════ Content ═══════════════ -->
-<div id="content" style="display:none;">
-
-<!-- ─── Hero ─── -->
-<div class="hero">
-  <div class="badge">&#9670; YC Startup School 2026</div>
-  <h1>Jensen Huang: <span>The Mindset</span> That Built NVIDIA</h1>
-  <p class="sub">The full transcript breakdown — 10 core ideas from the YC interview on starting, building, and thinking like NVIDIA's founder.</p>
-  <div class="meta">
-    <span>Jensen Huang</span>
-    <span class="dot"></span>
-    <span>July 26, 2026</span>
-    <span class="dot"></span>
-    <span>Y Combinator</span>
-  </div>
-</div>
-
-<!-- ─── Quote ─── -->
-<div class="quote-bar">
-  <blockquote>"So long as you're able to confront the reality, so long as you are able to learn, the technology itself actually doesn't matter."</blockquote>
-  <div class="attr">— Jensen Huang</div>
-</div>
-
-<div class="container">
-
-<!-- ═══════════════ 1 ═══════════════ -->
-<section>
-  <h2><span class="num">01</span> The Wrong Technology Origin</h2>
-  <p>NVIDIA's founding technology was <em>absolutely wrong</em>. In 1993, they bet on reinventing 3D graphics with a new algorithm that would turn PCs into game consoles. By 1995, with 35-40 competitors building PC graphics, Jensen realized the algorithm didn't work. He went to Fry's with ~$60, bought three OpenGL textbooks, and handed them to the engineers.</p>
-
-  <div class="callout callout-gold">
-    <div class="label">The takeaway</div>
-    <p><strong>Technology doesn't matter</strong> — what matters is the ability to confront reality and learn. NVIDIA didn't start as world leaders in 3D graphics. They learned it from a textbook <em>after</em> the company was funded.</p>
-  </div>
-</section>
-
-<!-- ═══════════════ 2 ═══════════════ -->
-<section>
-  <h2><span class="num">02</span> The Sega Story (Eating Glass)</h2>
-  <p>Sega contracted NVIDIA for a $12M GPU to build Dreamcast. The technology was fundamentally flawed. Jensen flew to Japan and told the CEO: "We won't be able to fulfill the contract. But I still need the money."</p>
-
-  <div class="card">
-    <div class="label">The conversation</div>
-    <p><strong>Sega CEO:</strong> "What you're telling me is — what I contracted you to do, you can't do, but you would like all the money on the contract."</p>
-    <p><strong>Jensen:</strong> "You got it. That's exactly right."</p>
-  </div>
-
-  <p>Sega paid $5M anyway. When NVIDIA went public at a $300M valuation in 1999, Sega sold their stake. That $5M was the difference between existence and bankruptcy.</p>
-
-  <div class="callout callout-gold">
-    <div class="label">Why it worked</div>
-    <p>Jensen was honest, humble, and went in person. The relationship had real trust. The lesson isn't "be bold with customers" — it's "build enough trust that honesty is your strongest negotiation position."</p>
-  </div>
-</section>
-
-<!-- ═══════════════ 3 ═══════════════ -->
-<section>
-  <h2><span class="num">03</span> The Algorithm Domain Thesis</h2>
-  <p>NVIDIA's core insight was never about building a great <em>chip</em>. It was about <strong>accelerating an algorithm domain</strong>.</p>
-
-  <div class="card">
-    <div class="label">The framework</div>
-    <p>"What makes great companies is a unique perspective about the world that you deeply believe in. It's not so much the technology, not so much the market."</p>
-  </div>
-
-  <div class="grid-2">
-    <div class="card">
-      <div class="grid-label">1993</div>
-      <h3>OpenGL / 3D Graphics</h3>
-      <p>PC gaming pipelines</p>
-    </div>
-    <div class="card">
-      <div class="grid-label">2000s</div>
-      <h3>Molecular Dynamics</h3>
-      <p>NAMD, VASP — scientific computing</p>
-    </div>
-    <div class="card">
-      <div class="grid-label">2010s</div>
-      <h3>Deep Learning</h3>
-      <p>The universal function approximator</p>
-    </div>
-    <div class="card">
-      <div class="grid-label">2020s</div>
-      <h3>Foundation Models</h3>
-      <p>Agents, physical AI, robotics</p>
-    </div>
-  </div>
-
-  <p>When AlexNet arrived, Jensen saw it through this lens: deep learning is a <em>universal function approximator</em>. 15 years ago, NVIDIA was already reasoning about what this does to the entire computing stack — processor, middleware, algorithms, applications. The five-layer cake.</p>
-
-  <div class="tags">
-    <span class="tag">universal function approximator</span>
-    <span class="tag tag-blue">first principles</span>
-    <span class="tag tag-gold">"if this, then what?"</span>
-  </div>
-</section>
-
-<!-- ═══════════════ 4 ═══════════════ -->
-<section>
-  <h2><span class="num">04</span> CEO as F1 Driver</h2>
-  <p>Jensen rejects conventional org design. His framework: you're building a race car that <em>you</em> are going to drive. Build it to fit you, not the other way around.</p>
-
-  <div class="quote-bar" style="margin-bottom:20px;">
-    <blockquote>"When I die on the job someday, they'll just have to reshape the company for the next CEO."</blockquote>
-  </div>
-
-  <div class="card">
-    <div class="label">How he stays in the weeds</div>
-    <ul style="padding-left:20px; margin-top:6px;">
-      <li><strong>Starts with curiosity</strong> — has questions, seeks the shortest path</li>
-      <li><strong>Goes himself</strong> — when answers from his team aren't satisfying, he discovers them</li>
-      <li><strong>Serves the company</strong> — learns deeply so he can <em>be of service</em> and share insight</li>
-      <li><strong>Surfs the wave</strong> — to read the chaos you have to be in the water, not on the beach</li>
-    </ul>
-  </div>
-
-  <div class="callout callout-red">
-    <div class="label">⚠️ Anti-pattern warning</div>
-    <p>This works because Jensen optimizes for <strong>speed over replicability</strong>. He's chosen to build a company that can't run without him in order to run faster <em>with</em> him. Most founders shouldn't copy this literally — they should understand why it works <em>here</em>.</p>
-  </div>
-</section>
-
-<!-- ═══════════════ 5 ═══════════════ -->
-<section>
-  <h2><span class="num">05</span> The Control Problem (Agents)</h2>
-  <p>Jensen identifies <strong>controllability</strong> as the single biggest breakthrough needed for agentic systems.</p>
-
-  <div class="card">
-    <div class="label">The vision</div>
-    <p>Fine-grained control: change <em>one word</em> in a plan file and see a <em>delta difference</em>. One pixel, one triangle, one via in a CAD file — the agent regenerates everything else. "We don't need the agent to be 100% accurate. It could be 80% and we help it the rest of the way."</p>
-  </div>
-
-  <div class="callout">
-    <div class="label">NVIDIA's three angles on agents</div>
-    <div class="kv-row"><span class="k">First principles</span><span class="v">What is the workload? How does it evolve? Where are the bottlenecks? Sandboxing, memory, MCP, concurrency — all new architectural problems.</span></div>
-    <div class="kv-row"><span class="k">Internal use</span><span class="v">Claude Code runs autonomously in sandboxes across NVIDIA. A thousand flowers bloom — Codex, Claude Code, Cursor, Cognition.</span></div>
-    <div class="kv-row"><span class="k">Future discovery</span><span class="v">Chain-of-thought → less data needed for self-driving → Alpaca Myo (world's first thinking self-driving car with ~1M miles).</span></div>
-  </div>
-</section>
-
-<!-- ═══════════════ 6 ═══════════════ -->
-<section>
-  <h2><span class="num">06</span> Open Source as Platform</h2>
-  <p>When Jensen saw OpenCL: <em>"We just designed the modern computer. This is the operating system that's going to hold a large language model. OpenCL to me was a very Linux moment."</em></p>
-
-  <p>He told Peter (OpenCL founder): <strong>"All of NVIDIA's engineers are your engineers."</strong> Same with the Hermes team.</p>
-
-  <div class="card">
-    <div class="label">His position</div>
-    <p>Use cloud services (ChatGPT, Claude) for everyday stuff. But if you're a company building domain-specific AIs — use Hermes, OpenClaude, whatever — <strong>build your own AI</strong>. The software is smart enough now that adapting it is easy.</p>
-    <div class="tags" style="margin-top:10px;">
-      <span class="tag tag-blue">Hermes</span>
-      <span class="tag tag-blue">OpenClaude</span>
-      <span class="tag tag-blue">OpenCL</span>
-      <span class="tag tag-gold">Linux moment</span>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════ 7 ═══════════════ -->
-<section>
-  <h2><span class="num">07</span> AI Doesn't Destroy Jobs — It Destroys Tasks</h2>
-  <p>Jensen pushes back hard on the "AI destroys jobs" narrative with actual data:</p>
-
-  <div class="grid-2">
-    <div class="card">
-      <div class="grid-label">Software engineers</div>
-      <p>Coding automated → jobs grew <strong>10% YoY</strong></p>
-    </div>
-    <div class="card">
-      <div class="grid-label">Radiologists</div>
-      <p>Scan reading automated → jobs grew <strong>20%</strong></p>
-    </div>
-    <div class="card">
-      <div class="grid-label">Paralegals</div>
-      <p>AI-assisted → growing "like crazy"</p>
-    </div>
-    <div class="card">
-      <div class="grid-label">Lawyers</div>
-      <p>More cases through the system → more hiring</p>
-    </div>
-  </div>
-
-  <div class="callout callout-gold">
-    <div class="label">The mechanism</div>
-    <p>Productivity drives growth. Growth drives employment. The backlog of ideas, patients, and lawsuits is enormous. Automating <em>tasks</em> lets you do more of everything else — which means you need <em>more</em> people, not fewer.</p>
-  </div>
-</section>
-
-<!-- ═══════════════ 8 ═══════════════ -->
-<section>
-  <h2><span class="num">08</span> Physical AI — Timeline &amp; Bet</h2>
-  <p>Jensen is surprisingly concrete. The "ChatGPT moment" for robotics happened a couple of years ago — robots walking around doing RL, grounded in physics. What's needed now is the same stack as agentic systems: environments for training and eval, sim-to-real pipelines, grounded physics simulation.</p>
-
-  <div class="card">
-    <div class="label">The bet</div>
-    <p>Self-driving cars as the first application (large market, standardized tech, real economic value). NVIDIA's physical AI / autonomous vehicle business is already ~$10B. "This will be our next $100B business." Timeline: longer than 2-3 years, less than 10.</p>
-  </div>
-
-  <div class="tags">
-    <span class="tag">Alpaca Myo</span>
-    <span class="tag tag-gold">$10B today</span>
-    <span class="tag tag-gold">$100B next</span>
-    <span class="tag tag-blue">Isaac Sim</span>
-    <span class="tag tag-blue">Cosmos</span>
-  </div>
-</section>
-
-<!-- ═══════════════ 9 ═══════════════ -->
-<section>
-  <h2><span class="num">09</span> What to Learn Now</h2>
-  <p>The simple stuff gets automated away — coding, long division. What doesn't:</p>
-
-  <div class="card">
-    <h3>Systems Thinking</h3>
-    <p>"The better you are at systems thinking — so that you could orchestrate millions of agents solving problems autonomously — the better off you are." Jensen calls this out as the single most important skill.</p>
-  </div>
-
-  <div class="card">
-    <h3>Hard Sciences</h3>
-    <p>Physics, chemistry, biology, computer engineering. The domains that are <em>intersecting</em> — those hard problems will never go away.</p>
-  </div>
-
-  <div class="card">
-    <h3>Problem Finding</h3>
-    <p>"You don't have to think about how much coding or how many engineers anymore. You just have to think about what is the problem you have to solve."</p>
-  </div>
-</section>
-
-<!-- ═══════════════ 10 ═══════════════ -->
-<section>
-  <h2><span class="num">10</span> The Mindset</h2>
-
-  <div class="quote-bar" style="margin-bottom:20px;">
-    <blockquote>"How hard can it be? You believe in your ability to learn. Learning is the single greatest superpower. Go into it with the attitude 'how hard can it be?' And let the suffering come to you a little bit at a time."</blockquote>
-  </div>
-
-  <div class="card">
-    <div class="label">Resilience is everything</div>
-    <p>"You don't have to overcome life in one day. You just have to overcome that morning. Just get through today. Work towards tomorrow. Keep following your dreams. If you stick with it long enough, NVIDIA happens."</p>
-  </div>
-
-  <div class="callout callout-red">
-    <div class="label">⚠️ The paradox</div>
-    <p>The "how hard can it be?" attitude works because Jensen has <em>earned</em> it. He bought three textbooks and taught NVIDIA computer graphics from scratch. The attitude is a prerequisite, not a substitute, for doing the work. You can't skip the textbook.</p>
-  </div>
-</section>
-
-<!-- ═══════════════ CORE TENSION ═══════════════ -->
-<section>
-  <h2><span class="emoji-label">⚡</span> The Core Tension</h2>
-
-  <div class="callout callout-gold" style="margin-bottom:12px;">
-    <div class="label">The unresolved question</div>
-    <p><strong>The F1 driver paradox:</strong> Jensen's "adapt the car to you" approach has created a $3T+ company. But the organization is inseparable from the founder. His answer — "they'll reshape the company for the next CEO" — is honest but doesn't solve the succession problem.</p>
-  </div>
-
-  <div class="callout callout-red">
-    <div class="label">The hidden cost</div>
-    <p><strong>Control vs. capability in agents:</strong> Jensen wants fine-grained control (change one word, see one pixel difference). But he also believes the model gets smarter every time you use it. These push in opposite directions — more capable models are harder to control precisely. He identifies the problem but doesn't claim to have solved it.</p>
-  </div>
-
-  <div class="callout" style="margin-bottom:12px;">
-    <div class="label">The real takeaway</div>
-    <p><strong>The algorithm-domain lens is replicable.</strong> NVIDIA didn't bet on GPUs. They bet on accelerated computing as a paradigm. The chip was a consequence of the belief. Find the "universal function approximator" of your era — the thing that changes everything about how computation, software, and products work.</p>
-  </div>
-</section>
-
-</div><!-- /container -->
-
-<div class="footer">
-  <p>Extracted from YC Startup School 2026 — <a href="https://youtu.be/I4B37S1dyQQ" target="_blank">Jensen Huang: The Mindset That Built NVIDIA</a></p>
-  <p>Curated by Hermes</p>
-</div>
-
-</div><!-- /#content -->
-
-<!-- ═══════════════ Gate Script ═══════════════ -->
-<script>
-(function(){
-  const HASH = '2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e';
-  const KEY  = 'unlocked_jensen-huang-mindset';
-  const gate = document.getElementById('password-gate');
-  const content = document.getElementById('content');
-  const input = document.getElementById('password-input');
-  const error = document.getElementById('password-error');
-
-  async function sha256(str) {
-    const buf = new TextEncoder().encode(str);
-    const hash = await crypto.subtle.digest('SHA-256', buf);
-    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
-  }
-
-  if (localStorage.getItem(KEY) === 'true') {
-    gate.classList.add('hidden');
-    content.style.display = 'block';
-  }
-
-  input.addEventListener('keydown', async function(e) {
-    if (e.key === 'Enter') {
-      const val = this.value.trim();
-      const hash = await sha256(val);
-      if (hash === HASH) {
-        localStorage.setItem(KEY, 'true');
-        gate.classList.add('hidden');
-        content.style.display = 'block';
-      } else {
-        error.classList.add('show');
-        this.value = '';
-        this.focus();
-      }
-    }
-  });
-})();
-</script>
-
+<div id="protected-content"><!-- encrypted --></div>
+<noscript><p style="color:#fb7185;text-align:center;padding:40px;font-family:sans-serif;">JavaScript required.</p></noscript>
+<link rel="stylesheet" href="/pages/_shared/menu.css">
 <script src="/pages/_shared/menu.js"></script>
 
 <script>
 (async function(){
-  const PASSWORD_HASH = "2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e";
-  const ENCRYPTED_PAYLOAD = "kDRK0lzGrGnZZGFM8TVJTt9SRHUQuIRdzmk9oSTSbB1b3Xgwr5cqf7tmtF7kt/109P8ao3SeI17PQ7OD8yLc7xT40OCdSmj6SEvVlwi+S0P4Qp2UVEJQczxI+X10VXHMLeu8Z6KtCoh0KW4jcwcphMcYIroLFWvcMqK1BVbANlXknxamB/b8eXtN3qMV+pMaOzedS/kj89J3objMLTbZ";
-
+  const HASH = "2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e";
+  const PAYLOAD = "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";
   const gate = document.getElementById('password-gate');
   const input = document.getElementById('password-input');
   const error = document.getElementById('password-error');
   const content = document.getElementById('protected-content');
-
-  async function sha256(str) {
-    const buf = new TextEncoder().encode(str);
-    const hash = await crypto.subtle.digest('SHA-256', buf);
-    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  async function sha256(s) {
+    const b = new TextEncoder().encode(s);
+    const h = await crypto.subtle.digest('SHA-256', b);
+    return Array.from(new Uint8Array(h)).map(x => x.toString(16).padStart(2,'0')).join('');
   }
-
-  async function deriveKey(password, salt) {
-    const keyMaterial = await crypto.subtle.importKey('raw', new TextEncoder().encode(password),
-      { name: 'PBKDF2' }, false, ['deriveBits', 'deriveKey']);
-    return crypto.subtle.deriveKey(
-      { name: 'PBKDF2', salt: salt, iterations: 600000, hash: 'SHA-256' },
-      keyMaterial, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+  async function deriveKey(pwd, salt) {
+    const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(pwd),
+      {name:'PBKDF2'},false,['deriveBits','deriveKey']);
+    return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:600000,hash:'SHA-256'},
+      km,{name:'AES-GCM',length:256},false,['decrypt']);
   }
-
-  async function decryptContent(password) {
+  async function decrypt(pwd) {
     try {
-      const raw = Uint8Array.from(atob(ENCRYPTED_PAYLOAD), c => c.charCodeAt(0));
-      const salt = raw.slice(0, 16);
-      const iv = raw.slice(16, 28);
-      const ciphertext = raw.slice(28);
-      const key = await deriveKey(password, salt);
-      const decrypted = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: iv }, key, ciphertext);
-      return new TextDecoder().decode(decrypted);
+      const r = Uint8Array.from(atob(PAYLOAD), c=>c.charCodeAt(0));
+      const s=r.slice(0,16), iv=r.slice(16,28), ct=r.slice(28);
+      const k = await deriveKey(pwd, s);
+      const d = await crypto.subtle.decrypt({name:'AES-GCM',iv},k,ct);
+      return new TextDecoder().decode(d);
     } catch(e) { return null; }
   }
-
-  // Auto-unlock if stored hash matches
-  (async function() {
-    const stored = localStorage.getItem('pages_pass');
-    if (stored === PASSWORD_HASH) {
-      const decrypted = await decryptContent(PASSWORD);
-      if (decrypted) { content.innerHTML = decrypted; if (gate) gate.classList.add('hidden'); return; }
+  (async()=>{
+    const st = localStorage.getItem('pages_pass');
+    if (st === HASH) {
+      const d = await decrypt(HASH);
+      if (d) { content.innerHTML = d; if(gate) gate.classList.add('hidden'); return; }
     }
   })();
-
   window.checkPassword = async function() {
     const pwd = input ? input.value : '';
-    const digest = await sha256(pwd);
-    if (digest !== PASSWORD_HASH) {
-      if (error) { error.style.display = 'block'; setTimeout(() => error.style.display = 'none', 2000); }
+    const dg = await sha256(pwd);
+    if (dg !== HASH) {
+      if(error) { error.style.display='block'; setTimeout(()=>error.style.display='none',2000); }
       return;
     }
-    const decrypted = await decryptContent(pwd);
-    if (decrypted) {
-      content.innerHTML = decrypted;
-      if (gate) gate.classList.add('hidden');
-      localStorage.setItem('pages_pass', digest);
-      // Re-run any page-specific initialization
-      if (window.onContentDecrypted) window.onContentDecrypted();
-    } else {
-      if (error) { error.style.display = 'block'; setTimeout(() => error.style.display = 'none', 2000); }
+    const d = await decrypt(pwd);
+    if (d) {
+      content.innerHTML = d;
+      if(gate) gate.classList.add('hidden');
+      localStorage.setItem('pages_pass', dg);
+      if(window.onContentDecrypted) window.onContentDecrypted();
     }
   };
-
-  if (input) {
-    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') window.checkPassword(); });
-  }
+  if(input) input.addEventListener('keydown', function(e){ if(e.key==='Enter') window.checkPassword(); });
 })();
 </script>
+
 </body>
 </html>
