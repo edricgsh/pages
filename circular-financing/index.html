@@ -140,51 +140,7 @@
   .gate-box input:focus { border-color: #60a5fa; }
 </style>
 
-<script>
-  (function(){
-    const HASH = "2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e";
-    const gate = document.getElementById('password-gate');
-    const input = document.getElementById('password-input');
-    const error = document.getElementById('password-error');
 
-    async function sha256(str) {
-      const buf = new TextEncoder().encode(str);
-      const hash = await crypto.subtle.digest('SHA-256', buf);
-      return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
-    }
-
-    async function check() {
-      const digest = await sha256(input.value);
-      if (digest === HASH) {
-        gate.classList.add('hidden');
-        localStorage.setItem('pages_pass', digest);
-      } else {
-        error.style.display = 'block';
-        setTimeout(() => error.style.display = 'none', 2000);
-      }
-    }
-
-    // Auto-check stored hash
-    (async function(){
-      const stored = localStorage.getItem('pages_pass');
-      if (stored === HASH) { gate.classList.add('hidden'); return; }
-    })();
-
-    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') check(); });
-  })();
-
-  function toggleFullscreen() {
-    const d = document.getElementById('diagram');
-    d.classList.toggle('fullscreen');
-    document.body.style.overflow = d.classList.contains('fullscreen') ? 'hidden' : '';
-  }
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      const d = document.getElementById('diagram');
-      if (d.classList.contains('fullscreen')) toggleFullscreen();
-    }
-  });
-</script>
 <script src="/pages/_shared/menu.js"></script>
 
 
@@ -228,7 +184,7 @@
   (async function() {
     const stored = localStorage.getItem('pages_pass');
     if (stored === PASSWORD_HASH) {
-      const decrypted = await decryptContent(PASSWORD);
+      const decrypted = await decryptContent("recon2026");
       if (decrypted) { content.innerHTML = decrypted; if (gate) gate.classList.add('hidden'); return; }
     }
   })();
