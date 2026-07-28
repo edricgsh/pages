@@ -170,8 +170,6 @@
 </head>
 <body>
 
-<div id="protected-content"><!-- encrypted --></div>
-<noscript><p style="color:#fb7185;text-align:center;padding:40px;font-family:sans-serif;">JavaScript required to view this content.</p></noscript>
 <div id="password-gate">
   <div class="gate-box">
     <div class="lock-icon">🔒</div>
@@ -463,75 +461,5 @@
 </script>
 
 <script src="/pages/_shared/menu.js"></script>
-
-<script>
-(async function(){
-  const PASSWORD_HASH = "2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e";
-  const ENCRYPTED_PAYLOAD = "LP9T8O8CW1BvI2oB92SpF5wkMKDeo3ezMb2VH3VERbz89eMPOq2Dxb/o5Bo=";
-
-  const gate = document.getElementById('password-gate');
-  const input = document.getElementById('password-input');
-  const error = document.getElementById('password-error');
-  const content = document.getElementById('protected-content');
-
-  async function sha256(str) {
-    const buf = new TextEncoder().encode(str);
-    const hash = await crypto.subtle.digest('SHA-256', buf);
-    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
-  }
-
-  async function deriveKey(password, salt) {
-    const keyMaterial = await crypto.subtle.importKey('raw', new TextEncoder().encode(password),
-      { name: 'PBKDF2' }, false, ['deriveBits', 'deriveKey']);
-    return crypto.subtle.deriveKey(
-      { name: 'PBKDF2', salt: salt, iterations: 600000, hash: 'SHA-256' },
-      keyMaterial, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
-  }
-
-  async function decryptContent(password) {
-    try {
-      const raw = Uint8Array.from(atob(ENCRYPTED_PAYLOAD), c => c.charCodeAt(0));
-      const salt = raw.slice(0, 16);
-      const iv = raw.slice(16, 28);
-      const ciphertext = raw.slice(28);
-      const key = await deriveKey(password, salt);
-      const decrypted = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: iv }, key, ciphertext);
-      return new TextDecoder().decode(decrypted);
-    } catch(e) { return null; }
-  }
-
-  // Auto-unlock if stored hash matches
-  (async function() {
-    const stored = localStorage.getItem('pages_pass');
-    if (stored === PASSWORD_HASH) {
-      const decrypted = await decryptContent(PASSWORD);
-      if (decrypted) { content.innerHTML = decrypted; if (gate) gate.classList.add('hidden'); return; }
-    }
-  })();
-
-  window.checkPassword = async function() {
-    const pwd = input ? input.value : '';
-    const digest = await sha256(pwd);
-    if (digest !== PASSWORD_HASH) {
-      if (error) { error.style.display = 'block'; setTimeout(() => error.style.display = 'none', 2000); }
-      return;
-    }
-    const decrypted = await decryptContent(pwd);
-    if (decrypted) {
-      content.innerHTML = decrypted;
-      if (gate) gate.classList.add('hidden');
-      localStorage.setItem('pages_pass', digest);
-      // Re-run any page-specific initialization
-      if (window.onContentDecrypted) window.onContentDecrypted();
-    } else {
-      if (error) { error.style.display = 'block'; setTimeout(() => error.style.display = 'none', 2000); }
-    }
-  };
-
-  if (input) {
-    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') window.checkPassword(); });
-  }
-})();
-</script>
 </body>
 </html>
