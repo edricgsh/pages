@@ -33,8 +33,10 @@ while IFS= read -r file; do
     fi
 
     # Check 2: Variable assignments with placeholder patterns near sensitive names
-    if echo "$line" | grep -qiE '(TODO|FIXME|XXX|CHANGE_ME|PLACEHOLDER).*(HASH|PASSWORD|SECRET|API_KEY|TOKEN|PRIVATE_KEY)'; then
-      echo "${YELLOW}⚠ WARNING:${NC} $file:$lineno — TODO/FIXME in sensitive variable context"
+    # Must be an actual assignment — the old form matched any line containing
+    # both "placeholder" and "password", i.e. every <input type="password">.
+    if echo "$line" | grep -qiE '(HASH|PASSWORD|SECRET|API_KEY|TOKEN|PRIVATE_KEY)[A-Z_]*\s*[=:]\s*[''"]?(TODO|FIXME|XXX|CHANGE_ME|PLACEHOLDER|YOUR_)'; then
+      echo "${YELLOW}⚠ WARNING:${NC} $file:$lineno — sensitive variable assigned a placeholder"
       echo "  $line"
       violations=$((violations + 1))
     fi
@@ -52,9 +54,28 @@ done <<EOF
 $staged_files
 EOF
 
+# Check 4: published pages must be encrypted loaders, never plaintext.
+# Everything GitHub Pages serves lives at the repo root; sources live in _src/.
+# A root-level index.html without the ciphertext payload means someone edited a
+# built file directly, or committed before running ./build.py.
+published=$(git diff --cached --name-only --diff-filter=ACM \
+  | grep -E '^([a-zA-Z0-9._-]+/)?index\.html$' \
+  | grep -v '^_src/' || true)
+
+for file in $published; do
+  content=$(git show ":${file}" 2>/dev/null || true)
+  [ -z "$content" ] && continue
+
+  if ! echo "$content" | grep -q 'id="pg-payload"'; then
+    echo "${RED}⚠ PLAINTEXT:${NC} $file — published page has no encrypted payload."
+    echo "  Edit _src/$file instead, then run ./build.py and stage the result."
+    violations=$((violations + 1))
+  fi
+done
+
 if [ "$violations" -gt 0 ]; then
   echo ""
-  echo "${RED}✗ Found $violations potential secret(s) in staged files.${NC}"
+  echo "${RED}✗ Found $violations problem(s) in staged files.${NC}"
   echo "  To bypass (e.g. for false positives): git commit --no-verify"
   exit 1
 fi

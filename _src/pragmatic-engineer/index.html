@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Pragmatic Engineer — Last 5 Issues · Research Artifact</title>
+<style>
+  /* ─── PASSWORD GATE ─── */
+  #password-gate {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    background: #0a0a0f;
+    font-family: 'Inter', -apple-system, sans-serif;
+  }
+  #password-gate.hidden { display: none; }
+  .gate-box { text-align: center; padding: 40px; max-width: 380px; }
+  .gate-box h1 { font-size: 24px; font-weight: 700; color: #f0f0f0; margin-bottom: 8px; }
+  .gate-box p { font-size: 14px; color: #888; margin-bottom: 24px; }
+  .gate-box input {
+    width: 100%; padding: 12px 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; color: #fff; font-size: 15px;
+    outline: none; text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 2px;
+  }
+  .gate-box input:focus { border-color: #60a5fa; }
+  .gate-box .error { color: #f87171; font-size: 13px; margin-top: 10px; display: none; }
+  .gate-box .error.show { display: block; }
+  .gate-box .lock-icon { font-size: 40px; margin-bottom: 16px; }
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0a0a0f;
+    color: #e0e0e0;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── Nav ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; gap: 6px;
+    padding: 10px 20px;
+    background: rgba(10,10,15,0.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    overflow-x: auto; scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav a {
+    flex-shrink: 0; padding: 5px 12px; border-radius: 6px;
+    font-size: 12px; font-weight: 500; color: #888;
+    text-decoration: none; transition: all 0.2s; white-space: nowrap;
+  }
+  nav a:hover, nav a.active { color: #fff; background: rgba(255,255,255,0.08); }
+  nav .sep { color: #333; font-size: 11px; margin: 0 2px; }
+
+  /* ─── Hero ─── */
+  .hero {
+    padding: 80px 24px 50px; text-align: center;
+    background: linear-gradient(180deg, rgba(59,130,246,0.06) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .hero h1 {
+    font-size: clamp(26px,4.5vw,42px); font-weight: 800;
+    background: linear-gradient(135deg,#60a5fa,#a78bfa,#f472b6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p.sub { margin-top: 10px; font-size: 15px; color: #888; max-width: 600px; margin-inline: auto; }
+  .hero .meta { margin-top: 14px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .hero .meta span { font-size: 12px; color: #666; background: rgba(255,255,255,0.04); padding: 3px 10px; border-radius: 20px; }
+
+  /* ─── Sections ─── */
+  section { padding: 40px 24px; max-width: 860px; margin: 0 auto; }
+  section h2 {
+    font-size: 20px; font-weight: 700; margin-bottom: 16px; color: #f0f0f0;
+    display: flex; align-items: center; gap: 10px;
+  }
+  section h2 .badge {
+    font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px;
+    background: rgba(59,130,246,0.15); color: #60a5fa; white-space: nowrap;
+  }
+  section h3 { font-size: 16px; font-weight: 600; margin: 22px 0 10px; color: #ccc; }
+  section p { font-size: 14px; color: #aaa; margin-bottom: 12px; }
+  section p b, section p strong { color: #e0e0e0; font-weight: 600; }
+  section ul { font-size: 14px; color: #999; padding-left: 18px; margin: 8px 0 14px; }
+  section ul li { margin-bottom: 5px; }
+  section blockquote {
+    border-left: 3px solid rgba(59,130,246,0.3);
+    padding: 10px 14px; margin: 12px 0; font-size: 13px; color: #bbb;
+    background: rgba(59,130,246,0.04); border-radius: 0 8px 8px 0;
+    font-style: italic;
+  }
+
+  /* ─── Article Cards ─── */
+  .article-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px; padding: 24px; margin: 20px 0;
+  }
+  .article-card:target { border-color: rgba(59,130,246,0.2); }
+  .article-card .art-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 12px; margin-bottom: 8px; flex-wrap: wrap;
+  }
+  .article-card .art-title { font-size: 17px; font-weight: 700; color: #f0f0f0; }
+  .article-card .art-date { font-size: 12px; color: #666; white-space: nowrap; padding-top: 3px; }
+  .article-card .art-link {
+    display: inline-block; font-size: 12px; color: #60a5fa; text-decoration: none; margin-bottom: 12px;
+  }
+  .article-card .art-link:hover { text-decoration: underline; }
+
+  /* Stat Grid */
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+    gap: 10px; margin: 12px 0;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px; padding: 12px; text-align: center;
+  }
+  .stat-card .stat-num { font-size: 22px; font-weight: 700; color: #f0f0f0; }
+  .stat-card .stat-label { font-size: 11px; color: #888; margin-top: 3px; }
+  .stat-card.green { border-color: rgba(34,197,94,0.2); }
+  .stat-card.green .stat-num { color: #4ade80; }
+  .stat-card.red { border-color: rgba(239,68,68,0.2); }
+  .stat-card.red .stat-num { color: #f87171; }
+  .stat-card.blue { border-color: rgba(59,130,246,0.2); }
+  .stat-card.blue .stat-num { color: #60a5fa; }
+  .stat-card.purple { border-color: rgba(168,85,247,0.2); }
+  .stat-card.purple .stat-num { color: #a78bfa; }
+
+  /* Table */
+  .data-table {
+    width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0;
+  }
+  .data-table th {
+    text-align: left; padding: 8px 10px; font-weight: 600; color: #888;
+    border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 11px; text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  .data-table td { padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.04); color: #aaa; }
+  .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* Tags */
+  .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: 500; }
+  .tag-trend { background: rgba(34,197,94,0.12); color: #4ade80; }
+  .tag-warn { background: rgba(239,68,68,0.12); color: #f87171; }
+  .tag-info { background: rgba(59,130,246,0.12); color: #60a5fa; }
+  .tag-note { background: rgba(168,85,247,0.12); color: #a78bfa; }
+
+  /* Footer */
+  footer { text-align: center; padding: 28px 24px; border-top: 1px solid rgba(255,255,255,0.04); font-size: 12px; color: #555; }
+  footer a { color: #60a5fa; text-decoration: none; }
+
+  @media (max-width:600px) {
+    .stat-grid { grid-template-columns: repeat(2,1fr); }
+    .data-table { font-size: 12px; }
+    .data-table th, .data-table td { padding: 6px 8px; }
+  }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  section { animation: fadeUp 0.4s ease-out; }
+</style>
+<link rel="stylesheet" href="/pages/shared/menu.css">
+</head>
+<body>
+
+<div id="password-gate">
+  <div class="gate-box">
+    <div class="lock-icon">🔒</div>
+    <h1>Restricted Page</h1>
+    <p>Enter password to view this research artifact.</p>
+    <input type="password" id="password-input" placeholder="Enter password" autocomplete="off">
+    <div class="error" id="password-error">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<div id="content" style="display:none;">
+
+<nav>
+  <a href="#overview">Overview</a><span class="sep">/</span>
+  <a href="#napkin">Napkin Math</a><span class="sep">/</span>
+  <a href="#jobmarket">Job Market</a><span class="sep">/</span>
+  <a href="#slowdown">Slow Down</a><span class="sep">/</span>
+  <a href="#ai-impact">AI Impact</a><span class="sep">/</span>
+  <a href="#part2">Market Pt 2</a><span class="sep">/</span>
+  <a href="#themes">Themes</a>
+</nav>
+
+<div class="hero">
+  <h1>The Pragmatic Engineer · Last 5 Editions</h1>
+  <p class="sub">Curated summaries of Gergely Orosz's most recent long-form deepdives — spanning the job market, AI's impact on engineering, and first-principles thinking.</p>
+  <div class="meta">
+    <span>📬 newsletter.pragmaticengineer.com</span>
+    <span>📅 May–Jul 2026</span>
+    <span>🔬 5 articles · ~20K words analyzed</span>
+  </div>
+</div>
+
+<!-- ════════════════ OVERVIEW ════════════════ -->
+<section id="overview">
+  <h2>Overview <span class="badge">5 Articles</span></h2>
+  <p>The most recent five long-form deepdives from <strong>Gergely Orosz</strong> (The Pragmatic Engineer, 1M+ subscribers) cluster around two big themes: <strong>the AI-ified engineering job market</strong> and <strong>the quality paradox of AI coding tools</strong>.</p>
+  <div class="stat-grid">
+    <div class="stat-card blue"><div class="stat-num">+20%</div><div class="stat-label">SWE hiring vs 2025 (top tech)</div></div>
+    <div class="stat-card green"><div class="stat-num">+60%</div><div class="stat-label">AI engineering openings YoY</div></div>
+    <div class="stat-card red"><div class="stat-num">2×</div><div class="stat-label">Code output surge (6 months)</div></div>
+    <div class="stat-card purple"><div class="stat-num">51%</div><div class="stat-label">Candidates targeting AI labs</div></div>
+    <div class="stat-card red"><div class="stat-num">1/10</div><div class="stat-label">New grad hires at large co's</div></div>
+    <div class="stat-card green"><div class="stat-num">100M</div><div class="stat-label">ARR with &lt;$1M raised (turbopuffer)</div></div>
+  </div>
+</section>
+
+<!-- ════════════ NAPKIN MATH ════════════ -->
+<section id="napkin">
+  <h2>1. Pushing Software Engineering Limits with "Napkin Math" <span class="badge">Jul 21</span></h2>
+  <div class="article-card" id="art-napkin">
+    <div class="art-header">
+      <div class="art-title">Simon Eskildsen (turbopuffer) on first-principles engineering</div>
+      <div class="art-date">Jul 21, 2026</div>
+    </div>
+    <a class="art-link" href="https://newsletter.pragmaticengineer.com/p/pushing-software-engineering-limits" target="_blank">Read original →</a>
+
+    <p><strong>The core concept:</strong> "Napkin math" — computing theoretical lower bounds for system performance using first-principles calculations. Simon maintains a table of ~50 hardware/cost numbers memorized via flashcards, then sanity-checks everything against these limits.</p>
+
+    <h3>Key Takeaways</h3>
+    <ul>
+      <li><strong>Toxiproxy origins:</strong> Simon built Shopify's Toxiproxy (failure-injection tool, now OSS) after a cascading Redis failure during Black Friday. It's used by 37% of the Fortune 100.</li>
+      <li><strong>How turbopuffer started:</strong> Summer 2023. Simon realized existing vector search was 10–20× more expensive than napkin math suggested. First version: cluster vectors in S3 + NGINX caching.</li>
+      <li><strong>Cursor as customer #1:</strong> Simon tweeted about the product, flew to SF, debugged Cursor's Postgres (autovacuum!), promised 95% cost reduction — delivered ($80K → $4K/month).</li>
+      <li><strong>VC funding critique:</strong> 6 reasons to raise capital (R&D, growth, ego, employee rewards, partnerships, M&A). "Massaging founder egos" is dangerously common.</li>
+      <li><strong>Insane efficiency:</strong> Turbopuffer crossed $100M ARR with less than $1M total raised — virtually unheard of in modern SaaS.</li>
+    </ul>
+
+    <blockquote>"I learned that you must avoid digging holes. Repeatedly, I found myself so fixated on getting a particular idea to work that I'd get absolutely nowhere. Sometimes, you have to bite the bullet, delete your program, find a new sheet of paper, and start from scratch."</blockquote>
+  </div>
+</section>
+
+<!-- ════════════ JOB MARKET PART 1 ════════════ -->
+<section id="jobmarket">
+  <h2>2. State of the Software Engineering Job Market in 2026 <span class="badge">May 26</span></h2>
+  <div class="article-card" id="art-jobmarket">
+    <div class="art-header">
+      <div class="art-title">The big picture: recovery, AI boom, and structural shifts</div>
+      <div class="art-date">May 26, 2026</div>
+    </div>
+    <a class="art-link" href="https://newsletter.pragmaticengineer.com/p/state-of-the-job-market-2026" target="_blank">Read original →</a>
+
+    <h3>Who's Hiring?</h3>
+    <table class="data-table">
+      <tr><th>Company</th><th>SWE Change (2yr)</th><th>Notes</th></tr>
+      <tr><td>Meta</td><td>+20% (then -10% Jul)</td><td>Most volatile; 3 layoff rounds</td></tr>
+      <tr><td>Apple</td><td>+10%</td><td>Most stable; no mass layoffs</td></tr>
+      <tr><td>Google</td><td>+5%</td><td>+62% more engineering roles vs 2025</td></tr>
+      <tr><td>Microsoft</td><td>-1.1%</td><td>Flat</td></tr>
+      <tr><td>Shopify</td><td>+36%</td><td>Slowed to +6% in past year</td></tr>
+      <tr><td>Stripe</td><td>+29%</td><td>+15% past year</td></tr>
+      <tr><td>Ramp</td><td>+94%</td><td>Fastest-growing SWE headcount</td></tr>
+      <tr><td>Wiz</td><td>+84%</td><td>Security boom</td></tr>
+    </table>
+
+    <p><strong>AI engineering is a different universe:</strong> +60% YoY growth in AI engineering openings vs +7% for SWE. Anthropic is now the most sought-after employer. AI engineering compensation already exceeds pure SWE comp — at the 80th percentile in the US, $300K+ base is the norm for senior AI engineers.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card green"><div class="stat-num">+60%</div><div class="stat-label">AI engineering openings YoY</div></div>
+      <div class="stat-card blue"><div class="stat-num">80%</div><div class="stat-label">Anthropic 2yr retention</div></div>
+      <div class="stat-card red"><div class="stat-num">67%</div><div class="stat-label">OpenAI 2yr retention</div></div>
+      <div class="stat-card purple"><div class="stat-num">300K+</div><div class="stat-label">Base salary (80th %ile, Sr AI Eng)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ SLOW DOWN ════════════ -->
+<section id="slowdown">
+  <h2>3. Slow Down to Speed Up: AI Agents & Code Quality <span class="badge">Jun 2</span></h2>
+  <div class="article-card" id="art-slowdown">
+    <div class="art-header">
+      <div class="art-title">The paradox of AI-generated code volume</div>
+      <div class="art-date">Jun 2, 2026</div>
+    </div>
+    <a class="art-link" href="https://newsletter.pragmaticengineer.com/p/ideas-slow-down-to-speed-up-when" target="_blank">Read original →</a>
+
+    <p><strong>The thesis:</strong> AI coding tools are now used by virtually all engineers. Code output has <strong>doubled (or more)</strong> in just 6 months. This creates a crisis of quality, security, and tech debt that nobody is managing.</p>
+
+    <h3>The Downstream Problems</h3>
+    <ul>
+      <li><span class="tag tag-warn">Quality</span> — code volume outpaces verification capacity</li>
+      <li><span class="tag tag-warn">Security</span> — AI-generated code introduces vulnerabilities that aren't caught</li>
+      <li><span class="tag tag-trend">Infra strain</span> — CI/CD pipelines, review processes, and testing can't keep up</li>
+      <li><span class="tag tag-warn">Debt</span> — unverified code merges compound</li>
+    </ul>
+
+    <p><strong>The rational fix:</strong> Cap AI-generated code output to what teams can actually verify and review. Slow down the rate to a pace where humans can maintain quality and reliability.</p>
+
+    <p><strong>The paradox:</strong> While this is the rational solution, most teams and companies are <em>not</em> acting rationally. They're prioritizing speed over quality. Cursor power users generate 10× more code than median users. Nearly half of AI-generated changes are accepted without manual review.</p>
+
+    <blockquote>"Devs are generating twice as much code (or more) than just 6 months ago, which is a problem for quality, reliability, and tech debt. A rational fix is available — but who's acting rationally?"</blockquote>
+  </div>
+</section>
+
+<!-- ════════════ AI IMPACT ════════════ -->
+<section id="ai-impact">
+  <h2>4. AI's Impact on Software Engineers in 2026, Part 2 <span class="badge">May 19</span></h2>
+  <div class="article-card" id="art-aiimpact">
+    <div class="art-header">
+      <div class="art-title">900+ survey: the good, the bad, and the rollbacks</div>
+      <div class="art-date">May 19, 2026</div>
+    </div>
+    <a class="art-link" href="https://newsletter.pragmaticengineer.com/p/ai-impact-on-software-engineers-part-2" target="_blank">Read original →</a>
+
+    <h3>Key Findings from 900+ Respondents</h3>
+    <ul>
+      <li><span class="tag tag-trend">AI amplifies culture</span> — it doesn't fix underlying quality issues. Teams with strong engineering practices get more benefit.</li>
+      <li><span class="tag tag-warn">Rollback cases</span> — at least one 10,000+ person European company rolled back AI tools after costly production incidents caused by AI-written code.</li>
+      <li><span class="tag tag-warn">Codebase quality is declining</span> — "AI slop" (duplicated, verbose code), too many reviews → review quality slips, more bugs.</li>
+      <li><span class="tag tag-note">Junior engineers suffer</span> — they're the top token spenders in orgs but get fewer growth opportunities as seniors delegate to AI instead.</li>
+      <li><span class="tag tag-note">"Death of code review"</span> — reviewers lack motivation to deeply review giant AI-generated PRs.</li>
+      <li><span class="tag tag-warn">"Tokenmaxxing"</span> — companies pushing for universal AI usage targets (50%, 80%, 100%) without regard for quality.</li>
+    </ul>
+
+    <blockquote>"Since the AI boom, the quality of technical writing and reasoning from senior engineers in my org has significantly deteriorated. We've also seen costly production incidents caused by code written and/or approved by AI, and — while my employer initially bought heavily into the hype — we have now rolled back some of our AI tools."<br>— Engineering lead, 10,000+ person company, Europe</blockquote>
+
+    <blockquote>"For junior engineers like myself, these AI tools are stressful to use. I don't have the experience or knowledge to tell AI exactly what to do or quickly confirm its output, so I spend a lot of time on just triple checking and redoing stuff."<br>— Junior engineer, Australia</blockquote>
+  </div>
+</section>
+
+<!-- ════════════ JOB MARKET PART 2 ════════════ -->
+<section id="part2">
+  <h2>5. Job Market 2026, Part 2: AI Labs, Frontend Decline & Comp <span class="badge">Jun 9</span></h2>
+  <div class="article-card" id="art-part2">
+    <div class="art-header">
+      <div class="art-title">Anthropic > Big Tech, the end of frontend-only roles, and the "great flattening"</div>
+      <div class="art-date">Jun 9, 2026</div>
+    </div>
+    <a class="art-link" href="https://newsletter.pragmaticengineer.com/p/the-job-market-in-2026-part-2" target="_blank">Read original →</a>
+
+    <h3>Anthropic Is Now the #1 Most In-Demand Employer</h3>
+    <p>Combined, Anthropic + OpenAI account for <strong>51% of all interviewing.io coaching requests</strong> — more than Google, Meta, Apple, and Microsoft combined. OpenAI (16%) gets about the same candidate share as Google (17%).</p>
+
+    <h3>Frontend-Only Engineers Are Disappearing</h3>
+    <p>Full-stack is becoming the norm. With AI removing barriers between frontend and backend work, "pure" frontend engineers will only be employed at larger companies with dedicated design system teams. Native iOS/Android roles are also in structural decline.</p>
+
+    <h3>New Grad & Intern Hiring Is Still Falling</h3>
+    <p>This cycle is historically unprecedented: even as overall SWE hiring recovers, intern programs keep shrinking. Large tech companies take on <strong>half as many interns</strong> as before. In 2025, just <strong>1 in 10 engineering hires</strong> at larger companies were recent grads, down from nearly 3 in 10 in 2023.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card green"><div class="stat-num">51%</div><div class="stat-label">Coaching candidates targeting AI labs</div></div>
+      <div class="stat-card red"><div class="stat-num">1/10</div><div class="stat-label">New grad hires (was 3/10 in 2023)</div></div>
+      <div class="stat-card red"><div class="stat-num">50%</div><div class="stat-label">Fewer interns vs pre-2024</div></div>
+      <div class="stat-card blue"><div class="stat-num">#1</div><div class="stat-label">Anthropic — most in-demand employer</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ CROSS-CUTTING THEMES ════════════ -->
+<section id="themes">
+  <h2>Cross-Cutting Themes <span class="badge">Synthesis</span></h2>
+
+  <div class="article-card" style="border-color:rgba(168,85,247,0.15);">
+    <h3 style="margin-top:0;">📊 The AI Divide Is Real</h3>
+    <p>The job market is bifurcating. AI engineering hiring grew 60% YoY vs 7% for SWE. AI compensation already exceeds pure SWE. Meanwhile, frontend, mobile, and generalist roles face structural compression. The gap isn't cyclical — it's permanent.</p>
+  </div>
+
+  <div class="article-card" style="border-color:rgba(239,68,68,0.12);">
+    <h3 style="margin-top:0;">⚠️ Quality Is the New Bottleneck</h3>
+    <p>Across three separate articles, the same pattern emerges: AI lets engineers produce code 2× faster, but the surrounding infrastructure (code review, testing, security review, maintenance) hasn't scaled. The result is "AI slop," production incidents, and a maintenance burden falling on fewer people. The rational fix — slowing down — is politically difficult when management is measuring velocity.</p>
+  </div>
+
+  <div class="article-card" style="border-color:rgba(34,197,94,0.12);">
+    <h3 style="margin-top:0;">🔬 First Principles Still Win</h3>
+    <p>Simon Eskildsen's turbopuffer story is almost a counterpoint to the AI hype: sometimes the biggest competitive advantage comes from understanding your hardware costs deeply enough to realize everyone else is overpaying by 10–20×. Napkin math + focus beats throwing models at a problem.</p>
+  </div>
+
+  <div class="article-card" style="border-color:rgba(59,130,246,0.12);">
+    <h3 style="margin-top:0;">🎯 The Junior Engineer Trap</h3>
+    <p>Multiple data points converge: juniors spend the most on AI tokens but get the least value. Seniors delegate fewer growth opportunities to them (using AI instead). New grad hiring is structurally declining. The industry is eating its seed corn.</p>
+  </div>
+
+  <div class="article-card" style="border-color:rgba(250,204,21,0.12);">
+    <h3 style="margin-top:0;">🏢 The "Great Flattening" of Engineering Management</h3>
+    <p>Fewer engineering managers per engineer. Fewer VP/Director posts. AI labs have radically flat hierarchies. The traditional career ladder (IC → Manager → Director → VP) is compressing. Staff+ roles are simultaneously the hottest and hardest to land.</p>
+  </div>
+
+  <div class="article-card" style="border-color:rgba(59,130,246,0.15);background:rgba(59,130,246,0.03);">
+    <h3 style="margin-top:0;color:#60a5fa;">Bottom Line</h3>
+    <p style="font-size:14px;line-height:1.7;">The Pragmatic Engineer's last five editions paint a picture of an industry in transition: <strong>AI is real, it's reshaping both the job market and the daily work of engineering, but the side effects (quality erosion, juniors left behind, maintenance crisis, management flattening) are accumulating faster than most companies are addressing them.</strong> The winners will be those who pair AI acceleration with disciplined verification — not those who optimize for output alone.</p>
+  </div>
+</section>
+
+<footer>
+  Sources: <a href="https://newsletter.pragmaticengineer.com/p/pushing-software-engineering-limits" target="_blank">Napkin Math</a> ·
+  <a href="https://newsletter.pragmaticengineer.com/p/state-of-the-job-market-2026" target="_blank">Job Market 2026</a> ·
+  <a href="https://newsletter.pragmaticengineer.com/p/ideas-slow-down-to-speed-up-when" target="_blank">Slow Down</a> ·
+  <a href="https://newsletter.pragmaticengineer.com/p/ai-impact-on-software-engineers-part-2" target="_blank">AI Impact</a> ·
+  <a href="https://newsletter.pragmaticengineer.com/p/the-job-market-in-2026-part-2" target="_blank">Market Pt 2</a><br>
+  Published via Hermes Agent research artifacts · Jul 2026 · Password: recon2026
+</footer>
+
+</div><!-- /content -->
+
+<script>
+  (function(){
+    const HASH = '2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e';
+    const gate = document.getElementById('password-gate');
+    const content = document.getElementById('content');
+    const input = document.getElementById('password-input');
+    const error = document.getElementById('password-error');
+
+    async function sha256(str) {
+      const buf = new TextEncoder().encode(str);
+      const hash = await crypto.subtle.digest('SHA-256', buf);
+      return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+    }
+
+    if (localStorage.getItem('unlocked_pe') === 'true') {
+      gate.classList.add('hidden');
+      content.style.display = 'block';
+    }
+
+    input.addEventListener('keydown', async function(e) {
+      if (e.key === 'Enter') {
+        const val = this.value.trim();
+        const hash = await sha256(val);
+        if (hash === HASH) {
+          localStorage.setItem('unlocked_pe', 'true');
+          gate.classList.add('hidden');
+          content.style.display = 'block';
+        } else {
+          error.classList.add('show');
+          this.value = '';
+          this.focus();
+        }
+      }
+    });
+  })();
+
+  // Nav smooth scroll
+  document.querySelectorAll('nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  });
+  // Active nav
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        const id = entry.target.id || entry.target.querySelector('[id]')?.id;
+        if (id) { const link = document.querySelector(`nav a[href="#${id}"]`); if(link) link.classList.add('active'); }
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('section').forEach(s => observer.observe(s));
+</script>
+
+<script src="/pages/shared/menu.js"></script>
+</body>
+</html>

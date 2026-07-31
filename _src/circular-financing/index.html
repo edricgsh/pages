@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Circular Financing — The $800B Money Loop</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #020617;
+    min-height: 100vh;
+    padding: 2rem;
+    color: white;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .header { margin-bottom: 2rem; }
+  .header-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+  .pulse-dot {
+    width: 12px; height: 12px; background: #22d3ee; border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  h1 { font-family: 'Inter', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em; }
+  .subtitle { color: #94a3b8; font-size: 0.875rem; margin-left: 1.75rem; }
+  .subtitle a { color: #60a5fa; text-decoration: none; }
+  .subtitle a:hover { text-decoration: underline; }
+  .diagram-wrapper {
+    position: relative;
+  }
+  .diagram-container {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 1rem; border: 1px solid #1e293b;
+    padding: 1.5rem; overflow-x: auto;
+    transition: all 0.3s ease;
+  }
+  .diagram-container.fullscreen {
+    position: fixed; z-index: 9998;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw; height: 100vh;
+    max-width: none; border-radius: 0; border: none;
+    padding: 2rem; overflow: auto;
+    background: #020617;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .diagram-container.fullscreen svg {
+    max-height: 90vh; max-width: 95vw;
+    min-width: auto;
+  }
+  svg { width: 100%; min-width: 1000px; display: block; }
+  .fs-btn {
+    position: absolute; top: 12px; right: 12px; z-index: 2;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(6px);
+    border-radius: 8px;
+    color: #94a3b8; font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .fs-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+  .fs-btn .icon-expand { display: block; }
+  .fs-btn .icon-compress { display: none; }
+  .diagram-container.fullscreen ~ .fs-btn .icon-expand { display: none; }
+  .diagram-container.fullscreen ~ .fs-btn .icon-compress { display: block; }
+  .diagram-container.fullscreen ~ .fs-btn {
+    position: fixed; z-index: 9999;
+    top: 16px; right: 16px;
+  }
+  .cards {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1rem; margin-top: 2rem;
+  }
+  .card {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 0.75rem; border: 1px solid #1e293b; padding: 1.25rem;
+  }
+  .card-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .card-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .card-dot.cyan { background: #22d3ee; }
+  .card-dot.amber { background: #fbbf24; }
+  .card-dot.rose { background: #fb7185; }
+  .card-dot.emerald { background: #34d399; }
+  .card h3 { font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 600; }
+  .card ul { list-style: none; color: #94a3b8; font-size: 0.75rem; }
+  .card li { margin-bottom: 0.375rem; }
+  .card li strong { color: #e2e8f0; }
+  .footer { text-align: center; margin-top: 1.5rem; color: #475569; font-size: 0.75rem; }
+  .section { margin-top: 2.5rem; }
+  .section h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; color: #f1f5f9; }
+  .section p { color: #94a3b8; font-size: 0.875rem; line-height: 1.7; margin-bottom: 1rem; }
+  .section p strong { color: #e2e8f0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 1rem; }
+  th { text-align: left; padding: 0.75rem 1rem; background: rgba(15,23,42,0.8); color: #94a3b8; font-weight: 500; border-bottom: 1px solid #1e293b; }
+  td { padding: 0.75rem 1rem; border-bottom: 1px solid #1e293b; color: #cbd5e1; }
+  tr:hover td { background: rgba(15,23,42,0.6); }
+  .risk-box {
+    background: rgba(136, 19, 55, 0.15); border: 1px solid rgba(251, 113, 133, 0.3);
+    border-radius: 0.75rem; padding: 1.25rem; margin-top: 1.5rem;
+  }
+  .risk-box h3 { color: #fb7185; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .risk-box p { color: #94a3b8; font-size: 0.8rem; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-row">
+      <div class="pulse-dot"></div>
+      <h1>AI Circular Financing — The $800B Money Loop</h1>
+    </div>
+    <p class="subtitle">How chipmakers and cloud providers invest in their own customers — and the bubble risk nobody wants to talk about</p>
+  </div>
+
+  <!-- Main Diagram -->
+  <div class="diagram-wrapper">
+    <div class="diagram-container" id="diagram">
+      <svg viewBox="0 0 1000 680">
+        <!-- Definitions -->
+      <defs>
+        <marker id="arrow-invest" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#34d399" />
+        </marker>
+        <marker id="arrow-spend" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#fbbf24" />
+        </marker>
+        <marker id="arrow-revenue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#a78bfa" />
+        </marker>
+        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+        </pattern>
+      </defs>
+
+      <!-- Background Grid -->
+      <rect width="100%" height="100%" fill="url(#grid)" />
+
+      <!-- Title zone -->
+      <text x="500" y="35" fill="white" font-size="14" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">How Circular Financing Works</text>
+
+      <!-- === THE CORE CIRCULAR LOOP === -->
+
+      <!-- Center: The Loop Label -->
+      <rect x="400" y="310" width="200" height="36" rx="18" fill="rgba(251, 113, 133, 0.15)" stroke="#fb7185" stroke-width="1.5"/>
+      <text x="500" y="332" fill="#fb7185" font-size="10" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">⚠ THE CIRCULAR LOOP</text>
+
+      <!-- === LEFT: Chip Supplier / Cloud Provider === -->
+      <rect x="60" y="120" width="200" height="80" rx="8" fill="rgba(5, 46, 22, 0.5)" stroke="#34d399" stroke-width="2"/>
+      <text x="160" y="150" fill="#34d399" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">Supplier</text>
+      <text x="160" y="170" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="Inter, sans-serif">Chipmaker / Cloud Provider</text>
+      <text x="160" y="185" fill="#6ee7b7" font-size="8" text-anchor="middle" font-family="Inter, sans-serif">NVIDIA · AMD · Google Cloud · Azure · AWS</text>
+
+      <!-- LEFT sub-boxes: specific suppliers -->
+      <rect x="60" y="220" width="200" height="95" rx="6" fill="rgba(5, 46, 22, 0.3)" stroke="#34d399" stroke-width="1" stroke-dasharray="4,2"/>
+      <text x="160" y="240" fill="#6ee7b7" font-size="9" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">What They Supply</text>
+      <text x="75" y="258" fill="#94a3b8" font-size="8" font-family="Inter, sans-serif">• GPUs / TPUs / AI chips</text>
+      <text x="75" y="274" fill="#94a3b8" font-size="8" font-family="Inter, sans-serif">• Cloud compute (Azure, GCP, AWS)</text>
+      <text x="75" y="290" fill="#94a3b8" font-size="8" font-family="Inter, sans-serif">• Data center infrastructure</text>
+
+      <!-- === RIGHT: AI Company === -->
+      <rect x="740" y="120" width="200" height="80" rx="8" fill="rgba(120, 53, 15, 0.4)" stroke="#fbbf24" stroke-width="2"/>
+      <text x="840" y="150" fill="#fbbf24" font-size="13" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">AI Company</text>
+      <text x="840" y="170" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="Inter, sans-serif">Model Lab / AI Startup</text>
+      <text x="840" y="185" fill="#fde68a" font-size="8" text-anchor="middle" font-family="Inter, sans-serif">OpenAI · Anthropic · Inflection AI</text>
+
+      <!-- RIGHT sub-boxes -->
+      <rect x="740" y="220" width="200" height="95" rx="6" fill="rgba(120, 53, 15, 0.25)" stroke="#fbbf24" stroke-width="1" stroke-dasharray="4,2"/>
+      <text x="840" y="240" fill="#fde68a" font-size="9" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">What They Need</text>
+      <text x="755" y="258" fill="#94a3b8" font-size="8" font-family="Inter, sans-serif">• Massive GPU clusters for training</text>
+      <text x="755" y="274" fill="#94a3b8" font-size="8" font-family="Inter, sans-serif">• Cloud inference at scale</text>
+      <text x="755" y="290" fill="#94a3b8" font-size="8" font-family="Inter, sans-serif">• $Billions in compute budget</text>
+
+      <!-- === THE LOOP ARROWS === -->
+
+      <!-- Arrow 1: Supplier invests Capital → AI Company (top) -->
+      <path d="M 260 140 Q 500 40 740 140" fill="none" stroke="#34d399" stroke-width="2.5" marker-end="url(#arrow-invest)"/>
+      <rect x="420" y="65" width="160" height="28" rx="14" fill="rgba(5, 46, 22, 0.8)" stroke="#34d399" stroke-width="1"/>
+      <text x="500" y="83" fill="#34d399" font-size="9" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">① Invests Equity / Capital</text>
+      <text x="500" y="65" fill="#6ee7b7" font-size="7" text-anchor="middle" font-family="Inter, sans-serif">$30B (NVIDIA→OpenAI) · $40B (Google→Anthropic)</text>
+
+      <!-- Arrow 2: AI Company spends on compute → Supplier (bottom) -->
+      <path d="M 740 260 Q 500 380 260 260" fill="none" stroke="#fbbf24" stroke-width="2.5" marker-end="url(#arrow-spend)"/>
+      <rect x="420" y="345" width="160" height="28" rx="14" fill="rgba(120, 53, 15, 0.8)" stroke="#fbbf24" stroke-width="1"/>
+      <text x="500" y="363" fill="#fbbf24" font-size="9" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">② Buys Compute / Chips</text>
+      <text x="500" y="383" fill="#fde68a" font-size="7" text-anchor="middle" font-family="Inter, sans-serif">$100B (Anthropic→AWS) · GPU purchase contracts</text>
+
+      <!-- Arrow 3: Revenue cycles back as growth → Supplier books revenue (vertical right) -->
+      <path d="M 840 315 L 840 310" fill="none" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrow-revenue)"/>
+
+      <!-- === INSIDE THE LOOP: The Circularity Risk === -->
+      <rect x="350" y="430" width="300" height="55" rx="8" fill="rgba(136, 19, 55, 0.15)" stroke="#fb7185" stroke-width="1" stroke-dasharray="4,2"/>
+      <text x="500" y="450" fill="#fb7185" font-size="9" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">The Risk: Manufactured Revenue</text>
+      <text x="500" y="467" fill="#fda4af" font-size="8" text-anchor="middle" font-family="Inter, sans-serif">Supplier's own capital flows back as "customer revenue" — inflating growth metrics</text>
+
+      <!-- === NEOCLOUD TIER (middle) === -->
+      <rect x="370" y="520" width="260" height="55" rx="8" fill="rgba(30, 41, 59, 0.5)" stroke="#94a3b8" stroke-width="1.5"/>
+      <text x="500" y="540" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">Neoclouds</text>
+      <text x="500" y="556" fill="#94a3b8" font-size="8" text-anchor="middle" font-family="Inter, sans-serif">CoreWeave · Lambda Labs · Together · Vultr</text>
+      <text x="500" y="568" fill="#94a3b8" font-size="7" text-anchor="middle" font-family="Inter, sans-serif">(NVIDIA invests → neoclouds buy NVIDIA GPUs → rent to AI labs)</text>
+
+      <!-- Arrow from Supplier to Neocloud -->
+      <line x1="160" y1="315" x2="370" y2="540" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-invest)"/>
+      <text x="220" y="435" fill="#64748b" font-size="7" font-family="Inter, sans-serif">NVIDIA invests</text>
+
+      <!-- Arrow from Neocloud to AI Company -->
+      <line x1="630" y1="540" x2="740" y2="260" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-spend)"/>
+      <text x="660" y="425" fill="#64748b" font-size="7" font-family="Inter, sans-serif">rents compute</text>
+
+      <!-- === ADDITIONAL PLAYERS === -->
+
+      <!-- Customer (Enterprise) -->
+      <rect x="60" y="520" width="200" height="55" rx="8" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+      <text x="160" y="540" fill="#22d3ee" font-size="11" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">Enterprise Customers</text>
+      <text x="160" y="556" fill="#94a3b8" font-size="8" text-anchor="middle" font-family="Inter, sans-serif">Buy AI products (API, chatbot, agents)</text>
+
+      <!-- Arrow: AI Company → Enterprise revenue -->
+      <line x1="500" y1="485" x2="260" y2="550" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrow-invest)"/>
+      <text x="360" y="530" fill="#22d3ee" font-size="7" font-family="Inter, sans-serif">③ Real revenue (outside the loop)</text>
+
+      <!-- === LEGEND === -->
+      <rect x="720" y="490" width="230" height="170" rx="8" fill="rgba(15,23,42,0.8)" stroke="#1e293b" stroke-width="1"/>
+      <text x="730" y="508" fill="white" font-size="10" font-weight="600" font-family="Inter, sans-serif">Legend</text>
+
+      <line x1="730" y1="522" x2="755" y2="522" stroke="#34d399" stroke-width="2.5"/>
+      <text x="762" y="525" fill="#94a3b8" font-size="8" font-family="Inter, sans-serif">Capital / Equity Investment</text>
+
+      <line x1="730" y1="540" x2="755" y2="540" stroke="#fbbf24" stroke-width="2.5"/>
+      <text x="762" y="543" fill="#94a3b8" font-size="8" font-family="Inter, sans-serif">Compute / Chip Purchases</text>
+
+      <line x1="730" y1="558" x2="755" y2="558" stroke="#22d3ee" stroke-width="1.5"/>
+      <text x="762" y="561" fill="#94a3b8" font-size="8" font-family="Inter, sans-serif">Real External Revenue</text>
+
+      <line x1="730" y1="576" x2="755" y2="576" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <text x="762" y="579" fill="#94a3b8" font-size="8" font-family="Inter, sans-serif">Indirect / Neocloud Flow</text>
+
+      <rect x="730" y="590" width="16" height="10" rx="3" fill="rgba(136,19,55,0.15)" stroke="#fb7185" stroke-width="1"/>
+      <text x="752" y="598" fill="#94a3b8" font-size="8" font-family="Inter, sans-serif">Risk / Circularity Concern</text>
+
+      <rect x="730" y="608" width="16" height="10" rx="3" fill="rgba(5,46,22,0.5)" stroke="#34d399" stroke-width="1"/>
+      <text x="752" y="617" fill="#94a3b8" font-size="8" font-family="Inter, sans-serif">Supply Side</text>
+
+      <rect x="810" y="608" width="16" height="10" rx="3" fill="rgba(120,53,15,0.4)" stroke="#fbbf24" stroke-width="1"/>
+      <text x="832" y="617" fill="#94a3b8" font-size="8" font-family="Inter, sans-serif">Demand Side</text>
+
+    </svg>
+    </div>  <!-- /diagram-container -->
+    <button class="fs-btn" id="fs-toggle" onclick="toggleFullscreen()" aria-label="Toggle fullscreen">
+      <span class="icon-expand">⛶</span>
+      <span class="icon-compress">✕</span>
+    </button>
+  </div>  <!-- /diagram-wrapper -->
+
+  <!-- Info Cards -->
+  <div class="cards">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-dot amber"></div>
+        <h3>Key Deals (2025-2026)</h3>
+      </div>
+      <ul>
+        <li><strong>NVIDIA → OpenAI:</strong> $30B equity stake; OpenAI commits to NVIDIA GPUs</li>
+        <li><strong>Google → Anthropic:</strong> Up to $40B ($10B cash + 5GW TPU cloud)</li>
+        <li><strong>Amazon → Anthropic:</strong> $100B compute commitment (5GW)</li>
+        <li><strong>Microsoft → OpenAI:</strong> Multi-billion Azure compute deal + equity</li>
+        <li><strong>AMD → Anthropic / Meta:</strong> Equity + Instinct GPU purchase commitments</li>
+        <li><strong>NVIDIA → Neoclouds:</strong> $20B+ to CoreWeave, Lambda Labs, etc.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-dot rose"></div>
+        <h3>The Circularity Problem</h3>
+      </div>
+      <ul>
+        <li>Supplier invests → AI company buys supplier's product → Supplier books as revenue</li>
+        <li>Same dollar flows in a loop — inflating both sides of the P&amp;L</li>
+        <li>Estimated $800B+ in circular commitments across the AI industry</li>
+        <li>NVIDIA alone has $40B+ in AI equity bets (2025-2026)</li>
+        <li>Analysts warn: echoes Lucent/Nortel vendor financing in the telecom bubble</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-dot cyan"></div>
+        <h3>What's Different This Time?</h3>
+      </div>
+      <ul>
+        <li><strong>Real demand exists:</strong> Enterprise AI adoption is accelerating</li>
+        <li><strong>Revenue outside the loop:</strong> ChatGPT, Claude, and API sales generate genuine revenue</li>
+        <li><strong>Compute is a real asset:</strong> GPUs hold resale value; fiber optics in 2000 did not</li>
+        <li><strong>Hyperscaler competition:</strong> Google, Microsoft, AWS all need AI to drive cloud growth</li>
+        <li>But if enterprise demand stalls, the circular floor drops out</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Research Section -->
+  <div class="section">
+    <h2>How It Works</h2>
+    <p>
+      <strong>Circular financing</strong> is a closed-loop funding arrangement where a <strong>supplier</strong> (chipmaker, cloud provider) invests capital in a <strong>customer</strong> (AI lab, startup), and that customer uses the capital to purchase the supplier's own products or services. The money flows in a loop: supplier → investment → customer → purchase → supplier books as revenue.
+    </p>
+    <p>
+      This isn't new — it resembles <strong>vendor financing</strong> from the dot-com era, where Lucent and Nortel lent money to telecoms that then bought their networking gear. The scale, however, is unprecedented: <strong>~$800 billion</strong> in estimated circular commitments across the AI supply chain as of mid-2026.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Major Circular Financing Relationships</h2>
+    <table>
+      <tr>
+        <th>Supplier</th>
+        <th>Customer</th>
+        <th>Deal Structure</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td><strong>NVIDIA</strong></td>
+        <td>OpenAI</td>
+        <td>Equity stake + GPU supply commitment</td>
+        <td>$30B</td>
+      </tr>
+      <tr>
+        <td><strong>NVIDIA</strong></td>
+        <td>CoreWeave / Neoclouds</td>
+        <td>Equity + GPU-backed loans + revenue share</td>
+        <td>$20B+</td>
+      </tr>
+      <tr>
+        <td><strong>Google</strong></td>
+        <td>Anthropic</td>
+        <td>Cash investment + 5GW TPU cloud capacity</td>
+        <td>Up to $40B</td>
+      </tr>
+      <tr>
+        <td><strong>Amazon (AWS)</strong></td>
+        <td>Anthropic</td>
+        <td>Compute commitment + equity</td>
+        <td>$100B</td>
+      </tr>
+      <tr>
+        <td><strong>Microsoft (Azure)</strong></td>
+        <td>OpenAI</td>
+        <td>Azure compute + equity (structured over multiple rounds)</td>
+        <td>$50B+</td>
+      </tr>
+      <tr>
+        <td><strong>AMD</strong></td>
+        <td>Anthropic, Meta</td>
+        <td>Equity swap + Instinct GPU purchase agreement</td>
+        <td>Multi-billion</td>
+      </tr>
+      <tr>
+        <td><strong>SoftBank</strong></td>
+        <td>Various AI cos</td>
+        <td>Vision Fund investments → portfolio cos buy infrastructure</td>
+        <td>$10B+</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Why It Matters</h2>
+    <p>
+      The risk is that a meaningful portion of AI industry "revenue" is actually just <strong>capital cycling in a closed loop</strong> — not real economic activity from end customers. If enterprise AI adoption slows:
+    </p>
+    <p>
+      1. AI labs can't justify their compute burn rates without external revenue<br />
+      2. Suppliers' "customer revenue" evaporates when their own investments dry up<br />
+      3. The neocloud layer (financed by supplier equity) defaults on GPU-backed debt<br />
+      4. A 2001-style write-down cascade as over-leveraged compute assets get repriced
+    </p>
+    <p>
+      On the other hand, defenders argue that <strong>real AI product adoption</strong> (ChatGPT, Claude, Copilot, enterprise agents) is generating measurable revenue from actual end customers — the circular financing is just accelerating an otherwise real trend, not fabricating one.
+    </p>
+  </div>
+
+  <div class="risk-box">
+    <h3>⚠ The $800B Question</h3>
+    <p>
+      Analysts at Carus Signal, Tom Tunguz, and others have drawn comparisons to <strong>Nortel's vendor financing</strong> in the late 1990s. Nortel lent $billions to telcos to buy its equipment — when the dot-com bubble burst, those telcos defaulted, Nortel ate the losses, and the stock collapsed from $124 to $0.47. NVIDIA's $40B+ equity portfolio, $110B in GPU-backed vendor financing, and the $800B industry circular loop are the modern analogue — with the crucial difference that NVIDIA's technology is genuinely transformative and demand is real. The question is: <strong>how much of the revenue is real vs. manufactured by the loop?</strong>
+    </p>
+  </div>
+
+  <!-- Footer -->
+  <p class="footer">
+    Research compiled Jul 2026 • Sources: Built In, Carus Signal, Tom Tunguz, Bloomberg, Fortune, DSIJ • Diagram: Hermes Agent
+  </p>
+</div>
+
+<!-- ─── Password Gate & Shared Menu ─── -->
+<div id="password-gate">
+  <div class="gate-box">
+    <div style="font-size:48px;margin-bottom:16px;">🔐</div>
+    <h1>Password Required</h1>
+    <p>Enter the passcode to view this artifact.</p>
+    <input type="password" id="password-input" placeholder="Enter password" autocomplete="off" />
+    <div id="password-error" style="color:#fb7185;font-size:13px;margin-top:10px;display:none;">Incorrect password.</div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="/pages/shared/menu.css" />
+<style>
+  #password-gate {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    background: #0a0a0f;
+    font-family: 'Inter', -apple-system, sans-serif;
+  }
+  #password-gate.hidden { display: none; }
+  .gate-box { text-align: center; padding: 40px; max-width: 380px; }
+  .gate-box h1 { font-size: 24px; font-weight: 700; color: #f0f0f0; margin-bottom: 8px; }
+  .gate-box p { font-size: 14px; color: #888; margin-bottom: 24px; }
+  .gate-box input {
+    width: 100%; padding: 12px 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; color: #fff; font-size: 15px;
+    outline: none; text-align: center;
+  }
+  .gate-box input:focus { border-color: #60a5fa; }
+</style>
+
+<script>
+  (function(){
+    const HASH = "2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e";
+    const gate = document.getElementById('password-gate');
+    const input = document.getElementById('password-input');
+    const error = document.getElementById('password-error');
+
+    async function sha256(str) {
+      const buf = new TextEncoder().encode(str);
+      const hash = await crypto.subtle.digest('SHA-256', buf);
+      return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+    }
+
+    async function check() {
+      const digest = await sha256(input.value);
+      if (digest === HASH) {
+        gate.classList.add('hidden');
+        localStorage.setItem('pages_pass', digest);
+      } else {
+        error.style.display = 'block';
+        setTimeout(() => error.style.display = 'none', 2000);
+      }
+    }
+
+    // Auto-check stored hash
+    (async function(){
+      const stored = localStorage.getItem('pages_pass');
+      if (stored === HASH) { gate.classList.add('hidden'); return; }
+    })();
+
+    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') check(); });
+  })();
+
+  function toggleFullscreen() {
+    const d = document.getElementById('diagram');
+    d.classList.toggle('fullscreen');
+    document.body.style.overflow = d.classList.contains('fullscreen') ? 'hidden' : '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const d = document.getElementById('diagram');
+      if (d.classList.contains('fullscreen')) toggleFullscreen();
+    }
+  });
+</script>
+<script src="/pages/shared/menu.js"></script>
+
+</body>
+</html>

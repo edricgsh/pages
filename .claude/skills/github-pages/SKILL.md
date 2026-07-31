@@ -1,23 +1,43 @@
 ---
 name: github-pages
-description: Publish password-gated research artifacts to GitHub Pages via the edricgsh/pages repo. Full pipeline: HTML artifact → SHA-256 password gate → git push → auto-deploy to https://edricgsh.github.io/pages/<folder>/.
+description: Publish encrypted research artifacts to GitHub Pages via the edricgsh/pages repo. Full pipeline: write HTML in _src/ → ./build.py encrypts it (AES-256-GCM) → git push → auto-deploy to https://edricgsh.github.io/pages/<folder>/.
 ---
 
 # GitHub Pages Artifact Publishing
 
 Use when the user asks to publish a research artifact, visualization, or HTML page to the password-gated GitHub Pages site. This repo IS the source — work inside this directory, commit, and push to `main`.
 
+## ⚠️ Read this first: sources are in `_src/`, the root is generated
+
+**Never write or edit `<slug>/index.html` at the repo root.** Those files are generated — a loader shell wrapped around a ciphertext blob. Anything you write there is destroyed on the next `./build.py`, and the pre-commit hook rejects it.
+
+```
+_src/<slug>/index.html   ← write this
+_src/manifest.json       ← register the artifact here
+./build.py               ← encrypts _src/ into the published root
+<slug>/index.html        ← generated; commit it (Pages serves it)
+manifest.enc             ← generated
+```
+
 ## Security model
 
-**SHA-256 hash gate** (only active approach). Crawlers see the gate shell with plaintext HTML behind it — the gate just hides it visually. Suitable for most artifacts. The AES-256-GCM encryption approach was retired (Jul 2026) after repeated production failures.
+**AES-256-GCM payload encryption + client-side decryption** (active since Aug 2026). The published page contains only ciphertext, so crawlers get nothing. Key = PBKDF2-HMAC-SHA256, 600k iterations over the password; envelope = `base64( salt[16] || iv[12] || ciphertext )`.
 
-## Workflow — SHA-256 Gate
+An earlier encryption attempt was reverted in Jul 2026. It failed for three specific reasons, all fixed in the current design — do not reintroduce them:
 
-### 1. Create the folder and write the artifact
+1. It assigned the decrypted HTML with `innerHTML`, which **does not execute `<script>` tags**, so every interactive page died on unlock. `unlock.js` now uses `document.open()/write()/close()`.
+2. It stored only the password *hash*, then tried to decrypt with an undefined `PASSWORD` variable on revisit — a `ReferenceError` that broke auto-unlock. `crypto.js` now stores the password itself in `localStorage.pages_pw`.
+3. It encrypted pages in place and had to guess where content started and ended. The plaintext now lives in `_src/`, so there are no boundaries to guess.
+
+This is encryption at rest on GitHub's CDN. Anyone with the password can still read and re-share the plaintext — say so plainly if the user asks how strong it is.
+
+## Workflow
+
+### 1. Create the source folder and write the artifact
 
 ```bash
-mkdir -p <folder-name>
-# Write full HTML to <folder-name>/index.html
+mkdir -p _src/<folder-name>
+# Write full HTML to _src/<folder-name>/index.html
 ```
 
 ### 2. Add the password gate template
@@ -99,17 +119,24 @@ echo -n "recon2026" | sha256sum
 
 In `<head>`:
 ```html
-<link rel="stylesheet" href="/pages/_shared/menu.css">
+<link rel="stylesheet" href="/pages/shared/menu.css">
 ```
 
 Before `</body>` (after the gate script, before the closing tag):
 ```html
-<script src="/pages/_shared/menu.js"></script>
+<script src="/pages/shared/menu.js"></script>
 ```
 
-### 4. Update manifest.json
+What this gives you for free — don't hand-roll any of it:
 
-Add to `manifest.json` at repo root:
+- A fixed top-left bar: `☰` hamburger + `← All Artifacts` link back to the catalogue at `/pages/`
+- The sidebar (built from `manifest.json`), with an `🏠 All Artifacts — Home` entry above the list
+- The bar auto-hides while the password gate is up (detects `#password-gate` or `.pw-gate`)
+- `menu-bar-offset` on `<html>`, which applies `body { padding-top: 46px }` so the bar never covers your page heading — **don't add your own top offset for it**, and don't set `body` padding with higher specificity than `html.menu-bar-offset body`
+
+### 4. Register in the manifest
+
+Append to `_src/manifest.json` (append — don't clobber existing entries):
 ```json
 {
   "slug": "<folder-name>",
@@ -119,58 +146,65 @@ Add to `manifest.json` at repo root:
 }
 ```
 
-### 5. Verify before committing
+### 5. Build
 
 ```bash
-# Check the hash is the full 64 characters, not truncated
-grep 'HASH = "' <folder-name>/index.html | python3 -c "
-import sys
-line = sys.stdin.read()
-h = line.split('\"')[1]
-print(f'Length: {len(h)} — {\"PASS\" if len(h) == 64 else \"FAIL! Truncated hash!\"}')"
-
-# Check no truncated placeholder pattern (like 2ff51f...bf7e)
-grep '\.\.\.' <folder-name>/index.html && echo "WARNING: found ellipsis in file — likely truncated placeholder"
+./build.py                 # all pages
+./build.py <folder-name>   # just this one
 ```
 
-The pre-commit hook (`.githooks/pre-commit`) will also catch these automatically on `git commit`.
+Prints a per-page size table and fails loudly if any recognisable plaintext from the source ends up in the published output. Output is deterministic — rebuilding unchanged sources produces byte-identical files, so a noisy diff means something really changed.
 
-### 6. Commit and push
+If it errors with `could not resolve localStorage unlock key(s)`, your gate stores its unlocked flag in a way `build.py` can't read. Use a string literal: `localStorage.setItem('unlocked_<slug>', 'true')`.
+
+### 6. Verify locally before pushing
+
+Serve the repo as `/pages/` so absolute asset paths resolve:
 
 ```bash
-git add <folder-name>/ manifest.json
+mkdir -p /tmp/pgserve && ln -sfn "$PWD" /tmp/pgserve/pages
+(cd /tmp/pgserve && python3 -m http.server 8899 &)
+
+# A crawler sees nothing — this must print 0
+curl -s http://127.0.0.1:8899/pages/<folder-name>/ | grep -ci "<a distinctive phrase from the artifact>"
+```
+
+Then open `http://127.0.0.1:8899/pages/<folder-name>/` and confirm: password unlocks it, the content renders, **interactive bits still work** (fullscreen toggle, tabs, any JS app), and a reload doesn't re-prompt.
+
+### 7. Commit and push
+
+```bash
+git add _src/<folder-name>/ _src/manifest.json <folder-name>/ manifest.enc
 git commit -m "Add <folder-name> research artifact"
 git push
 ```
 
-The page goes live at `https://edricgsh.github.io/pages/<folder-name>/` within ~30 seconds (GitHub Pages build).
+Commit **both** the source and the generated output — Pages serves the generated file. The pre-commit hook rejects a published `index.html` that has no encrypted payload, which is what you'd get from editing the built file or forgetting `./build.py`.
 
-### 7. Verify live deployment
+The page goes live at `https://edricgsh.github.io/pages/<folder-name>/` within ~30 seconds.
+
+### 8. Verify live deployment
 
 ```bash
 curl -sL "https://edricgsh.github.io/pages/<folder>/" | python3 -c "
-import sys; import re
+import sys
 data = sys.stdin.read()
 checks = [
-    ('Full hash (64 chars)', len(re.search(r'([a-f0-9]{64})', data).group(1)) == 64 if re.search(r'([a-f0-9]{64})', data) else False),
-    ('No truncated placeholder', '...bf7e' not in data),
-    ('Password gate exists', '<div id=\"password-gate\">' in data),
-    ('Menu css', 'menu.css' in data),
-    ('Menu js', 'menu.js' in data),
-    ('Diagram svg', '<svg' in data),
-    ('Fullscreen btn', 'toggleFullscreen' in data),
+    ('Encrypted payload', 'id=\"pg-payload\"' in data),
+    ('Unlock script', 'shared/unlock.js' in data),
+    ('Crypto helpers', 'shared/crypto.js' in data),
+    ('noindex meta', 'noindex' in data),
+    ('No plaintext leak', '<svg' not in data and 'article-section' not in data),
 ]
 failures = [n for n, ok in checks if not ok]
-if failures:
-    print(f'FAIL: {', '.join(failures)}')
-else:
-    print('ALL PASS')"
+print('FAIL: ' + ', '.join(failures) if failures else 'ALL PASS')"
 ```
 
 Note: the page returns 404 for the first ~20-30s after push while GitHub Pages builds — retry if you hit it.
 
 ## Diagram conventions
 
+- **No neon glow.** Do not add `<filter id="glow">` (`feGaussianBlur` + `feMerge`) or apply `filter="url(#glow)"` to SVG text/shapes — it reads as blurry neon. Emphasis comes from colour, weight, and size. Removed repo-wide Aug 2026.
 - **Fullscreen toggle** for diagram wrappers: ⛶ button toggles `.fullscreen` class, Escape exits, `z-index` must stay below the hamburger menu (10001+)
 - Hand-crafted SVG for centerpiece diagrams (dark grid aesthetic, `#020617` background); Mermaid.js acceptable for simpler flowcharts
 - Video breakdown pages: thesis box → SVG diagram → module sections with timestamps → footer
@@ -181,12 +215,15 @@ Note: the page returns 404 for the first ~20-30s after push while GitHub Pages b
 2. `yt-dlp --write-auto-sub --sub-langs en --sub-format json3 --skip-download -o "/tmp/%(id)s" <url>` — download transcript
 3. Parse JSON3 events → segments with timestamps
 4. If >8k words: split by chapters → delegate to subagents for parallel breakdowns
-5. Build HTML artifact (thesis → SVG diagram → sections → footer) with gate + menu
-6. Update manifest.json, verify hash, commit, push, verify live
+5. Write the HTML artifact to `_src/<slug>/index.html` (thesis → SVG diagram → sections → footer) with gate + menu
+6. Update `_src/manifest.json`, run `./build.py`, verify locally, commit both source and output, push, verify live
 
 ## Pitfalls
 
-- **Truncated hash is the #1 production failure** — always verify 64 chars before commit; pre-commit hook catches it
-- **manifest.json ordering** — append, don't clobber existing entries
+- **Editing the built file instead of `_src/`** — the #1 way to lose work now. The root `<slug>/index.html` is generated; your edit vanishes on the next build. The pre-commit hook catches it, but only at commit time
+- **Forgetting `./build.py`** — the source changes, the published page doesn't. Nothing is live until you rebuild
+- **Never use `innerHTML` to inject decrypted content** — it doesn't run `<script>` tags and silently kills every interactive page. Use `document.write` (see Security model)
+- **Truncated hash** — pre-commit hook catches ellipses in hash-like values
+- **`_src/manifest.json` ordering** — append, don't clobber existing entries
 - **404 after push is normal** — GitHub Pages build takes ~30s
 - **`video_ids` is JSONB in LingoQ** — irrelevant here, but don't confuse the two repos

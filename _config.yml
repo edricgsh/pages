@@ -1,0 +1,25 @@
+# GitHub Pages (Jekyll) configuration.
+#
+# Only the encrypted output may be published. Everything listed here is kept out
+# of the built site so plaintext sources are never served.
+#
+# Jekyll already skips `_`-prefixed paths (which is why `_src/` is safe and why
+# the shared assets directory is `shared/`, NOT `_shared/` — under the old name
+# it 404'd in production and the menu never loaded). Listing `_src` again makes
+# the intent explicit rather than incidental.
+#
+# ⚠️ Do NOT add a `.nojekyll` file. That disables Jekyll entirely, this config
+# stops applying, and `_src/` — every artifact in plaintext — becomes public.
+
+exclude:
+  - _src
+  - build.py
+  - README.md
+  - CLAUDE.md
+  - CNAME.example
+  - .githooks
+  - .claude
+
+# No Liquid processing of artifact HTML: the pages carry no front matter, so
+# Jekyll copies them verbatim. Keep it that way — base64 payloads must not be
+# templated.

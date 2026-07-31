@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Grew My SaaS From $17K to $143K MRR in 4 Months — Postiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #020617;
+    --panel: rgba(15, 23, 42, 0.5);
+    --border: #1e293b;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --dim: #475569;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* Header */
+  .header { margin-bottom: 2rem; }
+  .header-row { display: flex; align-items: center; gap: 0.75rem; }
+  .pulse-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #34d399; flex-shrink: 0;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5); }
+    50% { box-shadow: 0 0 0 8px rgba(52, 211, 153, 0); }
+  }
+  .header h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
+  .subtitle { color: var(--muted); font-size: 0.9rem; margin-top: 0.5rem; }
+  .meta-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+  .tag {
+    font-size: 0.7rem; font-family: 'JetBrains Mono', monospace;
+    padding: 0.2rem 0.6rem; border-radius: 999px;
+    background: rgba(52, 211, 153, 0.08); border: 1px solid rgba(52, 211, 153, 0.25);
+    color: #6ee7b7;
+  }
+  .tag.cyan { background: rgba(34, 211, 238, 0.08); border-color: rgba(34, 211, 238, 0.25); color: #67e8f9; }
+  .tag.amber { background: rgba(251, 191, 36, 0.08); border-color: rgba(251, 191, 36, 0.25); color: #fcd34d; }
+  .tag.rose { background: rgba(251, 113, 133, 0.08); border-color: rgba(251, 113, 133, 0.25); color: #fda4af; }
+
+  /* Diagram */
+  .diagram-wrapper { position: relative; margin: 1.5rem 0 2rem; }
+  .diagram-container {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .diagram-container.fullscreen {
+    position: fixed; z-index: 9998;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw; height: 100vh;
+    max-width: none; border-radius: 0; border: none;
+    padding: 2rem; overflow: auto;
+    background: #020617;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .diagram-container.fullscreen svg { max-height: 90vh; max-width: 95vw; min-width: auto; }
+  .fs-btn {
+    position: absolute; top: 12px; right: 12px; z-index: 2;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(6px);
+    border-radius: 8px; color: #94a3b8; font-size: 16px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .fs-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+  .fs-btn .icon-expand { display: block; }
+  .fs-btn .icon-compress { display: none; }
+  .diagram-container.fullscreen ~ .fs-btn .icon-expand { display: none; }
+  .diagram-container.fullscreen ~ .fs-btn .icon-compress { display: block; }
+  .diagram-container.fullscreen ~ .fs-btn { position: fixed; z-index: 9999; top: 16px; right: 16px; }
+  .diagram-caption { text-align: center; color: var(--dim); font-size: 0.75rem; margin-top: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+
+  /* Section blocks */
+  .section { margin-top: 2.5rem; }
+  .section h2 {
+    font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-badge {
+    font-size: 0.65rem; font-family: 'JetBrains Mono', monospace;
+    padding: 0.2rem 0.6rem; border-radius: 6px;
+    background: rgba(52, 211, 153, 0.12); border: 1px solid rgba(52, 211, 153, 0.3);
+    color: #6ee7b7; letter-spacing: 0.05em;
+  }
+  .section-badge.cyan { background: rgba(34, 211, 238, 0.12); border-color: rgba(34, 211, 238, 0.3); color: #67e8f9; }
+  .section-badge.amber { background: rgba(251, 191, 36, 0.12); border-color: rgba(251, 191, 36, 0.3); color: #fcd34d; }
+
+  .concept {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .concept h3 { font-size: 0.95rem; font-weight: 700; color: #f1f5f9; margin-bottom: 0.5rem; }
+  .concept h3 .time { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--dim); font-weight: 400; margin-left: 0.5rem; }
+  .concept p { color: var(--muted); font-size: 0.85rem; line-height: 1.7; margin-bottom: 0.5rem; }
+  .concept p:last-child { margin-bottom: 0; }
+  .concept p strong { color: #e2e8f0; }
+  .concept ul { list-style: none; margin: 0.5rem 0 0; }
+  .concept li {
+    color: var(--muted); font-size: 0.85rem; line-height: 1.7;
+    padding-left: 1.1rem; position: relative; margin-bottom: 0.3rem;
+  }
+  .concept li::before { content: "›"; position: absolute; left: 0; color: #34d399; font-weight: 700; }
+  .concept li strong { color: #e2e8f0; }
+
+  .quote-box {
+    border-left: 3px solid #34d399;
+    background: rgba(52, 211, 153, 0.05);
+    padding: 1rem 1.25rem; border-radius: 0 0.5rem 0.5rem 0;
+    margin: 1rem 0;
+  }
+  .quote-box p { color: #cbd5e1; font-size: 0.9rem; font-style: italic; line-height: 1.6; }
+  .quote-box .attr { color: var(--dim); font-size: 0.75rem; margin-top: 0.35rem; font-style: normal; }
+
+  .thesis {
+    background: linear-gradient(135deg, rgba(52, 211, 153, 0.08), rgba(34, 211, 238, 0.08));
+    border: 1px solid rgba(52, 211, 153, 0.25);
+    border-radius: 1rem; padding: 1.5rem 2rem; margin-bottom: 2rem;
+  }
+  .thesis h2 { font-size: 1rem; font-weight: 700; color: #6ee7b7; margin-bottom: 0.75rem; letter-spacing: 0.03em; }
+  .thesis p { color: #cbd5e1; font-size: 0.95rem; line-height: 1.8; }
+  .thesis p strong { color: #fff; }
+
+  .footer { text-align: center; margin-top: 3rem; color: var(--dim); font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+
+  /* Password gate */
+  #password-gate {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    background: #0a0a0f; font-family: 'Inter', sans-serif;
+  }
+  #password-gate.hidden { display: none; }
+  .gate-box { text-align: center; padding: 40px; max-width: 380px; }
+  .gate-box h1 { font-size: 24px; font-weight: 700; color: #f0f0f0; margin-bottom: 8px; }
+  .gate-box p { font-size: 14px; color: #888; margin-bottom: 24px; }
+  .gate-box input {
+    width: 100%; padding: 12px 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; color: #fff; font-size: 15px;
+    outline: none; text-align: center;
+  }
+  .gate-box input:focus { border-color: #60a5fa; }
+  .gate-box .error { color: #f87171; font-size: 13px; margin-top: 10px; display: none; }
+</style>
+<link rel="stylesheet" href="/pages/shared/menu.css">
+</head>
+<body>
+
+<div id="password-gate">
+  <div class="gate-box">
+    <div style="font-size:48px;margin-bottom:16px;">🔐</div>
+    <h1>Password Required</h1>
+    <p>Enter the passcode to view this artifact.</p>
+    <input type="password" id="password-input" placeholder="Enter password" autocomplete="off" />
+    <div class="error" id="password-error">Incorrect password.</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-row">
+      <div class="pulse-dot"></div>
+      <h1>I Grew My SaaS From $17K to $143K MRR in 4 Months</h1>
+    </div>
+    <p class="subtitle">Nevo (Postiz) on Starter Story — the agentic pivot, the OpenClaw trend, viral X articles, and how churn dropped from 26% to 13.7%.</p>
+    <div class="meta-tags">
+      <span class="tag">AGENTIC SAAS</span>
+      <span class="tag cyan">GROWTH</span>
+      <span class="tag amber">MARKETING</span>
+      <span class="tag rose">16 MIN</span>
+    </div>
+  </div>
+
+  <!-- Thesis -->
+  <div class="thesis">
+    <h2>◈ CORE THESIS</h2>
+    <p><strong>Build before the trend, then ride it with marketing.</strong> Postiz spent 1.5 years getting to $21K MRR as a social scheduler, then pivoted to <strong>agentic</strong> (AI-agent-ready) SaaS, caught the OpenClaw wave on X, and hit $143K MRR in 4 months (~$1K MRR/day). The agentic pivot was the vehicle — <strong>marketing was the gas.</strong></p>
+  </div>
+
+  <!-- Main Diagram -->
+  <div class="diagram-wrapper">
+    <div class="diagram-container" id="diagram">
+      <svg viewBox="0 0 1000 720" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#475569" />
+          </marker>
+          <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#34d399" />
+          </marker>
+          <marker id="arrow-cyan" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#22d3ee" />
+          </marker>
+          <marker id="arrow-amber" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#fbbf24" />
+          </marker>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+          </pattern>
+        </defs>
+
+        <!-- Background -->
+        <rect width="100%" height="100%" fill="url(#grid)" />
+        <rect x="20" y="20" width="960" height="680" fill="none" stroke="#1e293b" stroke-width="1" rx="12" />
+
+        <!-- Title -->
+        <text x="500" y="48" fill="#f1f5f9" font-size="15" font-weight="800" text-anchor="middle" font-family="Inter, sans-serif">How Postiz Went $17K → $143K MRR in 4 Months</text>
+        <text x="500" y="66" fill="#64748b" font-size="9" text-anchor="middle" font-family="Inter, sans-serif">build before the trend · go agentic · ride the wave with marketing</text>
+
+        <!-- ============ THE HOCKEY STICK (left) ============ -->
+        <rect x="45" y="95" width="290" height="250" rx="12" fill="rgba(6, 78, 59, 0.2)" stroke="#34d399" stroke-width="1.5" stroke-dasharray="6,3"/>
+        <text x="190" y="118" fill="#34d399" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">THE HOCKEY STICK</text>
+
+        <!-- Chart axis -->
+        <line x1="70" y1="310" x2="310" y2="310" stroke="#334155" stroke-width="1.5"/>
+        <line x1="70" y1="310" x2="70" y2="120" stroke="#334155" stroke-width="1.5"/>
+        <text x="62" y="125" fill="#64748b" font-size="6.5" text-anchor="end" font-family="Inter, sans-serif">$143K</text>
+        <text x="62" y="225" fill="#64748b" font-size="6.5" text-anchor="end" font-family="Inter, sans-serif">$21K</text>
+        <text x="62" y="305" fill="#64748b" font-size="6.5" text-anchor="end" font-family="Inter, sans-serif">$17K</text>
+
+        <!-- Growth path -->
+        <path d="M 85 300 L 140 296 L 200 288 L 230 285" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="3,3"/>
+        <path d="M 230 285 L 290 140" fill="none" stroke="#34d399" stroke-width="3" marker-end="url(#arrow-green)"/>
+        <circle cx="85" cy="300" r="4" fill="#34d399"/>
+        <circle cx="230" cy="285" r="4" fill="#22d3ee"/>
+
+        <text x="100" y="288" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">1.5 yrs → $21K</text>
+        <text x="240" y="205" fill="#6ee7b7" font-size="7.5" font-weight="600" font-family="Inter, sans-serif">4 months → $143K</text>
+        <text x="240" y="218" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">~$1K MRR / day</text>
+
+        <!-- Churn metric -->
+        <rect x="62" y="240" width="256" height="52" rx="6" fill="rgba(136, 19, 55, 0.15)" stroke="#fb7185" stroke-width="1"/>
+        <text x="190" y="258" fill="#fda4af" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">CHURN: 26–28% → 13.7%</text>
+        <text x="190" y="274" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">agents do the posting daily — no human to quit</text>
+        <text x="190" y="288" fill="#64748b" font-size="6" text-anchor="middle" font-family="Inter, sans-serif">"churn is usually some human who decided not to do the human thing"</text>
+
+        <!-- ============ THE PIVOT (top middle) ============ -->
+        <rect x="360" y="95" width="280" height="90" rx="12" fill="rgba(8, 51, 68, 0.25)" stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="6,3"/>
+        <text x="500" y="118" fill="#22d3ee" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">THE PIVOT → AGENTIC</text>
+        <text x="375" y="138" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">Postiz was a social scheduler (30+ platforms)</text>
+        <text x="375" y="152" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">→ became agent-ready: Claude, ChatGPT, OpenClaw</text>
+        <text x="375" y="166" fill="#67e8f9" font-size="7" font-weight="600" font-family="Inter, sans-serif">"If I see hype, I try to understand how to use it for Postiz"</text>
+
+        <!-- ============ THE VIRAL CASCADE (right) ============ -->
+        <rect x="665" y="95" width="290" height="250" rx="12" fill="rgba(120, 53, 15, 0.2)" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="6,3"/>
+        <text x="810" y="118" fill="#fbbf24" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">THE VIRAL CASCADE</text>
+
+        <!-- Step 1 -->
+        <rect x="682" y="132" width="256" height="38" rx="6" fill="#0f172a" stroke="#fbbf24" stroke-width="1"/>
+        <rect x="682" y="132" width="256" height="38" rx="6" fill="rgba(120, 53, 15, 0.4)" stroke="none"/>
+        <text x="810" y="148" fill="#fcd34d" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">① OLIVER'S ARTICLE (X)</text>
+        <text x="810" y="162" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">"Snugly on TikTok 100% auto w/ OpenClaw + Postiz" → 7.2M views</text>
+
+        <!-- Step 2 -->
+        <rect x="682" y="178" width="256" height="38" rx="6" fill="#0f172a" stroke="#fbbf24" stroke-width="1"/>
+        <rect x="682" y="178" width="256" height="38" rx="6" fill="rgba(120, 53, 15, 0.4)" stroke="none"/>
+        <text x="810" y="194" fill="#fcd34d" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">② 700 CONCURRENT TRIALS / DAY</text>
+        <text x="810" y="208" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">second article: 1.5M views → MRR grew daily</text>
+
+        <!-- Step 3 -->
+        <rect x="682" y="224" width="256" height="38" rx="6" fill="#0f172a" stroke="#fbbf24" stroke-width="1"/>
+        <rect x="682" y="224" width="256" height="38" rx="6" fill="rgba(120, 53, 15, 0.4)" stroke="none"/>
+        <text x="810" y="240" fill="#fcd34d" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">③ HE WROTE HIS OWN ARTICLES</text>
+        <text x="810" y="254" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">200 followers → 500K views each · X was pushing articles</text>
+
+        <!-- Step 4 -->
+        <rect x="682" y="270" width="256" height="38" rx="6" fill="rgba(251, 191, 36, 0.2)" stroke="#fbbf24" stroke-width="1.2"/>
+        <text x="810" y="286" fill="#fcd34d" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">④ PAID REPOSTERS</text>
+        <text x="810" y="300" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">$60–350 per repost · every article → ~20 reposters</text>
+
+        <!-- Arrows cascade -->
+        <path d="M 810 170 L 810 178" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+        <path d="M 810 216 L 810 224" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+        <path d="M 810 262 L 810 270" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+
+        <!-- ============ THE PLAYBOOK (bottom) ============ -->
+        <text x="500" y="375" fill="#94a3b8" font-size="9" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">THE PLAYBOOK — WHAT HE DID</text>
+
+        <!-- 4 boxes -->
+        <rect x="45" y="395" width="215" height="92" rx="8" fill="#0f172a" stroke="#22d3ee" stroke-width="1.2"/>
+        <rect x="45" y="395" width="215" height="92" rx="8" fill="rgba(8, 51, 68, 0.4)" stroke="none"/>
+        <text x="152" y="415" fill="#67e8f9" font-size="8.5" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">API + MD FILE FOR AGENTS</text>
+        <text x="55" y="433" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">Expose a public API, write an .md</text>
+        <text x="55" y="446" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">file describing it, list it in Claude</text>
+        <text x="55" y="459" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">& ChatGPT marketplaces. MCP-ready.</text>
+        <text x="55" y="475" fill="#64748b" font-size="6.5" font-family="Inter, sans-serif">"brought me so much traffic"</text>
+
+        <rect x="275" y="395" width="215" height="92" rx="8" fill="#0f172a" stroke="#22d3ee" stroke-width="1.2"/>
+        <rect x="275" y="395" width="215" height="92" rx="8" fill="rgba(8, 51, 68, 0.4)" stroke="none"/>
+        <text x="382" y="415" fill="#67e8f9" font-size="8.5" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">BUILD BEFORE THE TREND</text>
+        <text x="285" y="433" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">"Build now and wait for the</text>
+        <text x="285" y="446" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">thing to happen — don't build</text>
+        <text x="285" y="459" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">when it happens or somebody</text>
+        <text x="285" y="472" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">else eats the cake"</text>
+
+        <rect x="505" y="395" width="215" height="92" rx="8" fill="#0f172a" stroke="#22d3ee" stroke-width="1.2"/>
+        <rect x="505" y="395" width="215" height="92" rx="8" fill="rgba(8, 51, 68, 0.4)" stroke="none"/>
+        <text x="612" y="415" fill="#67e8f9" font-size="8.5" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">AGENTIC SOLVES CHURN</text>
+        <text x="515" y="433" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">Before: users must log in, write,</text>
+        <text x="515" y="446" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">iterate daily → they quit. Now:</text>
+        <text x="515" y="459" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">agents run a week of content</text>
+        <text x="515" y="472" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">automatically. Churn 26% → 13.7%</text>
+
+        <rect x="735" y="395" width="220" height="92" rx="8" fill="#0f172a" stroke="#22d3ee" stroke-width="1.2"/>
+        <rect x="735" y="395" width="220" height="92" rx="8" fill="rgba(8, 51, 68, 0.4)" stroke="none"/>
+        <text x="845" y="415" fill="#67e8f9" font-size="8.5" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">RELIABILITY FIRST</text>
+        <text x="745" y="433" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">Stopped shipping new features —</text>
+        <text x="745" y="446" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">30 channels must all work. "Apps</text>
+        <text x="745" y="459" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">that win are the ones that don't</text>
+        <text x="745" y="472" fill="#94a3b8" font-size="7" font-family="Inter, sans-serif">break. Agents know which are reliable"</text>
+
+        <!-- ============ WHAT IT TAKES (bottom strip) ============ -->
+        <rect x="45" y="505" width="910" height="86" rx="12" fill="rgba(136, 19, 55, 0.12)" stroke="#fb7185" stroke-width="1" stroke-dasharray="6,3"/>
+        <text x="500" y="528" fill="#fda4af" font-size="10" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">WHY TREND-HOPPERS FAIL (Pat & Gus' take)</text>
+        <text x="500" y="550" fill="#94a3b8" font-size="7.5" text-anchor="middle" font-family="Inter, sans-serif">"The agentic thing is the vehicle. That vehicle would have had no gas if he didn't do the marketing."</text>
+        <text x="500" y="566" fill="#94a3b8" font-size="7.5" text-anchor="middle" font-family="Inter, sans-serif">1 · Marketing focus — he saw the X articles and did MORE articles, more marketing, not just the build</text>
+        <text x="500" y="582" fill="#94a3b8" font-size="7.5" text-anchor="middle" font-family="Inter, sans-serif">2 · Already had a product solving a problem — trend-hoppers build an "agentic thing" with nothing underneath</text>
+
+        <!-- Future strip -->
+        <rect x="45" y="606" width="910" height="60" rx="12" fill="rgba(8, 51, 68, 0.15)" stroke="#22d3ee" stroke-width="1" stroke-dasharray="6,3"/>
+        <text x="500" y="628" fill="#67e8f9" font-size="9" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">NEXT UNLOCK: AGENT PAYMENTS</text>
+        <text x="500" y="646" fill="#94a3b8" font-size="7" text-anchor="middle" font-family="Inter, sans-serif">Today: human-in-the-loop Stripe checkout. Soon: agents complete purchases themselves → "I'll make a lot more money"</text>
+        <text x="500" y="660" fill="#64748b" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">winners get recommended by LLMs to agents → path to $1M/month if he captures the trend</text>
+
+        <!-- Connectors -->
+        <path d="M 335 190 L 360 140" stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-cyan)"/>
+        <path d="M 640 140 L 665 190" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-amber)"/>
+      </svg>
+    </div>
+    <button class="fs-btn" id="fs-toggle" onclick="toggleFullscreen()" aria-label="Toggle fullscreen">
+      <span class="icon-expand">⛶</span>
+      <span class="icon-compress">✕</span>
+    </button>
+  </div>
+  <p class="diagram-caption">The hockey stick, the viral cascade, and the playbook — build before the trend, go agentic, then market like crazy.</p>
+
+  <!-- Section 1: The Story -->
+  <div class="section">
+    <h2><span class="section-badge">THE STORY</span> $17K → $143K MRR</h2>
+
+    <div class="concept">
+      <h3>The Numbers <span class="time">0:00</span></h3>
+      <ul>
+        <li><strong>Timeline:</strong> 1.5 years to reach $21K MRR, then <strong>4 months to $143K MRR</strong> — growing ~$1K MRR every day.</li>
+        <li>Monthly progression: Feb $41K → Mar $76K → Apr $80K → May $109K → late June $140K+.</li>
+        <li>Subscribers: 4,271 (at time of recording).</li>
+        <li><strong>Churn: dropped from 26–28% to 13.7%</strong> after the agentic pivot.</li>
+        <li>4,271 subscribers + 13.7% churn at $143K MRR → that's the "true hockey stick" Pat calls out on camera.</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <h3>The Pivot — From Scheduler to Agentic SaaS <span class="time">1:42</span></h3>
+      <p>Postiz was a social media scheduling tool for 30+ platforms. Nevo <strong>completely pivoted it to an agentic social media scheduling tool</strong> — instead of clicking to schedule, you do it via agent tools: Claude, OpenClaw (OpenClaw/Claude's agent framework), ChatGPT, etc.</p>
+      <ul>
+        <li><strong>The trigger:</strong> "A few months ago there was a nice guy named Peter that released a tool called OpenClaw… I'm a hype guy. If I see some hype, I always try to understand if I can somehow use it for Postiz."</li>
+        <li>He "leaned into OpenClaw and put all the tools out there to make it agentic ready."</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <h3>The Viral Cascade — One Article Changed Everything <span class="time">3:06</span></h3>
+      <ul>
+        <li><strong>Oliver Henry's article on X:</strong> he was making money for his app (Snugly) on TikTok "100% automatically with OpenClaw and Postiz." The article got <strong>7.2 million views</strong> → brought Postiz <strong>700 concurrent trials every day, non-stop.</strong></li>
+        <li><strong>Second article:</strong> another 1.5M views → MRR started growing every day.</li>
+        <li><strong>Nevo reverse-engineered it:</strong> wrote his own OpenClaw + Postiz article with 200 followers → <strong>500K views.</strong> Realized X was pushing articles (people spend more time reading them than posts).</li>
+        <li><strong>Paid reposters:</strong> he checks "view activity" on viral creators' posts, and influencers reach out — "can I book you for a paid promotion repost?" <strong>$60–$350 per repost</strong>; every article he publishes gets ~20 reposters amplifying it.</li>
+      </ul>
+      <div class="quote-box"><p>"Every time I have an article with Mud Creator, I have like 20 other reposters reposting the article. It's just insane what you can do with a little bit of growth hacks."</p></div>
+    </div>
+
+    <div class="concept">
+      <h3>Why Agentic Kills Churn <span class="time">8:32</span></h3>
+      <p>Pat's insight: "Churn is typically caused by some human who decides not to do that human thing anymore. Now the AI agents are doing it automatically, every single day, without any intervention. So the churn's less."</p>
+      <p>Before: users had to log in daily, click, write, iterate with AI — a time sink they eventually quit. Now: if they have any content source, they "feed it to the LLM and create an entire week of marketing stuff every day basically."</p>
+    </div>
+  </div>
+
+  <!-- Section 2: The Playbook -->
+  <div class="section">
+    <h2><span class="section-badge cyan">THE PLAYBOOK</span> Nevo's Advice for Builders</h2>
+
+    <div class="concept">
+      <h3>1. Make Your SaaS Agent-Ready <span class="time">7:07</span></h3>
+      <ul>
+        <li><strong>Almost any SaaS should have an API.</strong> Take your public API, create an <strong>.md file</strong> describing it, and make it ready for agents (MCP-style).</li>
+        <li><strong>List it everywhere:</strong> "You can go to Claude and ChatGPT marketplaces and list your MD file there. That's exactly what I did and it brought me so much traffic."</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <h3>2. Build Before the Trend <span class="time">7:34</span></h3>
+      <p>"You should build before and then wait for the trend to happen — and not build when the trend happens. If you build right now and wait for the thing to happen, compared to doing it when it happens, then somebody else is probably going to eat the cake."</p>
+    </div>
+
+    <div class="concept">
+      <h3>3. The Agentic Market Is Early Adopters <span class="time">7:51</span></h3>
+      <p>"The thing about agentic is that it's actually not that big of a market. It's not the boomer audience. It's a really, really early adopter market." — the audience is small but highly engaged and technical; they're the ones writing the viral articles.</p>
+    </div>
+
+    <div class="concept">
+      <h3>4. Make Your App Reliable <span class="time">9:47</span></h3>
+      <p>"You need to make your app super reliable. I at some point stopped making new features. If there's a new feature, there's going to be bugs. I want the app to be perfect. I have 30 social media channels — I need all of them to work. I can't focus on new stuff before I fix the old stuff."</p>
+      <p><strong>"The apps that are going to win are the ones that don't break. Agents will somehow know which are the reliable ones and which are not."</strong></p>
+    </div>
+
+    <div class="concept">
+      <h3>What the Money Changed <span class="time">8:54</span></h3>
+      <ul>
+        <li><strong>Marketing budget:</strong> at $17K MRR he couldn't hire anybody. Now he can book influencers for $60–$350 quote reposts at scale.</li>
+        <li><strong>First hires:</strong> two people — one for support, one for development. "With $17K MRR you can't really hire anybody."</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 3: The Commentary -->
+  <div class="section">
+    <h2><span class="section-badge amber">THE COMMENTARY</span> Pat & Gus — Why This Actually Worked</h2>
+
+    <div class="concept">
+      <h3>The "I Should Have Done It" Lesson <span class="time">11:45</span></h3>
+      <p>Gus: "I remember so many times sitting there thinking, you know what I should do? I should write an article. And I just didn't. It's so easy to say 'oh, he got lucky.' But the thing that doesn't make it happen is you just don't do it."</p>
+    </div>
+
+    <div class="concept">
+      <h3>The Vehicle vs. The Gas <span class="time">12:58</span></h3>
+      <p>"We can sit here and talk about building products agentically — that's pretty straightforward, you could ChatGPT your way into it. But it's probably not going to drive revenue because you don't have these two things he had:</p>
+      <ul>
+        <li><strong>1. Marketing:</strong> He saw the X articles and didn't just build — he did more X articles, more marketing. <strong>"The agentic thing is the vehicle. That vehicle would have had no gas in it if he didn't do the marketing."</strong></li>
+        <li><strong>2. An existing product solving a problem:</strong> "Trend-hoppers say 'I'm just going to build an agentic thing' — but they don't have anything yet. He had a product out in the world solving a real problem (social media scheduling), which allowed him to create this insane business story."</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <h3>The Future — Agent Payments <span class="time">10:42</span></h3>
+      <p>Nevo's bet: agents will soon complete purchases themselves. Today there's "human in the loop" — even with a CLI, a Stripe checkout page pops up for the founder. When agent payments land, the whole flow becomes automated.</p>
+      <p>Pat's framing: when agents decide which tools to use, <strong>"his product will be recommended through LLMs for agents to use — and that could be where the business goes to a million dollars a month if he captures that trend."</strong> Right now it's "the wild west."</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    Starter Story · Nevo / Postiz — $17K → $143K MRR in 4 Months · breakdown by Hermes · 2026
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const HASH = "2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e";
+  const gate = document.getElementById('password-gate');
+  const input = document.getElementById('password-input');
+  const error = document.getElementById('password-error');
+
+  async function sha256(str) {
+    const buf = new TextEncoder().encode(str);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  async function check() {
+    const digest = await sha256(input.value);
+    if (digest === HASH) {
+      gate.classList.add('hidden');
+      localStorage.setItem('pages_pass', digest);
+    } else {
+      error.style.display = 'block';
+      setTimeout(() => error.style.display = 'none', 2000);
+    }
+  }
+
+  (async function(){
+    const stored = localStorage.getItem('pages_pass');
+    if (stored === HASH) { gate.classList.add('hidden'); return; }
+  })();
+
+  input.addEventListener('keydown', function(e){ if (e.key === 'Enter') check(); });
+})();
+
+function toggleFullscreen() {
+  const d = document.getElementById('diagram');
+  d.classList.toggle('fullscreen');
+  document.body.style.overflow = d.classList.contains('fullscreen') ? 'hidden' : '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const d = document.getElementById('diagram');
+    if (d.classList.contains('fullscreen')) toggleFullscreen();
+  }
+});
+</script>
+<script src="/pages/shared/menu.js"></script>
+</body>
+</html>
