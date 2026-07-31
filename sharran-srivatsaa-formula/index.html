@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Formula Behind Brands That EXPLODE — Sharran Srivatsaa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #020617;
+    --panel: rgba(15, 23, 42, 0.5);
+    --border: #1e293b;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --dim: #475569;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* Header */
+  .header { margin-bottom: 2rem; }
+  .header-row { display: flex; align-items: center; gap: 0.75rem; }
+  .pulse-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #fbbf24; flex-shrink: 0;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.5); }
+    50% { box-shadow: 0 0 0 8px rgba(251, 191, 36, 0); }
+  }
+  .header h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
+  .subtitle { color: var(--muted); font-size: 0.9rem; margin-top: 0.5rem; }
+  .meta-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+  .tag {
+    font-size: 0.7rem; font-family: 'JetBrains Mono', monospace;
+    padding: 0.2rem 0.6rem; border-radius: 999px;
+    background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(251, 191, 36, 0.25);
+    color: #fcd34d;
+  }
+  .tag.cyan { background: rgba(34, 211, 238, 0.08); border-color: rgba(34, 211, 238, 0.25); color: #67e8f9; }
+  .tag.emerald { background: rgba(52, 211, 153, 0.08); border-color: rgba(52, 211, 153, 0.25); color: #6ee7b7; }
+
+  /* Diagram */
+  .diagram-wrapper { position: relative; margin: 1.5rem 0 2rem; }
+  .diagram-container {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .diagram-container.fullscreen {
+    position: fixed; z-index: 9998;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw; height: 100vh;
+    max-width: none; border-radius: 0; border: none;
+    padding: 2rem; overflow: auto;
+    background: #020617;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .diagram-container.fullscreen svg { max-height: 90vh; max-width: 95vw; min-width: auto; }
+  .fs-btn {
+    position: absolute; top: 12px; right: 12px; z-index: 2;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(6px);
+    border-radius: 8px; color: #94a3b8; font-size: 16px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .fs-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+  .fs-btn .icon-expand { display: block; }
+  .fs-btn .icon-compress { display: none; }
+  .diagram-container.fullscreen ~ .fs-btn .icon-expand { display: none; }
+  .diagram-container.fullscreen ~ .fs-btn .icon-compress { display: block; }
+  .diagram-container.fullscreen ~ .fs-btn { position: fixed; z-index: 9999; top: 16px; right: 16px; }
+  .diagram-caption { text-align: center; color: var(--dim); font-size: 0.75rem; margin-top: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+
+  /* Section blocks */
+  .section { margin-top: 2.5rem; }
+  .section h2 {
+    font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-badge {
+    font-size: 0.65rem; font-family: 'JetBrains Mono', monospace;
+    padding: 0.2rem 0.6rem; border-radius: 6px;
+    background: rgba(34, 211, 238, 0.12); border: 1px solid rgba(34, 211, 238, 0.3);
+    color: #67e8f9; letter-spacing: 0.05em;
+  }
+  .section-badge.amber { background: rgba(251, 191, 36, 0.12); border-color: rgba(251, 191, 36, 0.3); color: #fcd34d; }
+  .section-badge.emerald { background: rgba(52, 211, 153, 0.12); border-color: rgba(52, 211, 153, 0.3); color: #6ee7b7; }
+  .section-badge.violet { background: rgba(167, 139, 250, 0.12); border-color: rgba(167, 139, 250, 0.3); color: #c4b5fd; }
+
+  .concept {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .concept h3 { font-size: 0.95rem; font-weight: 700; color: #f1f5f9; margin-bottom: 0.5rem; }
+  .concept h3 .time { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--dim); font-weight: 400; margin-left: 0.5rem; }
+  .concept p { color: var(--muted); font-size: 0.85rem; line-height: 1.7; margin-bottom: 0.5rem; }
+  .concept p:last-child { margin-bottom: 0; }
+  .concept p strong { color: #e2e8f0; }
+  .concept ul { list-style: none; margin: 0.5rem 0 0; }
+  .concept li {
+    color: var(--muted); font-size: 0.85rem; line-height: 1.7;
+    padding-left: 1.1rem; position: relative; margin-bottom: 0.3rem;
+  }
+  .concept li::before { content: "›"; position: absolute; left: 0; color: #fbbf24; font-weight: 700; }
+  .concept li strong { color: #e2e8f0; }
+
+  .quote-box {
+    border-left: 3px solid #fbbf24;
+    background: rgba(251, 191, 36, 0.05);
+    padding: 1rem 1.25rem; border-radius: 0 0.5rem 0.5rem 0;
+    margin: 1rem 0;
+  }
+  .quote-box p { color: #cbd5e1; font-size: 0.9rem; font-style: italic; line-height: 1.6; }
+  .quote-box .attr { color: var(--dim); font-size: 0.75rem; margin-top: 0.35rem; font-style: normal; }
+
+  .thesis {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.08), rgba(52, 211, 153, 0.08));
+    border: 1px solid rgba(251, 191, 36, 0.25);
+    border-radius: 1rem; padding: 1.5rem 2rem; margin-bottom: 2rem;
+  }
+  .thesis h2 { font-size: 1rem; font-weight: 700; color: #fcd34d; margin-bottom: 0.75rem; letter-spacing: 0.03em; }
+  .thesis p { color: #cbd5e1; font-size: 0.95rem; line-height: 1.8; }
+  .thesis p strong { color: #fff; }
+
+  .footer { text-align: center; margin-top: 3rem; color: var(--dim); font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+
+  /* Password gate */
+  #password-gate {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    background: #0a0a0f; font-family: 'Inter', sans-serif;
+  }
+  #password-gate.hidden { display: none; }
+  .gate-box { text-align: center; padding: 40px; max-width: 380px; }
+  .gate-box h1 { font-size: 24px; font-weight: 700; color: #f0f0f0; margin-bottom: 8px; }
+  .gate-box p { font-size: 14px; color: #888; margin-bottom: 24px; }
+  .gate-box input {
+    width: 100%; padding: 12px 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; color: #fff; font-size: 15px;
+    outline: none; text-align: center;
+  }
+  .gate-box input:focus { border-color: #60a5fa; }
+  .gate-box .error { color: #f87171; font-size: 13px; margin-top: 10px; display: none; }
+</style>
+<link rel="stylesheet" href="/pages/_shared/menu.css">
+</head>
+<body>
+
+<div id="password-gate">
+  <div class="gate-box">
+    <div style="font-size:48px;margin-bottom:16px;">🔐</div>
+    <h1>Password Required</h1>
+    <p>Enter the passcode to view this artifact.</p>
+    <input type="password" id="password-input" placeholder="Enter password" autocomplete="off" />
+    <div class="error" id="password-error">Incorrect password.</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-row">
+      <div class="pulse-dot"></div>
+      <h1>The Man That Makes Billionaires</h1>
+    </div>
+    <p class="subtitle">Sharran Srivatsaa — CEO of Acquisition.com, scaled Telos Properties $300M → $3.4B in 5 years. The formula behind brands that explode: growth by subtraction, the 1-1-1 rule, and the curse of capability.</p>
+    <div class="meta-tags">
+      <span class="tag">FRAMEWORKS</span>
+      <span class="tag cyan">JOURNEY</span>
+      <span class="tag emerald">PRINCIPLES</span>
+      <span class="tag">1H 23M</span>
+    </div>
+  </div>
+
+  <!-- Thesis -->
+  <div class="thesis">
+    <h2>◈ CORE THESIS</h2>
+    <p><strong>Growth by subtraction, not multiplication.</strong> Find the ONE thing your customer actually values, strip everything else away, and build the smallest possible machine around it. Complexity is exponential — the whole game is reducing the business to the few things you do "extremely, extremely well." One value proposition — <strong>"save you at least one day a week"</strong> — took Telos from $300M to $3.4B. "Nothing else. That's all it was."</p>
+  </div>
+
+  <!-- Main Diagram -->
+  <div class="diagram-wrapper">
+    <div class="diagram-container" id="diagram">
+      <svg viewBox="0 0 1000 760" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#475569" />
+          </marker>
+          <marker id="arrow-amber" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#fbbf24" />
+          </marker>
+          <marker id="arrow-cyan" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#22d3ee" />
+          </marker>
+          <marker id="arrow-emerald" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#34d399" />
+          </marker>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+          </pattern>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- Background -->
+        <rect width="100%" height="100%" fill="url(#grid)" />
+        <rect x="20" y="20" width="960" height="720" fill="none" stroke="#1e293b" stroke-width="1" rx="12" />
+
+        <!-- Title -->
+        <text x="500" y="48" fill="#f1f5f9" font-size="15" font-weight="800" text-anchor="middle" font-family="Inter, sans-serif">The Sharran Srivatsaa Operating System</text>
+        <text x="500" y="66" fill="#64748b" font-size="9" text-anchor="middle" font-family="Inter, sans-serif">Subtract complexity → engineer options → recruit A-players → freeze lifestyle</text>
+
+        <!-- ============ CENTER: GROWTH BY SUBTRACTION ============ -->
+        <rect x="310" y="90" width="380" height="62" rx="10" fill="rgba(251, 191, 36, 0.15)" stroke="#fbbf24" stroke-width="2"/>
+        <text x="500" y="114" fill="#fcd34d" font-size="13" font-weight="800" text-anchor="middle" font-family="Inter, sans-serif" filter="url(#glow)">GROWTH BY SUBTRACTION</text>
+        <text x="500" y="134" fill="#fde68a" font-size="8" text-anchor="middle" font-family="Inter, sans-serif">"To do great things, we must do fewer things" — complexity is exponential, not linear</text>
+
+        <!-- ============ TOP LEFT: 1-1-1 RULE (cyan) ============ -->
+        <rect x="45" y="180" width="280" height="190" rx="12" fill="rgba(8, 51, 68, 0.25)" stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="6,3"/>
+        <text x="185" y="205" fill="#22d3ee" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif" filter="url(#glow)">THE 1-1-1 RULE → $300K</text>
+
+        <!-- Traffic -->
+        <rect x="62" y="220" width="80" height="62" rx="6" fill="#0f172a" stroke="#22d3ee" stroke-width="1.2"/>
+        <rect x="62" y="220" width="80" height="62" rx="6" fill="rgba(8, 51, 68, 0.4)" stroke="none"/>
+        <text x="102" y="244" fill="#67e8f9" font-size="8.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">TRAFFIC</text>
+        <text x="102" y="260" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">one source you</text>
+        <text x="102" y="271" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">control</text>
+
+        <!-- Conversion -->
+        <rect x="152" y="220" width="80" height="62" rx="6" fill="#0f172a" stroke="#22d3ee" stroke-width="1.2"/>
+        <rect x="152" y="220" width="80" height="62" rx="6" fill="rgba(8, 51, 68, 0.4)" stroke="none"/>
+        <text x="192" y="244" fill="#67e8f9" font-size="8.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">CONVERSION</text>
+        <text x="192" y="260" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">one method</text>
+        <text x="192" y="271" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">(e.g. 1-on-1 call)</text>
+
+        <!-- Delivery -->
+        <rect x="242" y="220" width="68" height="62" rx="6" fill="#0f172a" stroke="#22d3ee" stroke-width="1.2"/>
+        <rect x="242" y="220" width="68" height="62" rx="6" fill="rgba(8, 51, 68, 0.4)" stroke="none"/>
+        <text x="276" y="244" fill="#67e8f9" font-size="8.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">DELIVERY</text>
+        <text x="276" y="260" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">one channel</text>
+        <text x="276" y="271" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">(FB group)</text>
+
+        <!-- Arrows between 1-1-1 -->
+        <path d="M 142 251 L 152 251" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrow-cyan)"/>
+        <path d="M 232 251 L 242 251" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrow-cyan)"/>
+
+        <text x="185" y="298" fill="#94a3b8" font-size="7" text-anchor="middle" font-family="Inter, sans-serif">Dial it in → add 2nd traffic source</text>
+        <text x="185" y="312" fill="#94a3b8" font-size="7" text-anchor="middle" font-family="Inter, sans-serif">→ 3rd → breaks → fix conversion</text>
+        <text x="185" y="330" fill="#64748b" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">"30% → 35%: just say 3 different things in your script"</text>
+        <text x="185" y="348" fill="#22d3ee" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">organic · paid · activity/JV</text>
+
+        <!-- ============ TOP RIGHT: TRAFFIC/SYSTEMS/SKILLS (emerald) ============ -->
+        <rect x="675" y="180" width="280" height="190" rx="12" fill="rgba(6, 78, 59, 0.25)" stroke="#34d399" stroke-width="1.5" stroke-dasharray="6,3"/>
+        <text x="815" y="205" fill="#34d399" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif" filter="url(#glow)">DIAGNOSTIC: TRAFFIC · SYSTEMS · SKILLS</text>
+
+        <!-- Traffic box -->
+        <rect x="692" y="220" width="82" height="62" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1.2"/>
+        <rect x="692" y="220" width="82" height="62" rx="6" fill="rgba(6, 78, 59, 0.4)" stroke="none"/>
+        <text x="733" y="242" fill="#6ee7b7" font-size="8" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">TRAFFIC</text>
+        <text x="733" y="258" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">fill the funnel</text>
+        <text x="733" y="269" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">unlimited leads</text>
+
+        <!-- Systems box -->
+        <rect x="784" y="220" width="82" height="62" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1.2"/>
+        <rect x="784" y="220" width="82" height="62" rx="6" fill="rgba(6, 78, 59, 0.4)" stroke="none"/>
+        <text x="825" y="242" fill="#6ee7b7" font-size="8" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">SYSTEMS</text>
+        <text x="825" y="258" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">convert → cash</text>
+        <text x="825" y="269" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">automatically</text>
+
+        <!-- Skills box -->
+        <rect x="876" y="220" width="64" height="62" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1.2"/>
+        <rect x="876" y="220" width="64" height="62" rx="6" fill="rgba(6, 78, 59, 0.4)" stroke="none"/>
+        <text x="908" y="242" fill="#6ee7b7" font-size="8" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">SKILLS</text>
+        <text x="908" y="258" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">deliver + get</text>
+        <text x="908" y="269" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">paid</text>
+
+        <!-- Arrows -->
+        <path d="M 774 251 L 784 251" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrow-emerald)"/>
+        <path d="M 866 251 L 876 251" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrow-emerald)"/>
+
+        <text x="815" y="300" fill="#94a3b8" font-size="7" text-anchor="middle" font-family="Inter, sans-serif">FIX SYSTEMS FIRST — "build the</text>
+        <text x="815" y="313" fill="#94a3b8" font-size="7" text-anchor="middle" font-family="Inter, sans-serif">plumbing before sending water"</text>
+        <text x="815" y="330" fill="#64748b" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">key Q: can the skill transfer to someone else?</text>
+        <text x="815" y="346" fill="#34d399" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">owner = deliverer = scalability constraint</text>
+
+        <!-- ============ MIDDLE: TELOS CASE STUDY (amber) ============ -->
+        <rect x="45" y="400" width="910" height="150" rx="12" fill="rgba(120, 53, 15, 0.2)" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="6,3"/>
+        <text x="500" y="425" fill="#fbbf24" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif" filter="url(#glow)">THE TELOS CASE — $300M → $3.4B IN 5 YEARS</text>
+
+        <!-- Step boxes -->
+        <rect x="62" y="442" width="130" height="84" rx="6" fill="#0f172a" stroke="#fbbf24" stroke-width="1"/>
+        <rect x="62" y="442" width="130" height="84" rx="6" fill="rgba(120, 53, 15, 0.4)" stroke="none"/>
+        <text x="127" y="462" fill="#fcd34d" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">1 · THE PROBLEM</text>
+        <text x="72" y="478" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">CEO was embezzling.</text>
+        <text x="72" y="491" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">Forensic accounting,</text>
+        <text x="72" y="504" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">bought him out. Reverse-</text>
+        <text x="72" y="517" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">mortgaged his house.</text>
+
+        <rect x="206" y="442" width="130" height="84" rx="6" fill="#0f172a" stroke="#fbbf24" stroke-width="1"/>
+        <rect x="206" y="442" width="130" height="84" rx="6" fill="rgba(120, 53, 15, 0.4)" stroke="none"/>
+        <text x="271" y="462" fill="#fcd34d" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">2 · THE ACCIDENT</text>
+        <text x="216" y="478" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">"By mistake I put an</text>
+        <text x="216" y="491" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">extra zero in a spreadsheet</text>
+        <text x="216" y="504" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">cell… if that is true,</text>
+        <text x="216" y="517" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">can I make it work?"</text>
+
+        <rect x="350" y="442" width="160" height="84" rx="6" fill="#0f172a" stroke="#fbbf24" stroke-width="1"/>
+        <rect x="350" y="442" width="160" height="84" rx="6" fill="rgba(120, 53, 15, 0.4)" stroke="none"/>
+        <text x="430" y="462" fill="#fcd34d" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">3 · THE CUSTOMER QUESTION</text>
+        <text x="360" y="478" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">Asked all 30 agents: "What</text>
+        <text x="360" y="491" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">would I take away that</text>
+        <text x="360" y="504" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">makes you not want to</text>
+        <text x="360" y="517" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">work here?" → unanimous</text>
+
+        <rect x="524" y="442" width="190" height="84" rx="6" fill="rgba(251, 191, 36, 0.2)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="619" y="462" fill="#fcd34d" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">4 · THE ONE VALUE PROP</text>
+        <text x="534" y="480" fill="#fde68a" font-size="8.5" font-weight="600" font-family="Inter, sans-serif">"Our job is to save you</text>
+        <text x="534" y="494" fill="#fde68a" font-size="8.5" font-weight="600" font-family="Inter, sans-serif">at least one day a week.</text>
+        <text x="534" y="508" fill="#fde68a" font-size="8.5" font-weight="600" font-family="Inter, sans-serif">What would you do with</text>
+        <text x="534" y="522" fill="#fde68a" font-size="8.5" font-weight="600" font-family="Inter, sans-serif">another 52 days a year?"</text>
+
+        <rect x="728" y="442" width="210" height="84" rx="6" fill="#0f172a" stroke="#fbbf24" stroke-width="1"/>
+        <rect x="728" y="442" width="210" height="84" rx="6" fill="rgba(120, 53, 15, 0.4)" stroke="none"/>
+        <text x="833" y="462" fill="#fcd34d" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">5 · THE OPERATING FILTER</text>
+        <text x="738" y="478" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">Every decision tested: "Does</text>
+        <text x="738" y="491" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">this help agents save one</text>
+        <text x="738" y="504" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">day a week? If yes, do it.</text>
+        <text x="738" y="517" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">If not, don't."</text>
+
+        <!-- Arrows -->
+        <path d="M 192 484 L 206 484" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+        <path d="M 336 484 L 350 484" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+        <path d="M 510 484 L 524 484" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+        <path d="M 714 484 L 728 484" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+
+        <!-- Result -->
+        <text x="500" y="540" fill="#fde68a" font-size="9" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">RESULT: 10x in 5 years — "That one value prop pitch. Nothing else. That's all it was."</text>
+
+        <!-- ============ BOTTOM: PRINCIPLES (emerald + rose) ============ -->
+        <text x="500" y="585" fill="#94a3b8" font-size="9" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">THE OPERATING PRINCIPLES</text>
+
+        <!-- Principle boxes row -->
+        <rect x="45" y="600" width="130" height="66" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
+        <rect x="45" y="600" width="130" height="66" rx="6" fill="rgba(6, 78, 59, 0.4)" stroke="none"/>
+        <text x="110" y="618" fill="#6ee7b7" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">FREEZE LIFESTYLE</text>
+        <text x="55" y="634" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">Same monthly nut 14 yrs,</text>
+        <text x="55" y="647" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">net worth 50x. "Everything</text>
+        <text x="55" y="660" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">above this is risk-adjusted"</text>
+
+        <rect x="189" y="600" width="130" height="66" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
+        <rect x="189" y="600" width="130" height="66" rx="6" fill="rgba(6, 78, 59, 0.4)" stroke="none"/>
+        <text x="254" y="618" fill="#6ee7b7" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">PHANTOM EQUITY</text>
+        <text x="199" y="634" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">A-player gets 10% on sale</text>
+        <text x="199" y="647" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">— no liability, no taxes,</text>
+        <text x="199" y="660" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">gone if they leave</text>
+
+        <rect x="333" y="600" width="130" height="66" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
+        <rect x="333" y="600" width="130" height="66" rx="6" fill="rgba(6, 78, 59, 0.4)" stroke="none"/>
+        <text x="398" y="618" fill="#6ee7b7" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">SOFT-SHOP YEARLY</text>
+        <text x="343" y="634" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">Take biz to market, ask 3–5</text>
+        <text x="343" y="647" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">buyers "why not 75M?" →</text>
+        <text x="343" y="660" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">their answer = next year's plan</text>
+
+        <rect x="477" y="600" width="130" height="66" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
+        <rect x="477" y="600" width="130" height="66" rx="6" fill="rgba(6, 78, 59, 0.4)" stroke="none"/>
+        <text x="542" y="618" fill="#6ee7b7" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">ASK FOR HELP</text>
+        <text x="487" y="634" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">"What could I do? Read?</text>
+        <text x="487" y="647" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">Who could I ask?" Goldman</text>
+        <text x="487" y="660" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">job won by asking for script</text>
+
+        <rect x="621" y="600" width="130" height="66" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
+        <rect x="621" y="600" width="130" height="66" rx="6" fill="rgba(6, 78, 59, 0.4)" stroke="none"/>
+        <text x="686" y="618" fill="#6ee7b7" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">PROXIMITY</text>
+        <text x="631" y="634" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">Engineer your environment:</text>
+        <text x="631" y="647" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">best hotel lobby, right</text>
+        <text x="631" y="660" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">events, right people</text>
+
+        <rect x="765" y="600" width="190" height="66" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
+        <rect x="765" y="600" width="190" height="66" rx="6" fill="rgba(6, 78, 59, 0.4)" stroke="none"/>
+        <text x="860" y="618" fill="#6ee7b7" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">SKILL STACKING</text>
+        <text x="775" y="634" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">Tennis → CS → Goldman → Real estate</text>
+        <text x="775" y="647" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">"Necessity builds a better stack</text>
+        <text x="775" y="660" fill="#94a3b8" font-size="6.5" font-family="Inter, sans-serif">than intention ever could"</text>
+
+        <!-- Attention/Bottleneck strip -->
+        <rect x="45" y="680" width="445" height="40" rx="6" fill="rgba(136, 19, 55, 0.15)" stroke="#fb7185" stroke-width="1" stroke-dasharray="4,2"/>
+        <text x="267" y="698" fill="#fda4af" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">ATTENTION MANAGEMENT</text>
+        <text x="267" y="712" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">80% of time on top 3 · renew every quarter · "fewer things"</text>
+
+        <rect x="510" y="680" width="445" height="40" rx="6" fill="rgba(136, 19, 55, 0.15)" stroke="#fb7185" stroke-width="1" stroke-dasharray="4,2"/>
+        <text x="732" y="698" fill="#fda4af" font-size="7.5" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">FIND THE BOTTLENECK BEFORE IT FINDS YOU</text>
+        <text x="732" y="712" fill="#94a3b8" font-size="6.5" text-anchor="middle" font-family="Inter, sans-serif">"If your business doubled tomorrow, where would it break?"</text>
+
+        <!-- Connections from center thesis down -->
+        <path d="M 500 152 L 500 180" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+      </svg>
+    </div>
+    <button class="fs-btn" id="fs-toggle" onclick="toggleFullscreen()" aria-label="Toggle fullscreen">
+      <span class="icon-expand">⛶</span>
+      <span class="icon-compress">✕</span>
+    </button>
+  </div>
+  <p class="diagram-caption">The operating system: 1-1-1 rule → Traffic/Systems/Skills diagnostic → the Telos case study → principles that compound.</p>
+
+  <!-- Section 1: Frameworks -->
+  <div class="section">
+    <h2><span class="section-badge">MODULE 1 · FRAMEWORKS</span> How to 10X — Business Frameworks</h2>
+
+    <div class="concept">
+      <h3>The "One Part" Principle <span class="time">1:23</span></h3>
+      <p>Don't improve every part of the business. <strong>Improve ONE part and everything else will be forced to lift with it.</strong> Complexity is "not linear. It is extremely exponential" — a $100M business is not 100x more complex than a $1M one.</p>
+      <p><strong>The Assumption Test:</strong> pick the thing to focus on → assume you've already accomplished it → check whether everything else works under that assumption → if not, you've found the next constraint. "The last thing you want is to do the thing and then get stuck with everything else."</p>
+    </div>
+
+    <div class="concept">
+      <h3>Traffic / Systems / Skills Diagnostic <span class="time">3:58</span></h3>
+      <ul>
+        <li><strong>Traffic:</strong> fill the funnel with opportunities — "an unlimited source of leads filling the funnel constantly"</li>
+        <li><strong>Systems:</strong> convert opportunities into appointments, cash, contracts — automatically</li>
+        <li><strong>Skills:</strong> deliver, fulfill, get paid — "most of the time it is the owner." Critical question: <strong>"do I have the ability to transfer the skill to someone else?"</strong> If the owner is the deliverer, that's the scalability constraint.</li>
+      </ul>
+      <p><strong>Fix systems BEFORE buying traffic:</strong> "Should we build the plumbing or send water through the pipes first? Build the plumbing first." Otherwise the first customers get a bad experience and you're upset you paid for traffic that didn't convert.</p>
+    </div>
+
+    <div class="concept">
+      <h3>The 1-1-1 Rule → $300K <span class="time">5:43</span></h3>
+      <p><strong>One traffic source you can control + one conversion method + one delivery channel.</strong> "I get leads through paid ads. They convert on a one-on-one call and I deliver all of them in a Facebook group."</p>
+      <ul>
+        <li>Diagnostic value per leg: "If the ads break, I'm done. But at least I know the ads are working." Then improve that one leg — "hire a consultant to watch 10 calls, get conversion from 30% to 35%. You just say three different things in your script."</li>
+        <li><strong>Scaling sequence:</strong> 1-1-1 works → add a 2nd traffic source → 3rd → "then it'll break somewhere. Then you probably need a different conversion source."</li>
+        <li>Traffic categories: organic, paid, or activity/JV (knocking on doors, flyers).</li>
+        <li><strong>"The 111 will probably get you to a $300,000 business very quickly if you can dial the 111 in."</strong></li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <h3>The Don Shula Touchdown Principle <span class="time">7:21</span></h3>
+      <p>From his business partner, a Miami Dolphins defensive lineman who played for Don Shula: <strong>"Every single play they mapped out ended in a touchdown."</strong> Most coaches plan for 8 yards. Shula designed every play to potentially score.</p>
+      <p><strong>Business application:</strong> don't start assuming "we'll figure it out tomorrow." Project out — "if I continue doing this thing, is it sustainable enough to grow? I'm already working 14 hours a day — no way if this grows from 3M to 30M can I grow that way."</p>
+    </div>
+
+    <div class="concept">
+      <h3>The $10M/$100M Question + The Curse of Capability <span class="time">8:21</span></h3>
+      <ul>
+        <li><strong>Ask: "What would it take for this to be $10 million? $100 million?"</strong> The current model doesn't work under that frame — "the complexity starts to fan out," and you see quickly what's important and what's not.</li>
+        <li><strong>The Curse of Capability:</strong> "Smart, capable entrepreneurs will put themselves in situations to do complex things because they're capable of doing those things." It's very hard for capable people to hear this.</li>
+        <li><strong>Why he invests in "lazy" entrepreneurs:</strong> their mindset is "how do I find the easiest possible way to do this thing so I can make a ton of money?" For complex businesses: "Cut this, cut this, cut this… Oh, you have 90% of your time back and only 10% of revenue dropped."</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <h3>The Telos Story — One Value Proposition <span class="time">10:02</span></h3>
+      <p>The anchor case study of the episode:</p>
+      <ul>
+        <li>Passive investor in Telos Properties (~$300M revenue). Discovered the CEO was <strong>embezzling</strong>. Forensic accounting, bought the CEO out — reverse-mortgaged his house. "I had never run a company before that. I was googling how to run a business, how to make a P&L."</li>
+        <li>By mistake he put an extra zero in a spreadsheet cell — $300M became $3B — "and suddenly those numbers looked phenomenal. And I said, if that is true, can I make it work?"</li>
+        <li>Asked all 30 agents: <strong>"What would be the one thing that if I took away, you would not want to work here anymore?"</strong> Unanimous: "Me being here saves me at least one day a week."</li>
+        <li>Value prop: <strong>"Our job is to save you at least one day a week. What would you do with another 52 days a year?"</strong></li>
+        <li>Every decision since filtered through: "Does this help our agents save more than one day a week? If yes, do it. If not, don't." (Even a "$10M ad budget? No.")</li>
+        <li><strong>Result: $300M → $3.4B, 10x in 5 years. "Nothing else. That's all it was."</strong></li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <h3>The Two Best Customer Questions + Mailchimp <span class="time">10:02</span></h3>
+      <ul>
+        <li>"We fear talking to our customers. We think, because we're smart, they want all these things — extra calls, Loom videos, written reports — but they don't care about most of those things."</li>
+        <li><strong>Q1:</strong> "What is the one thing that if I took away, this would not be a valuable engagement for you anymore?"</li>
+        <li><strong>Q2:</strong> "What is the one thing you wish I added that would make you stay forever?"</li>
+        <li><strong>Mailchimp:</strong> won on "first 5,000 contacts free" while CRMs charged $39–100/month. One thing became "the universal front door" — bought by Salesforce for billions. "There's been no CRM that's ever sold for that level of money."</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <h3>Making a Business Sellable — "The Goal Is Options" <span class="time">10:02</span></h3>
+      <ul>
+        <li>"My dad always said: when you don't know your options, you don't have any."</li>
+        <li><strong>The Soft-Shop Process (annual):</strong> take the business to market as if selling → identify 3–5 likely buyers → ask "how would you value us?" ($50M) → push "why not 75?" → buyer lists 5 things → hand the list to the COO: "This is your business plan for the next year" → repeat next year ("why not 150?" → 6 things).</li>
+        <li>Buyers see a business that's "malleable and adaptable" with an operator who can grow with it — and they reveal what's NOT valuable (he deprioritized Orange County after buyers said no synergies + losing money).</li>
+        <li><strong>Three growth options:</strong> grow it yourself (self-funded) · outside equity (PE/investor) · grow with employees (Employee Stock Purchase Plan). Friend's wealth firm: sold 50% to employees (10% paid by them, 40% bank-financed) → $50M check → later $250M from PE who loved 50 vested shareholders. "None of them are going anywhere." Best fit: services businesses where people stay long-term.</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <h3>Phantom Equity for A-Players <span class="time">18:43</span></h3>
+      <p>Real equity means changing LLC docs, granting shareholder rights, liability if they leave — "really complex," so owners avoid it. <strong>Phantom stock program:</strong> owners hold 100 shares; create a separate document that mirrors the stock — "if we ever sell this business, you get 10%. But you have no liability, no tax consequences. By the way, if you leave, this goes away."</p>
+      <p>A-player feels like an owner without changing the operating structure — a recruitment strategy AND a future sale option. (How he recognized the Hormozis: they asked second- and third-order questions — "if I did this, what would it mean in 5–10 years?" — "chess, not checkers.")</p>
+    </div>
+
+    <div class="concept">
+      <h3>Freeze Your Lifestyle <span class="time">21:06</span></h3>
+      <p>"The number one thing an entrepreneur can do to set themselves up for scale in the early part of their lives is to <strong>freeze lifestyle.</strong>" The trap walked through with numbers: $500K/year → $150K after expenses → can't hire the $200K person → grow to $1M → now used to $300K lifestyle → still can't hire. "I am the service. I am the delivery. If I pull myself out, I don't make the lifestyle I'm used to."</p>
+      <p><strong>His proof: "In the last 14 years, our family runs on the same monthly nut. Our net worth is probably 50 times what it was, and we still run on the same monthly nut."</strong> "If this is my monthly nut, everything above this is just risk adjusted."</p>
+    </div>
+  </div>
+
+  <!-- Section 2: Journey -->
+  <div class="section">
+    <h2><span class="section-badge cyan">MODULE 2 · THE JOURNEY</span> Wealth Is a "Who" Problem</h2>
+
+    <div class="concept">
+      <h3>The 1010 Forever Rule <span class="time">22:28</span></h3>
+      <p>The biggest misconception about building wealth: "us thinking that it is a <strong>what and how</strong> problem and not a <strong>who</strong> problem." Who are the 10 people you'd invest in for the next 10 years who would pay you forever? People and relationships outperform stock picks.</p>
+    </div>
+
+    <div class="concept">
+      <h3>How to Hire A-Players <span class="time">23:14</span></h3>
+      <p>Only two reasons to hire: <strong>pain of today</strong> ("I'm drowning, I need somebody yesterday") or <strong>growth of tomorrow</strong> ("wouldn't it be amazing if we had this person?"). The #1 reason A-players are hard to find: <strong>you don't articulate which of the two you're hiring for.</strong></p>
+      <ul>
+        <li><strong>Pain of today template:</strong> write out all the pain ("I don't have time… quality is poor… clients have a bad experience… I don't sleep") → upload to AI → "Turn all of this pain into a job description."</li>
+        <li><strong>Growth of tomorrow template:</strong> write "wouldn't it be amazing if we could do A B C 1 2 3?" → AI → "Turn all my aspirations into a job description."</li>
+        <li>"It's not that they are an A player. It is that they are an <strong>A player for you.</strong> You've got to give them your puzzle piece — if they don't know your puzzle piece, they can never put theirs in."</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <h3>Why Email Built His $1B Business <span class="time">24:50</span></h3>
+      <ul>
+        <li>Email is "a gateway to everything" — you need it for every social account.</li>
+        <li>Social feeds = "constant scroll mode." <strong>Email is the only medium where you evaluate every message on its own priority</strong> — a choice on every message.</li>
+        <li>An opt-in is an endorsed introduction — "someone actually raised their hand." Email buyers are more serious buyers.</li>
+        <li><strong>"Probably one-third of my net worth has been created from my email list. We built a billion dollar business off my email list."</strong></li>
+        <li>His WAM rule ("write a memo"): when someone on Slack asks anything, reply "WAM."</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <h3>Memo Culture — No Memo, No Decision <span class="time">27:45</span></h3>
+      <ul>
+        <li>"Clarity of thinking creates the clarity of results." <strong>"No memo, no decision. No memo, no meeting."</strong> The memo is delivered before the meeting so the meeting only discusses its questions.</li>
+        <li>"The best reason to write a memo is for yourself" — "fear has no place on paper." Memos become institutional knowledge: "read our last 20 memos" — old ones become SOPs.</li>
+        <li><strong>3-piece framework:</strong> who do you write it to (he writes to his coach in his head — forces shared understanding) · "The Story So Far" (the 7 things that happened) · "here's the issue, here's my recommendation, I don't know the answers to these 5 questions — can we meet?"</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <h3>Growing Up + Moving to the US <span class="time">31:10</span></h3>
+      <ul>
+        <li>One-bedroom apartment in India, dyslexic, bullied, tone-deaf, no sports — "the last kid picked on the field." In an academic society, "I was not going to make it on academic prowess."</li>
+        <li>His dad on a park bench: <strong>"You need a ticket. You need a skill that will make you stand out to get out of India."</strong> So they dropped academics and focused everything on tennis. Sent alone to the US at 16 — "the biggest sacrifice."</li>
+        <li>Day one in America: mugged 8 hours after landing in La Crosse, Wisconsin. "You're the worst person I ever mugged." He negotiated: "If I give you this $100, will you give me 50 back?" The mugger handed back $45.</li>
+        <li>First company, first exit: expected $50M, got a fraction — a ratchet (dilution) clause "over 15xed my payout down." "Did you not read your contract?" — the seed of the lesson: he didn't know how to <em>structure</em> deals. A mentor: "If I were you, I'd go to Wall Street."</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <h3>Tennis with Bill Gates & Richard Branson <span class="time">35:23</span></h3>
+      <p>A teaching pro's prescription: "You need to teach 100 free lessons and I'll evaluate every single one." That's how he got good enough to teach Bill Gates, Alan Alda, and Richard Branson.</p>
+      <p><strong>The Branson question:</strong> "You run 10 companies. How do you make decisions?" — "Most people don't have a framework for making decisions. Therefore, they make dumb decisions."</p>
+      <p><strong>The decision framework he built from that day:</strong> (1) understand the context — where is the shared information? (2) isolate the issue — what problem are we solving? (3) accept the risk — if we decide, what actually breaks? (4) map the decision — what are the next steps?</p>
+    </div>
+
+    <div class="concept">
+      <h3>Goldman Sachs — 39 Interviews <span class="time">37:04</span></h3>
+      <p>Only student in his MBA class to get a Goldman offer: <strong>39 one-on-one interviews across three cities.</strong> The binder test (~interview 10–12): a managing partner pushed a binder of prospects and said "call them, set me an appointment, let me see what you hot shot can do." His reply: "I'm happy to make this call, but I'd like to represent you. Could you give me a script?"</p>
+      <p>45 seconds later: "You'll do great, kid." In 20+ years, <strong>only two people ever asked for a script</strong> — everyone else thinks they're too good, calls, and makes a fool of themselves. "They think I'm giving them initiative points, but they're already there because of initiative. I just want to know they are <strong>coachable.</strong>"</p>
+    </div>
+
+    <div class="concept">
+      <h3>Buying Telos + The $10K Email That Landed His First Coach <span class="time">38:35</span></h3>
+      <ul>
+        <li>Built his wife a pitch deck in her "love language," presented slide-by-slide on the couch. Reverse-mortgaged the house, all savings in, no payroll for the first year — lived off her salary. "I second-guessed myself every day."</li>
+        <li>At a 20-CEO conference, a woman spoke and "it felt like she was reading my mind." His dad: "Well, pay her." So he sent the email — <strong>the exact template:</strong> "I saw you speak today… I would like to offer you $10,000 as a symbol of my seriousness if you can be my coach for the year. I don't expect any meetings, any scheduled phone calls, I don't expect to bother you in any way. I would just hope that you would prioritize responding to my emails."</li>
+        <li>Reply 20 minutes later: "Is this a joke?" → "No, I'm 100% serious. This is all I have." → "Write it up." He signed it, scanned it, wired the $10K. <strong>"I've written that email to at least a dozen people since then. Nobody says no."</strong></li>
+        <li>The strategy: make it low-stakes for the other person — no meetings, no calls, no burden. "I bet people get hit up saying 'can I pick your brain?' They make it feel heavy."</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <h3>Losing $1M to a Disappearing Founder <span class="time">43:10</span></h3>
+      <p>An investor opportunity with a founder who "watched his videos," met in person, showed the books — ~$1M invested. Three months later, nobody could find him. Two sets of books, a fake company. It took 3–4 months of therapy before he could tell his wife. Her first words: <strong>"So what'd you learn?"</strong></p>
+      <p>His answer — the investment framework: <strong>"Good people, good intentions, good rationale, good contracts."</strong> Her reply: "I have no doubt you'll make 10 times or more back in a very short time."</p>
+      <div class="quote-box"><p>"The job of a leader is to help other people believe in a bigger and better future. As soon as you believe the future is bigger and better, you have an operating system of hope."</p></div>
+    </div>
+
+    <div class="concept">
+      <h3>Dumpster Diving in College <span class="time">47:04</span></h3>
+      <p>International tuition check took 7–10 days to clear — no meal plan. Jumped in a dumpster for pizza slices, got whacked by a raccoon fighting over Pop-Tarts, got a tetanus shot — the nurse handed him a Blockbuster card: "Get yourself some food and a movie. You'll be better tomorrow."</p>
+      <p>22 years later he returned as commencement speaker, told the story to thousands, and found the dumpster — now with an Aquaman poster on it: <strong>"Not giving up is the most heroic thing you can do."</strong> "I have never sobbed so much… that made everything worthwhile." His one-word name for this chapter: <strong>Preparation</strong> — "because how you prepare shows just how much you care."</p>
+    </div>
+  </div>
+
+  <!-- Section 3: Principles -->
+  <div class="section">
+    <h2><span class="section-badge emerald">MODULE 3 · PRINCIPLES</span> The Operating System</h2>
+
+    <div class="concept">
+      <h3>Skill Stacking <span class="time">51:50</span></h3>
+      <p>Combining multiple skills — even unrelated ones — forms a stack that becomes your unique advantage. Sharran's stack: <strong>tennis</strong> (discipline, performing under pressure) → <strong>computer science</strong> (reverse-engineering problems) → <strong>Goldman Sachs</strong> (deal structure — needed after the dilution lesson) → <strong>real estate</strong> (networking, marketing, a well-rounded CEO).</p>
+      <p><strong>"Necessity builds a better stack than intention ever could."</strong> Some of the most powerful skills are ones forced on you or picked up to survive. "None of it was random. It just might have looked that way at the time."</p>
+    </div>
+
+    <div class="concept">
+      <h3>Proximity Principle <span class="time">53:25</span></h3>
+      <p>Your environment shapes your outcomes. Place yourself around people who elevate your thinking, accelerate your pace, expand what you believe is possible. He wasn't born into the right rooms — <strong>he engineered his way in:</strong> sometimes with a cold email and $10,000 he could barely afford.</p>
+      <p>Mechanics without moving cities: work from the best hotel lobby in your city, attend virtual events with the right people. <strong>Audit questions:</strong> is your main environment expanding what you believe is possible, or keeping you comfortable? What's the one thing you could do THIS WEEK to get closer to opportunity?</p>
+    </div>
+
+    <div class="concept">
+      <h3>Asking for Help — Jim Rohn's 3 Questions <span class="time">55:29</span></h3>
+      <p>"To solve any problem, ask: <strong>(1) What could I do? (2) What could I read? (3) Who could I ask?"</strong> Asking is hard because we're taught our value comes from what we offer, not what we need. The reframe: "Where am I trying to figure out something on my own when someone else already has the answer?" — the exact question behind the $10K coach email. And the Goldman proof: he got the job because he asked for the script.</p>
+    </div>
+
+    <div class="concept">
+      <h3>Recruiting Superstars — 3 Steps <span class="time">57:04</span></h3>
+      <p>Asking for help is a moment; <strong>recruiting a superstar is someone in your corner on a recurring basis</strong> — for that, you need an offer. The $10K coach compressed "years of learning into four years of focused growth."</p>
+      <ul>
+        <li><strong>Step 1 — Identify the pain, not the role:</strong> write down every stress point, upload to AI, turn it into a job description. When the right person reads it, they feel it was written for them.</li>
+        <li><strong>Step 2 — Decide what you offer (what THEY want):</strong> money, equity, title, or a winning team to climb faster. Telos's recruiting line was the same value prop: "Our job is to save you at least one day a week. What would you do with another 52 days a year?" — that one line attracted the best agents and built the $3.4B company. <strong>Find one piece of leverage they couldn't get anywhere else.</strong></li>
+        <li><strong>Step 3 — Recruit like sports:</strong> most A-players are currently employed — go find them. If they're not interested, ask for referrals — "A players know other A players."</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <h3>Attention Management <span class="time">1:02:19</span></h3>
+      <p>Aggressively focus on a few things that move the needle — and protect them. "To do great things, we must do fewer things." Identify the 2–3 areas with the most payoff, drop what isn't moving the needle (not forever — just not now), ask which ONE is highest leverage, <strong>spend 80% of time on the top 3, and renew every quarter.</strong></p>
+    </div>
+
+    <div class="concept">
+      <h3>Simplicity as Strategy <span class="time">1:03:34</span></h3>
+      <p>"Complexity is the enemy of scale." The more capable you are, the more complex your business becomes — the capability itself is the trap. Two advantages of simplifying: <strong>easier to create scalable systems</strong> and <strong>easier to market and sell</strong> (Siegel+Gale: 76% more likely to recommend a brand with simple experiences; simplicity-leading brands outperform the market by 200%+).</p>
+      <ul>
+        <li><strong>Proof cases:</strong> Natalie Barbu's Relay pivoted from a multi-tool product to strictly social media management → 7x revenue. Good American started with just jeans; Skims with shapewear; Instagram was only square photos; Dry Bar only blowouts. "You don't stand out by being really good at many things. You stand out by being the best at one thing."</li>
+        <li><strong>Four application questions:</strong> what's the simplest version of your business that could still carry it? What's your 1-1-1 right now? Can your customer explain what you do in one sentence? What could you REMOVE right now to free up the most important thing?</li>
+      </ul>
+    </div>
+
+    <div class="concept">
+      <h3>Finding the Bottlenecks <span class="time">1:08:07</span></h3>
+      <p>"Find the bottleneck before it finds you." The core move: <strong>assume everything is going to work</strong> — clients lined up, employees lined up — then ask: will those employees need your approval? Do you have systems to divide and conquer three huge accounts at once? The common failure: get the clients → then find people → then create training systems → you end up doing it yourself.</p>
+      <p><strong>Diagnostic questions:</strong> If your business doubled tomorrow, where would it break? What works right now only because YOU are doing it? What system would need to exist to change that? Mr. Beast model: he pops in for a few hours, films multiple episodes at once, and leaves — he found his bottleneck and built systems around it.</p>
+    </div>
+
+    <div class="concept">
+      <h3>Save for a Rainy Day <span class="time">1:10:45</span></h3>
+      <p>The discipline of resisting the urge to upgrade your life as revenue grows, so you always have margin to make the moves that matter. <strong>His version: 14 years, net worth up ~50x, same monthly budget.</strong> "That is not frugality just for the sake of frugality. That is optionality. That is freedom."</p>
+      <ul>
+        <li>Buffett still lives in the same Omaha house he bought in 1958 for $31,500.</li>
+        <li>Harvard Business School: 75% of VC-backed startups never return investors' capital — "having money isn't what makes a successful business. Most people don't lack resources. They lack resourcefulness."</li>
+        <li><strong>The action:</strong> if revenue stopped tomorrow, how many months could you survive? <strong>Ideally ~6 months.</strong> That number is your real runway.</li>
+        <li>Warren Buffett: "Do not save what is left after spending. Spend what is left after saving."</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    The Anatomy of a Dream · Sharran Srivatsaa — The Man That Makes Billionaires · breakdown by Hermes · 2026
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const HASH = "2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e";
+  const gate = document.getElementById('password-gate');
+  const input = document.getElementById('password-input');
+  const error = document.getElementById('password-error');
+
+  async function sha256(str) {
+    const buf = new TextEncoder().encode(str);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  async function check() {
+    const digest = await sha256(input.value);
+    if (digest === HASH) {
+      gate.classList.add('hidden');
+      localStorage.setItem('pages_pass', digest);
+    } else {
+      error.style.display = 'block';
+      setTimeout(() => error.style.display = 'none', 2000);
+    }
+  }
+
+  (async function(){
+    const stored = localStorage.getItem('pages_pass');
+    if (stored === HASH) { gate.classList.add('hidden'); return; }
+  })();
+
+  input.addEventListener('keydown', function(e){ if (e.key === 'Enter') check(); });
+})();
+
+function toggleFullscreen() {
+  const d = document.getElementById('diagram');
+  d.classList.toggle('fullscreen');
+  document.body.style.overflow = d.classList.contains('fullscreen') ? 'hidden' : '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const d = document.getElementById('diagram');
+    if (d.classList.contains('fullscreen')) toggleFullscreen();
+  }
+});
+</script>
+<script src="/pages/_shared/menu.js"></script>
+</body>
+</html>
