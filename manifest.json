@@ -3,32 +3,38 @@
     {
       "slug": "tariff-trade-breakdown",
       "title": "Tariffs, Trade & Trump's Strategy",
-      "description": "3-part visual breakdown — tariff mechanics, Triffin dilemma, Trump's restructuring playbook",
-      "emoji": "🌐"
+      "description": "3-part visual breakdown \u2014 tariff mechanics, Triffin dilemma, Trump's restructuring playbook",
+      "emoji": "\ud83c\udf10"
     },
     {
       "slug": "payment-reconciliation-research",
       "title": "Payment Reconciliation Market Map",
-      "description": "Cross-gateway payout reconciliation — problems, players, and white space",
-      "emoji": "💳"
+      "description": "Cross-gateway payout reconciliation \u2014 problems, players, and white space",
+      "emoji": "\ud83d\udcb3"
     },
     {
       "slug": "pragmatic-engineer",
       "title": "The Pragmatic Engineer",
-      "description": "Last 5 editions — AI job market, napkin math, quality paradox",
-      "emoji": "📬"
+      "description": "Last 5 editions \u2014 AI job market, napkin math, quality paradox",
+      "emoji": "\ud83d\udcec"
     },
     {
       "slug": "jensen-huang-mindset",
       "title": "Jensen Huang: The Mindset That Built NVIDIA",
-      "description": "10 core ideas from YC Startup School 2026 — algorithm domains, F1 driving, eating glass, and building NVIDIA",
-      "emoji": "⚡"
+      "description": "10 core ideas from YC Startup School 2026 \u2014 algorithm domains, F1 driving, eating glass, and building NVIDIA",
+      "emoji": "\u26a1"
     },
     {
       "slug": "circular-financing",
-      "title": "AI Circular Financing — The $800B Money Loop",
-      "description": "How chipmakers and cloud providers invest in their own customers — NVIDIA, Google, OpenAI, Anthropic circular deals and the bubble risk",
-      "emoji": "🔄"
+      "title": "AI Circular Financing \u2014 The $800B Money Loop",
+      "description": "How chipmakers and cloud providers invest in their own customers \u2014 NVIDIA, Google, OpenAI, Anthropic circular deals and the bubble risk",
+      "emoji": "\ud83d\udd04"
+    },
+    {
+      "slug": "personal-brand-course",
+      "title": "How to Build a Personal Brand \u2014 Full Course",
+      "description": "Caleb Ralston 6h22m course \u2014 4-module breakdown: brand definition, content strategy, team building, monetization",
+      "emoji": "\ud83c\udfaf"
     }
   ]
 }
