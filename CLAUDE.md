@@ -39,9 +39,9 @@ The old SHA-256 gate only *hid* content visually — the full plaintext was stil
 
 **Limits, so nobody over-trusts this:** it's encryption at rest on GitHub's CDN. Anyone with the password can read and re-share the plaintext, and one shared password means no per-visitor revocation.
 
-## The 11 published artifacts
+## The 12 published artifacts
 
-The three bootcamp modules use the paper style. The other eight are still on
+The four bootcamp modules use the paper style. The other eight are still on
 the retired dark theme — convert one when you next touch it, don't leave it half-done.
 
 | Collection | Folder | Title | Emoji |
@@ -49,6 +49,7 @@ the retired dark theme — convert one when you next touch it, don't leave it ha
 | 🎬 AI Video Bootcamp | `ai-images` | AI Images — Field Guide | 🖼️ |
 | 🎬 AI Video Bootcamp | `ai-videos` | AI Videos — Field Guide | 🎥 |
 | 🎬 AI Video Bootcamp | `ai-advertising-ugc` | AI Advertising &amp; UGC — Complete Playbook | 📢 |
+| 🎬 AI Video Bootcamp | `social-media-viral` | Social Media &amp; Going Viral — Field Guide | 📱 |
 | 📈 Growth & Brand | `postiz-saas-growth` | Postiz: $17K → $143K MRR in 4 Months | 🚀 |
 | 📈 Growth & Brand | `sharran-srivatsaa-formula` | The Man That Makes Billionaires — Sharran Srivatsaa | 📈 |
 | 📈 Growth & Brand | `personal-brand-course` | How to Build a Personal Brand — Full Course | 🎯 |
@@ -58,7 +59,7 @@ the retired dark theme — convert one when you next touch it, don't leave it ha
 | ⚡ Craft & Mindset | `pragmatic-engineer` | The Pragmatic Engineer | 📬 |
 | ⚡ Craft & Mindset | `jensen-huang-mindset` | Jensen Huang: The Mindset That Built NVIDIA | ⚡ |
 
-Bootcamp modules are ordered by their **course** module number (01, 02, 04), not
+Bootcamp modules are ordered by their **course** module number (01, 02, 04, 05), not
 alphabetically or by publish date — `order` in the manifest carries that.
 
 ## Collections
