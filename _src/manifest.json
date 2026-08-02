@@ -1,58 +1,121 @@
 {
-    "pages": [
+    "groups": [
         {
-            "slug": "tariff-trade-breakdown",
-            "title": "Tariffs, Trade & Trump's Strategy",
-            "description": "3-part visual breakdown — tariff mechanics, Triffin dilemma, Trump's restructuring playbook",
-            "emoji": "🌐"
+            "slug": "ai-video-bootcamp",
+            "title": "AI Video Bootcamp",
+            "description": "The Skool course, module by module — still images, video models, and ad creative. Each artifact is one module distilled into a working reference.",
+            "emoji": "🎬"
         },
         {
-            "slug": "payment-reconciliation-research",
-            "title": "Payment Reconciliation Market Map",
-            "description": "Cross-gateway payout reconciliation — problems, players, and white space",
-            "emoji": "💳"
-        },
-        {
-            "slug": "pragmatic-engineer",
-            "title": "The Pragmatic Engineer",
-            "description": "Last 5 editions — AI job market, napkin math, quality paradox",
-            "emoji": "📬"
-        },
-        {
-            "slug": "jensen-huang-mindset",
-            "title": "Jensen Huang: The Mindset That Built NVIDIA",
-            "description": "10 core ideas from YC Startup School 2026 — algorithm domains, F1 driving, eating glass, and building NVIDIA",
-            "emoji": "⚡"
-        },
-        {
-            "slug": "circular-financing",
-            "title": "AI Circular Financing — The $800B Money Loop",
-            "description": "How chipmakers and cloud providers invest in their own customers — NVIDIA, Google, OpenAI, Anthropic circular deals and the bubble risk",
-            "emoji": "🔄"
-        },
-        {
-            "slug": "personal-brand-course",
-            "title": "How to Build a Personal Brand — Full Course",
-            "description": "Caleb Ralston 6h22m course — 4-module breakdown: brand definition, content strategy, team building, monetization",
-            "emoji": "🎯"
-        },
-        {
-            "slug": "sharran-srivatsaa-formula",
-            "title": "The Man That Makes Billionaires — Sharran Srivatsaa",
-            "description": "The formula behind exploding brands: growth by subtraction, the 1-1-1 rule, the Telos 00M→.4B case, phantom equity, and the 8 operating principles",
+            "slug": "growth-brand",
+            "title": "Growth & Brand",
+            "description": "How audiences and revenue actually get built — SaaS growth loops, personal brand, and the operators behind companies that explode.",
             "emoji": "📈"
         },
         {
-            "slug": "postiz-saas-growth",
-            "title": "Postiz: 7K → 43K MRR in 4 Months",
-            "description": "Nevo's agentic pivot — OpenClaw trend riding, viral X articles, churn 26%→13.7%, and the build-before-the-trend playbook",
-            "emoji": "🚀"
+            "slug": "markets-money",
+            "title": "Markets & Money",
+            "description": "Where the money moves and why — trade policy, the AI capex loop, and the plumbing underneath payments.",
+            "emoji": "🌐"
+        },
+        {
+            "slug": "craft-mindset",
+            "title": "Craft & Mindset",
+            "description": "Engineering practice, and the operating philosophies of people who built at scale.",
+            "emoji": "⚡"
+        }
+    ],
+    "pages": [
+        {
+            "slug": "ai-images",
+            "title": "AI Images — Field Guide",
+            "description": "Skool AI Video Bootcamp Module 01 — avatars, image editing, depth and framing, lighting and mood, camera angles",
+            "emoji": "🖼️",
+            "group": "ai-video-bootcamp",
+            "kicker": "Module 01",
+            "order": 1
+        },
+        {
+            "slug": "ai-videos",
+            "title": "AI Videos — Field Guide",
+            "description": "Skool AI Video Bootcamp Module 02 — Kling vs Seedance, camera movement, lipsync, killing the AI look, CapCut and sound design",
+            "emoji": "🎥",
+            "group": "ai-video-bootcamp",
+            "kicker": "Module 02",
+            "order": 2
         },
         {
             "slug": "ai-advertising-ugc",
             "title": "AI Advertising & UGC — Complete Playbook",
             "description": "Skool AI Video Bootcamp Module 04 — 5 awareness levels, 10 psych principles, 16 script frameworks, 6 AI ad formats, 100+ hooks, 10 UGC templates",
-            "emoji": "📢"
+            "emoji": "📢",
+            "group": "ai-video-bootcamp",
+            "kicker": "Module 04",
+            "order": 4
+        },
+        {
+            "slug": "postiz-saas-growth",
+            "title": "Postiz: $17K → $143K MRR in 4 Months",
+            "description": "Nevo's agentic pivot — OpenClaw trend riding, viral X articles, churn 26%→13.7%, and the build-before-the-trend playbook",
+            "emoji": "🚀",
+            "group": "growth-brand",
+            "order": 1
+        },
+        {
+            "slug": "sharran-srivatsaa-formula",
+            "title": "The Man That Makes Billionaires — Sharran Srivatsaa",
+            "description": "The formula behind exploding brands: growth by subtraction, the 1-1-1 rule, the Telos $300M→$3.4B case, phantom equity, and the 8 operating principles",
+            "emoji": "📈",
+            "group": "growth-brand",
+            "order": 2
+        },
+        {
+            "slug": "personal-brand-course",
+            "title": "How to Build a Personal Brand — Full Course",
+            "description": "Caleb Ralston 6h22m course — 4-module breakdown: brand definition, content strategy, team building, monetization",
+            "emoji": "🎯",
+            "group": "growth-brand",
+            "order": 3
+        },
+        {
+            "slug": "tariff-trade-breakdown",
+            "title": "Tariffs, Trade & Trump's Strategy",
+            "description": "3-part visual breakdown — tariff mechanics, Triffin dilemma, Trump's restructuring playbook",
+            "emoji": "🌐",
+            "group": "markets-money",
+            "order": 1
+        },
+        {
+            "slug": "circular-financing",
+            "title": "AI Circular Financing — The $800B Money Loop",
+            "description": "How chipmakers and cloud providers invest in their own customers — NVIDIA, Google, OpenAI, Anthropic circular deals and the bubble risk",
+            "emoji": "🔄",
+            "group": "markets-money",
+            "order": 2
+        },
+        {
+            "slug": "payment-reconciliation-research",
+            "title": "Payment Reconciliation Market Map",
+            "description": "Cross-gateway payout reconciliation — problems, players, and white space",
+            "emoji": "💳",
+            "group": "markets-money",
+            "order": 3
+        },
+        {
+            "slug": "pragmatic-engineer",
+            "title": "The Pragmatic Engineer",
+            "description": "Last 5 editions — AI job market, napkin math, quality paradox",
+            "emoji": "📬",
+            "group": "craft-mindset",
+            "order": 1
+        },
+        {
+            "slug": "jensen-huang-mindset",
+            "title": "Jensen Huang: The Mindset That Built NVIDIA",
+            "description": "10 core ideas from YC Startup School 2026 — algorithm domains, F1 driving, eating glass, and building NVIDIA",
+            "emoji": "⚡",
+            "group": "craft-mindset",
+            "order": 2
         }
     ]
 }

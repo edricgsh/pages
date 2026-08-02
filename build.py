@@ -154,6 +154,7 @@ LOADER = """<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
+<link rel="icon" href="/pages/shared/favicon.svg" type="image/svg+xml">
 <title>Protected</title>
 <style>
   * {{ margin: 0; padding: 0; box-sizing: border-box; }}

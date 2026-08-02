@@ -18,6 +18,12 @@
   const rel = path.replace(/^\/pages/, '');
   const isHome = rel === '' || rel === '/index.html';
 
+  // On /pages/group/?g=<slug>, highlight that collection's heading instead —
+  // no artifact slug matches there.
+  const currentGroup = currentSlug === 'group'
+    ? new URLSearchParams(window.location.search).get('g')
+    : null;
+
   // ─── Build DOM elements ───
 
   // Top-left bar: hamburger + back-to-catalogue link
@@ -95,32 +101,65 @@
       const json = await window.PagesCrypto.decrypt(enc, pw);
       if (!json) throw new Error('decrypt failed');
 
-      renderList(JSON.parse(json).pages);
+      renderList(JSON.parse(json));
     } catch (err) {
-      list.innerHTML = '<div style="padding:20px;color:#888;font-size:13px;">⚠️ Could not load artifacts list.</div>';
+      list.innerHTML = '<div class="menu-empty" style="padding:20px;font-size:13px;">⚠️ Could not load artifacts list.</div>';
     }
   }
 
-  function renderList(pages) {
+  // The sidebar mirrors the catalogue's grouping: a heading per collection
+  // (itself a link to that collection's page), artifacts underneath in the
+  // manifest's `order`, and anything without a group collected at the end.
+  function renderList(data) {
+    const pages = data.pages || [];
+    const groups = data.groups || [];
     list.innerHTML = '';
+
+    const byGroup = new Map(groups.map(g => [g.slug, []]));
+    const ungrouped = [];
     pages.forEach(p => {
-      const a = document.createElement('a');
-      a.className = 'menu-item';
-      a.href = BASE + p.slug + '/';
+      const bucket = p.group && byGroup.get(p.group);
+      (bucket || ungrouped).push(p);
+    });
+    byGroup.forEach(arr => arr.sort((a, b) => (a.order || 99) - (b.order || 99)));
 
-      const isActive = p.slug === currentSlug;
-      if (isActive) a.classList.add('active');
+    groups.forEach(g => {
+      const members = byGroup.get(g.slug);
+      if (!members.length) return;
+      const label = document.createElement('a');
+      label.className = 'menu-group-label';
+      label.href = BASE + 'group/?g=' + encodeURIComponent(g.slug);
+      label.textContent = (g.emoji ? g.emoji + ' ' : '') + g.title;
+      if (g.slug === currentGroup) label.classList.add('active');
+      list.appendChild(label);
+      members.forEach(p => list.appendChild(itemEl(p)));
+    });
 
-      const emoji = p.emoji || '📄';
-      a.innerHTML = `
-        <span class="item-emoji">${emoji}</span>
+    if (ungrouped.length) {
+      if (groups.length) {
+        const label = document.createElement('div');
+        label.className = 'menu-group-label';
+        label.textContent = 'Unfiled';
+        list.appendChild(label);
+      }
+      ungrouped.forEach(p => list.appendChild(itemEl(p)));
+    }
+  }
+
+  function itemEl(p) {
+    const a = document.createElement('a');
+    a.className = 'menu-item';
+    a.href = BASE + p.slug + '/';
+    if (p.slug === currentSlug) a.classList.add('active');
+
+    a.innerHTML = `
+        <span class="item-emoji">${p.emoji || '📄'}</span>
         <span class="item-text">
           <div class="item-title">${escapeHtml(p.title)}</div>
           <div class="item-desc">${escapeHtml(p.description)}</div>
         </span>
       `;
-      list.appendChild(a);
-    });
+    return a;
   }
 
   function escapeHtml(str) {

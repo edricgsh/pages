@@ -23,7 +23,8 @@ manifest.enc             ← generated
 - **Live URL pattern:** `https://edricgsh.github.io/pages/<folder-name>/`
 - **Shared style:** every artifact MUST include `<link rel="stylesheet" href="/pages/shared/paper.css">` + `<script src="/pages/shared/paper.js"></script>` and put `class="paper"` on `<body>`. See "Artifact style guide" below — it's the house style, not a suggestion
 - **Shared menu:** every artifact MUST include `<link rel="stylesheet" href="/pages/shared/menu.css">` in `<head>` and `<script src="/pages/shared/menu.js"></script>` before `</body>`. It renders a fixed top-left bar (`☰` + `← All Artifacts` back-link to the catalogue), auto-hides while the password gate is up, and adds `menu-bar-offset` to `<html>` so `body` gets 46px of top padding — don't add your own top offset for it
-- **manifest:** every artifact MUST be registered in `_src/manifest.json` (slug, title, description, emoji). It ships encrypted as `manifest.enc`, so titles and descriptions aren't crawlable either
+- **manifest:** every artifact MUST be registered in `_src/manifest.json` (slug, title, description, emoji, plus `group`/`order` — see "Collections" below). It ships encrypted as `manifest.enc`, so titles and descriptions aren't crawlable either
+- **Favicon:** `shared/favicon.svg` (paper palette, rust tile). Every `_src` page carries `<link rel="icon" href="/pages/shared/favicon.svg" type="image/svg+xml">` right after `<title>`, and `build.py` puts the same tag in the loader so the gate has it too
 - **Pre-commit hook:** `.githooks/pre-commit` blocks plaintext in published paths and catches truncated/placeholder hashes. Activate with `git config core.hooksPath .githooks`
 
 ## Encryption model
@@ -38,22 +39,51 @@ The old SHA-256 gate only *hid* content visually — the full plaintext was stil
 
 **Limits, so nobody over-trusts this:** it's encryption at rest on GitHub's CDN. Anyone with the password can read and re-share the plaintext, and one shared password means no per-visitor revocation.
 
-## The 9 published artifacts
+## The 11 published artifacts
 
-Only `ai-advertising-ugc` uses the paper style so far. The other eight are still on
+The three bootcamp modules use the paper style. The other eight are still on
 the retired dark theme — convert one when you next touch it, don't leave it half-done.
 
-| Folder | Title | Emoji |
-|--------|-------|-------|
-| `ai-advertising-ugc` | AI Advertising &amp; UGC — Complete Playbook | 📢 |
-| `tariff-trade-breakdown` | Tariffs, Trade & Trump's Strategy | 🌐 |
-| `payment-reconciliation-research` | Payment Reconciliation Market Map | 💳 |
-| `pragmatic-engineer` | The Pragmatic Engineer | 📬 |
-| `jensen-huang-mindset` | Jensen Huang: The Mindset That Built NVIDIA | ⚡ |
-| `circular-financing` | AI Circular Financing — The $800B Money Loop | 🔄 |
-| `personal-brand-course` | How to Build a Personal Brand — Full Course | 🎯 |
-| `sharran-srivatsaa-formula` | The Man That Makes Billionaires — Sharran Srivatsaa | 📈 |
-| `postiz-saas-growth` | Postiz: $17K → $143K MRR in 4 Months | 🚀 |
+| Collection | Folder | Title | Emoji |
+|---|--------|-------|-------|
+| 🎬 AI Video Bootcamp | `ai-images` | AI Images — Field Guide | 🖼️ |
+| 🎬 AI Video Bootcamp | `ai-videos` | AI Videos — Field Guide | 🎥 |
+| 🎬 AI Video Bootcamp | `ai-advertising-ugc` | AI Advertising &amp; UGC — Complete Playbook | 📢 |
+| 📈 Growth & Brand | `postiz-saas-growth` | Postiz: $17K → $143K MRR in 4 Months | 🚀 |
+| 📈 Growth & Brand | `sharran-srivatsaa-formula` | The Man That Makes Billionaires — Sharran Srivatsaa | 📈 |
+| 📈 Growth & Brand | `personal-brand-course` | How to Build a Personal Brand — Full Course | 🎯 |
+| 🌐 Markets & Money | `tariff-trade-breakdown` | Tariffs, Trade & Trump's Strategy | 🌐 |
+| 🌐 Markets & Money | `circular-financing` | AI Circular Financing — The $800B Money Loop | 🔄 |
+| 🌐 Markets & Money | `payment-reconciliation-research` | Payment Reconciliation Market Map | 💳 |
+| ⚡ Craft & Mindset | `pragmatic-engineer` | The Pragmatic Engineer | 📬 |
+| ⚡ Craft & Mindset | `jensen-huang-mindset` | Jensen Huang: The Mindset That Built NVIDIA | ⚡ |
+
+Bootcamp modules are ordered by their **course** module number (01, 02, 04), not
+alphabetically or by publish date — `order` in the manifest carries that.
+
+## Collections
+
+The catalogue groups artifacts by topic. Both the group definitions and each
+page's membership live in `_src/manifest.json`:
+
+```jsonc
+"groups": [ { "slug": "…", "title": "…", "description": "…", "emoji": "…" } ],
+"pages":  [ { …, "group": "<group-slug>", "order": 1, "kicker": "Module 01" } ]
+```
+
+- `order` sorts pages *within* a group (missing → 99). `kicker` is an optional
+  mono label on the card; only the bootcamp modules use one.
+- A page with no `group`, or a `group` that doesn't exist, still renders — it
+  lands under "Unfiled" in the flat list and the sidebar. Nothing 404s.
+- **One template serves every collection:** `_src/group/index.html` reads
+  `?g=<group-slug>` and renders from the decrypted manifest. Adding a collection
+  is a manifest edit, never a new page. `/pages/group/` with no (or an unknown)
+  `?g=` falls back to listing all collections.
+- `shared/menu.js` renders the same grouping in the slide-in sidebar, with each
+  heading linking to its collection page.
+
+So: **to add an artifact**, write `_src/<slug>/index.html`, add a `pages` entry
+with its `group`, and run `./build.py`. To add a collection, add a `groups` entry.
 
 ## Artifact style guide — "paper"
 
@@ -123,6 +153,13 @@ vars, never the literals** — a palette change should be one file.
 (catalogued frameworks, tools, tactics) · `.cards`/`.card` + `.card-kicker`/`.card-title` ·
 `.chips`/`.chip` (banks of short strings) · `.note` / `.note.warn` · `.figure` +
 `.figure-caption` · `.scroll-x` · `.sheet-footer`.
+
+Navigation pages (the catalogue and the collection template) have no contents
+rail, so they use `.sheet.catalogue` instead of a bare `.sheet` — it centres
+itself rather than clearing the rail. Their own components: `.cat-section` +
+`.cat-section-label` · `.cat-grid` (`.wide` for two roomy columns) with
+`.cat-card` + `.cat-emoji`/`.cat-kicker`/`.cat-name`/`.cat-desc`/`.cat-peek`/`.cat-go` ·
+`.cat-list` + `.cat-row` + `.cat-row-emoji`/`.cat-row-name`/`.cat-row-group`.
 
 ### Rules
 

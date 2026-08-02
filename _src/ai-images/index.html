@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Images — Field Guide</title>
+<link rel="icon" href="/pages/shared/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/pages/shared/paper.css" />
+<link rel="stylesheet" href="/pages/shared/menu.css" />
+</head>
+<body class="paper"
+      data-title="AI IMAGES"
+      data-meta="FIELD GUIDE · MODULE 01
+SKOOL AI VIDEO BOOTCAMP
+9 SECTIONS · 12 LESSONS">
+
+<div id="password-gate">
+  <div class="gate-box">
+    <div style="font-size:40px;margin-bottom:16px;">🔐</div>
+    <h1>Password Required</h1>
+    <p>Enter the passcode to view</p>
+    <input type="password" id="password-input" placeholder="passcode" autocomplete="off" />
+    <div class="error" id="password-error">Incorrect password</div>
+  </div>
+</div>
+
+<main class="sheet">
+
+<nav class="tabs">
+  <a class="tab" href="#engine">Four dials</a>
+  <a class="tab" href="#realism">Realism</a>
+  <a class="tab" href="#avatars">Avatars</a>
+  <a class="tab" href="#products">Products</a>
+  <a class="tab" href="#editing">Editing</a>
+  <a class="tab" href="#depth">Depth</a>
+  <a class="tab" href="#light">Light</a>
+  <a class="tab" href="#camera">Camera</a>
+  <a class="tab" href="#banks">Banks</a>
+</nav>
+
+<header class="hero">
+  <h1>The model handles beauty. Logic is your job.</h1>
+  <p class="lede">Module 01 rebuilt as a working reference: how the generator actually behaves, how to keep a person the same across a hundred images, and the cinematographer's vocabulary — depth, light, camera — that separates a shot that reads as a photograph from one that reads as a render.</p>
+</header>
+
+<div class="callout">
+  <p class="callout-label">The big idea</p>
+  <p>Every tell that gives AI away — plastic skin, light coming from nowhere, a subject pasted flat onto a backdrop, a face parked dead centre — is a <strong>decision you didn't make</strong>, not a limit of the model. AI builds flat and evenly lit by default because the prompt gave it nothing else to build with. Direct the frame before you type, and the same model produces a completely different image.</p>
+</div>
+
+<!-- ═══════════ 1. FOUR DIALS ═══════════ -->
+<section class="mod" id="engine" data-group="Foundations" data-nav="The four dials">
+  <div class="mod-head">
+    <span class="mod-num">01</span>
+    <h2>Four dials, not one magic sentence</h2>
+    <span class="mod-source">Lesson 1</span>
+  </div>
+
+  <p>Almost every AI workflow starts with an image — characters, product shots, ad visuals, thumbnails, avatars, cinematic scenes, and the still frames that later get animated into video. Image generation is never "type a sentence and hope." Strong results come from four things working together, and when an output disappoints, one of the four is the thing to change.</p>
+
+  <div class="cards">
+    <div class="card">
+      <p class="card-kicker">Dial 1</p>
+      <p class="card-title">Prompt</p>
+      <p>What you want created. Can be one line — <em>realistic fitness influencer taking a mirror selfie</em> — or a full description of person, environment, lighting, camera style, clothing, mood, and image type.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Dial 2</p>
+      <p class="card-title">Model</p>
+      <p>How it gets created. The engine. Some models are stronger on realism, some on editing, some are fast and cheap for testing, some handle references better. Switching model is a valid fix.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Dial 3</p>
+      <p class="card-title">Settings</p>
+      <p>Format and quality — aspect ratio, resolution, number of outputs. The same prompt looks materially different on a different canvas shape.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Dial 4</p>
+      <p class="card-title">References</p>
+      <p>Visual context. Instead of describing something in words, you show it. Character consistency, product consistency, clothing, pose, location, style, colour, framing, vibe.</p>
+    </div>
+  </div>
+
+  <h3>Aspect ratio is chosen before you generate, not after</h3>
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Ratio</th><th>Shape</th><th>Goes to</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>16:9</strong></td><td>Wide</td><td>YouTube, thumbnails, website headers, landscape and cinematic scenes, character sheets</td></tr>
+        <tr><td><strong>9:16</strong></td><td>Vertical</td><td>TikTok, Instagram Reels, YouTube Shorts, most social video</td></tr>
+        <tr><td><strong>4:5</strong></td><td>Portrait</td><td>Instagram feed image posts</td></tr>
+        <tr><td><strong>1:1</strong></td><td>Square</td><td>Profile images, product posts, carousels, static ads</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note warn">
+    <strong>The beginner mistake.</strong> Generating half a project in one aspect ratio then switching halfway through. Pick one per project and hold it, unless you genuinely need multiple formats.
+  </div>
+
+  <h3>References only work if you say what they're for</h3>
+  <p>The most common failure with references isn't a bad reference — it's an unexplained one. Upload a photo without instruction and the model may copy the pose when you wanted only the face, or copy the background when you wanted only the outfit. <strong>The prompt tells the AI what to do; the reference shows it what to follow.</strong> You have to say which is which.</p>
+
+  <pre><code>Use the uploaded image as a character reference.
+Keep the same face, hairstyle, skin tone, body type, and overall
+identity — but place her in a luxury hotel lobby and change her
+outfit to an elegant black dress.</code></pre>
+
+  <ul>
+    <li><strong>Identity:</strong> preserve face, hair, skin tone, body type.</li>
+    <li><strong>Wardrobe:</strong> preserve the clothing, change the location.</li>
+    <li><strong>Product:</strong> preserve packaging, logo, shape, colour, material.</li>
+    <li><strong>Pose only:</strong> state explicitly that this is a pose reference, <em>not</em> an identity reference.</li>
+  </ul>
+
+  <h3>Generate, review, adjust, repeat</h3>
+  <p>You are not supposed to get the perfect image every time. Generate several variations from one prompt rather than judging the whole idea from a single output — then use the strongest result as the next thing you improve from. Test on faster, cheaper settings; move to high resolution once the direction works. The failure-to-fix mapping is nearly always mechanical:</p>
+
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Symptom</th><th>Change</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Face is right, outfit is wrong</td><td>Rewrite only the outfit clause</td></tr>
+        <tr><td>Image looks fake / plastic</td><td>Add realistic camera and lighting language</td></tr>
+        <tr><td>Composition is wrong</td><td>Adjust the camera and framing instruction</td></tr>
+        <tr><td>Product drifts from the original</td><td>Strengthen the reference instructions, add label text</td></tr>
+        <tr><td>Nothing works</td><td>Switch model before rewriting again</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>Assist and Wise Enhance.</strong> Both turn a rough idea into a fuller prompt, which is genuinely useful before you're a fluent prompt writer. The catch: enhanced prompts silently add details you didn't ask for. Read the expanded prompt before generating and confirm it still matches your intent. The <strong>@</strong> button pulls in saved characters and products so you stop re-uploading the same references.
+  </div>
+</section>
+
+<!-- ═══════════ 2. REALISM ═══════════ -->
+<section class="mod" id="realism" data-group="Foundations" data-nav="The realism problem">
+  <div class="mod-head">
+    <span class="mod-num">02</span>
+    <h2>The realism problem — three tells that give AI away</h2>
+    <span class="mod-source">Lessons 1–2</span>
+  </div>
+
+  <p>Most AI people fail for the same three reasons, and none of them are about the face being unattractive. They fail because the image is <strong>too good</strong> in ways real photographs never are. Influencer content is 90% of the time shot on a phone with no control over the background — an image that looks better than that reads as fake.</p>
+
+  <div class="rows numbered">
+    <div class="row">
+      <div class="row-idx">T1</div>
+      <div><div class="row-name">Airbrushed plastic skin</div></div>
+      <div class="row-body">
+        <p>Nobody is perfect. A flawless avatar is an obvious tell, and <strong>skin is the biggest giveaway</strong> — zero pores, zero imperfections, uniform smoothness. Prompt for skin texture, a slightly wonky eyebrow, facial asymmetry, anything that reads as an actual human rather than a rendered one.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">T2</div>
+      <div><div class="row-name">Perfect studio lighting where it can't exist</div></div>
+      <div class="row-body">
+        <p>A subject standing outdoors with what looks like a ring light on her face. Perfect lighting at all times is physically impossible. A huge part of what makes a photo feel real is <strong>the light matching the situation</strong> — check that before anything else.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">T3</div>
+      <div><div class="row-name">Impossible camera and background</div></div>
+      <div class="row-body">
+        <p>Studio-grade framing and an unnaturally tidy background. Great for a professional shoot, wrong for creator content. Adding <em>shot on an iPhone 15, candid scene, natural framing</em> changes the output dramatically — the background becomes ordinary, like the real world.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>The realism lock-in block</h3>
+  <p>Append this to any prompt that needs to pass as a real photograph. It works as a suffix — describe your scene first, then lock the realism.</p>
+
+  <pre><code>{YOUR SCENE HERE} — Authentic everyday photorealism, candid and
+unposed, natural ambient light appropriate to the setting, realistic
+skin texture and material texture, muted true-to-life colours, low
+contrast, subtle softness, slight phone-camera or real-camera
+imperfection, believable exposure, lived-in details, natural body
+language, ordinary real-life styling, imperfect composition, no
+glamour retouching, no beauty filter, no cinematic colour grading,
+no hyper-polished AI look.</code></pre>
+
+  <h3>Realism keyword bank</h3>
+  <div class="chips">
+    <span class="chip">shot on an iPhone 15</span>
+    <span class="chip">candid, unposed</span>
+    <span class="chip">realistic skin texture</span>
+    <span class="chip">natural ambient light</span>
+    <span class="chip">no studio lighting</span>
+    <span class="chip">imperfect composition</span>
+    <span class="chip">muted true-to-life colours</span>
+    <span class="chip">low contrast</span>
+    <span class="chip">believable exposure</span>
+    <span class="chip">lived-in details</span>
+    <span class="chip">natural body language</span>
+    <span class="chip">no beauty filter</span>
+    <span class="chip">no glamour retouching</span>
+    <span class="chip">slightly off-camera expression</span>
+    <span class="chip">phone camera feel</span>
+    <span class="chip">natural social media photo</span>
+    <span class="chip">not overly posed</span>
+    <span class="chip">photorealism</span>
+  </div>
+
+  <div class="note">
+    <strong>One free word.</strong> On GPT Image 2.0, end the prompt with <strong>photorealism</strong>. OpenAI's own engineers flagged that the token carries real weight on realism — there is no cost to including it.
+  </div>
+
+  <div class="note warn">
+    <strong>Don't settle.</strong> The test is blunt: could this person exist on Instagram, TikTok, or in a UGC ad? If the answer is no, rethink the prompt rather than accepting the best of a plastic batch. A bad base image poisons everything downstream.
+  </div>
+</section>
+
+<!-- ═══════════ 3. AVATARS ═══════════ -->
+<section class="mod" id="avatars" data-group="People &amp; products" data-nav="Consistent avatars">
+  <div class="mod-head">
+    <span class="mod-num">03</span>
+    <h2>Building an avatar that stays the same person</h2>
+    <span class="mod-source">Lessons 2–3</span>
+  </div>
+
+  <p>The goal is not one good picture. It's a <strong>digital person</strong> who can show up again and again in different settings, outfits, poses, and content styles. Don't try to create the perfect avatar in one generation — build it in stages, because every strong reference point you create makes the next generation more consistent. At time of recording the models to reach for are <strong>ChatGPT Image 2.0</strong> and <strong>Nanobanana Pro</strong>; the workflow survives whatever replaces them.</p>
+
+  <div class="rows numbered">
+    <div class="row">
+      <div class="row-idx">01</div>
+      <div><div class="row-name">Rough character idea</div></div>
+      <div class="row-body">
+        <p>Identity, vibe, niche, content world — nothing more. A 23-year-old fitness influencer; a luxury lifestyle creator who shoots in hotels and restaurants; a travel vlogger; a skincare UGC avatar. Keep it simple enough to generate and test fast.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">02</div>
+      <div><div class="row-name">Let AI chat write the prompt</div></div>
+      <div class="row-body">
+        <p>Hand Claude or ChatGPT the rough concept and ask for a detailed image prompt. Include niche, age, vibe, content style, realism level, camera style, and platform. Ask for ten variations if you want range — reviewing options is cheaper than writing the perfect prompt.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">03</div>
+      <div><div class="row-name">Generate the base face</div></div>
+      <div class="row-body">
+        <p>No reference needed yet — you're still discovering the identity. Generate a batch, don't judge from one output. You're looking for a face that is believable and <em>reusable</em>, not the prettiest one.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">04</div>
+      <div><div class="row-name">Run the realism check</div></div>
+      <div class="row-body">
+        <p>Skin texture present? Eyes normal? Human asymmetry? Lighting that matches the situation? If it looks plastic, go back to the prompt — this is the last cheap moment to fix it.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">05</div>
+      <div><div class="row-name">Pick the reference image</div></div>
+      <div class="row-body">
+        <p>A clean, realistic portrait, natural lighting, clear view of the face. Not blurry, not heavily filtered, not over-edited, not overly professional. <strong>A bad reference leads to a bad result nearly every time</strong>, and this one image does most of the work later.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">06</div>
+      <div><div class="row-name">Build a character sheet</div></div>
+      <div class="row-body">
+        <p>A turnaround sheet locks every angle so nothing drifts. Generate it in <strong>GPT Image 2.0 at 16:9</strong>, then upload it as the reference for every future generation. Front, 45° left, 90° left profile, 90° right profile, 45° right, back — full body and matching portrait per column.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">07</div>
+      <div><div class="row-name">Prompt new scenes against the sheet</div></div>
+      <div class="row-body">
+        <p>Same person, new location, outfit, camera style, lighting, expression. The identity is anchored by the reference; the prompt only has to describe the scene.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">08</div>
+      <div><div class="row-name">Build a content library</div></div>
+      <div class="row-body">
+        <p>Don't stop at two images. Lifestyle posts, product shots, fitness, travel, UGC stills, and later video start frames — stored together so the avatar reads as a real creator profile rather than a one-off.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>The character turnaround sheet prompt</h3>
+  <p>Fed alongside your chosen avatar image. The long tail of "do not" clauses is load-bearing — without them the model mirrors portraits incorrectly and drifts the outfit between columns.</p>
+
+  <pre><code>Create a professional photorealistic character turnaround sheet using
+the uploaded character image as the main identity reference. The
+uploaded image is the source of truth for face, body proportions,
+hairstyle, hair colour, skin tone, outfit, materials, accessories,
+silhouette, personality, and overall visual style. Preserve the
+character exactly apart from changes stated below.
+
+Character description: [INSERT]
+Clothing / styling notes: [OUTFIT, MATERIALS, ACCESSORIES, ERA]
+Background: neutral plain studio, clean lighting, no environment,
+no props unless part of the character design.
+
+Canvas layout: one clean sheet, six vertical columns with thin
+borders. Each column contains two stacked images of the same
+character — top: full-body view; bottom: matching close-up portrait.
+The portrait inherits the full-body rotation exactly: same rotation,
+same facing direction, no independent camera angle or pose.
+
+Column order LEFT to RIGHT:
+  1  FRONT, 0°     — both eyes visible, chest/hips/knees/feet forward
+  2  45° LEFT      — vertical-axis rotation only, both eyes visible
+  3  90° LEFT      — strict side profile, one eye visible
+  4  90° RIGHT     — strict side profile, one eye visible
+  5  45° RIGHT     — vertical-axis rotation only, both eyes visible
+  6  BACK, 180°    — back of outfit, hair and silhouette; no face
+
+Critical consistency rules: same character, outfit, hairstyle, body
+proportions and facial identity in every column. Portrait rotation
+must match the full body in the same column. Left-facing angles never
+appear in right-facing columns and vice versa. Do not mirror the
+portraits incorrectly, flip angles, or change costume, face, hair,
+age, gender presentation, body type or ethnicity between columns.
+No text, labels, numbers, watermarks or UI elements.
+
+Camera and style: strict orthographic turnaround, no dramatic
+perspective or wide-angle distortion, consistent camera height across
+full-body views, consistent portrait crop, photorealistic DSLR studio
+lighting, sharp detail, realistic fabric, skin, hair and material.</code></pre>
+
+  <h3>Influencer Studio — the same workflow, pre-wired</h3>
+  <p>Influencer Studio turns one persona into a content system rather than a pile of unrelated generations. Each influencer gets a dedicated workspace, so the prompt bar already holds the identity — you never re-upload the reference.</p>
+
+  <div class="cards">
+    <div class="card">
+      <p class="card-kicker">Feed</p>
+      <p class="card-title">Generation with identity baked in</p>
+      <p>Prompt the scene only — <em>at the beach holding a cocktail</em> — and the persona holds. Longer prompts still win. Drag past outputs back in as references, or switch to the video tab.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Presets</p>
+      <p class="card-title">Batch content categories</p>
+      <p>Daily aesthetic, luxury, fitness, night out, product placement. Select several at once and generate a whole content pack — eight images without writing a prompt or having an idea.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Captions</p>
+      <p class="card-title">Finish the post, not the image</p>
+      <p>Caption copy plus hashtags, length-tunable. Short and minimal for luxury, motivational for fitness. Add context about what happened, then edit so it still sounds human.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Custom build</p>
+      <p class="card-title">When the persona must match a brand</p>
+      <p>Name, gender, age range, aesthetic, hair and eye colour, plus free text for tattoos, haircut and vibe. Optional references. You get four options — pick the one that survives many outfits and products, not the prettiest.</p>
+    </div>
+  </div>
+
+  <h3>The scene prompt formula</h3>
+  <p>Action + location + outfit + camera style + look + lighting + mood. Short prompts work; structured prompts work better.</p>
+
+  <pre><code>LIFESTYLE
+Create a candid iPhone-style photo of her walking through a modern
+hotel lobby wearing a fitted black evening dress with simple gold
+jewellery, holding a small handbag, soft warm indoor light coming
+from ceiling lights above, slightly off-camera expression, realistic
+skin texture, natural social media photo, not overly posed.
+
+PRODUCT
+Create a realistic lifestyle photo of her sitting on a bright
+apartment sofa holding a skincare product near her face, wearing a
+white vest top and relaxed trousers, soft natural daylight from a
+nearby window, casual UGC-style composition, realistic skin texture,
+subtle smile, phone camera feel.
+
+FITNESS
+Create a candid gym photo of her sitting on a workout bench after
+training, wearing neutral blue activewear, slightly flushed skin,
+water bottle beside her, natural gym lighting, realistic iPhone
+camera photo, casual expression, not overly posed, authentic fitness
+creator style.</code></pre>
+
+  <div class="note warn">
+    <strong>Reference hygiene on custom avatars.</strong> Bad references make the avatar worse, not neutral. No blurry faces, no heavy filters, no set of images that look like different people. Every reference you upload must support the same visual direction. And pick the persona for the niche — a muscular gym bro is the wrong base identity for a makeup brand.
+  </div>
+</section>
+
+<!-- ═══════════ 4. PRODUCTS ═══════════ -->
+<section class="mod" id="products" data-group="People &amp; products" data-nav="Products &amp; inspiration">
+  <div class="mod-head">
+    <span class="mod-num">04</span>
+    <h2>Product visuals, labels, and the held-product shot</h2>
+    <span class="mod-source">Lessons 4–5</span>
+  </div>
+
+  <p>Once the process is understood you can produce brand visuals for almost any product with no studio, photographer, props, location or crew. The whole discipline reduces to one habit: <strong>treat the image model as a production assistant, not a magic button.</strong> Give it the product, the person, the inspiration, the label text, the scale context, and the job the image has to do.</p>
+
+  <h3>Pinterest is the direction step, not a shortcut</h3>
+  <p>Pinterest is a visual search engine — you search styles, poses, outfits, camera angles, aesthetics. When you're stuck, never start from a blank prompt. Search the world your content lives in, collect, study, then combine into something original.</p>
+
+  <div class="chips">
+    <span class="chip">luxury lifestyle photoshoot</span>
+    <span class="chip">café influencer aesthetic</span>
+    <span class="chip">mirror selfie outfit</span>
+    <span class="chip">coffee shop photoshoot</span>
+    <span class="chip">travel girl aesthetic</span>
+    <span class="chip">cinematic product advert</span>
+    <span class="chip">skincare campaign</span>
+    <span class="chip">fitness brand campaign</span>
+    <span class="chip">fashion editorial</span>
+    <span class="chip">product image</span>
+  </div>
+
+  <ul>
+    <li><strong>Break each reference into parts.</strong> One image gives you the outfit, another the pose, another the framing, background, colour palette, or camera angle. Copying one image whole is the failure mode.</li>
+    <li><strong>Build a bank.</strong> Pin to boards or download into a Canva moodboard, grouped by project, brand, character, or content style. Direction comes from the board, not from memory.</li>
+    <li><strong>Never copy a real person's face.</strong> When you recreate a campaign shot, change the subject, background, colours and product details — and improve on it.</li>
+  </ul>
+
+  <pre><code>Prompt translation structure
+Subject + action + outfit + location + camera angle + lighting
++ mood + realism details
+
+Example: candid iPhone-style photo of a luxury lifestyle influencer
+sitting at a café table, cream outfit, gold jewellery, soft morning
+light, relaxed pose, natural background, realistic skin texture.</code></pre>
+
+  <h3>Swapping products into a scene</h3>
+  <p>The reliable route is two-stage: give an AI chat both images and ask it to write the image prompt, then take that prompt plus the references into the generator. Simple one-line edits do work, but longer prompts are markedly more consistent — especially when the product carries text.</p>
+
+  <pre><code>Give me a highly detailed prompt to put the Summer Fridays bottle
+into the scene instead of the Fleur Peach skin one. Include details
+of all of the text and make it as accurate as possible. Also change
+the fruit to mangos and change the background colour to match.</code></pre>
+
+  <div class="note warn">
+    <strong>Always type the label.</strong> If the product has text on it, the exact text belongs in the prompt. Otherwise you are hoping the model renders it correctly — and it usually doesn't. Same for the product description. This single habit is the difference between gibberish packaging and type that renders cleanly.
+  </div>
+
+  <h3>The avatar product photo</h3>
+  <p>A product alone is useful. A product held by a believable person toward the camera instantly feels native, social, and ad-ready. But "make the man hold the supplement bottle" produces a blurry bottle with gibberish text almost every time. Order of operations fixes it:</p>
+
+  <ol>
+    <li><strong>Generate the avatar first</strong> — you want control over who is holding it before anything else.</li>
+    <li><strong>Upload avatar and product together</strong> into the chat or generator.</li>
+    <li><strong>Ask the chat for the prompt</strong> rather than writing it cold.</li>
+    <li><strong>Add multiple product references with size comparisons</strong> if proportions or scale keep drifting — the model needs something to measure against.</li>
+    <li><strong>Check label sharpness, scale, hands and angle</strong> before animating anything.</li>
+  </ol>
+
+  <pre><code>Give me a detailed image prompt where the avatar is holding the
+product towards the camera, making sure the product label is sharp,
+readable and consistent. Include all text that is on the label in the
+prompt and ensure the product proportions are accurate.</code></pre>
+
+  <div class="note">
+    <strong>Common mistakes.</strong> Vague prompts that leave the label, texture, scale and composition to guesswork · uploading a product image without describing its text · attempting the held-product shot without a strong avatar reference first · copying inspiration too directly · accepting the first result when a small prompt improvement would make it usable.
+  </div>
+</section>
+
+<!-- ═══════════ 5. EDITING ═══════════ -->
+<section class="mod" id="editing" data-group="People &amp; products" data-nav="The editing stack">
+  <div class="mod-head">
+    <span class="mod-num">05</span>
+    <h2>The editing stack — what to fix where</h2>
+    <span class="mod-source">Lessons 5–7</span>
+  </div>
+
+  <p>Before a still becomes a video it's worth an editing pass. Three tools cover almost everything, and the skill is knowing which one is faster for the job in front of you: a prompt-based edit, a chat with a canvas, or a brush.</p>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Nanobanana — prompt-based image editing</span><span class="entry-tag">Google · also in PromptWise</span></div>
+    <p class="entry-when">Use when the change is conceptual: relight it, change the season, add an object, swap the era, fuse two images, pose a character.</p>
+    <p class="entry-flow">drag in image → plain-English instruction → refine in turns → each turn preserves the last</p>
+    <p><strong>Multi-turn editing</strong> is the storyboarding superpower: take a castle, make it night, add a pirate ship, drop in a logo generated elsewhere — each step lands with no glitching and the logo is preserved exactly where asked. <strong>Multi-image fusion</strong> merges a character shot with a separate location or vehicle shot and even colour-corrects the subject to match. <strong>Pose control</strong>: draw a stick figure, upload it with the character, and it poses them for you. Close-ups hold identity remarkably well — tattoos, a small ear piercing, a football shirt completed from nothing.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Wise Chat — chat, canvas, models in one place</span><span class="entry-tag">fastest loop</span></div>
+    <p class="entry-when">Use when you'd otherwise be copying prompts out of a chatbot and re-uploading references into a generator over and over.</p>
+    <p class="entry-flow">upload refs + instruction → Generate button → images land in that chat's canvas → reuse as reference or animate</p>
+    <p>Works like any chatbot, plus a built-in canvas, image referencing, and every image model inside the same workspace. Each chat keeps its own canvas so nothing gets lost. References you upload attach automatically. The <strong>@</strong> symbol addresses anything already in the canvas — <em>"change the woman in image six to be the woman from image three"</em> — and an animate button turns a still into video without leaving the thread.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Canva — the precision and consistency pass</span><span class="entry-tag">brush, not prompt</span></div>
+    <p class="entry-when">Use when regenerating is slower or riskier than fixing the one thing that's wrong.</p>
+    <p class="entry-flow">BG Remover · Magic Eraser · Magic Expand · Adjust · Magic Layers</p>
+    <p><strong>Magic Eraser</strong> brushes out a single unwanted object with accuracy a prompt can't match. <strong>Magic Expand</strong> refits a 9:16 image to 4:5 or reveals more of a body by generating the missing edges. <strong>Magic Layers</strong> separates a finished image into draggable elements — reposition a subject, move badly placed text, resize and recolour type; ideal for adverts, product shots and thumbnails. And the most underrated step: <strong>Adjust</strong> to colour-match a sequence, because if the stills don't feel like one world, the video made from them will be worse.</p>
+  </div>
+
+  <div class="note">
+    <strong>The labelled-collage trick.</strong> To add many objects to one image accurately, don't upload them loose. Assemble every object into a single Canva board and <strong>label each one</strong>, then reference the labels by name in the prompt. Loose uploads are wrong roughly 90% of the time or get refused on guidelines; the labelled board lands a very high object count first try.
+  </div>
+
+  <div class="note warn">
+    <strong>Two small ones.</strong> Images generated through the Gemini app carry a watermark in the bottom-right corner — remove it with Canva Magic Edit. And don't over-edit in Canva; pushing adjustments too far makes images look worse, not more consistent.
+  </div>
+
+  <h3>Other things the editing models will do</h3>
+  <div class="chips">
+    <span class="chip">isometric view of a room</span>
+    <span class="chip">unlimited poses from one character</span>
+    <span class="chip">object → 3D model</span>
+    <span class="chip">change hair or eye colour</span>
+    <span class="chip">concept art from two objects</span>
+    <span class="chip">show the finished dish from raw ingredients</span>
+    <span class="chip">change the perspective of a photo</span>
+    <span class="chip">interior design tests</span>
+    <span class="chip">restore old photos</span>
+    <span class="chip">accurately change text in an image</span>
+    <span class="chip">document → whiteboard explainer</span>
+    <span class="chip">comic strips</span>
+    <span class="chip">turn a meme into a photograph</span>
+    <span class="chip">brand product placement with a real logo</span>
+  </div>
+</section>
+
+<!-- ═══════════ 6. DEPTH ═══════════ -->
+<section class="mod" id="depth" data-group="Directing the frame" data-nav="Depth &amp; framing">
+  <div class="mod-head">
+    <span class="mod-num">06</span>
+    <h2>Depth — why AI builds flat and how to stop it</h2>
+    <span class="mod-source">Lesson 8</span>
+  </div>
+
+  <p>Two shots, almost the same prompt: one looks like cinema, the other looks cheap. It isn't the model. <strong>By default AI pastes your subject onto a background like a sticker</strong> — one flat layer, nothing in front, no real space behind. That's why it reads as a sticker instead of a moment. The fix happens before you type.</p>
+
+  <div class="rows">
+    <div class="row">
+      <div class="row-chip" data-level="1"></div>
+      <div>
+        <div class="row-name">Background</div>
+        <div class="row-sub">The world behind</div>
+      </div>
+      <div class="row-body">
+        <p>Street, room, skyline, landscape, sky. Most people describe only this layer — which is exactly why their shots stay flat. A background on its own is not depth, it's a backdrop.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-chip" data-level="3"></div>
+      <div>
+        <div class="row-name">Midground</div>
+        <div class="row-sub">Where the subject lives</div>
+      </div>
+      <div class="row-body">
+        <p>The person, character, or product — the thing you want looked at. Say explicitly that the subject sits in the midground.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-chip" data-level="5"></div>
+      <div>
+        <div class="row-name">Foreground</div>
+        <div class="row-sub">The layer everyone forgets</div>
+      </div>
+      <div class="row-body">
+        <p>Whatever sits closest to the lens: grass, a window frame, smoke, a shoulder, leaves, a railing, a car hood, a piece of wall — usually slightly out of focus. <strong>Adding a foreground is the single fastest way to make any AI shot look cinematic.</strong> The eye then travels front → subject → back, and that travel is what reads as three-dimensional.</p>
+      </div>
+    </div>
+  </div>
+
+  <pre><code>WEAK
+man standing beside an orange sports car in a city street,
+cinematic lighting
+
+BETTER
+orange sports car close to the camera in the foreground, man
+standing beside it in the midground, city street and tall buildings
+falling away into the background, cinematic lighting
+
+FOREGROUND ADD-ONS
+out-of-focus leaves in the foreground close to the lens · blurred
+window frame · grass near the camera · smoke drifting across the
+lens · shoulder in the foreground · railing cutting through frame</code></pre>
+
+  <h3>Atmosphere — something in the air</h3>
+  <p>In the real world air isn't empty. The further something is, the more air sits between you and it, so distant things get lighter, softer, and lose contrast. Your brain reads that instantly as space. It's a cheat code because you can add it on purpose, and each kind gives a different feeling.</p>
+
+  <ul>
+    <li><strong>Light haze</strong> in the background pushes a city back and makes the scene feel vast.</li>
+    <li><strong>Dust in a shaft of light</strong> gives you god rays and makes the air itself visible.</li>
+    <li><strong>Low fog</strong> rolling across the ground physically separates foreground, subject and background so depth is impossible to miss.</li>
+    <li><strong>Smoke or exhaust</strong> adds movement and mood on top of the depth.</li>
+  </ul>
+
+  <h3>Where the subject goes</h3>
+  <p>The instinct is dead centre and it's usually the most boring placement available — static, flat, a passport photo. Push the subject onto a third and the rest of the frame becomes <em>space they can look into, walk into, or react to</em>. That space gives the frame direction. Dead centre is still right for a hero shot, raw symmetry, or a stare down the lens — the difference is choosing it on purpose rather than landing there by default.</p>
+
+  <div class="cards">
+    <div class="card">
+      <p class="card-kicker">Rule of thirds</p>
+      <p class="card-title">Place, don't default</p>
+      <p>Split the frame into nine boxes. Put the subject on a line, better still on an intersection. Tell the AI which third — otherwise it centres everything.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Leading lines</p>
+      <p class="card-title">Point the eye</p>
+      <p>Roads, curbs, walls, fences, railings, light beams, rows of parked cars, building edges. Aim them at the subject and the eye has no choice but to slide there.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Lead room</p>
+      <p class="card-title">Space in the direction of travel</p>
+      <p>Looking right, leave room on the right; walking left, leave room on the left. Crowd the space in front and leave it all behind, and the shot feels trapped — like they're about to hit the frame edge.</p>
+    </div>
+  </div>
+
+  <pre><code>place the subject on the right third of the frame, looking left
+across the open space, strong lead room, cinematic composition,
+background receding into fog
+
+industrial street at night, wet reflective ground, low fog rolling
+across the street, soft haze in the background, cinematic overhead
+lights, subject in the midground</code></pre>
+
+  <div class="note">
+    <strong>Five-point check before any cinematic prompt.</strong> Depth — is it built in three layers? Atmosphere — is there anything in the air? Rule of thirds — did I place the subject or did the model? Leading lines — is anything pointing at the subject? Lead room — does the frame breathe in the right direction? When a shot feels flat, it's almost always the foreground and the air.
+  </div>
+</section>
+
+<!-- ═══════════ 7. LIGHT ═══════════ -->
+<section class="mod" id="light" data-group="Directing the frame" data-nav="Light logic">
+  <div class="mod-head">
+    <span class="mod-num">07</span>
+    <h2>Light logic — "cinematic lighting" means nothing</h2>
+    <span class="mod-source">Lesson 9</span>
+  </div>
+
+  <p>You've scrolled past a thousand AI images that looked off and couldn't say why. Usually it's the light. The model can make a beautiful image, but if the light has no logic the shot still feels random. Writing <em>cinematic lighting</em> tells the model nothing — it responds by lighting everything evenly, which is exactly the render look. <strong>Light starts with questions: where is it coming from, why is it here, what is it doing to the frame?</strong></p>
+
+  <h3>1 · Motivated source</h3>
+  <p>Real light always comes from somewhere — a window, the sun, headlights, a lamp, a doorway, fire, neon, a screen. That source has a direction, and it hits one side harder than the other. The source doesn't have to be in the shot: let the window sit off-frame and let the shadows tell the story, rather than forcing a lamp into the middle and breaking your composition.</p>
+
+  <pre><code>WEAK    cinematic lighting, realistic portrait, beautiful room
+
+BETTER  soft daylight from a large window on the left, light falling
+        across one side of his face and body, the opposite side
+        dropping into soft shadow</code></pre>
+
+  <h3>2 · Hard or soft, and from where</h3>
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Choice</th><th>Comes from</th><th>Reads as</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Hard light</strong></td><td>Small direct source — bare sun, single sharp lamp</td><td>Dramatic, tense, raw, harsh, dangerous. Strong shadows with defined edges</td></tr>
+        <tr><td><strong>Soft light</strong></td><td>Large or diffused source — big window, overcast sky</td><td>Calm, expensive, intimate, flattering. Gentle falloff, smooth transitions</td></tr>
+        <tr><td><strong>Side light</strong></td><td>Off to one side</td><td>The most cinematic — carves out shape and texture, one side lit, one in shadow</td></tr>
+        <tr><td><strong>Backlight</strong></td><td>Behind the subject</td><td>Separation, rim light, silhouettes, depth</td></tr>
+        <tr><td><strong>Front light</strong></td><td>Flat onto the face</td><td>Flattens everything — boring for drama, correct for beauty and fashion: clean skin, no harsh shadows, glossy</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>The shadow does as much work as the light: the lit side shows the surface, the shadow side gives it shape. You need both. <strong>Cinematic light doesn't show everything equally — it chooses what matters and hides the rest.</strong></p>
+
+  <pre><code>hard side light from the left, deep shadow on the right,
+background darker than the subject, motivated practical light
+behind the subject</code></pre>
+
+  <h3>3 · Colour is the emotion</h3>
+  <ul>
+    <li><strong>Warm</strong> — golden, orange. Alive, intimate, nostalgic. Pulls you in.</li>
+    <li><strong>Cool</strong> — blue, grey. Distant, lonely, hard, modern. Holds you at arm's length.</li>
+    <li><strong>Green tint</strong> — uneasy, artificial, sick, off. Why so many industrial and institutional scenes carry it.</li>
+    <li><strong>Red</strong> — danger, tension, alarm, urgency. Drop a character into red and the mood turns even if nothing else changes.</li>
+  </ul>
+  <p>Orange and blue sit opposite each other on the colour wheel, so a warm subject against a cool background is the strongest colour contrast available — the classic look of warm skin against cool shadows, which separates the subject and adds depth on top of mood. And <strong>echo one accent colour through the frame</strong>: if the subject has orange details, plant that same orange in a reflection, a light, or a background object. Repetition is what makes an image feel composed rather than random.</p>
+
+  <div class="note warn">
+    <strong>Motivate strong colour.</strong> Red light reads as cinema when it comes from a safelight, alarm, neon sign, brake light, exit sign or emergency glow. Unmotivated, it reads as a cheap filter.
+  </div>
+
+  <h3>4 · Materials make it physical</h3>
+  <p>Light doesn't just land on a subject, it shows you what the subject is made of. Metal throws a hard sharp highlight; glossy car paint reflects like a mirror; glass catches light and lets it through; polished stone has a deep smooth sheen; fabric drinks light in, soft and matte; woven carpet catches a little shadow on every thread. Describe how light behaves per surface and the image stops looking like a render. This is decisive for product work — a soft reflection on a glossy black surface is what makes a product look expensive rather than flat. On people, don't lose the <strong>catch light</strong>: that tiny reflection of the source in the eyes. Without it eyes look dead; with it they look alive — and it has to match your real source.</p>
+
+  <pre><code>controlled studio product lighting, sharp specular highlights on
+metal, soft reflection on glass, dark reflective surface, subtle
+haze behind the product</code></pre>
+
+  <h3>5 · Continuity across a sequence</h3>
+  <p>One beautiful shot is luck; a scene where the light holds together is skill. The light doesn't have to be physically identical in every frame — <strong>the logic has to be</strong>. Anchor the source once in the establishing shot and the viewer's brain fills in the rest. Four things stay fixed: where the light comes from, which side is lit, warm or cool, and how deep the shadows go.</p>
+
+  <div class="note">
+    <strong>The lock-the-block trick.</strong> Write your lighting as one block at the <em>end</em> of the prompt. Copy that identical block into every shot in the scene and change only the action and the shot size. If one shot breaks, regenerate it with the same block.
+  </div>
+
+  <h3>Mood → palette → prompt words</h3>
+  <p>Colour grading is the fastest way to make output look professional, and you can bake it into the prompt instead of fixing it in post. Put the grade at the <strong>end</strong> of the prompt — the model weights endings heavily.</p>
+
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Mood</th><th>Palette</th><th>Prompt words</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Epic / heroic</strong></td><td>Rich golds, deep blues, warm highlights with cool shadows</td><td>warm golden highlights, deep blue shadows, rich cinematic color grading, epic tone</td></tr>
+        <tr><td><strong>Dark / moody</strong></td><td>Desaturated, heavy shadows, teal and orange undertones</td><td>dark moody color grading, desaturated tones, deep shadows, teal and orange palette</td></tr>
+        <tr><td><strong>Romantic / dreamy</strong></td><td>Soft pinks, warm golds, slight haze</td><td>soft dreamy color grading, warm pink and gold tones, gentle haze, romantic atmosphere</td></tr>
+        <tr><td><strong>Horror / unsettling</strong></td><td>Cold greens, sickly yellows, high contrast, crushed blacks</td><td>cold green-tinted color grading, sickly yellow undertones, high contrast, crushed blacks</td></tr>
+        <tr><td><strong>Sci-fi / cyberpunk</strong></td><td>Neon blues, magentas, teals on dark</td><td>neon-lit cyberpunk color grading, electric blue and magenta, dark backgrounds, high contrast</td></tr>
+        <tr><td><strong>Vintage / nostalgic</strong></td><td>Faded colours, warm yellows, lifted blacks, grain</td><td>vintage film color grading, faded warm tones, lifted blacks, nostalgic 35mm film grain</td></tr>
+        <tr><td><strong>Clean / corporate</strong></td><td>Bright, slightly cool, high key, minimal shadow</td><td>clean bright color grading, slightly cool tone, high key lighting, professional</td></tr>
+        <tr><td><strong>Nature / documentary</strong></td><td>Rich greens, warm earth tones, natural saturation</td><td>natural documentary color grading, rich greens, warm earth tones, organic feel</td></tr>
+        <tr><td><strong>Melancholy / lonely</strong></td><td>Desaturated blues and greys, overcast</td><td>desaturated blue-grey color grading, cold melancholic tone, muted colors, overcast</td></tr>
+        <tr><td><strong>High energy / action</strong></td><td>High contrast, punchy saturation, warm with cool accents</td><td>high contrast punchy color grading, vibrant saturation, action film tone</td></tr>
+        <tr><td><strong>Luxury / elegant</strong></td><td>Deep blacks, gold accents, warm highlights</td><td>luxurious color grading, deep rich blacks, golden accents, elegant warm highlights</td></tr>
+        <tr><td><strong>Surreal / dreamlike</strong></td><td>Unnatural shifts, pastels with deep tones, soft focus</td><td>surreal dreamlike color grading, shifted color palette, pastel and deep tones mixed</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Film looks you can name directly</h3>
+  <div class="chips">
+    <span class="chip">Blade Runner 2049 — orange/teal, smoke, neon in darkness</span>
+    <span class="chip">Mad Max: Fury Road — crushed teal, blazing amber</span>
+    <span class="chip">The Matrix — green tint, desaturated</span>
+    <span class="chip">Wes Anderson — pastel blocking, symmetry</span>
+    <span class="chip">Ozark / Gone Girl — cold steel blue, flat, oppressive</span>
+    <span class="chip">La La Land — saturated primaries, golden hour</span>
+    <span class="chip">John Wick — neon blue and red on pitch black</span>
+    <span class="chip">Dune — warm amber and sand, hazy</span>
+    <span class="chip">Barbie — hot pink, high key, candy</span>
+    <span class="chip">The Revenant — cold natural light, blue-grey, earthy</span>
+  </div>
+
+  <pre><code>Formula: [scene] + [lighting source] + [colour grade] + [film ref]
+
+"A lone astronaut standing on Mars, looking at the horizon,
+volumetric light from the setting sun, warm amber and teal cinematic
+color grading, Dune-inspired look"
+
+"A woman sitting in a neon-lit diner at 3am, rain on the windows,
+moody blue and magenta color grading, Wong Kar-wai inspired,
+soft focus"</code></pre>
+
+  <div class="note warn">
+    <strong>Grading mistakes.</strong> "Colourful" means nothing — say which colours and where. Don't stack references; pick one mood, one palette. Don't divorce grade from lighting — you can't have warm golden grading under harsh fluorescents. Don't over-describe: <em>teal and orange cinematic color grading</em> beats a paragraph of RGB values.
+  </div>
+
+  <div class="note">
+    <strong>Three questions that fix any lit shot.</strong> Where is the light coming from? What is it doing to the frame? Does it hold in the next shot? The beauty the model can do; the logic is yours. When the light has a reason, the viewer stops noticing the light and simply believes the scene.
+  </div>
+</section>
+
+<!-- ═══════════ 8. CAMERA ═══════════ -->
+<section class="mod" id="camera" data-group="Directing the frame" data-nav="Camera language">
+  <div class="mod-head">
+    <span class="mod-num">08</span>
+    <h2>Camera language — angle, shot size, lens</h2>
+    <span class="mod-source">Lesson 10</span>
+  </div>
+
+  <p>The same person, in the same place, wearing the same thing can feel powerful or vulnerable, intimate or distant, in control or lost — and that entire shift can come from the camera alone. The camera isn't recording the scene, it's telling the audience how to read it. Three tools, three questions.</p>
+
+  <h3>Tool 1 — Angle: where is the viewer standing?</h3>
+  <p>Not just up or down: how high the camera sits, which side of the subject it's on, and whose eyes we're borrowing.</p>
+
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Angle</th><th>Reads as</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Eye level</strong></td><td>The honest baseline. Intimate or confrontational depending on the moment</td></tr>
+        <tr><td><strong>Low angle</strong></td><td>The subject towers — powerful, heroic, sometimes threatening. How you make someone own the room</td></tr>
+        <tr><td><strong>Worm's-eye</strong></td><td>Camera on the floor aiming straight up. Extreme on a person, a car, a bike, a building</td></tr>
+        <tr><td><strong>High angle</strong></td><td>The subject shrinks — vulnerable, exposed, cornered</td></tr>
+        <tr><td><strong>Overhead / top-down</strong></td><td>The scene becomes geometry. Rooms become diagrams, people become pieces on a board</td></tr>
+        <tr><td><strong>Dutch angle</strong></td><td>Horizon tilted. Instantly wrong, tense, unstable</td></tr>
+        <tr><td><strong>Frontal</strong></td><td>Direct, symmetrical, iconic. Eyes in the lens = talking to the viewer</td></tr>
+        <tr><td><strong>Three-quarter</strong></td><td>Shape and depth. The most natural cinematic look</td></tr>
+        <tr><td><strong>Profile</strong></td><td>Distant, locked in, closed off</td></tr>
+        <tr><td><strong>Back shot</strong></td><td>Mystery. You follow them into the scene, seeing what they see but not their face</td></tr>
+        <tr><td><strong>Over-the-shoulder</strong></td><td>How you shoot a conversation or confrontation — whoever's shoulder is larger quietly holds the power</td></tr>
+        <tr><td><strong>POV</strong></td><td>The camera becomes the character's eyes. Sell it with what they'd see: hands, a steering wheel, glasses frames, a helmet visor, a scope, a keyhole</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>No angle has one fixed meaning.</strong> A low angle usually says power — but on a scared child looking up at an adult, that same angle says fear. A high angle usually says weakness, but it can also just show order and control. The angle sets the direction; the character, the light and the moment decide the final meaning.
+  </div>
+
+  <h3>Tool 2 — Shot size: what does the viewer need to read?</h3>
+  <p>Shot size is not about far or close. It decides what information the viewer is supposed to take from the frame.</p>
+
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Size</th><th>Frames</th><th>The viewer reads</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Extreme wide</strong></td><td>Subject is a dot</td><td>The world, its scale, how small the person is inside it. Opens a scene or crushes a character</td></tr>
+        <tr><td><strong>Wide</strong></td><td>Head to toe, lots of space</td><td>Person and place at once. Put the character and a threat in one wide frame and the viewer sees the danger first — that's suspense before a single cut</td></tr>
+        <tr><td><strong>Full shot</strong></td><td>Head to toe, frame owned</td><td>Body, posture, silhouette, outfit, stance</td></tr>
+        <tr><td><strong>Medium-wide</strong></td><td>Around the knees</td><td>Action and movement — face, hands, body and some surroundings</td></tr>
+        <tr><td><strong>Medium</strong></td><td>From the waist</td><td>The natural distance of conversation. The most versatile size — and monotonous if a whole scene sits here</td></tr>
+        <tr><td><strong>Medium close-up</strong></td><td>Chest or shoulders</td><td>The shift from behaviour to reaction. The shot of connection and trust</td></tr>
+        <tr><td><strong>Close-up</strong></td><td>Face fills the frame</td><td>Eyes, breath, the smallest change. Not automatically emotional — the same close-up can be cold, threatening, beautiful or empty</td></tr>
+        <tr><td><strong>Extreme close-up</strong></td><td>One detail</td><td>A single eye, a drop of sweat, a finger on a trigger, a crack in metal. For that moment nothing else exists</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>A shot's power depends on what came before it. <strong>A close-up only really hits after you've held the viewer at a distance.</strong> If every shot is tight, the close-up stops being special — a huge wide followed by a hard cut to a single eye is where the tension lives.</p>
+
+  <h3>Tool 3 — Lens: how does the space feel?</h3>
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Focal length</th><th>Behaviour</th><th>Use for</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>16–24mm</strong></td><td>Swallows space, exaggerates depth, enlarges the foreground, puts the viewer inside the scene</td><td>Interiors, POV, cars, action</td></tr>
+        <tr><td><strong>40–50mm</strong></td><td>Roughly human vision. Calm proportions, no optical trick</td><td>Natural, neutral coverage</td></tr>
+        <tr><td><strong>85mm</strong></td><td>Narrower. Separates subject from background while pulling the background visually closer</td><td>Portraits, subject separation</td></tr>
+        <tr><td><strong>200mm+</strong></td><td>Compresses space, stacks distant planes. Feels like watching from far away — lets you put a giant sun right behind a character</td><td>Compression, distance, scale tricks</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note warn">
+    <strong>The rule that separates optics from typing numbers.</strong> Focal length controls the field of view; <strong>camera position controls perspective</strong>. A wide lens does not distort a face by itself — the distortion appears when you shove the camera into the face to get the close-up. Describe both the lens and where the camera stands.
+  </div>
+
+  <p><strong>Aperture</strong> confuses everyone because a small number means a big opening. At f/1.4 the lens is wide open: lots of light, shallow depth of field, blurry background. At f/8 most of the scene stays sharp. But a person standing against a wall stays fairly sharp even at f/1.4 — pull them ten metres off that wall and the background melts. <strong>Subject-to-background distance matters as much as the f-number</strong>, so put it in the prompt.</p>
+
+  <h3>Camera bodies as shorthand</h3>
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Body</th><th>Character</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>ARRI Alexa</strong></td><td>The benchmark for serious drama. Soft highlight rolloff, strong all-rounder</td></tr>
+        <tr><td><strong>Sony Venice 2</strong></td><td>Night and low light. Clean images in the dark</td></tr>
+        <tr><td><strong>RED V-Raptor</strong></td><td>Sharp modern digital. Speed, cars, bikes, action</td></tr>
+        <tr><td><strong>Hasselblad medium format</strong></td><td>Glossy premium commercial — watches, jewellery, cosmetics, luxury surfaces</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Lens character is a separate axis worth naming: <em>clean modern</em>, <em>warm organic (Cooke)</em>, <em>vintage</em>, <em>anamorphic</em>.</p>
+
+  <pre><code>Camera position + shot size + lens
+low angle medium close-up, camera close to the subject, 24mm wide
+lens, exaggerated foreground depth, subject towering over the viewer</code></pre>
+
+  <div class="note">
+    <strong>The three questions.</strong> Where is the camera? — angle, which sets relationship and power. How much do we see? — shot size, which controls information. How does the space feel? — lens, which controls the geometry. Answer them yourself and the frame is yours, not the model's.
+  </div>
+</section>
+
+<!-- ═══════════ 9. BANKS ═══════════ -->
+<section class="mod" id="banks" data-group="Reference" data-nav="Style bank &amp; sources">
+  <div class="mod-head">
+    <span class="mod-num">09</span>
+    <h2>Style library and module sources</h2>
+    <span class="mod-source">Lessons 10–12</span>
+  </div>
+
+  <p>Twenty-four visual styles you can append to any scene description. The ordering rule matters: <strong>put the style keywords at the END of the prompt, after the scene. Never lead with the style.</strong></p>
+
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Style</th><th>Looks like</th><th>Use when</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>35mm film</strong></td><td>Warm tones, natural grain, slightly soft focus, organic colour shifts</td><td>Timeless, nostalgic, "this feels real"</td></tr>
+        <tr><td><strong>Polaroid</strong></td><td>Square, faded colour, vignette, warm, white border</td><td>Instant nostalgia; casual, personal, intimate moments</td></tr>
+        <tr><td><strong>Cinematic widescreen</strong></td><td>2.39:1, shallow depth of field, dramatic light, graded</td><td>Hero shots, establishing shots, anything that must feel like a movie</td></tr>
+        <tr><td><strong>Anime / manga</strong></td><td>Clean lines, vibrant colour, expressive characters, stylised backgrounds</td><td>Character design, fantasy, animated looks</td></tr>
+        <tr><td><strong>Oil painting</strong></td><td>Visible brush strokes, rich colour, dramatic light, classical composition</td><td>Fantasy, historical, epic scenes</td></tr>
+        <tr><td><strong>Watercolour</strong></td><td>Soft edges, transparent washes, paper showing through</td><td>Gentle subjects — nature, florals, soft portraits</td></tr>
+        <tr><td><strong>Pencil sketch</strong></td><td>Graphite, varying line weight, cross-hatching</td><td>Concept art, architectural studies, raw creative energy</td></tr>
+        <tr><td><strong>Pop art</strong></td><td>Bold primaries, thick outlines, halftone dots, high contrast</td><td>Bold statements, playful brand content</td></tr>
+        <tr><td><strong>Film noir</strong></td><td>High-contrast black and white, venetian-blind shadows</td><td>Mystery, drama, sophistication</td></tr>
+        <tr><td><strong>Vintage magazine</strong></td><td>Clean composition, warm muted tones, grain, 1960s editorial</td><td>Fashion, lifestyle brands, retro projects</td></tr>
+        <tr><td><strong>Editorial fashion</strong></td><td>High-end styling, dramatic poses, controlled light</td><td>Fashion brands, luxury products, high-end social</td></tr>
+        <tr><td><strong>Street photography</strong></td><td>Candid, urban, raw, decisive moment</td><td>Authentic content, urban stories</td></tr>
+        <tr><td><strong>Drone</strong></td><td>Aerial perspective, patterns from above, scale</td><td>Landscapes, architecture, revealing scale</td></tr>
+        <tr><td><strong>Macro</strong></td><td>Extreme close-up, huge detail, shallow depth</td><td>Product details, nature, texture</td></tr>
+        <tr><td><strong>Double exposure</strong></td><td>Two images blended — portrait merged with nature or city</td><td>Creative portraits, symbolic storytelling</td></tr>
+        <tr><td><strong>Long exposure</strong></td><td>Motion blur on movement, sharp statics, light trails</td><td>Night cityscapes, waterfalls, traffic</td></tr>
+        <tr><td><strong>Tilt-shift</strong></td><td>Real scenes look like miniature models, selective focus band</td><td>Toy-model effect, creative perspective</td></tr>
+        <tr><td><strong>Golden hour portrait</strong></td><td>Warm backlight, golden skin, sun flare, magic-hour glow</td><td>Portraits and lifestyle needing warmth</td></tr>
+        <tr><td><strong>Studio lighting</strong></td><td>Controlled, dramatic, clean background</td><td>Product photography, headshots, clean brand content</td></tr>
+        <tr><td><strong>Dark academia</strong></td><td>Muted browns, candlelight, old books, classical architecture</td><td>Education content, literary, intellectual</td></tr>
+        <tr><td><strong>Vaporwave</strong></td><td>Neon pink and blue, glitch, retro-futurist 80s digital</td><td>Bold social, music, nostalgic-futurist branding</td></tr>
+        <tr><td><strong>Cottagecore</strong></td><td>Soft natural light, meadows, linen, handmade, pastoral</td><td>Lifestyle brands, natural products, wellness, food</td></tr>
+        <tr><td><strong>Cyberpunk</strong></td><td>Neon dystopia, rain-slicked streets, holographic ads</td><td>Sci-fi, tech brands, futuristic storytelling</td></tr>
+        <tr><td><strong>Minimalist</strong></td><td>Clean, negative space, one focal point</td><td>Modern design, luxury, when less is more</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <pre><code>"A couple walking through a flea market on a Sunday morning, the
+woman holding a vintage vase she just found, shot on 35mm film"
+
+"A detective standing under a streetlight in an empty alley,
+cigarette smoke rising, film noir, black and white, dramatic shadows"
+
+"A street vendor selling noodles under a neon sign in a rainy
+cyberpunk alley, holographic advertisements reflecting in puddles"
+
+"A single drop of water on a green leaf, you can see the reflection
+of the forest in the droplet, macro photography"</code></pre>
+
+  <h3>Camera vocabulary, as one bank</h3>
+  <div class="chips">
+    <span class="chip">eye level</span>
+    <span class="chip">three-quarter angle</span>
+    <span class="chip">frontal shot</span>
+    <span class="chip">profile shot</span>
+    <span class="chip">back shot</span>
+    <span class="chip">over-the-shoulder</span>
+    <span class="chip">low angle</span>
+    <span class="chip">worm's-eye view</span>
+    <span class="chip">high angle</span>
+    <span class="chip">overhead / top-down</span>
+    <span class="chip">dutch angle</span>
+    <span class="chip">POV</span>
+    <span class="chip">extreme wide</span>
+    <span class="chip">suspense wide shot</span>
+    <span class="chip">full shot</span>
+    <span class="chip">medium-wide</span>
+    <span class="chip">medium</span>
+    <span class="chip">medium close-up</span>
+    <span class="chip">close-up</span>
+    <span class="chip">extreme close-up</span>
+    <span class="chip">wide lens 16–24mm</span>
+    <span class="chip">normal lens 50mm</span>
+    <span class="chip">portrait lens 85mm</span>
+    <span class="chip">telephoto 200mm</span>
+    <span class="chip">f/1.4 — background melts</span>
+    <span class="chip">f/8 — everything sharp</span>
+    <span class="chip">ARRI Alexa</span>
+    <span class="chip">Sony Venice 2</span>
+    <span class="chip">RED V-Raptor</span>
+    <span class="chip">Hasselblad medium format</span>
+    <span class="chip">clean modern</span>
+    <span class="chip">warm organic (Cooke)</span>
+    <span class="chip">vintage</span>
+    <span class="chip">anamorphic</span>
+  </div>
+
+  <h3>Module videos</h3>
+  <p>Nine of twelve lessons carry a video — 1h 12m total.</p>
+
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Lesson</th><th>Run</th><th>Video</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>AI Image Creation Basics</td><td>8m 10s</td><td><a href="https://www.loom.com/share/6b914eb72ad640b2bd5075d0e11d9ac4">Loom</a></td></tr>
+        <tr><td>2</td><td>Creating AI Avatars</td><td>9m 56s</td><td><a href="https://www.loom.com/share/d0dde6f4e23a4aba8bd9704d275d6152">Loom</a></td></tr>
+        <tr><td>3</td><td>Influencer Studio (Easier Avatars)</td><td>9m 48s</td><td><a href="https://www.loom.com/share/bfa73db6ed3842368978d13de779568d">Loom</a></td></tr>
+        <tr><td>4</td><td>Pinterest Inspiration</td><td>2m 42s</td><td><a href="https://www.loom.com/share/7e17db79cd0b4062bce83437d9c75ded">Loom</a></td></tr>
+        <tr><td>5</td><td>Avatar Product Images &amp; Wise Chat</td><td>8m 04s</td><td><a href="https://www.loom.com/share/05f2c1debd3643c3b701e300ceadffb8">Loom</a></td></tr>
+        <tr><td>6</td><td>Image Editing With Nanobanana</td><td>10m 55s</td><td><a href="https://www.loom.com/share/30a829f6f63844188b5f5cc233ba26af">Loom</a></td></tr>
+        <tr><td>7</td><td>Image Editing With Canva</td><td>4m 10s</td><td><a href="https://www.loom.com/share/cb8c847893b14879b7d3c8cbd625f352">Loom</a></td></tr>
+        <tr><td>8</td><td>Depth &amp; Cinematic Framing</td><td>8m 30s</td><td><a href="https://www.loom.com/share/5bb2cecca84043b6856dee82c798e499">Loom</a></td></tr>
+        <tr><td>10</td><td>Camera Angles &amp; Techniques</td><td>10m 38s</td><td><a href="https://www.loom.com/share/b4307eac04a0425ea8b6da261913be8f">Loom</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Lessons 9 (Lighting &amp; Mood), 11 (Midjourney Update) and 12 (Resources) are PDF-only — the colour grading cheat sheet, the style reference library, and the camera techniques visual guide, all folded into the sections above.</p>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Tools referenced</span><span class="entry-tag">module 01</span></div>
+    <p class="entry-when">Models move fast — the model recommendations under each lesson video are the live source of truth. The workflow does not change when the model does.</p>
+    <p><a href="https://www.promptwise.com">PromptWise</a> (Studio, Influencer Studio, Wise Chat, UGC Factory) · ChatGPT Image 2.0 · Nanobanana Pro, also reachable via the Gemini app · Claude or ChatGPT for prompt writing · Pinterest for visual direction · Canva for the editing pass.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Original classroom</span><span class="entry-tag">skool</span></div>
+    <p class="entry-when">Module 01 of 7 · 12 lessons · collected 2 Aug 2026.</p>
+    <p><a href="https://www.skool.com/aivideobootcamp/classroom/11e9be50">skool.com/aivideobootcamp — AI Images</a></p>
+  </div>
+
+  <div class="note">
+    <strong>What actually transfers.</strong> Models will be replaced; the four dials, the realism tells, the reference discipline, and the three cinematographic vocabularies won't be. Ask three questions before every generation: what's in my foreground and in the air, where is the light coming from, and where is the camera standing? Answer them yourself and you are directing the frame instead of accepting whatever the model hands you.
+  </div>
+</section>
+
+<footer class="sheet-footer">
+  Skool AI Video Bootcamp · Module 01 — AI Images · 12 lessons<br />
+  Four dials · Realism tells · Avatars &amp; character sheets · Products · Editing stack · Depth · Light logic · Camera language · 24 styles
+</footer>
+
+</main>
+
+<script>
+(function(){
+  const HASH = "2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e";
+  const gate = document.getElementById('password-gate');
+  const input = document.getElementById('password-input');
+  const error = document.getElementById('password-error');
+
+  async function sha256(str) {
+    const buf = new TextEncoder().encode(str);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  async function check() {
+    const digest = await sha256(input.value);
+    if (digest === HASH) {
+      gate.classList.add('hidden');
+      localStorage.setItem('pages_pass', digest);
+    } else {
+      error.style.display = 'block';
+      setTimeout(() => error.style.display = 'none', 2000);
+    }
+  }
+
+  // Auto-check stored hash
+  (async function(){
+    const stored = localStorage.getItem('pages_pass');
+    if (stored === HASH) { gate.classList.add('hidden'); return; }
+  })();
+
+  input.addEventListener('keydown', function(e){ if (e.key === 'Enter') check(); });
+})();
+</script>
+<script src="/pages/shared/paper.js"></script>
+<script src="/pages/shared/menu.js"></script>
+
+</body>
+</html>

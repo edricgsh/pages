@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Research Artifacts</title>
+<title>Collection — Research Artifacts</title>
 <link rel="icon" href="/pages/shared/favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,14 +25,15 @@
 
 <main class="sheet catalogue">
 
-<header class="hero">
-  <h1>Research artifacts</h1>
-  <p class="lede">Long-form breakdowns of courses, newsletters, market maps and talks — read once, distilled into something worth coming back to. Pick a collection, or scan the full list below.</p>
+<!-- Hero and body are both filled from the encrypted manifest: one page serves
+     every collection, selected by ?g=<group-slug>. Adding a collection is a
+     manifest edit, not a new template. -->
+<header class="hero" id="group-hero">
+  <h1 id="group-title">Collection</h1>
+  <p class="lede" id="group-lede">Loading…</p>
 </header>
 
-<div id="catalogue">
-  <p style="font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-3);">Loading…</p>
-</div>
+<div id="group-body"></div>
 
 <footer class="sheet-footer">
   Encrypted at rest · password recon2026<br />
@@ -49,6 +50,8 @@
   const input = document.getElementById('password-input');
   const error = document.getElementById('password-error');
 
+  const wanted = new URLSearchParams(window.location.search).get('g');
+
   async function sha256(str) {
     const buf = new TextEncoder().encode(str);
     const hash = await crypto.subtle.digest('SHA-256', buf);
@@ -57,11 +60,7 @@
 
   function unlock(digest) {
     gate.classList.add('hidden');
-    // Both keys: `pages_pass` is what every artifact gate reads, `unlocked_root`
-    // is this page's own historical key. build.py harvests both and seeds them
-    // after the outer decryption, so nothing prompts twice.
     localStorage.setItem('pages_pass', digest);
-    localStorage.setItem('unlocked_root', 'true');
     render();
   }
 
@@ -79,10 +78,7 @@
 
   if (localStorage.getItem('pages_pass') === HASH) unlock(HASH);
 
-  // ─── Catalogue rendering ───────────────────────────────────────────────
-  // The manifest ships encrypted, so titles and descriptions aren't crawlable
-  // either. Groups come from manifest.groups; a page joins one via `group`,
-  // and `order` sets its position inside that group (course order, not A–Z).
+  // ─── Rendering ─────────────────────────────────────────────────────────
 
   function esc(str) {
     const d = document.createElement('div');
@@ -94,73 +90,77 @@
     return n + ' ' + word + (n === 1 ? '' : 's');
   }
 
-  function groupCard(g, pages) {
-    const peek = pages.slice(0, 3).map(p =>
-      '<li>' + esc(p.title) + '</li>').join('');
-    const more = pages.length > 3
-      ? '<li>+ ' + plural(pages.length - 3, 'more') + '</li>' : '';
-    return '<a class="cat-card" href="' + BASE + 'group/?g=' + encodeURIComponent(g.slug) + '">'
-      + '<p class="cat-emoji">' + esc(g.emoji || '📁') + '</p>'
-      + '<p class="cat-kicker">' + plural(pages.length, 'artifact') + '</p>'
-      + '<p class="cat-name">' + esc(g.title) + '</p>'
-      + '<p class="cat-desc">' + esc(g.description) + '</p>'
-      + '<ul class="cat-peek">' + peek + more + '</ul>'
-      + '<p class="cat-go">Open collection →</p>'
-      + '</a>';
-  }
-
-  function row(p, groupTitle) {
-    return '<a class="cat-row" href="' + BASE + esc(p.slug) + '/">'
-      + '<span class="cat-row-emoji">' + esc(p.emoji || '📄') + '</span>'
-      + '<span class="cat-row-name">' + esc(p.title) + '</span>'
-      + '<span class="cat-row-group">' + esc(groupTitle || 'Unfiled') + '</span>'
-      + '</a>';
-  }
-
   function section(label, inner) {
     return '<section class="cat-section">'
       + '<p class="cat-section-label">' + esc(label) + '</p>'
       + inner + '</section>';
   }
 
+  function artifactCard(p) {
+    return '<a class="cat-card" href="' + BASE + esc(p.slug) + '/">'
+      + '<p class="cat-emoji">' + esc(p.emoji || '📄') + '</p>'
+      + (p.kicker ? '<p class="cat-kicker">' + esc(p.kicker) + '</p>' : '')
+      + '<p class="cat-name">' + esc(p.title) + '</p>'
+      + '<p class="cat-desc">' + esc(p.description) + '</p>'
+      + '<p class="cat-go">Read →</p>'
+      + '</a>';
+  }
+
+  function groupRow(g, count) {
+    return '<a class="cat-row" href="' + BASE + 'group/?g=' + encodeURIComponent(g.slug) + '">'
+      + '<span class="cat-row-emoji">' + esc(g.emoji || '📁') + '</span>'
+      + '<span class="cat-row-name">' + esc(g.title) + '</span>'
+      + '<span class="cat-row-group">' + plural(count, 'artifact') + '</span>'
+      + '</a>';
+  }
+
+  function setHero(title, lede) {
+    document.getElementById('group-title').textContent = title;
+    document.getElementById('group-lede').textContent = lede;
+    document.title = title + ' — Research Artifacts';
+  }
+
   function build(data) {
     const groups = data.groups || [];
     const pages = data.pages || [];
-    const byGroup = {};
-    groups.forEach(g => { byGroup[g.slug] = []; });
+    const membersOf = slug => pages
+      .filter(p => p.group === slug)
+      .sort((a, b) => (a.order || 99) - (b.order || 99));
 
-    const ungrouped = [];
-    pages.forEach(p => {
-      if (p.group && byGroup[p.group]) byGroup[p.group].push(p);
-      else ungrouped.push(p);
-    });
-    Object.keys(byGroup).forEach(k => {
-      byGroup[k].sort((a, b) => (a.order || 99) - (b.order || 99));
-    });
+    const group = groups.find(g => g.slug === wanted);
+    const body = document.getElementById('group-body');
 
-    let html = '';
+    // No ?g=, or a slug that no longer exists — fall back to the collection list
+    // rather than a dead end.
+    if (!group) {
+      setHero('Collections',
+        wanted ? 'No collection named “' + wanted + '”. Here is everything on offer.'
+               : 'Pick a collection to see what is inside.');
+      body.innerHTML = section(plural(groups.length, 'collection'),
+        '<div class="cat-list">'
+        + groups.map(g => groupRow(g, membersOf(g.slug).length)).join('')
+        + '</div>');
+      return;
+    }
 
-    if (groups.length) {
-      html += section('Collections',
-        '<div class="cat-grid wide">'
-        + groups.map(g => groupCard(g, byGroup[g.slug])).join('')
+    setHero(group.title, group.description);
+
+    const members = membersOf(group.slug);
+    let html = section(plural(members.length, 'artifact'),
+      '<div class="cat-grid">' + members.map(artifactCard).join('') + '</div>');
+
+    const others = groups.filter(g => g.slug !== group.slug);
+    if (others.length) {
+      html += section('Other collections',
+        '<div class="cat-list">'
+        + others.map(g => groupRow(g, membersOf(g.slug).length)).join('')
         + '</div>');
     }
 
-    const titleOf = {};
-    groups.forEach(g => { titleOf[g.slug] = g.title; });
-    const all = groups.flatMap(g => byGroup[g.slug]).concat(ungrouped);
-
-    html += section(plural(all.length, 'artifact') + ' in total',
-      '<div class="cat-list">'
-      + all.map(p => row(p, titleOf[p.group])).join('')
-      + '</div>');
-
-    return html;
+    body.innerHTML = html;
   }
 
   async function render() {
-    const host = document.getElementById('catalogue');
     try {
       const res = await fetch(BASE + 'manifest.enc');
       if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -171,9 +171,11 @@
       const json = await window.PagesCrypto.decrypt(enc, pw);
       if (!json) throw new Error('decrypt failed');
 
-      host.innerHTML = build(JSON.parse(json));
+      build(JSON.parse(json));
     } catch (e) {
-      host.innerHTML = '<div class="note warn"><strong>Could not load the catalogue.</strong> '
+      setHero('Collection', 'Could not load this collection.');
+      document.getElementById('group-body').innerHTML =
+        '<div class="note warn"><strong>Could not load the catalogue.</strong> '
         + 'The manifest failed to decrypt — try reloading, or clear the stored password and re-enter it.</div>';
     }
   }

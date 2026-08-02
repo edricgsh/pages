@@ -597,6 +597,154 @@ body.paper #menu-toggle:hover, body.paper #menu-home:hover {
   justify-content: center;
 }
 
+/* ─────────────────────────────────────────────────────────── catalogue ─── */
+/* The index (/pages/) and the group pages (/pages/group/?g=…). These are
+   navigation, not reading — no contents rail, so the sheet centres itself
+   instead of clearing the rail, and the grids break the prose measure. */
+
+.sheet.catalogue {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 68rem;
+  padding-top: 4.5rem;
+}
+.sheet.catalogue > * { max-width: none; }
+.sheet.catalogue .hero h1,
+.sheet.catalogue .hero .lede,
+.sheet.catalogue > p { max-width: var(--measure); }
+
+.cat-section { margin: 0 0 3.2rem; }
+.cat-section-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0 0 1.4rem;
+}
+.cat-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 1rem;
+}
+/* Collections are few and carry a peek list — two roomy columns read better
+   than three narrow ones with an orphan on the last row. */
+.cat-grid.wide { grid-template-columns: repeat(auto-fill, minmax(26rem, 1fr)); }
+
+.cat-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem 1.7rem 1.3rem;
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  transition: border-color 0.14s ease, background 0.14s ease, transform 0.14s ease;
+}
+.paper a.cat-card { text-decoration: none; color: inherit; }
+.paper a.cat-card:hover {
+  border-color: var(--rust);
+  background: var(--rust-soft);
+  transform: translateY(-2px);
+}
+.paper a.cat-card:hover .cat-go { color: var(--rust-ink); }
+
+.cat-emoji { font-size: 1.7rem; line-height: 1; margin: 0 0 0.9rem; }
+.cat-kicker {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin: 0 0 0.4rem;
+}
+.cat-name {
+  font-family: var(--sans);
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--ink);
+  margin: 0 0 0.55rem;
+}
+.cat-desc {
+  font-size: 0.97rem;
+  line-height: 1.55;
+  color: var(--ink-2);
+  margin: 0 0 1.1rem;
+  flex: 1;
+}
+.cat-peek {
+  list-style: none;
+  margin: 0 0 1.1rem;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+  padding-top: 0.75rem;
+}
+.cat-peek li {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-3);
+  margin: 0 0 0.3rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cat-go {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0;
+}
+
+/* Flat A–Z fallback under the groups */
+.cat-list { border-top: 1px solid var(--rule); }
+.cat-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding: 0.85rem 0.4rem;
+  border-bottom: 1px solid var(--rule);
+  transition: background 0.14s ease;
+}
+.paper a.cat-row { text-decoration: none; color: inherit; }
+.paper a.cat-row:hover { background: var(--paper-sunk); }
+.cat-row-emoji { font-size: 1rem; line-height: 1; }
+.cat-row-name {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink);
+  flex: 1;
+}
+.cat-row-group {
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+@media (max-width: 680px) {
+  .cat-row-group { display: none; }
+}
+
 /* ─────────────────────────────────────────────────────────────── footer ─── */
 
 .sheet-footer {

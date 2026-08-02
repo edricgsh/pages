@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Videos — Field Guide</title>
+<link rel="icon" href="/pages/shared/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/pages/shared/paper.css" />
+<link rel="stylesheet" href="/pages/shared/menu.css" />
+</head>
+<body class="paper"
+      data-title="AI VIDEOS"
+      data-meta="FIELD GUIDE · MODULE 02
+SKOOL AI VIDEO BOOTCAMP
+10 SECTIONS · 11 LESSONS">
+
+<div id="password-gate">
+  <div class="gate-box">
+    <div style="font-size:40px;margin-bottom:16px;">🔐</div>
+    <h1>Password Required</h1>
+    <p>Enter the passcode to view</p>
+    <input type="password" id="password-input" placeholder="passcode" autocomplete="off" />
+    <div class="error" id="password-error">Incorrect password</div>
+  </div>
+</div>
+
+<main class="sheet">
+
+<nav class="tabs">
+  <a class="tab" href="#inputs">Inputs</a>
+  <a class="tab" href="#models">Models</a>
+  <a class="tab" href="#lipsync">Lip-sync</a>
+  <a class="tab" href="#editing">Editing</a>
+  <a class="tab" href="#camera">Camera</a>
+  <a class="tab" href="#frameworks">30 Frameworks</a>
+  <a class="tab" href="#motion">Motion Control</a>
+  <a class="tab" href="#realism">Realism Pass</a>
+  <a class="tab" href="#post">CapCut &amp; Sound</a>
+  <a class="tab" href="#reference">Reference</a>
+</nav>
+
+<header class="hero">
+  <h1>The model is not the variable. What you feed it is.</h1>
+  <p class="lede">Everything from Module 02, reorganised into the order you actually work in: choose the input type, pick the model for the job, direct the camera by name, transfer real performance onto a face, then strip the AI polish back off in the edit.</p>
+</header>
+
+<div class="callout">
+  <p class="callout-label">The big idea</p>
+  <p>Every decision you don't make, the model makes for you — and it always makes the <strong>same</strong> one. Undirected camera? A slow sideways drift. Undirected pacing? It slides into slow motion. Undirected grade? Punchy contrast, clean saturation, a perfectly stable frame that reads as a render. The whole module is one move repeated: <strong>take each of those decisions back</strong> — with a start frame, a reference pack, a named camera move with a start and an end, and a realism pass in post.</p>
+</div>
+
+<!-- ═══════════ 1. INPUTS ═══════════ -->
+<section class="mod" id="inputs" data-group="Foundations" data-nav="The input ladder">
+  <div class="mod-head">
+    <span class="mod-num">01</span>
+    <h2>The input ladder — five levels of control</h2>
+    <span class="mod-source">Lesson 1</span>
+  </div>
+
+  <p>People open an AI video tool, see text-to-video, image-to-video, start frame, end frame, references, audio uploads, camera controls, quality settings, and conclude it's more complicated than prompting an image model. It isn't. There is only one axis: <strong>how much of the result you hand over to the model.</strong> Each rung down the ladder removes freedom from the model and gives it to you.</p>
+
+  <div class="rows">
+    <div class="row">
+      <div class="row-chip" data-level="1"></div>
+      <div>
+        <div class="row-name">Text to video</div>
+        <div class="row-sub">Explore</div>
+      </div>
+      <div class="row-body">
+        <p>Words only. The model invents character, product, layout, lighting, everything. Great for concept testing and fast visual exploration — every generation comes back different. The downside is exactly the upside: it may look amazing and still be nothing like what was in your head.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-chip" data-level="2"></div>
+      <div>
+        <div class="row-name">Image to video</div>
+        <div class="row-sub">Animate</div>
+      </div>
+      <div class="row-body">
+        <p>You upload an image and the model animates it. That one image carries the character, the product, the scene, the lighting, the camera angle and the composition. This is why image creation is the most important step in the whole workflow — <strong>if the image is bad, the video will be bad.</strong> Get the frame right first, then animate.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-chip" data-level="3"></div>
+      <div>
+        <div class="row-name">Start frame</div>
+        <div class="row-sub">Lock the opening</div>
+      </div>
+      <div class="row-body">
+        <p>The first frame of the video, stated explicitly. It locks opening composition, subject, outfit, product, background, lighting, pose, angle and visual style. The prompt then only has to carry <em>what happens</em>.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-chip" data-level="4"></div>
+      <div>
+        <div class="row-name">Start + end frame</div>
+        <div class="row-sub">Lock the destination</div>
+      </div>
+      <div class="row-body">
+        <p>Now the model has an origin and a destination instead of a direction. Use for transitions, transformations, product reveals, before/after, scene changes and controlled camera moves. <strong>The two frames must feel connected</strong> — if they have nothing to do with each other you get morphing and lost consistency, not magic. The best end frame reads as a natural continuation of the first.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-chip" data-level="5"></div>
+      <div>
+        <div class="row-name">Omni-reference</div>
+        <div class="row-sub">Build a reference pack</div>
+      </div>
+      <div class="row-body">
+        <p>Multiple references at once: character, product, location, style, pose, movement, video, audio, voiceover. Seedance takes up to nine images plus video and audio clips; Kling Omni takes up to seven images you can tag and address by name. The more specific the scene, the more information the model needs — and the more useful the pack becomes.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>The beginner mistake nobody corrects</h3>
+  <p>With a start frame uploaded, people re-describe the entire photograph inside the video prompt. <strong>Don't.</strong> The video model can already see the image. If the start frame is a coffee cup on a wooden table, you never write "there is a coffee cup on a wooden table" — you write <em>steam gently rises from the coffee while the camera slowly pushes in.</em> The image controls the scene; the prompt controls the motion.</p>
+
+  <h3>A UGC reference pack, concretely</h3>
+  <p>Target: a woman holding a supplement bottle in a bright kitchen, speaking to camera with natural phone realism.</p>
+  <div class="cards">
+    <div class="card">
+      <p class="card-kicker">Product</p>
+      <p class="card-title">So the bottle stays accurate</p>
+      <p>Upload the label — and the inside too, if the product opens or has packaging. The model needs to know how it works.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Character</p>
+      <p class="card-title">So the person stays the same person</p>
+      <p>Multiple angles of one face beat one perfect angle. Generate front, three-quarter, profile and back views in an image model first.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Location / style</p>
+      <p class="card-title">So the realism holds</p>
+      <p>Kitchen reference for the setting; a style reference for the phone-camera treatment rather than the cinematic one.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Audio</p>
+      <p class="card-title">So the scene is built around the line</p>
+      <p>Upload your own voice or an ElevenLabs read. The scene gets constructed around what she actually says.</p>
+    </div>
+  </div>
+
+  <div class="note warn">
+    <strong>Keep the motion focused.</strong> If the character is running, jumping, spinning, changing outfit, picking up a product and talking to camera <em>while</em> the camera flies around the room, you have handed the model six chances to fail. Overcrowded prompts glitch and morph. One main subject movement, one main camera movement, one clear scene — that is usually enough. Seedance is the strongest at motion and it still breaks under this.
+  </div>
+
+  <h3>Think in shots, not in videos</h3>
+  <p>No current model generates beyond roughly 15 seconds (30 at the outside). A long advert or story attempted in one prompt will fail. Break the piece into shots, generate each with a clear purpose, and assemble them in the edit. Two ways to extend beyond a single clip:</p>
+  <ul>
+    <li><strong>Frame chaining</strong> — export the final frame of a clip (in CapCut: the three-lines menu → export still frame) and use it as the start frame of the next. Repeat for effectively unlimited length.</li>
+    <li><strong>Multi-shot mode</strong> — Kling 3.0 puts several camera cuts inside one generation, so the consistency problem is handled by the model instead of by you.</li>
+  </ul>
+
+  <p><a href="https://www.loom.com/share/6c80db17a1884116a6c257a220d29547">Lesson video: AI Video Basics</a></p>
+</section>
+
+<!-- ═══════════ 2. MODELS ═══════════ -->
+<section class="mod" id="models" data-group="Models" data-nav="Model field guide">
+  <div class="mod-head">
+    <span class="mod-num">02</span>
+    <h2>The model field guide — what to reach for, and when</h2>
+    <span class="mod-source">Lessons 2, 3, 4, 6</span>
+  </div>
+
+  <p>There is no single best model, only a best model per job. The honest summary across the whole module: <strong>Seedance 2.0 is the quality ceiling and the price ceiling; everything else is a way of not paying it.</strong></p>
+
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Model</th><th>Max clip</th><th>Strongest at</th><th>Weakest at</th><th>Cost</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Seedance 2.0</strong></td><td>15s</td><td>Movement, acting, emotion, VFX, lip-sync, prompt adherence</td><td>Safety refusals on action edits; over-smooth, over-saturated output</td><td>Highest — roughly 3× Gemini for edits</td></tr>
+        <tr><td><strong>Kling 3.0</strong></td><td>15s</td><td>Multi-shot cuts in one generation, cinematic emotion, camera-move accuracy, sound effects</td><td>Glitches late in the clip; lip-sync drifts past 10s</td><td>Cheap for what multi-shot replaces</td></tr>
+        <tr><td><strong>Gemini Omni</strong></td><td>—</td><td>In-clip editing, audio-synced motion, iterative refinement, natural voice</td><td>Quietly regenerates things you didn't ask for</td><td>Best cost-per-edit</td></tr>
+        <tr><td><strong>Veo 3.1 (fast / quality)</strong></td><td>8s</td><td>Reliable talking heads at low cost</td><td>Short ceiling; small mouth glitches; voice needs work</td><td>Fast tier is the value pick</td></tr>
+        <tr><td><strong>Grok Imagine 1.5</strong></td><td>—</td><td>Very clean mouth sync</td><td>Voice sounds robotic, like a dubbed voiceover</td><td>—</td></tr>
+        <tr><td><strong>Runway</strong></td><td>—</td><td>—</td><td>Not competitive for prompt-based editing against the above</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Seedance 2.0 — the shot-based production tool</span><span class="entry-tag">bytedance</span></div>
+    <p class="entry-when">Use when the hero shot has to be right: cinematic action, acting beats, product ads, the premium avatar creative you'd show a client.</p>
+    <p class="entry-flow">start frame → ChatGPT writes a 15s timed sequence → generate → export final frame → chain the next shot</p>
+    <p>The prompting technique that unlocks it is the <strong>timed sequence</strong>. Rather than one paragraph, split the 15 seconds into beats so the model knows what happens in each moment instead of guessing the arc. Ask any chat model for "this prompt in a 15-second time-sequence layout" and paste the result straight in.</p>
+    <p>Also: it is genuinely strong at fighting, physical destruction and emotional acting; <strong>add slow motion somewhere</strong> for contrast on VFX-heavy shots; and Omni Reference lets you tell it which uploaded image belongs in which beat — the reliable way to build a multi-element ad (cut lime → product hero → man sipping) in a single generation.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Kling 3.0 — multi-shot and character lock</span><span class="entry-tag">kling.ai / promptwise</span></div>
+    <p class="entry-when">Use when one generation needs several camera angles, or when a character keeps turning away from camera and coming back as a different person.</p>
+    <p class="entry-flow">Shot 1 setup → Shot 2 camera cut → Shot 3 action/reaction → Shot 4 payoff · 3s minimum per cut · 15s total</p>
+    <p><strong>Multi-shot</strong> is the headline feature: toggle it on and choose Automatic (Kling picks the cuts) or Custom (you decide the timing, the camera change and the action in each shot, from as little as one start frame). Normally the slowest part of production is generating consistent images and stitching them; this removes most of it. More than five shots is possible without the toggle — write one long prompt that labels Shot 1, Shot 2, Shot 3 explicitly.</p>
+    <p><strong>Omni Reference</strong> solves face consistency. Generate the same character from multiple angles in Nano Banana Pro, upload them all as one named element ("Bella"), tag it in the prompt. A side-by-side with and without the element is not subtle — without it the face is simply someone else.</p>
+    <p>Two working notes: prompt the camera move by name and Kling executes it accurately; and it goes glitchy near the end of a clip, so <strong>never put important dialogue in the final seconds.</strong></p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Gemini Omni — the cost-effective second choice</span><span class="entry-tag">google</span></div>
+    <p class="entry-when">Use for in-clip editing at volume, for audio-reactive motion, and as the cheap way to find a winning hook before rebuilding it in Seedance.</p>
+    <p>Underrated for avatars: the lip-sync is consistently good and the voice sounds markedly less robotic than the competition. It also does something nothing else here does — upload music and video together as references and it will sync the motion in the frame to the track (apartment windows lighting up on the beat).</p>
+  </div>
+
+  <div class="note">
+    <strong>The cheap-then-expensive pattern.</strong> Generate several cheap versions in Gemini Omni or Veo 3.1 fast, find the hook and the direction that works, then recreate only the winner in Seedance. You pay the premium once, on the shot that earned it.
+  </div>
+</section>
+
+<!-- ═══════════ 3. LIPSYNC ═══════════ -->
+<section class="mod" id="lipsync" data-group="Models" data-nav="Lip-sync bake-off">
+  <div class="mod-head">
+    <span class="mod-num">03</span>
+    <h2>Lip-sync — the same character, the same script, six models</h2>
+    <span class="mod-source">Lesson 6</span>
+  </div>
+
+  <p>AI video can look incredible for half a second and fall apart the moment the person speaks: the mouth lands late, the teeth look wrong, the face drifts, or the character mimes rather than talks. Controlled test — one character, one framing, one script across every model. The finding that matters most: <strong>lip-sync does not need a clever prompt.</strong> People overcomplicate this enormously. The test prompt was one plain sentence describing the vlog plus the line to be spoken.</p>
+
+  <div class="rows numbered">
+    <div class="row">
+      <div class="row-idx">1</div>
+      <div><div class="row-name">Seedance 2.0</div></div>
+      <div class="row-body">
+        <p>Clear winner. The face feels alive rather than a still image forced to talk — cleaner mouth movement, expressions actually connected to the sentence being spoken. This is the model for the hero creative and the client-facing cut, budget permitting.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">2</div>
+      <div><div class="row-name">Gemini Omni</div></div>
+      <div class="row-body">
+        <p>The surprise of the test, and now ranked <em>above</em> Veo. Consistently good sync, and the standout is how much more natural the voice sounds. Holds up across different lighting and settings on basic prompts. The sensible Seedance backup.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">3</div>
+      <div><div class="row-name">Veo 3.1 quality</div></div>
+      <div class="row-body">
+        <p>Marginally better word-sync than the fast tier — but only marginally, and not enough to justify the price gap.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">4</div>
+      <div><div class="row-name">Veo 3.1 fast</div></div>
+      <div class="row-body">
+        <p>Slight mouth glitches, voice needs help, 8-second ceiling forces a shorter script. Once music and editing are layered on, perfectly usable — and it is the value pick.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">5</div>
+      <div><div class="row-name">Grok Imagine 1.5</div></div>
+      <div class="row-body">
+        <p>Genuinely clean sync, undone by the voice — robotic enough to feel like a dub laid over a face. Fixable in principle by supplying your own audio.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">6</div>
+      <div><div class="row-name">Kling 3.0 / Kling Omni</div></div>
+      <div class="row-body">
+        <p>Improved, still not the model to rely on for talking avatars. Starts acceptably, then <strong>loses timing entirely past the 10-second mark</strong> and turns to mush; the voices sound robotic on both variants. Useful for B-roll and cinematic shots, not the hero talking head.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="note warn">
+    <strong>The 10-second wall.</strong> Kling's drift is not random — it is late-clip. Combined with the observation that Kling glitches near the end of any generation, the operating rule is the same either way: <strong>front-load the dialogue, end on a visual.</strong> Nothing that has to be understood should live in the last two seconds of a Kling clip.
+  </div>
+</section>
+
+<!-- ═══════════ 4. EDITING ═══════════ -->
+<section class="mod" id="editing" data-group="Models" data-nav="Prompt-based editing">
+  <div class="mod-head">
+    <span class="mod-num">04</span>
+    <h2>Prompt-based video editing — Gemini Omni vs Seedance 2.0</h2>
+    <span class="mod-source">Lesson 4</span>
+  </div>
+
+  <p>This is not editing in the CapCut sense — no cutting, trimming, music or titles. It is taking an existing clip and asking the model to change something <em>inside the footage</em>: remove the piano, make the coat blue, put him in a luxury gym, add a shark. Same source clip, same edit prompt, both models, eight tests.</p>
+
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Test</th><th>What it probes</th><th>Result</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Remove the piano</td><td>Object removal + rebuilding what was behind it</td><td>Gemini. Seedance didn't fully remove it.</td></tr>
+        <tr><td>Red coat → blue coat</td><td>Isolated appearance change</td><td>Both good — but Gemini silently changed a background woman into a man.</td></tr>
+        <tr><td>Home gym → luxury gym</td><td>Subject/background separation, lip-sync survival</td><td>Both solid; Gemini's lip-sync slipped slightly.</td></tr>
+        <tr><td>Spill the coffee and react</td><td>Inventing new believable motion</td><td>Gemini, by default — Seedance returned safety-policy violations.</td></tr>
+        <tr><td>Sunny café → rainy day</td><td>Mood without rewriting the scene</td><td>Gemini more cinematic; Seedance over-smoothed and over-saturated but stayed more faithful.</td></tr>
+        <tr><td>Add a shark behind the divers</td><td>Object insertion that must feel filmed</td><td>Both. The single most commercially useful edit here.</td></tr>
+        <tr><td>Poured drink → water</td><td>Moving-object replacement with real physics</td><td>Both. Motion and physics matched.</td></tr>
+        <tr><td>"Happy birthday" → "worst birthday ever"</td><td>Text replacement</td><td>Both rendered the letters perfectly.</td></tr>
+        <tr><td>Re-place the camera; switch to POV</td><td>Viewpoint change without regenerating the shot</td><td>Both moved the camera the wrong way (right instead of left) yet held outfit, appearance and tattoos. POV worked surprisingly well.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><strong>Verdict:</strong> close enough that neither wins outright. Gemini takes it on cost — Seedance is at least three times the price, which is unsustainable across many iterations. Choose per edit type, not per brand.</p>
+
+  <div class="note warn">
+    <strong>The real failure mode is over-regeneration.</strong> A result can look impressive while the model has quietly changed things you never asked for. Always compare against the original, not against the other model's output — check face, hands, lips, clothing, background people, motion drift and camera angle. Complex edits regenerate more; camera-angle edits regenerate most.
+  </div>
+
+  <h3>Working rules</h3>
+  <ul>
+    <li><strong>One edit at a time, then inspect.</strong> Google's own guidance for Omni pushes an iterative workflow — build on what already works instead of chasing one perfect prompt. Stacking unrelated edits is how clips drift.</li>
+    <li><strong>Judge against the original clip, every time.</strong> "Did the requested edit happen" is only half the QA. The other half is "did anything else change".</li>
+    <li><strong>Watch lip-sync after any edit involving a speaker</strong> — background replacement in particular knocks it out.</li>
+    <li><strong>Don't judge the first frame.</strong> Watch the full motion; drift shows up mid-clip.</li>
+  </ul>
+
+  <p>The direction of travel: AI video stops being "generate a clip from scratch" and becomes generate → edit → refine → direct the same clip until it matches the idea in your head.</p>
+
+  <p><a href="https://www.loom.com/share/e1848d9688874541806a3dccd46998c1">Lesson video: AI Video Editing (Gemini vs Seedance)</a></p>
+</section>
+
+<!-- ═══════════ 5. CAMERA ═══════════ -->
+<section class="mod" id="camera" data-group="Craft" data-nav="Camera movement">
+  <div class="mod-head">
+    <span class="mod-num">05</span>
+    <h2>Camera movement — 37 moves, 8 groups, one prompt template</h2>
+    <span class="mod-source">Lesson 5 · Lesson 11</span>
+  </div>
+
+  <p>Open any feed and watch AI-generated video: the camera drifts slowly sideways, for no reason, over and over. That drift is the model's default answer to a question you never answered. The cure is vocabulary — once you can name the move, you stop asking for "cinematic camera movement" and start requesting a specific thing.</p>
+
+  <h3>The six-slot prompt template</h3>
+  <p>A camera prompt fails where it leaves a decision to the model. These six slots <em>are</em> the decisions.</p>
+
+  <pre><code>Movement: [the move by name, and what it rides on — rails, shoulder, crane, drone]
+Start:    [locked frame, or already in motion on frame one]
+Speed:    [ease in, build, decelerate / constant / violent / creeping]
+Framing:  [what stays stable while everything else changes]
+End:      [the final frame and the hold — or an exit still in motion]
+Time:     [real time, normal speed, no slow motion — or exactly what slows]</code></pre>
+
+  <p>Worked example, the dolly in:</p>
+
+  <pre><code>Movement: dolly in toward her face, camera on rails.
+Start:    begin from a locked static frame, then ease into the move.
+Speed:    smooth push, building momentum, then decelerating.
+Framing:  keep camera height and lens direction constant as the distance closes.
+End:      settle into a close-up and hold the final frame.
+Time:     real time, normal speed, no slow motion.</code></pre>
+
+  <h3>The four rules</h3>
+  <div class="rows numbered">
+    <div class="row">
+      <div class="row-idx">R1</div>
+      <div><div class="row-name">Name both ends</div></div>
+      <div class="row-body">
+        <p>Every movement needs a beginning and an ending. Leave them out and the model chooses — usually badly, starting mid-motion or cutting off before the move resolves. "Slow push-in" names only the pace; it leaves both ends open.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">R2</div>
+      <div><div class="row-name">One move per shot</div></div>
+      <div class="row-body">
+        <p>A push-in that becomes an orbit that rises into a crane is more than the model can hold together, and the shot falls apart. Pick one movement and let it do its job.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">R3</div>
+      <div><div class="row-name">The bigger the face, the simpler the move</div></div>
+      <div class="row-body">
+        <p>Wide shots forgive almost anything — fly, spin, sweep the room. Once a face fills the frame, keep it gentle: a controlled push, a slow slide, a shift of focus. Full orbits are where faces melt.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">R4</div>
+      <div><div class="row-name">Control the timing</div></div>
+      <div class="row-body">
+        <p>Models drift into slow motion on their own, worst on the spectacular moves. If you want normal speed, say it: <em>real time, normal speed, no slow motion.</em> If you want slow motion, say what slows — the whole world, or one thing inside it.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>The vocabulary, by group</h3>
+  <p>Thirty-seven moves in eight groups, ordered from what any tripod can do to what no physical camera could survive. Say the name first in the prompt — models recognise it immediately — and design the image so the move makes sense: ask for "tracking over the shoulder" with no character in the scene, or "the camera dives underwater" with no water, and the model gets confused.</p>
+
+  <h4>Group 1 · The camera stays put · rotation on a fixed point</h4>
+  <div class="chips">
+    <span class="chip">Static shot — locked, zero drift; the cleanest cut into the next scene</span>
+    <span class="chip">Pan — rotate left/right; keep the horizon level, give it a destination</span>
+    <span class="chip">Tilt — vertical rotation; name both ends ("from her shoes to her eyes")</span>
+    <span class="chip">Whip pan — a pan so fast it smears; hides a cut between two clips</span>
+  </div>
+
+  <h4>Group 2 · Closer and further · the most-used group</h4>
+  <div class="chips">
+    <span class="chip">Dolly in — the camera travels; context falls away until only the face is left</span>
+    <span class="chip">Dolly out — the world comes back; the reveal, and how scenes end</span>
+    <span class="chip">Zoom in / out — camera fixed, lens crops; no parallax, no perspective shift</span>
+    <span class="chip">Slow zoom — creeping, almost invisible; the safest move on a face</span>
+    <span class="chip">Fast zoom — a sudden discovery, a reality check</span>
+    <span class="chip">Crash zoom in — violent snap onto a face; shock, punchline, hard emphasis</span>
+    <span class="chip">Crash zoom out — the frame punches open; comedy is in the new context</span>
+  </div>
+
+  <h4>Group 3 · Travelling past · straight lines that don't aim at the subject</h4>
+  <div class="chips">
+    <span class="chip">Truck — lateral travel, lens forward; the environment is the subject</span>
+    <span class="chip">Slider — the truck at small scale; parallax is the entire point</span>
+    <span class="chip">Pedestal — straight up or down, no tilt; framing stays level</span>
+    <span class="chip">Push past — brush a foreground object on the way in; the shot gains skin</span>
+  </div>
+
+  <h4>Group 4 · Around · the circle must earn its ending</h4>
+  <div class="chips">
+    <span class="chip">Arc — quarter or half turn; the background delivers new information</span>
+    <span class="chip">Orbit — the full circle; spectacular, and empty unless something changed</span>
+    <span class="chip">Spiral — around and inward reads obsession; around and up reads release</span>
+  </div>
+
+  <h4>Group 5 · Tracking · the camera takes the character's pace</h4>
+  <div class="chips">
+    <span class="chip">Follow from behind — about what lies ahead; walking into the unknown</span>
+    <span class="chip">Reverse tracking — about the face; the most identity-stable tracking move</span>
+    <span class="chip">Side tracking — about the journey; the background carries the speed</span>
+    <span class="chip">Low tracking — below the waist, face never shown; introduce and keep the mystery</span>
+    <span class="chip">Vehicle tracking — the car sits still, the world tears past; that's what speed looks like</span>
+    <span class="chip">Chase shot — tracking at a run; the framing slips and corrects, and that's the panic</span>
+  </div>
+
+  <h4>Group 6 · The human camera · making generated footage look shot</h4>
+  <div class="chips">
+    <span class="chip">Handheld — a locked frame observes, a handheld frame attends</span>
+    <span class="chip">Reactive snap zoom — event · late turn · fast zoom · overshoot · correction · settle</span>
+    <span class="chip">Snorricam — rigidly body-mounted; the face pinned, the world swinging around it</span>
+  </div>
+
+  <h4>Group 7 · The air</h4>
+  <div class="chips">
+    <span class="chip">Crane up / down — up: the place swallows them, how films end. Down: how films begin</span>
+    <span class="chip">Drone — free flight; the crane owns a scene, the drone owns the map</span>
+    <span class="chip">Fly-through — cross a boundary; outside becomes inside with no cut</span>
+    <span class="chip">FPV dive — the tilting horizon is the signature; a level FPV is just a fast drone</span>
+  </div>
+
+  <h4>Group 8 · The impossible · five of six no physical camera can do</h4>
+  <div class="chips">
+    <span class="chip">Dolly zoom — subject stays the same size, the background stretches</span>
+    <span class="chip">Macro exit — start inside the mechanism, travel out until it's part of the world</span>
+    <span class="chip">Probe lens — through the keyhole, the strings, the engine</span>
+    <span class="chip">Bullet time — the world freezes, the camera doesn't; the freeze must be total</span>
+    <span class="chip">Gravity roll — floor to wall to ceiling; needs readable geometry</span>
+    <span class="chip">Infinite zoom — world inside world; two per clip maximum, then chain</span>
+  </div>
+
+  <h3>The AI notes — one line that saves each move</h3>
+  <p>Every move has a specific way it fails in generation, and a specific line that prevents it.</p>
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Move</th><th>Failure</th><th>The line that fixes it</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Static shot</td><td>Model adds a slow drift anyway</td><td>"no camera movement, hold the same framing"</td></tr>
+        <tr><td>Pan / whip pan</td><td>Rotates toward nothing</td><td>Always give it a target — a person, an object, an event</td></tr>
+        <tr><td>Tilt</td><td>Mixed pan-tilt paths warp face geometry</td><td>"camera position fixed, only the angle changes"</td></tr>
+        <tr><td>Zoom</td><td>Model blends zoom and dolly into a mongrel</td><td>"camera fixed in place, optical zoom only"</td></tr>
+        <tr><td>Slider</td><td>Nothing to shift against</td><td>Put something real in the foreground</td></tr>
+        <tr><td>Pedestal</td><td>Bends into a tilt</td><td>"straight vertical rise, no tilt"</td></tr>
+        <tr><td>Push past</td><td>Half-crossed foreground reads as a glitch</td><td>The foreground must pass fully out of frame</td></tr>
+        <tr><td>Orbit</td><td>Faces melt on full circles</td><td>Prefer 90–180°; the wider the shot, the safer the circle</td></tr>
+        <tr><td>Handheld</td><td>Abstract "shakiness"</td><td>Describe the person carrying it — models do humans better than shake</td></tr>
+        <tr><td>Snap zoom</td><td>Reads as an effect</td><td>The word <em>documentary</em> carries weight, delay, blur and late focus</td></tr>
+        <tr><td>Snorricam</td><td>Comes back as handheld on a face</td><td>The word <em>rigidly</em> is doing the work</td></tr>
+        <tr><td>Crane</td><td>Turns into a fly-away</td><td>"keep her in frame as the camera climbs"</td></tr>
+        <tr><td>Drone</td><td>Wanders</td><td>Give the flight a line to follow — a road, a river, a coastline</td></tr>
+        <tr><td>Fly-through</td><td>Half-passed boundary</td><td>The opening must be fully crossed</td></tr>
+        <tr><td>Dolly zoom</td><td>Model runs only one of the two motions</td><td>"keep her exact size constant in the frame"</td></tr>
+        <tr><td>Bullet time</td><td>One drifting element breaks the illusion</td><td>The freeze must be total — every droplet holds its place</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>The one move that grounds everything.</strong> The documentary reactive snap zoom is called out as the single strongest trick for making an unreal world feel real: handheld, following fast action, breathing and lagging slightly, then an aggressive snap toward a face with heavy smear and focus slipping for a fraction of a second before it corrects and lands sharp. AI video's default is slow, sterile, perfectly smooth motion — and smoothness reads as a render. Human lateness is the cure.
+  </div>
+
+  <p><a href="https://www.loom.com/share/c7cba2fc5fa34a69b677e3c475d9c3bc">Lesson video: Camera Movement Guide (16m 21s)</a></p>
+</section>
+
+<!-- ═══════════ 6. FRAMEWORKS ═══════════ -->
+<section class="mod" id="frameworks" data-group="Craft" data-nav="30 director frameworks">
+  <div class="mod-head">
+    <span class="mod-num">06</span>
+    <h2>The 30 director frameworks — moves with a reason to move</h2>
+    <span class="mod-source">Lesson 5 · Lesson 11</span>
+  </div>
+
+  <p>The catalogue above tells you what a move <em>is</em>. This library is the layer above it: each framework gives the model a <strong>reason</strong> to move — realisation, scale, threat, geography, emotion, rhythm, reveal. Every entry ships with a shot size, a lens range, a safer version, the risks, and a prompt template with bracketed slots.</p>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">F1 · Slow Motivated Push-In</span><span class="entry-tag">50–75mm · MS–CU</span></div>
+    <p class="entry-when">Realisation, decision, threat detection, emotional shift. Risk: without a trigger, this is just generic drift.</p>
+    <p class="entry-flow">Begin on [Frame A]. After [trigger], start a slow physical dolly in toward [subject]. Keep the move subtle and motivated, with controlled ease-in, gentle momentum build, and a precise ease-out into [Frame B]. Real-time action, no slow motion.</p>
+    <p>The whole framework is the word <em>after</em>. The camera begins moving at the exact moment something changes inside the character — she notices the knife missing from the counter — which is what separates a motivated push from the default drift.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">F4 · Meaning-Changing Arc / Orbit</span><span class="entry-tag">35–50mm · MW–M</span></div>
+    <p class="entry-when">Reveal a threat, shift power, expose new information, reverse the emotion. Risk: if nothing changes during the move, the orbit is decoration.</p>
+    <p class="entry-flow">Arc around [subject] through approximately [90–180] degrees. During the move, reveal a meaningful change in [background/light/power/information]. Keep the path controlled and readable. End on a new angle that changes the interpretation of the scene.</p>
+    <p>A politician delivering a calm speech; 120° of arc reveals the protesters and the police lights behind him. Same subject, opposite meaning. Use 90–180° rather than a full 360 — full orbits are risky for identity and geometry.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">F12 · Foreground Occlusion Transition</span><span class="entry-tag">35–50mm · any size</span></div>
+    <p class="entry-when">Hidden transitions, continuity, and — critically for AI — consistency across a cut. Risk: partial occlusion always fails; the cover object must dominate the frame.</p>
+    <p class="entry-flow">Let a close foreground object fully cover the lens, creating complete visual occlusion. Use that occlusion point to transition into [new scene/time/location], then clear the frame to reveal the next shot. Preserve directional continuity if needed.</p>
+    <p>The cheapest way to join two generations that don't quite match: hide the seam inside a dark coat passing the lens. Its sibling <strong>F21 · Time-Layer Pass</strong> does the same behind a static object — pass behind a column, and clear it into the same hallway thirty years earlier.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">F14 · Reactive Handheld Snap Zoom</span><span class="entry-tag">35–50mm doc style</span></div>
+    <p class="entry-when">Documentary presence, chaos, adrenaline — and grounding fully digital action. Risk: continuous shaking ruins it; the delay and the corrective reframe are the entire effect.</p>
+    <p class="entry-flow">Use a reactive handheld documentary camera inside [scene]. The operator follows [subject/event] with slight human delay, briefly loses perfect framing, then performs an abrupt snap zoom toward [target]. Include controlled handheld shake, rapid corrective reframing, brief motion smear during the zoom, subtle focus correction, heavy physical inertia, and a final settle instead of a weightless float.</p>
+    <p>One clean reaction chain, in order: event → delay → pan → snap zoom → correction → settle.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">F19 · Environment-Triggered Camera Reaction</span><span class="entry-tag">24–50mm · W–MW</span></div>
+    <p class="entry-when">Explosions, giant footsteps, waves, collisions, turbulence. Risk: if the camera reacts before the force arrives, the physics read as fake instantly.</p>
+    <p class="entry-flow">Stage [environmental event] first. Let the physical force travel through the environment, and only when it reaches the camera should the frame jolt, sway, or recover. Preserve cause and effect: event first, camera reaction second.</p>
+    <p>Order is the framework. Creature slams its foot down → dust and shockwave travel toward the lens → only then does the frame jolt sideways and recover.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">F24 · Reaction-Led Push-In</span><span class="entry-tag">50–75mm · M–CU</span></div>
+    <p class="entry-when">Suspense, Spielberg-style reveal logic, emotional prioritisation. Risk: show the object too soon and the reaction loses priority.</p>
+    <p class="entry-flow">Let [character] notice something off screen. Do not reveal the object yet. First, push in toward the character's reaction and let the emotional response become the key information. Reveal the off-screen cause later or in another shot.</p>
+    <p>The fear on the face is the shot. Whatever caused it can wait — or never arrive at all.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">F28 · Motion-Control Timeline Change</span><span class="entry-tag">35–50mm · W–M</span></div>
+    <p class="entry-when">Before/after, growth, decay, repeated memory, controlled comparison. Risk: if the path drifts between passes, the whole effect weakens.</p>
+    <p class="entry-flow">Repeat the exact same camera path with motion-control precision while changing [time/character/state of space/era/light/destruction]. The comparison should come from environmental and narrative change, not from a new camera route.</p>
+    <p>The same hallway tracking shot three times — busy morning, one exhausted worker at sunset, abandoned years later. Identical path makes the time change the subject.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">F29 · Static-To-Handheld State Change</span><span class="entry-tag">35–50mm · any size</span></div>
+    <p class="entry-when">Escalation, panic, realism, a state shift. Risk: with no trigger it reads as style rather than drama — the handheld must react to the event, not precede it.</p>
+    <p class="entry-flow">Begin the shot in a stable controlled mode such as locked-off or stabilized. After [loss-of-control event], shift the camera into a handheld response with human instability, preserving cause and effect. The state change itself should be the dramatic beat.</p>
+    <p>Perfectly stabilised shot of a bride at the altar; the groom collapses; the camera loses control at the same instant the scene does.</p>
+  </div>
+
+  <h3>The full index</h3>
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Framework</th><th>Reason to move</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>F1</td><td>Slow Motivated Push-In</td><td>Realisation, decision, threat, emotional shift</td></tr>
+        <tr><td>F2</td><td>Pull-Out Scale Reveal</td><td>Scale, consequence, geography, surprise</td></tr>
+        <tr><td>F3</td><td>Layered Parallax Push-In</td><td>Depth, immersion, surveillance feeling, physical presence</td></tr>
+        <tr><td>F4</td><td>Meaning-Changing Arc / Orbit</td><td>Reveal threat, shift power, emotional reversal</td></tr>
+        <tr><td>F5</td><td>Crane From Character To World</td><td>Scale, consequences, endings, emotional expansion</td></tr>
+        <tr><td>F6</td><td>Top-Down Graphic Tracking</td><td>Geography, routes, systems, tactical clarity</td></tr>
+        <tr><td>F7</td><td>Whip-Pan Reveal / Match Cut</td><td>Rhythm, comedy, action punctuation, hidden cut</td></tr>
+        <tr><td>F8</td><td>Dolly Zoom</td><td>Shock, alienation, realisation, power shift</td></tr>
+        <tr><td>F9</td><td>Elastic Wide-Close-Wide</td><td>Context, reaction, consequence</td></tr>
+        <tr><td>F10</td><td>Camera Leaves The Hero</td><td>Consequences, dramatic irony, re-prioritisation</td></tr>
+        <tr><td>F11</td><td>Moving Master Through Several Beats</td><td>Scene coverage without cuts, performance continuity</td></tr>
+        <tr><td>F12</td><td>Foreground Occlusion Transition</td><td>Hidden transitions, continuity, AI consistency</td></tr>
+        <tr><td>F13</td><td>Rig Pass-Off</td><td>Continuous spectacle, impossible but believable coverage</td></tr>
+        <tr><td>F14</td><td>Reactive Handheld Snap Zoom</td><td>Documentary presence, chaos, grounding digital action</td></tr>
+        <tr><td>F15</td><td>Impossible Macro-To-World Transition</td><td>Scale shock, conceptual transitions, surreal science</td></tr>
+        <tr><td>F16</td><td>Vehicle-To-Character Handoff</td><td>Mechanics to emotion, speed to reaction</td></tr>
+        <tr><td>F17</td><td>Ground-Level Vehicle Hard-Mount</td><td>Velocity, mass, aggression, road contact</td></tr>
+        <tr><td>F18</td><td>Bullet Time / Time-Slice Orbit</td><td>Study impact, spatial relation, iconic action beat</td></tr>
+        <tr><td>F19</td><td>Environment-Triggered Camera Reaction</td><td>Explosions, giant steps, waves, collisions</td></tr>
+        <tr><td>F20</td><td>Low-To-High Stabilized Reveal</td><td>Elegant reveal, power, product or character entrance</td></tr>
+        <tr><td>F21</td><td>Time-Layer Pass</td><td>Time transitions, before/after reveals, transformation</td></tr>
+        <tr><td>F22</td><td>Creature / Gravity Roll</td><td>Creature POV, disorientation, impossible physics</td></tr>
+        <tr><td>F23</td><td>Focus-Led Move</td><td>Redirect attention before changing viewer position</td></tr>
+        <tr><td>F24</td><td>Reaction-Led Push-In</td><td>Suspense, Spielberg reveal logic, emotional priority</td></tr>
+        <tr><td>F25</td><td>Environment-First Slow Advance</td><td>Monumentality, indifference, world-first storytelling</td></tr>
+        <tr><td>F26</td><td>Blocking-Driven Invisible Reframe</td><td>Invisible sophistication, dialogue scenes, tension growth</td></tr>
+        <tr><td>F27</td><td>Probe / Snorkel Fly-Through</td><td>Technical wonder, tactile exploration, impossible access</td></tr>
+        <tr><td>F28</td><td>Motion-Control Timeline Change</td><td>Before/after, growth, decay, controlled comparison</td></tr>
+        <tr><td>F29</td><td>Static-To-Handheld State Change</td><td>Escalation, panic, realism, state shift</td></tr>
+        <tr><td>F30</td><td>Anticipatory Arrival</td><td>Predestination, threat, the camera knows more than the hero</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Scene-prompt structures that keep working</h3>
+  <p>Across Kling and Seedance the same two shapes come up repeatedly. Both exist to stop the model guessing at the arc of a clip.</p>
+
+  <pre><code>TIMED SEQUENCE — Seedance, 15s
+0–3s   setup
+3–7s   action
+7–12s  escalation
+12–15s final hero moment
+
+MULTI-SHOT — Kling, 3s minimum per cut
+Shot 1  setup and subject position
+Shot 2  camera cut or movement
+Shot 3  action / reaction
+Shot 4  payoff or final moment</code></pre>
+
+  <p>And the per-shot block that produces the most controlled output — feed the start frame to a chat model and ask for this shape, one block per shot:</p>
+
+  <pre><code>Shot:    Tight cinematic close-up on the driver's face inside the helmet.
+Details: Sweat on skin, shallow breathing, eyes scanning the track.
+         Golden-hour sunlight flaring across the visor.
+         Slight handheld micro-movement for realism.
+         Background pit lane softly out of focus.
+Camera:  85mm lens, shallow depth of field.
+Mood:    Calm before the storm, intense concentration.</code></pre>
+</section>
+
+<!-- ═══════════ 7. MOTION CONTROL ═══════════ -->
+<section class="mod" id="motion" data-group="Craft" data-nav="Motion control">
+  <div class="mod-head">
+    <span class="mod-num">07</span>
+    <h2>Motion control — performance capture without the suit</h2>
+    <span class="mod-source">Lesson 8</span>
+  </div>
+
+  <p>Upload a video of a real person moving plus a character image, and Kling transfers the body performance onto that character. The motion video controls the movement; the character image controls who it looks like. Available on Kling itself, on PromptWise, and on most AI platforms with identical settings.</p>
+
+  <div class="note warn">
+    <strong>The mistake that kills most attempts.</strong> People upload an avatar image shot at a completely different angle, in a different setting, and the model has to guess how that avatar would look in your environment. You are not just supplying a face — you must supply <strong>the same camera angle, the same setting, the same composition.</strong>
+  </div>
+
+  <h3>The framing workflow</h3>
+  <ol>
+    <li><strong>Export the first frame</strong> of your motion video — screenshot, or CapCut's three-dots → export frame.</li>
+    <li><strong>Feed that still plus your avatar's base image into Nano Banana Pro</strong>, asking for a straight swap: same background, same position, same lighting, this face. Let a chat model write the prompt if you want; add wardrobe changes there.</li>
+    <li><strong>No avatar yet?</strong> Upload the still alone and ask for it to be turned into a random person while keeping the setting identical. Doesn't have to be a woman — men, aliens, mascots, anything.</li>
+    <li><strong>Upload the video and the new image</strong> to Motion Control and generate. Because background and position already match, the result comes out far smoother.</li>
+  </ol>
+
+  <h3>What makes a good reference clip</h3>
+  <div class="cards">
+    <div class="card">
+      <p class="card-kicker">Use</p>
+      <p class="card-title">Clean, single, visible</p>
+      <p>One person, body clearly visible, stable framing, clear movement, uncluttered background. Simple videos beat chaotic ones. Good lighting is not optional — bad lighting goes glitchy.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Avoid</p>
+      <p class="card-title">Hidden, crowded, prop-dependent</p>
+      <p>Partial occlusion, microphones or bags blocking the body, several people in frame, movements that depend on props the avatar doesn't have. A clip can be great socially and useless as a motion source.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Match</p>
+      <p class="card-title">Framing to framing</p>
+      <p>Full-body dance motion onto a tight face portrait will not work. Match body framing, camera distance and pose between reference and avatar.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Check</p>
+      <p class="card-title">Hands, arms, limbs</p>
+      <p>Compare against the original side by side: did the gesture and timing transfer, did identity hold, are there warped limbs or broken clothing? If it fails, simplify the reference or improve the avatar image.</p>
+    </div>
+  </div>
+
+  <h3>The monetisation loop</h3>
+  <p>The point is not one impressive generation — it's a repeatable system built on formats that already have demand. Find a proven short-form clip (a dance, a walk, a reaction), download it with a tool like snaptik.app, screenshot frame one, rebuild that frame with your avatar, transfer the motion, post. Audio comes across too. Post twice a day across TikTok, Instagram and YouTube — TikTok performs best, but run all three.</p>
+  <ul>
+    <li>Monetise through affiliate links in bio, a product or fan page, view payouts, and brand deals.</li>
+    <li>It works for any video of any human, not just dancing.</li>
+    <li>Build an entire personality and social page around one avatar.</li>
+    <li>Or point it at yourself: record everything in pyjamas and swap the footage to a version of you that's fully ready for camera.</li>
+  </ul>
+
+  <p><a href="https://www.loom.com/share/d64a6b6f1b9e412a9cd397c73a82f741">Lesson video: Kling Motion Control (4m 55s)</a></p>
+</section>
+
+<!-- ═══════════ 8. REALISM ═══════════ -->
+<section class="mod" id="realism" data-group="Post &amp; reference" data-nav="Removing the AI look">
+  <div class="mod-head">
+    <span class="mod-num">08</span>
+    <h2>Removing the "AI" look — the realism pass</h2>
+    <span class="mod-source">Lesson 7</span>
+  </div>
+
+  <p>The counterintuitive finding of the whole module: <strong>realistic AI footage is usually not about making the generation sharper.</strong> Raw output — Seedance especially — comes out too clean, too contrasty, too saturated, too stable. It looks like a high-end render, and for UGC ads, iPhone-style content and native social video that is exactly what gives it away. Real phone footage has softer detail, flatter colour, imperfect movement and a slight shake.</p>
+
+  <div class="rows numbered">
+    <div class="row">
+      <div class="row-idx">01</div>
+      <div><div class="row-name">Drop the contrast</div></div>
+      <div class="row-body">
+        <p>The biggest single giveaway. Add an adjustment layer and pull contrast down <strong>heavily</strong> — you're hunting for the point where it stops looking like a render and starts feeling like normal camera footage. Don't crush it until it's washed out; keep the clip usable.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">02</div>
+      <div><div class="row-name">Ease the saturation</div></div>
+      <div class="row-body">
+        <p>Down a <em>little</em> — the keyword is slightly. Take the digital edge off without destroying the colour. If skin looks too glossy, reduce intensity. If the clip starts looking lifeless, you've overshot.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">03</div>
+      <div><div class="row-name">Lift the highlights</div></div>
+      <div class="row-body">
+        <p>A small lift softens the image and makes the lighting feel more natural when the shot is too dense or too fake-cinematic. Don't blow out the exposure — subtle camera-footage feel, not broken.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">04</div>
+      <div><div class="row-name">Add a hand to the camera</div></div>
+      <div class="row-body">
+        <p>AI clips feel wrong because the camera is too stable. In CapCut, add a shake effect — then <strong>dial it way down</strong>. Default intensity is absurd. <em>The viewer should feel the camera is handheld and never notice the shake effect. If they notice it, reduce it.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <p>Toggle the effects off mid-playback and the clip snaps back to oversaturated and obviously AI. This is a four-slider fix that rescues footage that would otherwise be unusable.</p>
+
+  <div class="note">
+    <strong>Realism starts upstream.</strong> The pass is the last 20%. The first 80% is the reference image and the prompt — the language that works reads like a camera report, not a mood board: <em>handheld at eye level with very subtle micro-shake, realistic autofocus breathing, slight exposure adjustment as the light shifts, natural daylight only — no studio light, skin texture shows pores and light peach fuzz, asymmetrical smiling, no beauty filters, no artificial smoothing, no cinematic grading.</em> Then, at the end: <em>ultra-realistic smartphone footage, indistinguishable from real influencer UGC, no AI artefacts, no perfect symmetry.</em>
+  </div>
+
+  <p><a href="https://www.loom.com/share/a6b1dde3834a429abb100003c63b4a9d">Lesson video: Removing the 'AI' Look (3m 09s)</a></p>
+</section>
+
+<!-- ═══════════ 9. POST ═══════════ -->
+<section class="mod" id="post" data-group="Post &amp; reference" data-nav="CapCut &amp; sound">
+  <div class="mod-head">
+    <span class="mod-num">09</span>
+    <h2>CapCut and sound — assembling the thing</h2>
+    <span class="mod-source">Lessons 9, 10</span>
+  </div>
+
+  <p>Most of CapCut's panel is noise. The half-dozen controls below are what actually produce a good short-form video; everything else is over-complication. (Its built-in lip-sync, for the record, is bad — don't use it.)</p>
+
+  <h3>Set-up, in order</h3>
+  <ol>
+    <li><strong>Aspect ratio first.</strong> 9:16 for TikTok, 16:9 for YouTube. Deciding this after you've edited is the classic wasted afternoon.</li>
+    <li><strong>Drag clips in</strong> rather than using Import. Preview quality (low/high) only affects your machine's load while editing — it has nothing to do with the export.</li>
+    <li><strong>Ctrl + scroll wheel</strong> zooms the timeline. Essential once clips get long.</li>
+  </ol>
+
+  <h3>The controls that matter</h3>
+  <div class="cards">
+    <div class="card">
+      <p class="card-kicker">Timing</p>
+      <p class="card-title">Split, trim, freeze, speed</p>
+      <p>Split to cut a clip and drop another between the halves. Drag the corners to trim to an exact duration. Freeze a frame for a cinematic hold. Speed up or slow down — skip curve and velocity, they over-complicate.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Layering</p>
+      <p class="card-title">Overlays and masks</p>
+      <p>Drag a clip upward and it becomes an overlay; whatever sits highest takes priority on screen. Rectangle masks make split-screens — top half one clip, bottom half another.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Motion</p>
+      <p class="card-title">Animations and transitions</p>
+      <p>In / Out / Combo animations per clip. For transitions, <strong>black fade and mix</strong> are the two that look professional; drag one between two clips and set its duration. Effects (e.g. shake) shrunk down and placed on the join work as improvised transitions.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Type</p>
+      <p class="card-title">Text and auto-captions</p>
+      <p>Text → Advanced → Generate transcribes the audio into captions placed on the beat. Edit any word it mishears. "Apply to all" propagates styling to every caption. The pre-styled TikTok fonts are far more legible than plain text.</p>
+    </div>
+  </div>
+
+  <div class="note warn">
+    <strong>Export settings — the mistake almost everyone makes.</strong> Exporting at 4K/60fps for TikTok causes TikTok to downgrade the video to 720p. Export <strong>1080p at 30fps maximum</strong> for TikTok. YouTube doesn't downgrade, so 4K/60 is fine there.
+  </div>
+
+  <h3>Sound design — do it last</h3>
+  <p>Finish the visual edit first, then lay sound in, because only then do you know where every sound belongs. <em>Voice gives information, music gives emotion, sound effects make the scene feel physical.</em></p>
+  <ul>
+    <li><strong>ElevenLabs voiceover</strong> — pick a voice for the job, not for impressiveness (Rachel for neutral American, Adam for a deeper professional read). Up to ~5,000 characters per generation. <strong>Punctuation is direction:</strong> commas and full stops tell the model where to breathe. Write how someone speaks. Listen before downloading; fix pacing in the script rather than accepting take one.</li>
+    <li><strong>Voice changer</strong> — upload a recording, pick a voice, generate. For faceless content, or when you don't like your own voice. (Full cloning is a later phase and isn't needed for most AI video.)</li>
+    <li><strong>Sound effects</strong> — set duration to <strong>4–5 seconds</strong>; you never need longer. Type the exact sound (ocean waves, footsteps, camera shutter, city ambience, rain, door creak, crowd noise, engine rumble) and it returns four samples. Use sounds that match the action, not sounds that happen to be available.</li>
+    <li><strong>Where to get it</strong> — ElevenLabs direct needs its own subscription, but it's bundled inside PromptWise under the Audio tab. Pixabay is free and copyright-cleared for both music and effects.</li>
+  </ul>
+
+  <h3>Layering, which is the whole craft</h3>
+  <p>Immersive short-form video comes from stacking sound effects, not from finding one good one. Import them exactly like video clips — split, trim, speed them up — then <strong>mix by distance</strong>: a car right in front of camera goes loud, everything else sits underneath. Two more CapCut audio tools worth knowing: <em>separate vocals</em> strips background noise off a spoken clip, and <em>audio pitch</em> shifts a borrowed sound just enough that platforms don't flag it as someone else's.</p>
+
+  <p><a href="https://www.loom.com/share/d6361442c2ac4458bcd04ba95f8608cc">Lesson video: Mastering CapCut (12m 50s)</a> · <a href="https://www.loom.com/share/88174892d1cd4bb6ba19a5cc4ea0d991">Lesson video: Sound Effects (3m 31s)</a></p>
+</section>
+
+<!-- ═══════════ 10. REFERENCE ═══════════ -->
+<section class="mod" id="reference" data-group="Post &amp; reference" data-nav="Reference desk">
+  <div class="mod-head">
+    <span class="mod-num">10</span>
+    <h2>Reference desk — glossary, tools, links</h2>
+    <span class="mod-source">Lesson 11 · module README</span>
+  </div>
+
+  <h3>The cinematic glossary</h3>
+  <p>The terms the models were trained on. Using them is how you stop describing what you want and start naming it.</p>
+
+  <h4>Camera &amp; composition</h4>
+  <div class="chips">
+    <span class="chip"><strong>Framing</strong> — how subjects are arranged within the edges of the screen</span>
+    <span class="chip"><strong>Blocking</strong> — the arrangement of actors and their movement in a scene</span>
+    <span class="chip"><strong>Dutch angle</strong> — tilted camera; unease, disorientation</span>
+    <span class="chip"><strong>Rack focus</strong> — shifting focus mid-shot to move attention</span>
+    <span class="chip"><strong>Soft focus</strong> — slight blur; dreamy or romantic</span>
+    <span class="chip"><strong>Depth of field</strong> — the range of distance that appears sharp</span>
+    <span class="chip"><strong>Establishing shot</strong> — the wide that opens a scene and gives context</span>
+    <span class="chip"><strong>Wide shot</strong> — whole subject in frame; emphasises setting and scale</span>
+    <span class="chip"><strong>Medium shot</strong> — waist up; balances emotion and context</span>
+    <span class="chip"><strong>Close-up</strong> — tight on a face, for emotion</span>
+    <span class="chip"><strong>Extreme close-up</strong> — eyes, hands, fine detail</span>
+    <span class="chip"><strong>Two-shot</strong> — two characters in frame, usually conversation</span>
+    <span class="chip"><strong>Over-the-shoulder</strong> — from behind a character's shoulder</span>
+    <span class="chip"><strong>Reverse shot</strong> — the answering angle in dialogue</span>
+    <span class="chip"><strong>Eye-level shot</strong> — neutral perspective</span>
+    <span class="chip"><strong>Low angle</strong> — looking up; power, dominance</span>
+    <span class="chip"><strong>High angle</strong> — looking down; vulnerability</span>
+    <span class="chip"><strong>POV shot</strong> — simulates a character's vision</span>
+    <span class="chip"><strong>Insert shot</strong> — a close-up of an object, for a detail</span>
+    <span class="chip"><strong>Cutaway</strong> — a brief shot away from the main action</span>
+  </div>
+
+  <h4>Editing, sound &amp; light</h4>
+  <div class="chips">
+    <span class="chip"><strong>Match cut</strong> — seamless transition between two similar visuals or actions</span>
+    <span class="chip"><strong>Jump cut</strong> — abrupt, jarring cut; often a time skip</span>
+    <span class="chip"><strong>Cross-cutting</strong> — alternating between locations to show parallel action</span>
+    <span class="chip"><strong>Montage</strong> — short clips edited to compress time or show development</span>
+    <span class="chip"><strong>J cut</strong> — audio from the next scene starts before its image</span>
+    <span class="chip"><strong>L cut</strong> — audio from the previous scene runs into the next image</span>
+    <span class="chip"><strong>Diegetic sound</strong> — originates inside the world of the film</span>
+    <span class="chip"><strong>Non-diegetic sound</strong> — score or narration the characters can't hear</span>
+    <span class="chip"><strong>Ambient sound</strong> — background noise that sets atmosphere</span>
+    <span class="chip"><strong>Foley</strong> — custom-recorded effects added in post for realism</span>
+    <span class="chip"><strong>Voiceover</strong> — narration over the visuals</span>
+    <span class="chip"><strong>Overcranking</strong> — shoot at a high frame rate → slow motion on playback</span>
+    <span class="chip"><strong>Undercranking</strong> — shoot at a low frame rate → fast motion</span>
+    <span class="chip"><strong>Chiaroscuro</strong> — strong light/dark contrast for mood</span>
+    <span class="chip"><strong>Practical lighting</strong> — real sources visible in frame: lamps, candles</span>
+    <span class="chip"><strong>Over- / underexposure</strong> — too much / too little light on the sensor</span>
+    <span class="chip"><strong>Colour grading</strong> — altering colour for mood and continuity</span>
+    <span class="chip"><strong>Green screen</strong> — chroma-key background replacement</span>
+    <span class="chip"><strong>Storyboard</strong> — the drawn plan of every shot</span>
+  </div>
+
+  <h3>The toolchain</h3>
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Tool</th><th>Job in this module</th><th>Link</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>PromptWise</strong></td><td>One subscription fronting Kling, Seedance, Veo, Motion Control and ElevenLabs audio</td><td><a href="http://www.promptwise.com">promptwise.com</a></td></tr>
+        <tr><td><strong>Kling</strong></td><td>Multi-shot, Omni Reference, Motion Control — identical settings on either surface</td><td><a href="https://kling.ai/">kling.ai</a></td></tr>
+        <tr><td><strong>Seedance 2.0</strong></td><td>Hero shots, acting, VFX, best-in-class lip-sync</td><td>via PromptWise / most AI platforms</td></tr>
+        <tr><td><strong>Gemini Omni</strong></td><td>In-clip editing, audio-synced motion, cheap avatar tests</td><td>Google Flow / most AI platforms</td></tr>
+        <tr><td><strong>Nano Banana Pro · GPT Image 2.0</strong></td><td>Start frames, end frames, multi-angle character references, avatar face swaps</td><td>—</td></tr>
+        <tr><td><strong>ChatGPT / any AI chat</strong></td><td>Turning a start frame into timed-sequence and per-shot prompts</td><td>—</td></tr>
+        <tr><td><strong>CapCut</strong></td><td>Assembly, captions, realism pass, still-frame export, audio layering</td><td>—</td></tr>
+        <tr><td><strong>ElevenLabs</strong></td><td>Voiceover, voice changer, generated sound effects</td><td>bundled in PromptWise</td></tr>
+        <tr><td><strong>Pixabay</strong></td><td>Free copyright-cleared music and sound effects</td><td><a href="https://pixabay.com">pixabay.com</a></td></tr>
+        <tr><td><strong>SnapTik</strong></td><td>Downloading social clips to use as motion-control references</td><td>snaptik.app</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Module videos</h3>
+  <p>Seven of eleven lessons carry video — 40m 46s in total. The remaining four (Kling 3.0, Seedance 2.0, AI Lipsync Test, Resources) are written guides and prompt banks.</p>
+  <ul>
+    <li><a href="https://www.loom.com/share/6c80db17a1884116a6c257a220d29547">AI Video Basics</a></li>
+    <li><a href="https://www.loom.com/share/e1848d9688874541806a3dccd46998c1">AI Video Editing (Gemini vs Seedance)</a></li>
+    <li><a href="https://www.loom.com/share/c7cba2fc5fa34a69b677e3c475d9c3bc">Camera Movement Guide</a> — 16m 21s</li>
+    <li><a href="https://www.loom.com/share/a6b1dde3834a429abb100003c63b4a9d">Removing the 'AI' Look</a> — 3m 09s</li>
+    <li><a href="https://www.loom.com/share/d64a6b6f1b9e412a9cd397c73a82f741">Kling Motion Control</a> — 4m 55s</li>
+    <li><a href="https://www.loom.com/share/d6361442c2ac4458bcd04ba95f8608cc">Mastering CapCut</a> — 12m 50s</li>
+    <li><a href="https://www.loom.com/share/88174892d1cd4bb6ba19a5cc4ea0d991">Sound Effects</a> — 3m 31s</li>
+  </ul>
+  <p>Original classroom: <a href="https://www.skool.com/aivideobootcamp/classroom/049622b6">skool.com/aivideobootcamp</a></p>
+
+  <div class="note">
+    <strong>The working sequence.</strong> Build the frame before the motion. Choose the model for the job, not the brand. Name the camera move, and give it a start, an end and a speed. Keep one subject movement and one camera movement per shot. Front-load the dialogue. Chain shots rather than asking for length. Then take the polish <strong>off</strong> in the edit — flatter, softer, slightly shaky — and lay the sound in last.
+  </div>
+</section>
+
+<footer class="sheet-footer">
+  Skool AI Video Bootcamp · Module 02 — AI Videos · 11 lessons<br />
+  Input Ladder · 6 Models · Lip-sync Ranking · 37 Camera Moves · 30 Frameworks · Motion Control · Realism Pass · CapCut &amp; Sound
+</footer>
+
+</main>
+
+<script>
+(function(){
+  const HASH = "2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e";
+  const gate = document.getElementById('password-gate');
+  const input = document.getElementById('password-input');
+  const error = document.getElementById('password-error');
+
+  async function sha256(str) {
+    const buf = new TextEncoder().encode(str);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  async function check() {
+    const digest = await sha256(input.value);
+    if (digest === HASH) {
+      gate.classList.add('hidden');
+      localStorage.setItem('pages_pass', digest);
+    } else {
+      error.style.display = 'block';
+      setTimeout(() => error.style.display = 'none', 2000);
+    }
+  }
+
+  // Auto-check stored hash
+  (async function(){
+    const stored = localStorage.getItem('pages_pass');
+    if (stored === HASH) { gate.classList.add('hidden'); return; }
+  })();
+
+  input.addEventListener('keydown', function(e){ if (e.key === 'Enter') check(); });
+})();
+</script>
+<script src="/pages/shared/paper.js"></script>
+<script src="/pages/shared/menu.js"></script>
+
+</body>
+</html>
