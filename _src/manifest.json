@@ -1,52 +1,58 @@
 {
-  "pages": [
-    {
-      "slug": "tariff-trade-breakdown",
-      "title": "Tariffs, Trade & Trump's Strategy",
-      "description": "3-part visual breakdown \u2014 tariff mechanics, Triffin dilemma, Trump's restructuring playbook",
-      "emoji": "\ud83c\udf10"
-    },
-    {
-      "slug": "payment-reconciliation-research",
-      "title": "Payment Reconciliation Market Map",
-      "description": "Cross-gateway payout reconciliation \u2014 problems, players, and white space",
-      "emoji": "\ud83d\udcb3"
-    },
-    {
-      "slug": "pragmatic-engineer",
-      "title": "The Pragmatic Engineer",
-      "description": "Last 5 editions \u2014 AI job market, napkin math, quality paradox",
-      "emoji": "\ud83d\udcec"
-    },
-    {
-      "slug": "jensen-huang-mindset",
-      "title": "Jensen Huang: The Mindset That Built NVIDIA",
-      "description": "10 core ideas from YC Startup School 2026 \u2014 algorithm domains, F1 driving, eating glass, and building NVIDIA",
-      "emoji": "\u26a1"
-    },
-    {
-      "slug": "circular-financing",
-      "title": "AI Circular Financing \u2014 The $800B Money Loop",
-      "description": "How chipmakers and cloud providers invest in their own customers \u2014 NVIDIA, Google, OpenAI, Anthropic circular deals and the bubble risk",
-      "emoji": "\ud83d\udd04"
-    },
-    {
-      "slug": "personal-brand-course",
-      "title": "How to Build a Personal Brand \u2014 Full Course",
-      "description": "Caleb Ralston 6h22m course \u2014 4-module breakdown: brand definition, content strategy, team building, monetization",
-      "emoji": "\ud83c\udfaf"
-    },
-    {
-      "slug": "sharran-srivatsaa-formula",
-      "title": "The Man That Makes Billionaires \u2014 Sharran Srivatsaa",
-      "description": "The formula behind exploding brands: growth by subtraction, the 1-1-1 rule, the Telos 00M\u2192.4B case, phantom equity, and the 8 operating principles",
-      "emoji": "\ud83d\udcc8"
-    },
-    {
-      "slug": "postiz-saas-growth",
-      "title": "Postiz: 7K \u2192 43K MRR in 4 Months",
-      "description": "Nevo's agentic pivot \u2014 OpenClaw trend riding, viral X articles, churn 26%\u219213.7%, and the build-before-the-trend playbook",
-      "emoji": "\ud83d\ude80"
-    }
-  ]
+    "pages": [
+        {
+            "slug": "tariff-trade-breakdown",
+            "title": "Tariffs, Trade & Trump's Strategy",
+            "description": "3-part visual breakdown — tariff mechanics, Triffin dilemma, Trump's restructuring playbook",
+            "emoji": "🌐"
+        },
+        {
+            "slug": "payment-reconciliation-research",
+            "title": "Payment Reconciliation Market Map",
+            "description": "Cross-gateway payout reconciliation — problems, players, and white space",
+            "emoji": "💳"
+        },
+        {
+            "slug": "pragmatic-engineer",
+            "title": "The Pragmatic Engineer",
+            "description": "Last 5 editions — AI job market, napkin math, quality paradox",
+            "emoji": "📬"
+        },
+        {
+            "slug": "jensen-huang-mindset",
+            "title": "Jensen Huang: The Mindset That Built NVIDIA",
+            "description": "10 core ideas from YC Startup School 2026 — algorithm domains, F1 driving, eating glass, and building NVIDIA",
+            "emoji": "⚡"
+        },
+        {
+            "slug": "circular-financing",
+            "title": "AI Circular Financing — The $800B Money Loop",
+            "description": "How chipmakers and cloud providers invest in their own customers — NVIDIA, Google, OpenAI, Anthropic circular deals and the bubble risk",
+            "emoji": "🔄"
+        },
+        {
+            "slug": "personal-brand-course",
+            "title": "How to Build a Personal Brand — Full Course",
+            "description": "Caleb Ralston 6h22m course — 4-module breakdown: brand definition, content strategy, team building, monetization",
+            "emoji": "🎯"
+        },
+        {
+            "slug": "sharran-srivatsaa-formula",
+            "title": "The Man That Makes Billionaires — Sharran Srivatsaa",
+            "description": "The formula behind exploding brands: growth by subtraction, the 1-1-1 rule, the Telos 00M→.4B case, phantom equity, and the 8 operating principles",
+            "emoji": "📈"
+        },
+        {
+            "slug": "postiz-saas-growth",
+            "title": "Postiz: 7K → 43K MRR in 4 Months",
+            "description": "Nevo's agentic pivot — OpenClaw trend riding, viral X articles, churn 26%→13.7%, and the build-before-the-trend playbook",
+            "emoji": "🚀"
+        },
+        {
+            "slug": "ai-advertising-ugc",
+            "title": "AI Advertising & UGC — Complete Playbook",
+            "description": "Skool AI Video Bootcamp Module 04 — 5 awareness levels, 10 psych principles, 16 script frameworks, 6 AI ad formats, 100+ hooks, 10 UGC templates",
+            "emoji": "📢"
+        }
+    ]
 }

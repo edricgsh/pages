@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Advertising &amp; UGC — Complete Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #020617;
+    min-height: 100vh;
+    padding: 2rem;
+    color: #e2e8f0;
+    line-height: 1.6;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .header { margin-bottom: 2rem; }
+  .header-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+  .pulse-dot {
+    width: 12px; height: 12px; background: #22d3ee; border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  h1 { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.025em; color: #f8fafc; }
+  .subtitle { color: #94a3b8; font-size: 0.875rem; margin-left: 1.75rem; }
+  .subtitle a { color: #60a5fa; text-decoration: none; }
+  .subtitle a:hover { text-decoration: underline; }
+
+  /* ── Sections ── */
+  .section { margin-top: 3rem; }
+  .section h2 {
+    font-size: 1.25rem; font-weight: 700; color: #f8fafc;
+    border-bottom: 1px solid #1e293b; padding-bottom: 0.5rem; margin-bottom: 1.25rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .section h3 { font-size: 1.05rem; font-weight: 700; color: #7dd3fc; margin: 1.5rem 0 0.75rem; }
+  .section h4 { font-size: 0.95rem; font-weight: 600; color: #fbbf24; margin: 1.25rem 0 0.5rem; }
+  .section p { margin-bottom: 0.75rem; color: #cbd5e1; }
+  .section ul, .section ol { margin: 0 0 1rem 1.5rem; color: #cbd5e1; }
+  .section li { margin-bottom: 0.35rem; }
+  .section strong { color: #f8fafc; }
+  .section code {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.82em;
+    background: rgba(51, 65, 85, 0.5); padding: 2px 6px; border-radius: 4px;
+    color: #a5b4fc;
+  }
+
+  /* ── Thesis box ── */
+  .thesis {
+    background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(168,85,247,0.06));
+    border: 1px solid rgba(59,130,246,0.25);
+    border-radius: 1rem; padding: 1.5rem; margin-bottom: 1.5rem;
+  }
+  .thesis .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+    color: #60a5fa; text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+  .thesis p { margin: 0; color: #e2e8f0; font-size: 1.02rem; }
+
+  /* ── Cards / grids ── */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 1rem 0 1.5rem; }
+  .card {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid #1e293b; border-radius: 0.75rem; padding: 1.25rem;
+  }
+  .card .card-title { font-weight: 700; color: #f8fafc; margin-bottom: 0.5rem; font-size: 0.95rem; }
+  .card .card-title .acronym {
+    font-family: 'JetBrains Mono', monospace; color: #fbbf24; font-size: 0.85em; margin-right: 0.4rem;
+  }
+  .card p { font-size: 0.85rem; color: #94a3b8; margin: 0; }
+
+  /* ── Framework blocks ── */
+  .framework {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid #1e293b; border-left: 3px solid #fbbf24;
+    border-radius: 0.75rem; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
+  }
+  .framework .fw-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
+  .framework .fw-name { font-weight: 700; color: #f8fafc; font-size: 1rem; }
+  .framework .fw-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #94a3b8;
+    background: rgba(51, 65, 85, 0.4); padding: 2px 8px; border-radius: 999px;
+  }
+  .framework .fw-when { font-size: 0.85rem; color: #7dd3fc; margin-bottom: 0.6rem; }
+  .framework .fw-flow {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: #fbbf24;
+    background: rgba(251, 191, 36, 0.06); border-radius: 6px;
+    padding: 0.5rem 0.75rem; margin-bottom: 0.6rem; line-height: 1.7;
+  }
+
+  /* ── Psych principles ── */
+  .principle {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid #1e293b; border-left: 3px solid #7dd3fc;
+    border-radius: 0.75rem; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
+  }
+  .principle .p-head { display: flex; align-items: baseline; gap: 0.75rem; margin-bottom: 0.5rem; }
+  .principle .p-num { font-family: 'JetBrains Mono', monospace; color: #7dd3fc; font-size: 0.85rem; }
+  .principle .p-name { font-weight: 700; color: #f8fafc; font-size: 1rem; }
+  .principle p { font-size: 0.92rem; }
+
+  /* ── Tables (simple rows) ── */
+  .row-table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.9rem; }
+  .row-table th {
+    text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8;
+    border-bottom: 1px solid #1e293b; padding: 0.5rem 0.75rem;
+  }
+  .row-table td { padding: 0.55rem 0.75rem; border-bottom: 1px solid rgba(30, 41, 59, 0.5); color: #cbd5e1; }
+  .row-table tr td:first-child { color: #f8fafc; font-weight: 600; white-space: nowrap; }
+
+  /* ── Callout ── */
+  .callout {
+    border: 1px solid rgba(34, 211, 238, 0.3); background: rgba(34, 211, 238, 0.05);
+    border-radius: 0.75rem; padding: 1rem 1.25rem; margin: 1.25rem 0; font-size: 0.9rem;
+  }
+  .callout .co-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #22d3ee;
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem;
+  }
+
+  /* ── Hook chips ── */
+  .hook-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0 1.25rem; }
+  .hook-chip {
+    background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b;
+    border-radius: 999px; padding: 0.35rem 0.85rem; font-size: 0.8rem; color: #cbd5e1;
+  }
+
+  /* ── Pipeline steps ── */
+  .pipe { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1rem 0 1.5rem; }
+  .pipe-step {
+    flex: 1; min-width: 150px;
+    background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b;
+    border-radius: 0.75rem; padding: 1rem;
+  }
+  .pipe-step .step-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #60a5fa; margin-bottom: 0.3rem;
+  }
+  .pipe-step .step-name { font-weight: 700; color: #f8fafc; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  .pipe-step p { font-size: 0.8rem; color: #94a3b8; margin: 0; }
+
+  /* ── Password gate ── */
+  #password-gate {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    background: #0a0a0f;
+    font-family: 'Inter', sans-serif;
+  }
+  #password-gate.hidden { display: none; }
+  .gate-box { text-align: center; padding: 40px; max-width: 380px; }
+  .gate-box h1 { font-size: 24px; font-weight: 700; color: #f0f0f0; margin-bottom: 8px; }
+  .gate-box p { font-size: 14px; color: #888; margin-bottom: 24px; }
+  .gate-box input {
+    width: 100%; padding: 12px 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; color: #fff; font-size: 15px;
+    outline: none; text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 2px;
+  }
+  .gate-box input:focus { border-color: #60a5fa; }
+  .gate-box .error { color: #f87171; font-size: 13px; margin-top: 10px; display: none; }
+
+  footer {
+    margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #1e293b;
+    text-align: center; color: #475569; font-size: 0.8rem;
+  }
+</style>
+<link rel="stylesheet" href="/pages/shared/menu.css" />
+</head>
+<body>
+
+<div id="password-gate">
+  <div class="gate-box">
+    <div style="font-size:48px;margin-bottom:16px;">🔐</div>
+    <h1>Password Required</h1>
+    <p>Enter the passcode to view this artifact.</p>
+    <input type="password" id="password-input" placeholder="Enter password" autocomplete="off" />
+    <div class="error" id="password-error">Incorrect password.</div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="header">
+  <div class="header-row">
+    <div class="pulse-dot"></div>
+    <h1>AI Advertising &amp; UGC — Complete Playbook</h1>
+  </div>
+  <div class="subtitle">Skool AI Video Bootcamp · Module 04 · 10 lessons · <a href="#strategy">strategy</a> · <a href="#psych">psychology</a> · <a href="#frameworks">frameworks</a> · <a href="#formats">formats</a> · <a href="#hooks">hooks</a></div>
+</div>
+
+<div class="thesis">
+  <div class="label">The big idea</div>
+  <p>AI gives you <strong>speed</strong> — strategy gives that speed <strong>direction</strong>. The strongest ads combine AI creation with customer psychology, proven frameworks, platform-native formats, and testing. Create more variations than a normal production team could, but make each variation purposeful.</p>
+</div>
+
+<!-- ═══════════ 1. STRATEGY ═══════════ -->
+<div class="section" id="strategy">
+  <h2>1 · Strategy First — The 5 Awareness Levels</h2>
+  <p>Most ads fail not because the product is bad, but because they run the <strong>wrong ad to the wrong person at the wrong time</strong>. The single concept that fixes this: customer awareness levels. Before writing a script, answer three questions — <em>who is this for, what do they already know, what does this ad need to achieve?</em></p>
+
+  <table class="row-table">
+    <tr><th>Level</th><th>Who they are</th><th>What the ad must do</th></tr>
+    <tr><td>1 · Unaware</td><td>Don't know they have a problem. Scrolling at 2am, not thinking about you.</td><td>Interrupt the scroll. Pattern interrupt — make them realise something is off.</td></tr>
+    <tr><td>2 · Problem-aware</td><td>Feel the pain, no clue what to do. Skin is bad, energy is low, business is stuck.</td><td>Frame the pain clearly. Educate, create desire.</td></tr>
+    <tr><td>3 · Solution-aware</td><td>Know solutions exist, tried competitors. Don't know <em>your</em> product. Most of your audience sits here.</td><td>Better mechanism, new way, differentiation.</td></tr>
+    <tr><td>4 · Product-aware</td><td>Know you. Seen the ad, visited the site, maybe added to cart. Something stopped them.</td><td>Proof, differentiation, a nudge.</td></tr>
+    <tr><td>5 · Most-aware</td><td>Know and like your product. Past customers, subscribers, engaged followers.</td><td>Offer, urgency, retargeting.</td></tr>
+  </table>
+
+  <h3>The 3 Ad Objectives</h3>
+  <p>Every ad fits one of three buckets. Running a conversion ad to cold traffic is "like proposing on the first date" — warm them up first.</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-title">🎯 Awareness ads</div>
+      <p>Goal: reach people who've never heard of you. Entertainment and value first, product second. Pattern interrupts, curiosity hooks, educational content. <strong>Measure:</strong> views, reach, engagement.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">💰 Converting ads</div>
+      <p>Goal: turn interest into action. Demos, testimonials, comparisons, before/after, strong CTAs with risk reversal. Targets levels 2-4. <strong>Measure:</strong> CTR, CPC, conversion rate, ROAS.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🔄 Retargeting ads</div>
+      <p>Goal: re-engage people who interacted but didn't buy. Objection handling, social proof stacking, limited-time offers, "still thinking about it?" <strong>Measure:</strong> ROAS, CPA, frequency.</p>
+    </div>
+  </div>
+
+  <h3>The Funnel, Simply</h3>
+  <ol>
+    <li><strong>Awareness ads</strong> to cold audiences → they click, watch, engage (now warm).</li>
+    <li><strong>Retarget engaged viewers</strong> with converting ads → some buy.</li>
+    <li><strong>Retarget site visitors / cart abandoners</strong> with retargeting ads → cheapest conversions.</li>
+  </ol>
+  <div class="callout">
+    <div class="co-label">The one rule</div>
+    Don't ask "is this ad good?" Ask: <strong>what are we testing, what metric proves it worked, and what do we change next?</strong>
+  </div>
+</div>
+
+<!-- ═══════════ 2. PSYCHOLOGY ═══════════ -->
+<div class="section" id="psych">
+  <h2>2 · The Advertising Psychology Playbook</h2>
+  <p>Tools change. Platforms change. AI models change. <strong>Human psychology doesn't.</strong> These 10 principles (rooted in Eugene Schwartz's 1966 <em>Breakthrough Advertising</em>) are what separate ads that convert from ads that get scrolled past — on any platform, with any tool, forever.</p>
+
+  <div class="principle">
+    <div class="p-head"><span class="p-num">P1</span><span class="p-name">Mass Desire</span></div>
+    <p><strong>You cannot create desire. You can only capture it.</strong> People already want things — your job is to get in the middle of that river. Every human desire traces to <strong>six permanent drives</strong>: health, sex/attraction, status, belonging, control, comfort. Desires shift via mass education (COVID spiked health desire) and style trends (status = car in the 60s, followers today). Catch a desire on the uprise. And the One-Desire Rule: <strong>one ad, one desire, one audience, one message.</strong> A 35-year-old single man and a married man both want to fix hair loss — completely different ads.</p>
+  </div>
+
+  <div class="principle">
+    <div class="p-head"><span class="p-num">P2</span><span class="p-name">Market Sophistication</span></div>
+    <p><strong>How tired is your market of seeing products like yours?</strong> Level 1: brand-new category (just explain it). Level 2: stronger claims (brighter!). Level 3: new mechanism (LEDs!) — the sweet spot for launches. Level 4: better mechanism (our LEDs last 50x longer). Level 5: identity marketing — nobody believes claims anymore, they buy who they want to become. Markets cycle 3→4→5 and back when someone invents a new mechanism.</p>
+  </div>
+
+  <div class="principle">
+    <div class="p-head"><span class="p-num">P3</span><span class="p-name">Beliefs</span></div>
+    <p>People only buy when they believe you. <strong>Accept beliefs as they exist, not as you wish they existed.</strong> Never open with a claim that contradicts what the audience holds true — an experienced marketer who hears "Facebook ads don't work in 2026" is done with you forever. Reinforce existing beliefs or shift them gradually.</p>
+  </div>
+
+  <div class="principle">
+    <div class="p-head"><span class="p-num">P4</span><span class="p-name">Gradualization</span></div>
+    <p>Walk the customer from what they believe to what you need them to believe, <strong>one small step at a time</strong>. Bad ads open with the unbelievable promise. Good ads open where the customer already is: start with a head-nod agreement → stack another → stack another → then the big claim feels like the logical conclusion.</p>
+  </div>
+
+  <div class="principle">
+    <div class="p-head"><span class="p-num">P5</span><span class="p-name">Intensification</span></div>
+    <p>Wanting something a little doesn't make people buy. Wanting it badly does. <strong>Don't sell the benefit — make them live in it.</strong> Weak: "Our mattress helps you sleep better." Strong: "Imagine waking up tomorrow and your back doesn't hurt... your partner notices it first: 'You seem different today.'" Paint the life after the problem is solved.</p>
+  </div>
+
+  <div class="principle">
+    <div class="p-head"><span class="p-num">P6</span><span class="p-name">Identification</span></div>
+    <p>Two products can do the exact same thing and one outsells the other 10:1 because of <strong>who it makes the customer feel like</strong>. Children's supplement = the identity of being a good parent. Fitness program = someone with discipline. Ask: "when someone buys this, what kind of person do they see themselves becoming?"</p>
+  </div>
+
+  <div class="principle">
+    <div class="p-head"><span class="p-num">P7</span><span class="p-name">Redefinition</span></div>
+    <p>Kill objections before they come up by <strong>changing the comparison</strong>. A $79 posture corrector seems expensive for a strap — until you compare it to $120 chiropractor visits twice a month. You're not arguing the price, you're changing what they compare it to.</p>
+  </div>
+
+  <div class="principle">
+    <div class="p-head"><span class="p-num">P8</span><span class="p-name">Mechanization</span></div>
+    <p><strong>Show them HOW it works so they believe THAT it works.</strong> Weak: "Our serum reduces wrinkles." Strong: "Retinol accelerates cell turnover... hyaluronic acid holds 1,000x its weight in water... that's why wrinkles fill in within 2 weeks." The mental model creates belief, and belief creates purchases.</p>
+  </div>
+
+  <div class="principle">
+    <div class="p-head"><span class="p-num">P9</span><span class="p-name">Concentration</span></div>
+    <p>Customers aren't choosing between you and nothing — they're choosing between you and <strong>10 other ways to solve the problem</strong>. Stop selling how good you are; destroy the alternatives. Compare cost, time, effort, results — until yours is the only smart option remaining.</p>
+  </div>
+
+  <div class="principle">
+    <div class="p-head"><span class="p-num">P10</span><span class="p-name">Camouflage</span></div>
+    <p><strong>The second they realise it's an ad, it's dead.</strong> Full-production commercials don't convert like they used to (Meta's own research: lo-fi creator-style outperforms studio by 63% in direct response). Make the ad look like the content people already consume: TikTok/Reels = selfie, phone-shot, casual; YouTube = educational; Meta feed = photo + text like a friend's post.</p>
+  </div>
+
+  <div class="callout">
+    <div class="co-label">Desire → framework mapping</div>
+    The desire tells you <strong>WHAT</strong> to say; the framework tells you <strong>HOW</strong> to say it. Health + problem-aware → PRESSURE COOKER or SHORTCUT. Status + unaware → CLIFFHANGER or EDUCATOR. Comfort + solution-aware → FACE-OFF or DEMO DROP. Belonging → WITNESS or SPARK. Control + problem-aware → MYTH KILLER or BRIDGE.
+  </div>
+</div>
+
+<!-- ═══════════ 3. FRAMEWORKS ═══════════ -->
+<div class="section" id="frameworks">
+  <h2>3 · The 16 Ad Scriptwriting Frameworks</h2>
+  <p>Each framework has a psychology (why it works neurologically), an acronym flow, a script template, and a hook bank. Pick the framework that fits the product, audience, proof, and visual style — don't ask AI to write a random script, give it a structure.</p>
+
+  <div class="framework">
+    <div class="fw-head"><span class="fw-name">1 · SPARK — Social Proof Momentum</span><span class="fw-tag">tribal psychology</span></div>
+    <div class="fw-when">Use when the strongest angle is that a shift is already happening. Trends, viral products, fast-growing brands.</div>
+    <div class="fw-flow">S·signal the shift → P·puncture the old way → A·announce the alternative → R·reinforce with receipts → K·kick open the door</div>
+    <p>Hook: <em>"Why are baristas ditching their espresso machines at home and switching to this?"</em> — signal a visible migration, expose why the old way is broken, reveal your product as what the smart people already switched to, stack proof (stars, studies, authority), then CTA as an invitation to join the movement.</p>
+  </div>
+
+  <div class="framework">
+    <div class="fw-head"><span class="fw-name">2 · MYTH KILLER — Contrarian Authority</span><span class="fw-tag">cognitive dissonance</span></div>
+    <div class="fw-when">Use when the best hook is challenging a belief. Markets full of bad advice, fake gurus, misunderstood solutions.</div>
+    <div class="fw-flow">E·expose the lie → X·x-ray the problem → P·present the pivot → O·offer the evidence → S·show the difference → E·enlist the viewer</div>
+    <p>"Nothing stops a scroll like someone saying everything you've been told is wrong." Hook: <em>"Your 'clean' protein powder has 14 ingredients you can't pronounce."</em> Get granular with the flaw (specificity builds trust), pivot so the product feels like the obvious answer, hit with lab results, then make the viewer feel smart for choosing you.</p>
+  </div>
+
+  <div class="framework">
+    <div class="fw-head"><span class="fw-name">3 · COUNTDOWN — Listicle Power</span><span class="fw-tag">micro-commitments</span></div>
+    <div class="fw-when">Use when the idea becomes a list of mistakes, reasons, signs, or red flags. Great for cold traffic and education.</div>
+    <div class="fw-flow">S·set the number → T·tear down the familiar → A·arrive at the answer → C·certify with credibility → K·kick to action</div>
+    <p>Odd numbers (3, 5, 7) outperform evens. Each list item creates an "oh no, that's me" moment. Hook: <em>"5 things that are secretly aging your skin faster, and I guarantee you're doing at least 3 of them."</em> Then: "What if one product fixed all five?"</p>
+  </div>
+
+  <div class="framework">
+    <div class="fw-head"><span class="fw-name">4 · ORIGIN STORY — Founder-Led Narrative</span><span class="fw-tag">narrative transportation</span></div>
+    <div class="fw-when">Use when founder/brand story is the strongest trust-builder. Personal brands, mission-driven products, startups.</div>
+    <div class="fw-flow">B·begin with the human → U·uncover the enemy → I·ignition moment → L·lay out the wins → T·tomorrow's vision</div>
+    <p>People don't buy products, they buy into people. Vulnerability is currency. The enemy is a systemic problem the founder LIVED, not a competitor. End with traction metrics and a bigger mission so the viewer roots for chapter one.</p>
+  </div>
+
+  <div class="framework">
+    <div class="fw-head"><span class="fw-name">5 · SHORTCUT — How To X Without Y</span><span class="fw-tag">efficiency desire</span></div>
+    <div class="fw-when">Use when the audience wants a result but hates the normal path. Time-savers, simplifiers, routine-replacers.</div>
+    <div class="fw-flow">E·establish the escape → S·specify the suffering → C·cut to the core → A·articulate why it works → P·paint the new life → E·exit with the escape</div>
+    <p>Frame as identity + desire + pain removal: <em>"How I fixed my back pain without a chiropractor, a $2,000 standing desk, or those weird posture corrector straps."</em> Mirror exact daily frustrations so they feel you're reading their mind.</p>
+  </div>
+
+  <div class="framework">
+    <div class="fw-head"><span class="fw-name">6 · RAW TAKE — Organic / Native Style</span><span class="fw-tag">ad blindness</span></div>
+    <div class="fw-when">Use when the ad needs to feel like normal content. TikTok, Reels, UGC, casual recommendations.</div>
+    <div class="fw-flow">B·begin like content → L·lead with a relatable moment → E·ease in the product → N·narrate the experience → D·deliver a soft close</div>
+    <p>The moment it stops feeling like an ad, watch time skyrockets. First 3 seconds indistinguishable from organic content. Product mention feels incidental ("then my sister literally handed me this thing"). Honest timeline with skepticism included. CTA = friend's recommendation, no urgency.</p>
+  </div>
+
+  <div class="framework">
+    <div class="fw-head"><span class="fw-name">7 · PRESSURE COOKER — Problem, Tension, Relief</span><span class="fw-tag">pain → relief</span></div>
+    <div class="fw-when">Use when the audience has a painful problem that must be felt before the solution matters.</div>
+    <div class="fw-flow">W·where it hurts → O·open the wound → U·understand their failures → N·name the new way → D·deliver the proof + CTA</div>
+    <p>Identify the emotional wound (not feature gap), stack the ripple effects ("it starts with skipping the pool party... then you stop looking in mirrors"), acknowledge what they've already tried, introduce the fundamentally different mechanism, close with risk reversal.</p>
+  </div>
+
+  <div class="framework">
+    <div class="fw-head"><span class="fw-name">8 · GRIT AD — Lo-Fi / Anti-Production</span><span class="fw-tag">authenticity</span></div>
+    <div class="fw-when">Use when competitors are too glossy and polished. A creative filter applied ON TOP of any framework.</div>
+    <div class="fw-flow">1·make it SIMPLER → 2·show it CHEAPLY → 3·do the OPPOSITE of competitors</div>
+    <p>Meta's data: creator-style lo-fi outperforms studio ads by 63% in direct response. Strip every sentence to its skeleton, embrace ugly production (phone, harsh light, notes-app text), flip the industry standard. "DAY 1. THIS IS WHAT $0/MONTH LOOKS LIKE."</p>
+  </div>
+
+  <div class="framework">
+    <div class="fw-head"><span class="fw-name">9 · CONVICTION — Founder Objection Crusher</span><span class="fw-tag">radical confidence</span></div>
+    <div class="fw-when">Use when the audience has obvious doubts. Expensive offers, bold claims, controversial products.</div>
+    <div class="fw-flow">S·state the harsh truth → T·tell your identity → E·echo the exact doubt → E·eliminate with evidence → L·launch the bigger play</div>
+    <p>Bring up objections FIRST, louder and blunter than the customer would, then demolish them: <em>"90% of supplements on Amazon are glorified sugar pills. I know because I used to manufacture them."</em> Pre-addressed doubt signals confidence and builds extraordinary trust.</p>
+  </div>
+
+  <div class="framework">
+    <div class="fw-head"><span class="fw-name">10 · FACE-OFF — Versus / Challenge Format</span><span class="fw-tag">competition</span></div>
+    <div class="fw-when">Use when the product can be compared against the old way, a competitor, or a clock.</div>
+    <div class="fw-flow">R·raise the stakes → I·initiate the showdown → N·name the winner → G·go get yours</div>
+    <p>"$89 blender vs $500 blender. First one to make a smooth bowl wins." Split screen is king. The win should be slightly surprising in HOW much better it performed, then explained with a simple mechanism.</p>
+  </div>
+
+  <div class="framework">
+    <div class="fw-head"><span class="fw-name">11 · BRIDGE — Goal, Gap, Gain</span><span class="fw-tag">felt understanding</span></div>
+    <div class="fw-when">Use when the audience knows what they want but hasn't achieved it. Courses, coaching, transformation offers.</div>
+    <div class="fw-flow">B·broadcast the goal → R·reveal the real block → I·introduce the bridge → D·detail the proof → G·glimpse the transformation → E·encourage action</div>
+    <p>Mirrors the thought pattern of someone ready to buy: "I want X (goal), stuck because of Y (gap), need Z (gain)." The block is never laziness — it's a specific identifiable gap: "It's not discipline. It's that you're following a program designed for someone with 2 hours and zero kids."</p>
+  </div>
+
+  <div class="framework">
+    <div class="fw-head"><span class="fw-name">12 · CLIFFHANGER — Curiosity Loop</span><span class="fw-tag">open loop</span></div>
+    <div class="fw-when">Use when the strongest asset is a surprising story or impossible claim. Retention-heavy ads.</div>
+    <div class="fw-flow">L·launch the impossible claim → O·orchestrate the story → O·offer the value → P·pay off the promise</div>
+    <p>A curiosity gap demands resolution — the brain can't rest until the loop closes. Hook: <em>"I got my rent paid this month by buying a $12 candle."</em> Weave the product's benefits into the story, then pay off the opening claim with a satisfying aha.</p>
+  </div>
+
+  <div class="framework">
+    <div class="fw-head"><span class="fw-name">13 · WITNESS — Testimonial Cascade</span><span class="fw-tag">third-party proof</span></div>
+    <div class="fw-when">Use when customer proof is stronger than anything the brand could say. Reviews, before/afters, UGC.</div>
+    <div class="fw-flow">V·verify the pain → O·open the discovery → I·illustrate the change → C·cascade the social proof → E·endorse and encourage</div>
+    <p>A cascade of testimonials creates a social-proof avalanche. Open with one raw customer pain story, walk the transformation timeline with sensory detail, then stack 4-6 quick cuts of different voices saying variations of the same thing. The original voice returns for the CTA.</p>
+  </div>
+
+  <div class="framework">
+    <div class="fw-head"><span class="fw-name">14 · DEMO DROP — Product in Action</span><span class="fw-tag">seeing is believing</span></div>
+    <div class="fw-when">Use when the product can be shown working visually. Tools, software, physical goods.</div>
+    <div class="fw-flow">P·problem in progress → R·reveal the product → O·operate in real time → O·observe the result → F·frame the features</div>
+    <p>The brain processes visuals 60,000x faster than text claims. Show the problem happening in real time, reveal the product cleanly, demonstrate with minimal voiceover, pause on the wow result, then explain why it works to satisfy the curiosity the demo created.</p>
+  </div>
+
+  <div class="framework">
+    <div class="fw-head"><span class="fw-name">15 · TIME MACHINE — Before / After Transformation</span><span class="fw-tag">contrast = value</span></div>
+    <div class="fw-when">Use when the strongest proof is the contrast between start and end. Fitness, skincare, results, case studies.</div>
+    <div class="fw-flow">S·show the starting point → H·highlight the breaking point → I·introduce the change → F·flash forward → T·transfer the possibility</div>
+    <p>The brain assigns value through contrast. Make the "before" feel like the viewer's current reality, hit the emotional tipping point, introduce one simple change, show the "after" with the same specificity, then make the transformation feel achievable: "If my chaotic self can do it, so can you."</p>
+  </div>
+
+  <div class="framework">
+    <div class="fw-head"><span class="fw-name">16 · EDUCATOR — Value-First Teaching Ad</span><span class="fw-tag">trust via giving</span></div>
+    <div class="fw-when">Use when trust is built by teaching something genuinely useful first. Expert brands, SaaS, courses.</div>
+    <div class="fw-flow">T·teach something real → E·expand with depth → A·align with your product → C·credentialize → H·hand off the action</div>
+    <p>The highest-trust format: it gives before it asks. Teach something valuable even if they never buy, go deeper than surface level, connect the lesson to the product as the logical tool, establish authority with credentials, then make the CTA the natural next step in their education.</p>
+  </div>
+
+  <h3>Power Combinations</h3>
+  <ul>
+    <li><strong>SPARK + COUNTDOWN</strong> — social proof momentum setting up a numbered list of reasons people are switching.</li>
+    <li><strong>MYTH KILLER + PRESSURE COOKER</strong> — shatter a belief, then agitate the pain of having believed it.</li>
+    <li><strong>ORIGIN STORY + CONVICTION</strong> — emotional narrative creates connection, objection-crushing creates confidence.</li>
+    <li><strong>RAW TAKE + WITNESS</strong> — start native, stack real voices. Authenticity compounds.</li>
+    <li><strong>CLIFFHANGER + DEMO DROP</strong> — impossible claim gets them watching, live demo proves the payoff.</li>
+    <li><strong>GRIT AD + any framework</strong> — the 3 rules are a filter, not a standalone.</li>
+    <li><strong>EDUCATOR + SPARK</strong> — education builds trust, social proof closes the deal.</li>
+  </ul>
+</div>
+
+<!-- ═══════════ 4. FORMATS ═══════════ -->
+<div class="section" id="formats">
+  <h2>4 · AI Production Formats — 6 Ways to Build the Ad</h2>
+  <p>AI is not a single style — it's a <strong>production engine</strong>. Take the same product and create a cinematic advert, a fake podcast clip, an AI influencer video, or a claymation short. Each format creates a different emotional entry point: podcast authority, UGC realism, AI spectacle, product-led proof.</p>
+
+  <h3>The Universal Avatar-Ad Pipeline (Lesson 2)</h3>
+  <div class="pipe">
+    <div class="pipe-step"><div class="step-num">STEP 1</div><div class="step-name">Character image</div><p>Generate a photoreal AI influencer with ChatGPT Image 2.0 or Nanobanana Pro. Must be indistinguishable from reality — skin, lighting, natural.</p></div>
+    <div class="pipe-step"><div class="step-num">STEP 2</div><div class="step-name">Script the ad</div><p>Paste the master prompt + character ref + product photos into ChatGPT. Get script and Seedance prompt back.</p></div>
+    <div class="pipe-step"><div class="step-num">STEP 3</div><div class="step-name">Generate clips</div><p>Seedance 2.0 (or 2.0 fast for budget). Upload reference photos, paste prompt. 15s max per clip — generate multiple.</p></div>
+    <div class="pipe-step"><div class="step-num">STEP 4</div><div class="step-name">Stitch in CapCut</div><p>Trim glitches, cut bad takes, add captions, export. Done.</p></div>
+  </div>
+  <ul>
+    <li><strong>Reference photos are everything.</strong> "If the answer to 'is it impossible to tell it's AI?' is no, regenerate." Seedance gives way better results with a reference image than without.</li>
+    <li><strong>Dialogue length must match clip length.</strong> Too many words → voice speeds up or cuts off. Too few → gibberish. 5s clip = short line; 15s clip = proportional dialogue.</li>
+    <li><strong>Upload the product's inside too</strong> — if it opens or has packaging, Seedance needs to know how the product works.</li>
+    <li><strong>Use your own audio</strong> — upload your voice or an ElevenLabs voice to Seedance via the @ tag.</li>
+    <li><strong>Visual chaos hooks work insanely well in Seedance</strong> — the model excels at physical action and destruction (e.g. woman falling through the ceiling).</li>
+  </ul>
+
+  <h3>UGC Factory — Avatar Ads on Autopilot (Lesson 3)</h3>
+  <p>PromptWise's UGC Factory removes the manual pipeline: pick a tier, pick a video type, upload product + avatar, generate. Premium uses the latest Seedance model (best lip-sync); Standard uses Veo 3.1 + Kling for B-roll at fewer credits.</p>
+  <ul>
+    <li><strong>Premium</strong> — grid of video types (talking avatar, fast-cut B-roll with voiceover, day-in-the-life, problem-solution). It can write the script too (leave prompt blank). Output is often ad-ready with zero editing.</li>
+    <li><strong>Standard</strong> — more manual: pick influencer, scriptwriter writes the ad, generate hook / body / CTA clips separately, add B-roll, stitch in CapCut.</li>
+    <li><strong>Built-in word counter</strong> — warns when dialogue won't fit the clip duration (the Veo gibberish problem, solved).</li>
+    <li>Product label, aspect ratio, resolution, and product description all steer the result.</li>
+  </ul>
+
+  <h3>Podcast Ads — Overheard Authority (Lesson 4)</h3>
+  <p>The ad feels like a clipped 20-40 second moment from a longer expert conversation. Host + guest (expert). The power: <strong>overheard authority</strong> — the viewer caught the best part of a real conversation, not a staged ad read.</p>
+  <ul>
+    <li><strong>Open on the sharpest line</strong>, mid-conversation. Never "welcome back to the podcast."</li>
+    <li>Guest carries the insight/mechanism/proof; host creates reactions, curiosity, follow-ups.</li>
+    <li>Product appears <em>as the answer to the conversation</em>, not a sponsor read — "what do you use?"</li>
+    <li>Production: two photoreal characters (GPT Image 2.0 refs), Seedance 2.0, 1080p 9:16, RODE mics, studio softbox lighting, 12-14 cuts per 15s shot, reaction inserts with audio continuing underneath.</li>
+    <li>Real Grüns example: 6 shots → 78s ad. Pacing is the #1 failure mode — brisk ~4.2 words/sec, never slow. Final shot: pull-back defocus to a product reveal on the table.</li>
+    <li>Assemble in CapCut: trim, captions, text card "[SHOP NOW — 50% OFF]", colour grade.</li>
+  </ul>
+
+  <h3>2D Animation Ads — Relatability (Lesson 5)</h3>
+  <p>A flat illustrated cartoon world with a <strong>named character</strong> going through a relatable problem. Like a webcomic brought to life. The power: relatability — the viewer sees themselves in the story without feeling directly attacked.</p>
+  <ul>
+    <li>Character is inside the problem from frame one. Pain through actions, not narration. <strong>Flat faces kill this format.</strong></li>
+    <li>Style: hand-painted gouache, Ghibli / Prince of Egypt energy. Consistent character design across all scenes — use 7-panel reference collages (front, ¾, back, profile, extreme close, macro fabric, macro hair).</li>
+    <li>Story arc: reveal → origin → breaking point → product reveal → transformation montage → emotional close + CTA. (The AURA supplement example: a woman whose anxiety is a literal rain cloud above her head; the product is the turn.)</li>
+    <li>Generate 5-7 scene prompts in Seedance, stitch in CapCut, voiceover via ElevenLabs.</li>
+  </ul>
+
+  <h3>Claymation Ads — Charm & Pattern Interrupt (Lesson 6)</h3>
+  <p>A handmade stop-motion clay world. In a feed of talking heads and polished visuals, clay stands out because it's tactile, nostalgic, imperfect, fun. The power: <strong>charm + pattern interrupt</strong>.</p>
+  <ul>
+    <li>Whole ad lives in ONE consistent clay world. Story stays simple: problem → struggle → product as the turn → result.</li>
+    <li><strong>Imperfection is the asset</strong> — visible fingerprints, clay seams, handmade props, slightly jittery movement. Not smooth 3D CGI.</li>
+    <li>First frame must be visual enough to stop the scroll before the voiceover is understood.</li>
+    <li>Sound design matters: clay squish, tiny footsteps, tactile foley, satisfying reveal sound.</li>
+    <li>Best hooks: before/after in frame one, a clay character visibly suffering, "this turns into this in 10 seconds," miniature-world metaphors (tiny factory, tiny rescue team).</li>
+  </ul>
+
+  <h3>GTA-Style & Big-Brand Examples (Lessons 7-9)</h3>
+  <ul>
+    <li><strong>GTA-style ads</strong> — video-game aesthetics with Kling 3.0 / Veo 3.1, Nanobanana Pro or ChatGPT Image 2.0 for consistency (Midjourney is the older route).</li>
+    <li><strong>Nike & BMW examples</strong> — video-only lessons (18s / 35s) demonstrating that even global brands reduce to a single emotion: Nike sells discipline and the identity of pushing through, not shoes. A car ad sells freedom, status, control, power, taste, identity.</li>
+  </ul>
+</div>
+
+<!-- ═══════════ 5. HOOKS ═══════════ -->
+<div class="section" id="hooks">
+  <h2>5 · The Hook Library — 100+ Openers</h2>
+  <p>You have 1-2 seconds before they scroll. A great hook does one of three things: <strong>creates curiosity, triggers emotion, or promises value.</strong> That's it. Every viral video nailed at least one.</p>
+
+  <h3>Curiosity hooks</h3>
+  <div class="hook-grid">
+    <span class="hook-chip">"Nobody is talking about this and it's a problem"</span>
+    <span class="hook-chip">"I just found out something that changes everything"</span>
+    <span class="hook-chip">"This is the part they don't show you"</span>
+    <span class="hook-chip">"I wasn't supposed to share this but..."</span>
+    <span class="hook-chip">"I tested this for 30 days and the results were insane"</span>
+    <span class="hook-chip">"You've been doing [thing] wrong your entire life"</span>
+    <span class="hook-chip">"What nobody tells you about [topic]"</span>
+    <span class="hook-chip">"There's a reason why [thing] looks like that"</span>
+  </div>
+
+  <h3>Shock & controversy hooks</h3>
+  <div class="hook-grid">
+    <span class="hook-chip">"Unpopular opinion: [bold claim]"</span>
+    <span class="hook-chip">"Stop doing [popular thing]. Here's why"</span>
+    <span class="hook-chip">"Everyone is lying to you about [topic]"</span>
+    <span class="hook-chip">"This should be illegal"</span>
+    <span class="hook-chip">"I'm going to say what everyone's thinking"</span>
+    <span class="hook-chip">"If you're still doing [thing] in 2026, we need to talk"</span>
+    <span class="hook-chip">"The [thing] industry doesn't want you to see this"</span>
+  </div>
+
+  <h3>Value & educational hooks</h3>
+  <div class="hook-grid">
+    <span class="hook-chip">"Here's how to [achieve result] in [short time]"</span>
+    <span class="hook-chip">"3 things I wish I knew before starting [thing]"</span>
+    <span class="hook-chip">"The easiest way to [do thing] that nobody talks about"</span>
+    <span class="hook-chip">"Save this for later, you're going to need it"</span>
+    <span class="hook-chip">"[Number] mistakes that are killing your [thing]"</span>
+    <span class="hook-chip">"The difference between [amateur thing] and [pro thing]"</span>
+    <span class="hook-chip">"Why your [thing] isn't working (and how to fix it)"</span>
+  </div>
+
+  <h3>Story & emotional hooks</h3>
+  <div class="hook-grid">
+    <span class="hook-chip">"This is the moment that changed everything for me"</span>
+    <span class="hook-chip">"I almost gave up. Then this happened"</span>
+    <span class="hook-chip">"A year ago I was [bad situation]. Today [good situation]"</span>
+    <span class="hook-chip">"I have a confession to make"</span>
+    <span class="hook-chip">"What would you do if [hypothetical scenario]?"</span>
+    <span class="hook-chip">"This is for everyone who's been told they can't"</span>
+  </div>
+
+  <h3>AI-video specific hooks</h3>
+  <div class="hook-grid">
+    <span class="hook-chip">"AI made this entire video. Can you tell?"</span>
+    <span class="hook-chip">"Real or AI? Comment your guess"</span>
+    <span class="hook-chip">"This AI video would have cost $50,000 to film two years ago"</span>
+    <span class="hook-chip">"I generated 10 videos in 1 hour using this workflow"</span>
+    <span class="hook-chip">"You don't need a camera anymore. Here's proof"</span>
+    <span class="hook-chip">"The AI tool nobody is talking about yet"</span>
+    <span class="hook-chip">"Before AI vs After AI (same concept, same creator)"</span>
+  </div>
+
+  <div class="callout">
+    <div class="co-label">How to use the library</div>
+    Don't copy word-for-word. Replace the [brackets] with your specific topic — the framework is what matters, not the exact words. Bookmark it and refer back every time you plan content.
+  </div>
+</div>
+
+<!-- ═══════════ 6. UGC TEMPLATES ═══════════ -->
+<div class="section" id="ugc">
+  <h2>6 · UGC Script Templates — 10 Fill-in-the-Blank Scripts</h2>
+  <p>UGC works because it doesn't look like an ad — a real person talking to their friend about something they love. AI can now recreate that perfectly. Replace anything in [BRACKETS] with your product details.</p>
+
+  <table class="row-table">
+    <tr><th>Template</th><th>Best for</th><th>Hook</th></tr>
+    <tr><td>1 · The Unboxing</td><td>Physical products, subscription boxes, gadgets</td><td>"Okay this just arrived and I'm literally so excited"</td></tr>
+    <tr><td>2 · The Testimonial</td><td>Services, courses, software, results</td><td>"I never do these but I genuinely have to talk about [PRODUCT]"</td></tr>
+    <tr><td>3 · Day In My Life</td><td>Lifestyle, apps, supplements, daily-use</td><td>"Day in my life with [PRODUCT] (this changed my routine)"</td></tr>
+    <tr><td>4 · Problem-Solution</td><td>Pain-point products, clear issues</td><td>"If you deal with [PROBLEM], stop scrolling"</td></tr>
+    <tr><td>5 · Before/After</td><td>Beauty, fitness, cleaning, transformations</td><td>"Watch this transformation" / "Before vs after [PRODUCT]"</td></tr>
+    <tr><td>6 · GRWM</td><td>Beauty, fashion, accessories, lifestyle</td><td>"GRWM while I tell you about the best [CATEGORY] I've ever tried"</td></tr>
+    <tr><td>7 · Comparison/Review</td><td>Competitive products, tech, software</td><td>"I tested [PRODUCT] vs [COMPETITOR] so you don't have to"</td></tr>
+    <tr><td>8 · Street Interview</td><td>Viral potential, engagement bait, awareness</td><td>"I asked strangers to try [PRODUCT] and their reactions were priceless"</td></tr>
+    <tr><td>9 · Tutorial/How-To</td><td>Software, tools, apps, complex products</td><td>"How to [RESULT] in [SHORT TIME] with [PRODUCT]"</td></tr>
+    <tr><td>10 · Story Time</td><td>Emotional products, premium items, brand story</td><td>"Story time: How [PRODUCT] literally saved my [SITUATION]"</td></tr>
+  </table>
+  <p>The street-interview format works amazingly well for AI UGC too — generate different "people" reacting to the product. And the single most important quality rule: <strong>it has to feel like a real person, not a brand.</strong></p>
+</div>
+
+<!-- ═══════════ 7. WORKFLOW ═══════════ -->
+<div class="section" id="workflow">
+  <h2>7 · From Product to Ad — The Full Workflow</h2>
+  <ol>
+    <li><strong>Start with audience and objective.</strong> Who is this for? What awareness level? What must it achieve?</li>
+    <li><strong>Find the dominant desire.</strong> One ad, one desire, one audience, one message.</li>
+    <li><strong>Choose the framework before writing</strong> — proof-based, problem-solution, founder-story, demo, or native/UGC.</li>
+    <li><strong>Use master prompts with full context.</strong> Product + audience + awareness stage + pain points + desired outcome + proof + mechanism + offer + CTA + format + tone. The more useful context, the stronger the output.</li>
+    <li><strong>Turn the script into a production blueprint</strong> — timed sections, voiceover vs visual direction, shot-by-shot, B-roll, props, where the product appears. Practical enough to hand to a creator or AI video tool.</li>
+    <li><strong>Match format to platform.</strong> TikTok = fast, native, vertical, hook-first. UGC = real content. Podcast = clipped expert conversation. Claymation = visual pattern interrupt.</li>
+    <li><strong>Test variations, not one bet.</strong> Different hooks for the same concept, same script in different visual styles, UGC vs podcast vs animated vs demo. The audience decides which wins — use the winner to inform the next round.</li>
+  </ol>
+  <div class="callout">
+    <div class="co-label">The real skill</div>
+    Businesses don't need people who can generate impressive visuals. They need people who understand <strong>who the ad is for, what the audience wants, what they already believe, which platform it belongs on, which framework to use, and how to test variations quickly.</strong> Great ads don't happen by accident — they're planned, structured, matched to the right audience, and improved by testing.
+  </div>
+</div>
+
+<footer>
+  <p>Skool AI Video Bootcamp · Module 04 — AI Advertising &amp; UGC · 10 lessons</p>
+  <p>Strategy · Psychology · 16 Frameworks · 6 Formats · 100+ Hooks · 10 UGC Templates</p>
+</footer>
+
+</div><!-- /container -->
+
+<script>
+(function(){
+  const HASH = "2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e";
+  const gate = document.getElementById('password-gate');
+  const input = document.getElementById('password-input');
+  const error = document.getElementById('password-error');
+
+  async function sha256(str) {
+    const buf = new TextEncoder().encode(str);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  async function check() {
+    const digest = await sha256(input.value);
+    if (digest === HASH) {
+      gate.classList.add('hidden');
+      localStorage.setItem('pages_pass', digest);
+    } else {
+      error.style.display = 'block';
+      setTimeout(() => error.style.display = 'none', 2000);
+    }
+  }
+
+  // Auto-check stored hash
+  (async function(){
+    const stored = localStorage.getItem('pages_pass');
+    if (stored === HASH) { gate.classList.add('hidden'); return; }
+  })();
+
+  input.addEventListener('keydown', function(e){ if (e.key === 'Enter') check(); });
+})();
+</script>
+<script src="/pages/shared/menu.js"></script>
+
+</body>
+</html>
