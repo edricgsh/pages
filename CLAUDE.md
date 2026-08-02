@@ -21,6 +21,7 @@ manifest.enc             ← generated
 - **Password:** `recon2026`
 - **SHA-256 hash:** `2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e`
 - **Live URL pattern:** `https://edricgsh.github.io/pages/<folder-name>/`
+- **Shared style:** every artifact MUST include `<link rel="stylesheet" href="/pages/shared/paper.css">` + `<script src="/pages/shared/paper.js"></script>` and put `class="paper"` on `<body>`. See "Artifact style guide" below — it's the house style, not a suggestion
 - **Shared menu:** every artifact MUST include `<link rel="stylesheet" href="/pages/shared/menu.css">` in `<head>` and `<script src="/pages/shared/menu.js"></script>` before `</body>`. It renders a fixed top-left bar (`☰` + `← All Artifacts` back-link to the catalogue), auto-hides while the password gate is up, and adds `menu-bar-offset` to `<html>` so `body` gets 46px of top padding — don't add your own top offset for it
 - **manifest:** every artifact MUST be registered in `_src/manifest.json` (slug, title, description, emoji). It ships encrypted as `manifest.enc`, so titles and descriptions aren't crawlable either
 - **Pre-commit hook:** `.githooks/pre-commit` blocks plaintext in published paths and catches truncated/placeholder hashes. Activate with `git config core.hooksPath .githooks`
@@ -37,10 +38,14 @@ The old SHA-256 gate only *hid* content visually — the full plaintext was stil
 
 **Limits, so nobody over-trusts this:** it's encryption at rest on GitHub's CDN. Anyone with the password can read and re-share the plaintext, and one shared password means no per-visitor revocation.
 
-## The 8 published artifacts
+## The 9 published artifacts
+
+Only `ai-advertising-ugc` uses the paper style so far. The other eight are still on
+the retired dark theme — convert one when you next touch it, don't leave it half-done.
 
 | Folder | Title | Emoji |
 |--------|-------|-------|
+| `ai-advertising-ugc` | AI Advertising &amp; UGC — Complete Playbook | 📢 |
 | `tariff-trade-breakdown` | Tariffs, Trade & Trump's Strategy | 🌐 |
 | `payment-reconciliation-research` | Payment Reconciliation Market Map | 💳 |
 | `pragmatic-engineer` | The Pragmatic Engineer | 📬 |
@@ -50,12 +55,87 @@ The old SHA-256 gate only *hid* content visually — the full plaintext was stil
 | `sharran-srivatsaa-formula` | The Man That Makes Billionaires — Sharran Srivatsaa | 📈 |
 | `postiz-saas-growth` | Postiz: $17K → $143K MRR in 4 Months | 🚀 |
 
-## Artifact conventions
+## Artifact style guide — "paper"
 
-- Dark theme (slate-950 `#020617` background, Inter + JetBrains Mono fonts)
-- Password gate: fixed overlay `#password-gate` (z-index 9999), SHA-256 verify, localStorage unlock. Keep it in the source — the build seeds its unlock key so it never double-prompts
-- Diagrams: inline SVG with fullscreen toggle (⛶ button, Escape to exit), `z-index` of fullscreen container must stay below the menu (10001)
-- **No neon glow on diagrams** — do not add `feGaussianBlur`/`feMerge` glow filters to SVG text or shapes. Labels stay crisp; use colour and weight for emphasis instead
-- Video breakdowns: thesis box → SVG diagram → module sections → footer; timestamps from YouTube chapters
+Artifacts are **long-form reading**, not dashboards. The house style is warm paper,
+editorial serif prose, mono for labels only, one rust accent, and a fixed left
+contents rail. It replaced the dark slate-950 theme in Aug 2026 because the dark
+theme read as a status screen — dense, low-contrast, tiring past a screenful.
+
+Everything below lives in `shared/paper.css` + `shared/paper.js`. **Don't restate
+it in a page-local `<style>`** — link the shared files and use the classes. If a
+page needs something the system lacks, add it to `paper.css` as a named component
+so the next artifact gets it too.
+
+### The shell every artifact starts from
+
+```html
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/pages/shared/paper.css" />
+<link rel="stylesheet" href="/pages/shared/menu.css" />
+...
+<body class="paper" data-title="ARTIFACT NAME" data-meta="SUBTITLE LINE
+SECOND LINE">
+  <div id="password-gate">…</div>
+  <main class="sheet">
+    <nav class="tabs">…</nav>
+    <header class="hero"><h1>…</h1><p class="lede">…</p></header>
+    <div class="callout">…</div>
+    <section class="mod" id="…" data-group="…">…</section>
+    <footer class="sheet-footer">…</footer>
+  </main>
+  <script>/* gate */</script>
+  <script src="/pages/shared/paper.js"></script>
+  <script src="/pages/shared/menu.js"></script>
+```
+
+`paper.js` **generates the whole contents rail** from `section.mod` elements — never
+hand-write nav markup. It also runs scrollspy (syncing both the rail and the
+`.tabs` row), the small-screen rail toggle, and the ⛶ button on every `.figure`.
+
+### Tokens
+
+| | |
+|---|---|
+| Page / raised / sunk | `#FBF8F3` · `#FFFDF9` · `#F4F0E8` |
+| Ink · secondary · muted | `#1C1917` · `#44403C` · `#78716C` |
+| Hairline · heavy rule | `#E2DCD0` · `#1C1917` |
+| Rust · rust-on-tint · soft tint | `#B4451F` · `#8F3617` · `#F5E3D7` |
+| Callout fill | `#E9E8DA` |
+| Terracotta ramp 1→5 | `#F7E0D2` `#EFC3AB` `#E29C7B` `#D2734B` `#B4451F` |
+
+All exposed as CSS vars (`--paper`, `--ink`, `--rust`, `--ramp-3`, …). **Use the
+vars, never the literals** — a palette change should be one file.
+
+### Type
+
+- **Inter Tight** — headings and UI only. h1 is `clamp(2.6rem, 6vw, 4.1rem)/800` at `-0.035em`; it should feel oversized next to the body.
+- **Source Serif 4** — all running prose, 1.16rem/1.72. Long text is *always* serif.
+- **JetBrains Mono** — labels, numbers, eyebrows, tags, source attributions. Uppercase, ~0.68rem, `letter-spacing: 0.11em–0.15em`. Mono is for chrome; it never carries a sentence.
+
+### Components
+
+`.tabs`/`.tab` · `.hero` + `.lede` (auto heavy rule after) · `.callout` + `.callout-label`
+(one per page, the single big idea) · `.mod` + `.mod-head`/`.mod-num`/`.mod-source` ·
+`.rows`/`.row` with `.row-chip[data-level=1-5]` + `.row-name` + `.row-sub` + `.row-body`
+(ordered ladders) · `.rows.numbered` with `.row-idx` (numbered principles) ·
+`.entry` + `.entry-head`/`.entry-name`/`.entry-tag`/`.entry-when`/`.entry-flow`
+(catalogued frameworks, tools, tactics) · `.cards`/`.card` + `.card-kicker`/`.card-title` ·
+`.chips`/`.chip` (banks of short strings) · `.note` / `.note.warn` · `.figure` +
+`.figure-caption` · `.scroll-x` · `.sheet-footer`.
+
+### Rules
+
+- **One accent.** Rust marks the active nav item, section numbers, callout labels, and links. Nothing else is coloured. Emphasis is weight, size, and space.
+- **Prose stays in the measure** (`--measure`, 46rem). Only `.tabs`, `.cards`, `.chips`, `.figure`, and `.scroll-x` break out.
+- **No shadows, no gradients, no glow.** Hairlines and fills do the separating. `feGaussianBlur`/`feMerge` glow filters on SVG are banned repo-wide.
+- **Wide things scroll inside themselves** — wrap tables and diagrams in `.scroll-x`. The page body never scrolls sideways.
+- **Diagrams are light now** — `--paper-raised` ground, hairline strokes, ramp fills. The old `#020617` dark-grid SVG aesthetic is retired; converting an old diagram means restyling it, not dropping it on a light background.
+- Video breakdowns: hero → callout → `.mod` per chapter (`.mod-source` carries the timestamp) → `.sheet-footer`.
+
+The password gate keeps its ids and its `localStorage.setItem('pages_pass', …)` call —
+`build.py` reads that key to seed the outer unlock. `paper.css` restyles it in paper
+tones automatically. The *loader* gate crawlers see is still dark; it's generated by
+`build.py` and is deliberately independent of the artifact's theme.
 
 See `.claude/skills/github-pages/SKILL.md` for the full publishing workflow.

@@ -1,0 +1,701 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   paper.css — the house style for research artifacts.
+
+   Warm paper, editorial serif prose, mono labels, rust accent, fixed left
+   contents rail. Load it after the font link and before any page-local
+   <style>, then put class="paper" on <body>.
+
+     <link rel="stylesheet" href="/pages/shared/paper.css">
+     <script src="/pages/shared/paper.js"></script>
+
+   Component reference lives in CLAUDE.md → "Artifact style guide".
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Surfaces ── */
+  --paper:        #FBF8F3;  /* page */
+  --paper-raised: #FFFDF9;  /* figures, cards — lifts off the page */
+  --paper-sunk:   #F4F0E8;  /* rail, table headers */
+  --callout-bg:   #E9E8DA;  /* the one big idea box */
+
+  /* ── Ink ── */
+  --ink:    #1C1917;  /* headings, body */
+  --ink-2:  #44403C;  /* lede, secondary prose */
+  --ink-3:  #78716C;  /* mono labels, captions */
+
+  /* ── Lines ── */
+  --rule:        #E2DCD0;  /* hairlines */
+  --rule-strong: #1C1917;  /* the heavy rule under the hero */
+
+  /* ── Accent ── */
+  --rust:      #B4451F;
+  --rust-ink:  #8F3617;  /* rust on a tinted background — keeps 4.5:1 */
+  --rust-soft: #F5E3D7;  /* active nav fill, lightest swatch */
+
+  /* ── Terracotta ramp — ordered lists, severity, ladders ── */
+  --ramp-1: #F7E0D2;
+  --ramp-2: #EFC3AB;
+  --ramp-3: #E29C7B;
+  --ramp-4: #D2734B;
+  --ramp-5: #B4451F;
+
+  /* ── Type ── */
+  --sans:  'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --mono:  'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ── Layout ── */
+  --rail: 272px;
+  --measure: 46rem;   /* prose column — ~72 characters at the body size */
+}
+
+/* ───────────────────────────────────────────────────────────── base ─── */
+
+body.paper {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.16rem;
+  line-height: 1.72;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body.paper *, body.paper *::before, body.paper *::after { box-sizing: border-box; }
+
+/* The paper layout owns its own top spacing — cancel the shared menu offset
+   and send the floating bar to the right so it clears the contents rail. */
+html.menu-bar-offset body.paper { padding-top: 0; }
+body.paper #menu-bar {
+  left: auto;
+  right: 16px;
+  background: rgba(251,248,243,0.82);
+  border-color: var(--rule);
+}
+body.paper #menu-toggle, body.paper #menu-home { color: var(--ink-2); }
+body.paper #menu-toggle:hover, body.paper #menu-home:hover {
+  background: var(--paper-sunk);
+  color: var(--ink);
+}
+
+/* ─────────────────────────────────────────────────────── contents rail ─── */
+
+.rail {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: var(--rail);
+  padding: 2.6rem 1.5rem 2.5rem;
+  border-right: 1px solid var(--rule);
+  background: var(--paper);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  z-index: 40;
+}
+
+.rail-brand {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1.45;
+  margin: 0;
+}
+.rail-meta {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  line-height: 1.75;
+  margin: 0.55rem 0 2.4rem;
+}
+
+.rail-group { margin-bottom: 1.9rem; }
+.rail-group-label {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0 0 0.75rem 0.65rem;
+}
+
+.rail-link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.42rem 0.65rem;
+  border-radius: 6px;
+  font-family: var(--sans);
+  font-size: 0.94rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.rail-link:hover { background: var(--paper-sunk); color: var(--ink); }
+.rail-num {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.rail-link.is-active {
+  background: var(--rust-soft);
+  color: var(--rust-ink);
+  font-weight: 700;
+}
+.rail-link.is-active .rail-num { color: var(--rust-ink); }
+
+/* ─────────────────────────────────────────────────────────────── shell ─── */
+
+.sheet {
+  margin-left: var(--rail);
+  padding: 2.6rem clamp(1.5rem, 5vw, 4.5rem) 7rem;
+}
+.sheet > * { max-width: var(--measure); }
+
+/* ──────────────────────────────────────────────────────────────── tabs ─── */
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: none;
+  margin-bottom: 2.6rem;
+}
+.tab {
+  padding: 0.5rem 0.95rem;
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.14s ease;
+}
+.tab:hover { border-color: var(--ink-3); color: var(--ink); }
+.tab.is-active {
+  border-color: var(--rust);
+  background: var(--rust-soft);
+  color: var(--rust-ink);
+}
+
+/* ──────────────────────────────────────────────────────────────── hero ─── */
+
+.hero h1 {
+  font-family: var(--sans);
+  font-size: clamp(2.6rem, 6vw, 4.1rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  color: var(--ink);
+  margin: 0 0 1.5rem;
+  text-wrap: balance;
+}
+.hero .lede {
+  font-size: 1.32rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin: 0;
+}
+.hero::after {
+  content: '';
+  display: block;
+  height: 2px;
+  background: var(--rule-strong);
+  margin: 2.6rem 0 2.4rem;
+}
+
+/* ───────────────────────────────────────────────────────────── callout ─── */
+
+.callout {
+  background: var(--callout-bg);
+  border-left: 3px solid var(--rust);
+  padding: 1.5rem 1.9rem;
+  margin: 2.4rem 0;
+}
+.callout-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rust-ink);
+  margin: 0 0 0.7rem;
+}
+.callout p { margin: 0; font-size: 1.19rem; line-height: 1.62; }
+.callout p + p { margin-top: 0.85rem; }
+
+/* ──────────────────────────────────────────────────────────── sections ─── */
+
+.mod { margin: 4.5rem 0 0; scroll-margin-top: 2rem; }
+.mod-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 2rem;
+}
+.mod-num {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--rust);
+  font-variant-numeric: tabular-nums;
+}
+.mod-head h2 {
+  flex: 1;
+  font-family: var(--sans);
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+.mod-source {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.mod h3 {
+  font-family: var(--sans);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  margin: 2.6rem 0 0.9rem;
+}
+.mod h4 {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 2rem 0 0.7rem;
+}
+
+/* ──────────────────────────────────────────────────────────────── prose ─── */
+
+.paper p { margin: 0 0 1.15rem; }
+.paper strong { font-weight: 600; color: var(--ink); }
+.paper em { font-style: italic; }
+.paper a { color: var(--rust-ink); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+.paper a:hover { text-decoration-thickness: 2px; }
+/* Navigation is chrome, not prose — it takes neither the prose underline nor
+   the prose link colour. Rust is reserved for the active item. */
+.paper a.rail-link, .paper a.tab { text-decoration: none; }
+.paper a.rail-link { color: var(--ink-2); }
+.paper a.rail-link:hover { color: var(--ink); }
+.paper a.rail-link.is-active { color: var(--rust-ink); }
+.paper a.tab { color: var(--ink-3); }
+.paper a.tab:hover { color: var(--ink); }
+.paper a.tab.is-active { color: var(--rust-ink); }
+
+.paper ul, .paper ol { margin: 0 0 1.3rem; padding-left: 1.4rem; }
+.paper li { margin-bottom: 0.45rem; }
+.paper li::marker { color: var(--ink-3); }
+
+.paper code {
+  font-family: var(--mono);
+  font-size: 0.84em;
+  background: var(--paper-sunk);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.1em 0.38em;
+  color: var(--rust-ink);
+}
+.paper pre {
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.3rem;
+  overflow-x: auto;
+  font-size: 0.86rem;
+  line-height: 1.62;
+  margin: 0 0 1.4rem;
+}
+.paper pre code { background: none; border: 0; padding: 0; color: var(--ink); font-size: 1em; }
+
+.paper blockquote {
+  margin: 1.8rem 0;
+  padding-left: 1.4rem;
+  border-left: 2px solid var(--rule);
+  color: var(--ink-2);
+  font-style: italic;
+}
+
+/* ──────────────────────────────────────────────────────── ladder rows ─── */
+/* Ordered concepts: a ramp swatch, a label with a mono qualifier, a definition. */
+
+.rows { margin: 1.8rem 0 2.2rem; }
+.row {
+  display: grid;
+  grid-template-columns: 2.1rem 12rem 1fr;
+  gap: 1.4rem;
+  align-items: start;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.row:first-child { border-top: 1px solid var(--rule); }
+.row-chip {
+  width: 100%;
+  height: 2.1rem;
+  border-radius: 3px;
+  background: var(--ramp-3);
+}
+.row-chip[data-level="1"] { background: var(--ramp-1); }
+.row-chip[data-level="2"] { background: var(--ramp-2); }
+.row-chip[data-level="3"] { background: var(--ramp-3); }
+.row-chip[data-level="4"] { background: var(--ramp-4); }
+.row-chip[data-level="5"] { background: var(--ramp-5); }
+.row-name {
+  font-family: var(--sans);
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.row-sub {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-top: 0.3rem;
+}
+.row-body { font-size: 1.06rem; line-height: 1.6; color: var(--ink-2); }
+.row-body p { margin: 0; }
+.row-body p + p { margin-top: 0.6rem; }
+
+/* Numbered variant — a mono index instead of a ramp swatch. */
+.rows.numbered .row { grid-template-columns: 2.6rem 10rem 1fr; }
+.row-idx {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--rust);
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.15rem;
+}
+
+/* ──────────────────────────────────────────────────────── entry blocks ─── */
+/* A catalogued thing — a framework, a tool, a model, a tactic. Name and tag
+   on one line, an optional qualifier, an optional mono flow strip, a body. */
+
+.entry {
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--ramp-3);
+  border-radius: 0 7px 7px 0;
+  background: var(--paper-raised);
+  padding: 1.25rem 1.5rem;
+  margin: 0 0 0.9rem;
+}
+.entry-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+.entry-name {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+}
+.entry-tag {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.entry-when {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--ink-2);
+  margin: 0 0 0.7rem;
+}
+.entry-flow {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  line-height: 1.75;
+  color: var(--rust-ink);
+  background: var(--paper-sunk);
+  border-radius: 5px;
+  padding: 0.6rem 0.8rem;
+  margin: 0 0 0.8rem;
+}
+.entry p { font-size: 1.03rem; line-height: 1.62; color: var(--ink-2); margin: 0; }
+.entry p + p { margin-top: 0.7rem; }
+
+/* ──────────────────────────────────────────────────────────────── chips ─── */
+/* Loose bank of short strings — hooks, prompts, phrases. */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 1.8rem;
+  max-width: none;
+}
+.chip {
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  background: var(--paper-raised);
+  padding: 0.45rem 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--ink-2);
+}
+
+/* ──────────────────────────────────────────────────────────────── cards ─── */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin: 1.8rem 0 2.2rem;
+  max-width: none;
+}
+.card {
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+  padding: 1.25rem 1.4rem;
+}
+.card-title {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 0.5rem;
+}
+.card-kicker {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin: 0 0 0.4rem;
+}
+.card p { font-size: 0.99rem; line-height: 1.6; color: var(--ink-2); margin: 0; }
+
+/* ───────────────────────────────────────────────────────────────── note ─── */
+
+.note {
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--ink-3);
+  border-radius: 0 6px 6px 0;
+  background: var(--paper-raised);
+  padding: 1rem 1.3rem;
+  margin: 1.8rem 0;
+  font-size: 1.03rem;
+  color: var(--ink-2);
+}
+.note strong { color: var(--ink); }
+.note.warn { border-left-color: var(--rust); }
+
+/* ──────────────────────────────────────────────────────────────── table ─── */
+
+.paper table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.8rem 0 2.2rem;
+  font-size: 1rem;
+}
+.paper th {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  text-align: left;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--rule-strong);
+}
+.paper td {
+  padding: 0.8rem 0.9rem;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink-2);
+  vertical-align: top;
+}
+.paper tbody tr:hover { background: var(--paper-sunk); }
+
+/* Any wide block scrolls inside itself — the page never scrolls sideways. */
+.scroll-x { overflow-x: auto; max-width: none; }
+
+/* ─────────────────────────────────────────────────────────────── figure ─── */
+
+.figure {
+  position: relative;
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+  padding: 1.6rem;
+  margin: 2.2rem 0;
+  max-width: none;
+  overflow: hidden;
+}
+.figure svg { display: block; width: 100%; height: auto; }
+.figure-caption {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-top: 1.1rem;
+}
+.figure-fs {
+  position: absolute;
+  top: 0.6rem; right: 0.6rem;
+  width: 1.9rem; height: 1.9rem;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  background: var(--paper);
+  color: var(--ink-3);
+  font-size: 0.85rem;
+  cursor: pointer;
+  z-index: 2;
+}
+.figure-fs:hover { color: var(--ink); border-color: var(--ink-3); }
+.figure.fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;            /* stays under the shared menu bar at 10001 */
+  margin: 0;
+  border-radius: 0;
+  padding: 3rem;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ─────────────────────────────────────────────────────────────── footer ─── */
+
+.sheet-footer {
+  margin-top: 5rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  line-height: 1.9;
+}
+
+/* ─────────────────────────────────────────────────────── password gate ─── */
+/* Paper-toned variant of the standard gate. Same ids and the same
+   localStorage key — build.py reads that key to seed the outer unlock. */
+
+body.paper #password-gate {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--paper);
+  font-family: var(--sans);
+}
+body.paper #password-gate.hidden { display: none; }
+body.paper .gate-box { text-align: center; padding: 2.5rem; max-width: 24rem; width: 100%; }
+body.paper .gate-box h1 {
+  font-family: var(--sans); font-size: 1.5rem; font-weight: 700;
+  letter-spacing: -0.02em; color: var(--ink); margin: 0 0 0.5rem;
+}
+body.paper .gate-box p {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-3); margin: 0 0 1.6rem;
+}
+body.paper .gate-box input {
+  width: 100%; padding: 0.8rem 1rem;
+  background: var(--paper-raised);
+  border: 1px solid var(--rule); border-radius: 6px;
+  color: var(--ink); font-family: var(--mono); font-size: 0.95rem;
+  letter-spacing: 0.12em; text-align: center; outline: none;
+}
+body.paper .gate-box input:focus { border-color: var(--rust); }
+body.paper .gate-box .error {
+  color: var(--rust-ink); font-family: var(--mono); font-size: 0.7rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-top: 0.8rem; display: none;
+}
+
+/* ────────────────────────────────────────────────── rail toggle (small) ─── */
+
+.rail-toggle {
+  display: none;
+  position: fixed;
+  right: 1.1rem; bottom: 1.1rem;
+  z-index: 60;
+  padding: 0.65rem 1.05rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--paper-raised);
+  box-shadow: 0 2px 12px rgba(28,25,23,0.12);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.rail-scrim {
+  display: none;
+  position: fixed; inset: 0; z-index: 39;
+  background: rgba(28,25,23,0.35);
+}
+
+/* ─────────────────────────────────────────────────────────── responsive ─── */
+
+@media (max-width: 1080px) {
+  .rail {
+    transform: translateX(-100%);
+    transition: transform 0.24s ease;
+    box-shadow: 0 0 30px rgba(28,25,23,0.14);
+  }
+  .rail.is-open { transform: none; }
+  .rail-toggle { display: block; }
+  .rail.is-open ~ .rail-scrim { display: block; }
+  .sheet { margin-left: 0; padding-top: 4rem; }
+}
+
+@media (max-width: 680px) {
+  body.paper { font-size: 1.09rem; }
+  .row { grid-template-columns: 1.6rem 1fr; row-gap: 0.5rem; }
+  .row-body { grid-column: 2; }
+  .mod-head { flex-wrap: wrap; }
+  .mod-source { flex-basis: 100%; }
+  .callout { padding: 1.2rem 1.3rem; }
+}
+
+@media print {
+  .rail, .rail-toggle, .tabs, #menu-bar, #password-gate { display: none !important; }
+  .sheet { margin-left: 0; }
+  body.paper { font-size: 11pt; }
+}

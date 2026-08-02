@@ -40,6 +40,69 @@ mkdir -p _src/<folder-name>
 # Write full HTML to _src/<folder-name>/index.html
 ```
 
+Use the **paper** house style — warm paper, serif prose, mono labels, one rust
+accent, generated contents rail. Read "Artifact style guide" in `CLAUDE.md` before
+writing a line of markup; `_src/ai-advertising-ugc/index.html` is the reference
+implementation to copy structure from.
+
+Skeleton:
+
+```html
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/pages/shared/paper.css" />
+<link rel="stylesheet" href="/pages/shared/menu.css" />
+</head>
+<body class="paper" data-title="ARTIFACT NAME" data-meta="SUBTITLE
+SECOND LINE">
+
+<div id="password-gate">…</div>
+
+<main class="sheet">
+  <nav class="tabs">
+    <a class="tab" href="#first">First</a> …
+  </nav>
+
+  <header class="hero">
+    <h1>A real sentence, not a label</h1>
+    <p class="lede">One paragraph on what this is and the order it's in.</p>
+  </header>
+
+  <div class="callout">
+    <p class="callout-label">The one idea</p>
+    <p>The single thesis. One per page.</p>
+  </div>
+
+  <section class="mod" id="first" data-group="Foundations" data-nav="Short rail label">
+    <div class="mod-head">
+      <span class="mod-num">01</span>
+      <h2>Section title</h2>
+      <span class="mod-source">Source / timestamp</span>
+    </div>
+    <p>Prose…</p>
+  </section>
+
+  <footer class="sheet-footer">Provenance line</footer>
+</main>
+
+<script>/* gate — step 2 */</script>
+<script src="/pages/shared/paper.js"></script>
+<script src="/pages/shared/menu.js"></script>
+```
+
+**Never hand-write the sidebar.** `paper.js` builds it from the `section.mod`
+elements: `data-group` starts a new group when it changes, `.mod-num` supplies the
+number, `data-nav` (or the `<h2>`) supplies the label. It also drives scrollspy for
+both the rail and the `.tabs` row, the small-screen rail toggle, and the ⛶ button
+on each `.figure`.
+
+Component classes — `.rows`/`.row` + `.row-chip[data-level]` for ordered ladders,
+`.rows.numbered` + `.row-idx` for numbered principles, `.entry` for catalogued
+frameworks or tools, `.cards` for parallel concepts, `.chips` for banks of short
+strings, `.note`, `.figure`, `.scroll-x`. Full list in `CLAUDE.md`.
+
+If the page needs a component that doesn't exist, **add it to `shared/paper.css`**
+with a comment saying what it's for — don't inline a one-off `<style>` block.
+
 ### 2. Add the password gate template
 
 Wrap the artifact content in the standard gate template. The gate div covers the entire viewport until the correct password is entered.
@@ -53,17 +116,8 @@ echo -n "recon2026" | sha256sum
 # 2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e
 ```
 
-**Gate CSS** (add inside `<style>` or as a separate `<style>` block in `<head>`):
-```css
-#password-gate { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; background: #0a0a0f; font-family: 'Inter', sans-serif; }
-#password-gate.hidden { display: none; }
-.gate-box { text-align: center; padding: 40px; max-width: 380px; }
-.gate-box h1 { font-size: 24px; font-weight: 700; color: #f0f0f0; margin-bottom: 8px; }
-.gate-box p { font-size: 14px; color: #888; margin-bottom: 24px; }
-.gate-box input { width: 100%; padding: 12px 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; font-size: 15px; outline: none; text-align: center; }
-.gate-box input:focus { border-color: #60a5fa; }
-.gate-box .error { color: #f87171; font-size: 13px; margin-top: 10px; display: none; }
-```
+**Gate CSS** — none needed. `paper.css` styles `#password-gate` in paper tones as
+long as `<body>` carries `class="paper"`. Don't paste a gate stylesheet.
 
 **Gate HTML** (put right after `<body>`, BEFORE your content):
 ```html
@@ -133,6 +187,10 @@ What this gives you for free — don't hand-roll any of it:
 - The sidebar (built from `manifest.json`), with an `🏠 All Artifacts — Home` entry above the list
 - The bar auto-hides while the password gate is up (detects `#password-gate` or `.pw-gate`)
 - `menu-bar-offset` on `<html>`, which applies `body { padding-top: 46px }` so the bar never covers your page heading — **don't add your own top offset for it**, and don't set `body` padding with higher specificity than `html.menu-bar-offset body`
+
+On paper pages `paper.css` already handles this: it cancels that offset (the
+`.sheet` has its own top padding) and moves the bar to the top *right* so it clears
+the contents rail. Nothing to do per-page.
 
 ### 4. Register in the manifest
 
@@ -204,10 +262,11 @@ Note: the page returns 404 for the first ~20-30s after push while GitHub Pages b
 
 ## Diagram conventions
 
+- Wrap every diagram in `<div class="figure">` with an optional `<p class="figure-caption">`. `paper.js` adds the ⛶ fullscreen button and the Escape handler — **don't hand-roll either**, and don't raise the figure above `z-index: 9000` (the menu sits at 10001).
+- **Light ground.** SVG diagrams draw on `--paper-raised` with hairline `--rule` strokes, ink labels, and `--ramp-*` fills. The old dark-grid `#020617` aesthetic retired with the dark theme.
 - **No neon glow.** Do not add `<filter id="glow">` (`feGaussianBlur` + `feMerge`) or apply `filter="url(#glow)"` to SVG text/shapes — it reads as blurry neon. Emphasis comes from colour, weight, and size. Removed repo-wide Aug 2026.
-- **Fullscreen toggle** for diagram wrappers: ⛶ button toggles `.fullscreen` class, Escape exits, `z-index` must stay below the hamburger menu (10001+)
-- Hand-crafted SVG for centerpiece diagrams (dark grid aesthetic, `#020617` background); Mermaid.js acceptable for simpler flowcharts
-- Video breakdown pages: thesis box → SVG diagram → module sections with timestamps → footer
+- Hand-crafted SVG for centerpiece diagrams; Mermaid.js acceptable for simpler flowcharts.
+- Video breakdown pages: `.hero` → `.callout` → `.figure` → one `.mod` per chapter with the timestamp in `.mod-source` → `.sheet-footer`
 
 ## Video breakdown recipe (recurring task)
 
@@ -215,7 +274,7 @@ Note: the page returns 404 for the first ~20-30s after push while GitHub Pages b
 2. `yt-dlp --write-auto-sub --sub-langs en --sub-format json3 --skip-download -o "/tmp/%(id)s" <url>` — download transcript
 3. Parse JSON3 events → segments with timestamps
 4. If >8k words: split by chapters → delegate to subagents for parallel breakdowns
-5. Write the HTML artifact to `_src/<slug>/index.html` (thesis → SVG diagram → sections → footer) with gate + menu
+5. Write the HTML artifact to `_src/<slug>/index.html` in the paper style (hero → callout → figure → `.mod` per chapter → footer) with gate + paper + menu
 6. Update `_src/manifest.json`, run `./build.py`, verify locally, commit both source and output, push, verify live
 
 ## Pitfalls
@@ -225,5 +284,7 @@ Note: the page returns 404 for the first ~20-30s after push while GitHub Pages b
 - **Never use `innerHTML` to inject decrypted content** — it doesn't run `<script>` tags and silently kills every interactive page. Use `document.write` (see Security model)
 - **Truncated hash** — pre-commit hook catches ellipses in hash-like values
 - **`_src/manifest.json` ordering** — append, don't clobber existing entries
+- **Hand-rolling what `paper.css`/`paper.js` already give you** — a page-local sidebar, gate stylesheet, fullscreen toggle, or colour palette. Link the shared files and use the classes; extend `paper.css` if something is genuinely missing
+- **`.paper a` beats bare class selectors** — prose links are styled at `(0,2,0)`, so any new link component needs `.paper a.thing`, not `.thing`, or it inherits the rust underline
 - **404 after push is normal** — GitHub Pages build takes ~30s
 - **`video_ids` is JSONB in LingoQ** — irrelevant here, but don't confuse the two repos
