@@ -28,6 +28,7 @@ import json
 import os
 import re
 import sys
+from xml.etree import ElementTree
 
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
@@ -154,7 +155,9 @@ LOADER = """<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
+<link rel="icon" href="/pages/shared/favicon.ico" sizes="32x32">
 <link rel="icon" href="/pages/shared/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/pages/shared/apple-touch-icon.png">
 <title>Protected</title>
 <style>
   * {{ margin: 0; padding: 0; box-sizing: border-box; }}
@@ -251,9 +254,33 @@ def leak_check(built_html, source_html, label):
     return True
 
 
+def check_favicon():
+    """A malformed favicon fails silently in the browser — catch it at build time.
+
+    The first version of shared/favicon.svg named the CSS custom properties
+    (--rust, --paper) inside an XML comment. XML forbids '--' there, so every
+    browser refused to parse the file and simply showed no icon: no console
+    error, no failed request, nothing to notice.
+    """
+    path = os.path.join(ROOT, 'shared', 'favicon.svg')
+    if not os.path.exists(path):
+        print('  ! shared/favicon.svg is missing')
+        return False
+    try:
+        ElementTree.parse(path)
+    except ElementTree.ParseError as exc:
+        print('  ✗ shared/favicon.svg is not valid XML: %s' % exc)
+        print("    (a comment containing '--' is the usual cause)")
+        return False
+    return True
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith('-')]
     only = args[0] if args else None
+
+    if not check_favicon():
+        raise SystemExit('\nBuild FAILED: favicon would not render.')
 
     slugs = sorted(d for d in os.listdir(SRC)
                    if os.path.isdir(os.path.join(SRC, d)))

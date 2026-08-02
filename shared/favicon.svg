@@ -1,8 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Research artifacts">
-  <!-- Paper-palette favicon: a cream sheet with a folded corner on a rust tile.
-       Colours are the paper.css tokens (--rust, --paper, --rust-soft) hard-coded,
-       because an <img>/favicon context can't see the stylesheet. Keep the
-       silhouette chunky — this is read at 16px in a tab strip. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Research artifacts">
+  <title>Research artifacts</title>
+  <!-- Paper palette: a cream sheet with a folded corner on a rust tile.
+       Colours are the paper.css token values, hard coded, because a favicon
+       context cannot see the stylesheet. Keep the silhouette chunky: this is
+       read at 16px in a tab strip.
+       NOTE: never write a double hyphen in this comment. XML forbids it inside
+       a comment, so naming the CSS custom properties here makes the whole file
+       unparseable and the icon silently disappears. -->
   <rect width="64" height="64" rx="14" fill="#B4451F"/>
   <path d="M17 20a4 4 0 0 1 4-4h15l11 11v17a4 4 0 0 1-4 4H21a4 4 0 0 1-4-4z" fill="#FBF8F3"/>
   <path d="M36 16l11 11H39a3 3 0 0 1-3-3z" fill="#EFC3AB"/>
