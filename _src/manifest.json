@@ -3,7 +3,7 @@
         {
             "slug": "ai-video-bootcamp",
             "title": "AI Video Bootcamp",
-            "description": "The Skool course, module by module — still images, video models, and ad creative. Each artifact is one module distilled into a working reference.",
+            "description": "The Skool course, module by module — still images, video models, ad creative, and distribution. Each artifact is one module distilled into a working reference.",
             "emoji": "🎬"
         },
         {
@@ -52,6 +52,15 @@
             "group": "ai-video-bootcamp",
             "kicker": "Module 04",
             "order": 4
+        },
+        {
+            "slug": "social-media-viral",
+            "title": "Social Media & Going Viral — Field Guide",
+            "description": "Skool AI Video Bootcamp Module 05 — platform choice, the algorithm's do's and don'ts, engagement tactics, 12 viral niche formats, and a verbatim prompt pack",
+            "emoji": "📱",
+            "group": "ai-video-bootcamp",
+            "kicker": "Module 05",
+            "order": 5
         },
         {
             "slug": "postiz-saas-growth",
