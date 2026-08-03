@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Clone Yourself — Field Guide</title>
+<link rel="icon" href="/pages/shared/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/pages/shared/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/pages/shared/apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/pages/shared/paper.css" />
+<link rel="stylesheet" href="/pages/shared/menu.css" />
+</head>
+<body class="paper"
+      data-title="CLONE YOURSELF"
+      data-meta="FIELD GUIDE · MODULE 07
+SKOOL AI VIDEO BOOTCAMP
+7 SECTIONS · 3 LESSONS">
+
+<div id="password-gate">
+  <div class="gate-box">
+    <div style="font-size:40px;margin-bottom:16px;">🔐</div>
+    <h1>Password Required</h1>
+    <p>Enter the passcode to view</p>
+    <input type="password" id="password-input" placeholder="passcode" autocomplete="off" />
+    <div class="error" id="password-error">Incorrect password</div>
+  </div>
+</div>
+
+<main class="sheet">
+
+<nav class="tabs">
+  <a class="tab" href="#voice-setup">Cloning setup</a>
+  <a class="tab" href="#voice-quality">Voice quality</a>
+  <a class="tab" href="#heygen-avatar">HeyGen avatar</a>
+  <a class="tab" href="#broll-editing">The b-roll cut</a>
+  <a class="tab" href="#six-jobs">Six deployments</a>
+  <a class="tab" href="#time-savers">Time savers</a>
+  <a class="tab" href="#reference">Reference</a>
+</nav>
+
+<header class="hero">
+  <h1>Record the voice and the face once. Deploy them forever.</h1>
+  <p class="lede">Module 07 in three lessons: clone your voice in ElevenLabs, put it on a face with HeyGen's photo-to-video avatar, then stop thinking of either as "a video" and start thinking of them as a production line — one clone, redeployed across every format the content calendar needs.</p>
+</header>
+
+<div class="callout">
+  <p class="callout-label">The one idea</p>
+  <p>A clone is not a video you made once — it's an asset you can recall on demand. Every lesson in this module is building toward the same handoff: stop trading your time for footage, and start trading a script for footage. Once the voice is trained and the face is uploaded, every video after the first is a text edit, not a shoot.</p>
+</div>
+
+<!-- ═══════════ 1. VOICE SETUP ═══════════ -->
+<section class="mod" id="voice-setup" data-group="Voice" data-nav="Cloning setup">
+  <div class="mod-head">
+    <span class="mod-num">01</span>
+    <h2>Voice cloning — the setup</h2>
+    <span class="mod-source">Lesson 1</span>
+  </div>
+
+  <p>Everything downstream — HeyGen avatars, ad variations, course lessons at scale — assumes a voice clone already exists. ElevenLabs is where it gets built: <strong>Voices → Create a Voice</strong>, then a choice between two cloning modes that trade speed for fidelity.</p>
+
+  <div class="cards">
+    <div class="card">
+      <p class="card-kicker">Instant Voice Clone</p>
+      <p class="card-title">Available on any plan, ready in minutes</p>
+      <p>Feed it a short sample and it returns a usable voice almost immediately. The results are genuinely decent — fine for testing a script or a one-off, not what you build a brand's permanent voice on.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Professional Voice Cloning</p>
+      <p class="card-title">Gated to higher plans, slower, the one that lasts</p>
+      <p>Takes real training time and approval before it lands in your voice library — but if the clone has to sound like you across months of content, this is the mode, not instant.</p>
+    </div>
+  </div>
+
+  <h3>The training audio checklist</h3>
+  <p>The clone is only as good as what you feed it. Below the plan-tier decision, quality comes down entirely to the recording, not the model:</p>
+  <ul>
+    <li>At least <strong>30 minutes</strong> of training audio, minimum</li>
+    <li>Clean: no background noise, no music, no echo, no compression</li>
+    <li>Recorded in a quiet room, on a decent microphone</li>
+    <li>Spoken naturally — the register of a YouTube video or an ad, not a stiff read</li>
+    <li>Either record fresh material inside ElevenLabs, or upload past footage of yourself talking — both count as training audio</li>
+  </ul>
+
+  <div class="note">
+    <strong>Name it before you submit it.</strong> Once several voices sit in the same library, an unnamed clone becomes a guessing game months later. Name the voice at submission, then send it for training — professional cloning takes real processing and approval time before it shows up as usable.
+  </div>
+
+  <p><a href="https://www.loom.com/share/90df260a96c8498a929f40a2120e399c">Lesson video: Cloning Your Voice (1m 44s)</a></p>
+</section>
+
+<!-- ═══════════ 2. VOICE QUALITY ═══════════ -->
+<section class="mod" id="voice-quality" data-group="Voice" data-nav="Voice quality">
+  <div class="mod-head">
+    <span class="mod-num">02</span>
+    <h2>Generation and settings — getting a clean take out</h2>
+    <span class="mod-source">Lesson 1 · Lesson 2</span>
+  </div>
+
+  <p>Once a voice is approved, generating from it is the same four steps every time: open <strong>Text to Speech</strong>, select the cloned voice, paste in a script — written by hand or by ChatGPT — and hit generate. The two things worth getting right before that last click are what the script sounds like out loud, and which voice you're actually reaching for.</p>
+
+  <h3>Punctuation is direction, not decoration</h3>
+  <p>The model reads commas and full stops as breath marks. A script written as a block of prose comes back flat; a script written the way the line is actually spoken — with the pauses marked — comes back with real cadence. Write for the ear, not the page.</p>
+
+  <h3>Pick the voice for the job, not for how impressive it sounds</h3>
+  <p>A neutral, general-American read (ElevenLabs' <strong>Rachel</strong>) covers most explainer and hook work. A deeper, more authoritative read (<strong>Adam</strong>) suits a professional or instructional tone. Match the register to what the script is doing before reaching for something more distinctive.</p>
+
+  <div class="note warn">
+    <strong>Listen before you download.</strong> Generation is cheap enough that there's no reason to accept the first take. If the pacing is off, the fix belongs in the script — an added comma, a shorter sentence, a reworded line — not in a settings panel. Each generation covers roughly 5,000 characters; split a longer script across calls rather than forcing it through in one.
+  </div>
+
+  <h3>The lighter option: Voice Changer</h3>
+  <p>Not every job needs a full clone. <strong>Voice Changer</strong> takes a recording you already made, applies a different voice on top, and returns the result — useful for faceless content, or simply when you'd rather not hear your own voice on the final cut. Full cloning is the investment you make once you're committed to a consistent on-camera or on-mic identity; for a single video, the changer is faster to reach for.</p>
+</section>
+
+<!-- ═══════════ 3. HEYGEN AVATAR ═══════════ -->
+<section class="mod" id="heygen-avatar" data-group="Avatar" data-nav="HeyGen avatar">
+  <div class="mod-head">
+    <span class="mod-num">03</span>
+    <h2>HeyGen avatar creation — the talking headshot</h2>
+    <span class="mod-source">Lesson 2</span>
+  </div>
+
+  <p>A voice clone gets you audio. HeyGen's photo-to-video avatar model is what turns a still photo into a talking head that speaks it — and for long-form or talking-headshot content specifically, it's the strongest option available, on one condition: you don't need the character to move. Veo 3.1 will give you movement, but caps out at roughly 8 seconds per generation, which turns a two-minute video into a stitching exercise. If a static, talking figure is enough, HeyGen wins on effort alone.</p>
+
+  <h3>Photo-to-video, in order</h3>
+  <ol>
+    <li><strong>Get a face.</strong> Generate a character in Nano Banana Pro (or your image generator of choice), or skip generation entirely and upload a real photo of yourself.</li>
+    <li><strong>Create → Photo to Video.</strong> Top-left corner of HeyGen.</li>
+    <li><strong>Upload the character image</strong> on the left side of the screen — this is the face that will speak.</li>
+    <li><strong>Upload the audio, or type the script,</strong> on the right side. HeyGen accepts audio uploaded directly from ElevenLabs, which is the detail that makes voice consistency across many generations a solved problem instead of a recurring struggle.</li>
+    <li><strong>Select 1080p and generate.</strong> There's no hard limit on script length, unlike the roughly 15-second ceiling on most video-generation models — HeyGen is built for the long-form case.</li>
+  </ol>
+
+  <div class="note">
+    <strong>Save the voice, reuse the voice.</strong> HeyGen lets you save voices you use often, so the same ElevenLabs clone — or your own recorded voice sitting on top of an avatar photo of yourself, sat down and framed like a talking head — becomes a one-click selection on every future generation rather than a re-upload.
+  </div>
+
+  <p><a href="https://www.loom.com/share/505d0aaf228945babfcf8d3f31bacddb">Lesson video: Headshot Lip-sync Videos With HeyGen (2m 56s)</a></p>
+</section>
+
+<!-- ═══════════ 4. B-ROLL EDITING ═══════════ -->
+<section class="mod" id="broll-editing" data-group="Avatar" data-nav="The b-roll cut">
+  <div class="mod-head">
+    <span class="mod-num">04</span>
+    <h2>The b-roll cut — editing around the lip-sync</h2>
+    <span class="mod-source">Lesson 2</span>
+  </div>
+
+  <p>HeyGen's lip-sync isn't flawless, and the model has no motion to fall back on to hide it — which is exactly why the edit matters more here than on any generated clip with camera movement. The fix isn't a better generation, it's a familiar TV trick: never let the avatar carry the whole video alone.</p>
+
+  <h3>The cut-back rhythm</h3>
+  <p>When the script mentions a specific thing, cut to a shot of that thing on screen, over the avatar's audio. Hold it briefly, cut back to the avatar for a beat, then return to b-roll. That rhythm — avatar, cutaway, avatar, cutaway — reads as far more natural than a static talking head running the entire length of the video, and it's the same principle a UGC ad made in Veo3 depends on: the viewer wants to see the product, not just the person describing it.</p>
+
+  <div class="note warn">
+    <strong>B-roll is also a glitch patch.</strong> Any generated clip can come back with a rough few seconds — a warped mouth shape, a flicker. Rather than regenerating the entire take to fix a five-second problem, cover the bad stretch with a b-roll cutaway. The audio keeps running underneath; the viewer never sees the artefact.
+  </div>
+
+  <p>None of this is specific to HeyGen. The same cut-back discipline applies to any talking-head generation, and it's the difference between footage that reads as "an AI made this" and footage that reads as produced content — regardless of which model rendered the face.</p>
+</section>
+
+<!-- ═══════════ 5. SIX DEPLOYMENTS ═══════════ -->
+<section class="mod" id="six-jobs" data-group="Repurposing" data-nav="Six deployments">
+  <div class="mod-head">
+    <span class="mod-num">05</span>
+    <h2>One clone, many jobs — the six deployments</h2>
+    <span class="mod-source">Lesson 3</span>
+  </div>
+
+  <p>Everything above produces one asset: a face that can say anything, in your voice, on demand. The shift this lesson makes is refusing to think of that asset as a video — it's a production line. The same clone, redeployed, covers six distinct jobs without a single new recording.</p>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Talking-head content</span><span class="entry-tag">daily output</span></div>
+    <p class="entry-when">Use for hooks, explanations and authority clips on TikTok, Reels, Shorts and ads — anywhere daily short-form is expected.</p>
+    <p>The camera day disappears entirely. What used to require setting up a shot now requires a script.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Ad variations without reshooting</span><span class="entry-tag">performance</span></div>
+    <p class="entry-when">Use when a creative is fatiguing and needs a refresh, or when you want to test which version of a message actually converts.</p>
+    <p>Same message with a different hook, the same script at a different pace, the same ad with several different CTAs — each is a text edit and a regeneration, not a new shoot.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Course lessons at scale</span><span class="entry-tag">education</span></div>
+    <p class="entry-when">Use for any course, onboarding flow or training library that needs to exist in more than one language, or gets updated more than once.</p>
+    <p>Record once and regenerate forever: fix a mistake without re-recording, update a lesson without reopening a studio, localise the entire course for a new market by swapping the script's language. What used to gate a course's build time on studio availability now runs on the order of 20x faster.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Podcast clips</span><span class="entry-tag">audio → video</span></div>
+    <p class="entry-when">Use to give audio-only content a face — turning a written or spoken clip into a face-to-camera podcast snippet for social.</p>
+    <p>The value here is presence: a clip that was just audio now has someone visibly saying it, which is the format most platforms reward.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Brand intros / outros</span><span class="entry-tag">consistency</span></div>
+    <p class="entry-when">Use for the opening and closing seconds that should look identical across every video a brand puts out.</p>
+    <p>A consistent, professional-looking open and close no longer costs a reshoot every time the branding changes — update the clone's line once and every future video inherits it.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">A/B testing ads without filming again</span><span class="entry-tag">testing</span></div>
+    <p class="entry-when">Use to test tone, pace and confidence, or long-form versus short-form explanations of the same offer — without ever re-booking a shoot.</p>
+    <p>Because the variable under test is the script rather than the performance, every version starts from the same face and voice — the test measures the message, not a difference in delivery you didn't intend.</p>
+  </div>
+</section>
+
+<!-- ═══════════ 6. TIME SAVERS ═══════════ -->
+<section class="mod" id="time-savers" data-group="Repurposing" data-nav="Time savers">
+  <div class="mod-head">
+    <span class="mod-num">06</span>
+    <h2>Advanced time savers</h2>
+    <span class="mod-source">Lesson 3</span>
+  </div>
+
+  <p>Past the six use cases sits a smaller set of habits that compound — less about what the clone can be used for, and more about how much of the old production overhead it quietly removes.</p>
+
+  <div class="rows numbered">
+    <div class="row">
+      <div class="row-idx">01</div>
+      <div><div class="row-name">No more camera days</div></div>
+      <div class="row-body">
+        <p>No lights to set, no framing to check, no retakes, no bad-hair or low-energy day to work around. The clone is always well lit, always on-brand, always consistent, and ready the instant you have a script. That alone saves hours a week that used to go to setup.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">02</div>
+      <div><div class="row-name">Script → video in minutes</div></div>
+      <div class="row-body">
+        <p>Write the line in ChatGPT, generate the video. If the hook isn't landing, rewrite and regenerate only the first two seconds — the rest of the video doesn't need to be touched. Swapping a CTA works the same way: change the line, not the take.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">03</div>
+      <div><div class="row-name">Infinite versions from one idea</div></div>
+      <div class="row-body">
+        <p>One concept can fan out into three hook styles, two pacing styles, two emotional tones and two CTAs — a dozen distinct videos built from a single idea, none of them requiring a new recording.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">04</div>
+      <div><div class="row-name">Clone as your front-end</div></div>
+      <div class="row-body">
+        <p>Put the clone to work explaining the offer, answering FAQs, breaking down pricing, addressing objections, welcoming new users. The face is doing customer-facing work around the clock without the person behind it being present for any of it.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">05</div>
+      <div><div class="row-name">Burnout protection</div></div>
+      <div class="row-body">
+        <p>On a day with nothing left in the tank, the posting schedule doesn't know it. The clone still posts, the ads still run, the brand still speaks — output stops being tied to how the person behind it feels that day.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Cloning is the infrastructure, not the content.</strong> Every job on this page depends on the same two assets: a trained voice and an uploaded face. Build those once, well, and the rest of the module — HeyGen avatars, ad variants, course libraries — is just what you point them at.
+  </div>
+</section>
+
+<!-- ═══════════ 7. REFERENCE ═══════════ -->
+<section class="mod" id="reference" data-group="Reference" data-nav="Reference desk">
+  <div class="mod-head">
+    <span class="mod-num">07</span>
+    <h2>Reference desk — toolchain, videos, links</h2>
+    <span class="mod-source">Lesson 1 · Lesson 2 · module README</span>
+  </div>
+
+  <h3>The toolchain</h3>
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Tool</th><th>Job in this module</th><th>Link</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>ElevenLabs</strong></td><td>Professional / instant voice cloning, Text to Speech, Voice Changer</td><td><a href="https://elevenlabs.io">elevenlabs.io</a></td></tr>
+        <tr><td><strong>HeyGen</strong></td><td>Photo-to-video avatar — lip-sync from an uploaded photo plus a script or audio file</td><td><a href="https://www.heygen.com">heygen.com</a></td></tr>
+        <tr><td><strong>Nano Banana Pro</strong></td><td>Generating a character face when there's no real photo to clone</td><td>—</td></tr>
+        <tr><td><strong>Veo 3.1</strong></td><td>The movement alternative to HeyGen — roughly an 8-second ceiling per generation</td><td>—</td></tr>
+        <tr><td><strong>ChatGPT / any AI chat</strong></td><td>Writing and rewriting scripts, hooks and CTAs ahead of each regeneration</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Module videos</h3>
+  <p>2 of 3 lessons carry video — 4m 40s in total. The third, "One Clone, Many Jobs," is a written playbook with no accompanying recording.</p>
+  <ul>
+    <li><a href="https://www.loom.com/share/90df260a96c8498a929f40a2120e399c">Cloning Your Voice</a> — 1m 44s</li>
+    <li><a href="https://www.loom.com/share/505d0aaf228945babfcf8d3f31bacddb">Headshot Lip-sync Videos With HeyGen</a> — 2m 56s</li>
+  </ul>
+  <p>Original classroom: <a href="https://www.skool.com/aivideobootcamp/classroom/436ea398">skool.com/aivideobootcamp</a></p>
+
+  <div class="note">
+    <strong>The working sequence.</strong> Train the voice properly once — 30 minutes of clean audio, professional cloning if the brand depends on it. Generate speech with punctuation doing the pacing, and pick the voice for the job rather than the impressive one. Put that voice on a face in HeyGen when the job is long-form or talking-head. Edit with the cut-back rhythm so the lip-sync never has to carry the whole video on its own. Then stop treating any of it as a single video — point the same clone at every format on the calendar.
+  </div>
+</section>
+
+<footer class="sheet-footer">
+  Skool AI Video Bootcamp · Module 07 — Clone Yourself · 3 lessons<br />
+  Voice Cloning · HeyGen Avatars · The B-roll Cut · Six Deployments · Time Savers
+</footer>
+
+</main>
+
+<script>
+(function(){
+  const HASH = "2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e";
+  const gate = document.getElementById('password-gate');
+  const input = document.getElementById('password-input');
+  const error = document.getElementById('password-error');
+
+  async function sha256(str) {
+    const buf = new TextEncoder().encode(str);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  async function check() {
+    const digest = await sha256(input.value);
+    if (digest === HASH) {
+      gate.classList.add('hidden');
+      localStorage.setItem('pages_pass', digest);
+    } else {
+      error.style.display = 'block';
+      setTimeout(() => error.style.display = 'none', 2000);
+    }
+  }
+
+  // Auto-check stored hash
+  (async function(){
+    const stored = localStorage.getItem('pages_pass');
+    if (stored === HASH) { gate.classList.add('hidden'); return; }
+  })();
+
+  input.addEventListener('keydown', function(e){ if (e.key === 'Enter') check(); });
+})();
+</script>
+<script src="/pages/shared/paper.js"></script>
+<script src="/pages/shared/menu.js"></script>
+
+</body>
+</html>

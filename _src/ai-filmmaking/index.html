@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Filmmaking — Field Guide</title>
+<link rel="icon" href="/pages/shared/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/pages/shared/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/pages/shared/apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/pages/shared/paper.css" />
+<link rel="stylesheet" href="/pages/shared/menu.css" />
+</head>
+<body class="paper"
+      data-title="AI FILMMAKING"
+      data-meta="FIELD GUIDE · MODULE 06
+SKOOL AI VIDEO BOOTCAMP
+7 SECTIONS · 7 LESSONS">
+
+<div id="password-gate">
+  <div class="gate-box">
+    <div style="font-size:40px;margin-bottom:16px;">🔐</div>
+    <h1>Password Required</h1>
+    <p>Enter the passcode to view</p>
+    <input type="password" id="password-input" placeholder="passcode" autocomplete="off" />
+    <div class="error" id="password-error">Incorrect password</div>
+  </div>
+</div>
+
+<main class="sheet">
+
+<nav class="tabs">
+  <a class="tab" href="#why">Why AI</a>
+  <a class="tab" href="#story">Story</a>
+  <a class="tab" href="#shotlist">Shot List</a>
+  <a class="tab" href="#pipeline">Pipeline</a>
+  <a class="tab" href="#animation">Animation</a>
+  <a class="tab" href="#frostfall">Frostfall</a>
+  <a class="tab" href="#warcraft">Warcraft</a>
+</nav>
+
+<header class="hero">
+  <h1>The gatekeepers didn't retire. The pipeline replaced them.</h1>
+  <p class="lede">Module 06 in the order it actually runs: why a laptop now does what a crew used to, how to make ChatGPT write a story worth watching, how to turn that story into a shot list a video model can follow, the nine-step pipeline that assembles a finished short, the same workflow bent into any animation style, and two finished films — Frostfall and a World of Warcraft short — that prove the whole chain end to end.</p>
+</header>
+
+<div class="callout">
+  <p class="callout-label">The one idea</p>
+  <p>A finished short film is not one generation, it's a <strong>pipeline of five decisions</strong> handed off in sequence: ChatGPT writes the story and the shot list, an image model builds the frame, a video model adds the motion, CapCut assembles and takes the AI polish back off, and a sound pass does the rest. Skip a link — a vague prompt, animating before the frame is right, silence where sound should be — and the model fills the gap with its own default, which is never the one you wanted. The craft isn't operating a camera anymore. It's making sure nothing downstream gets to guess.</p>
+</div>
+
+<!-- ═══════════ 1. WHY ═══════════ -->
+<section class="mod" id="why" data-group="Foundations" data-nav="Why the gatekeepers are gone">
+  <div class="mod-head">
+    <span class="mod-num">01</span>
+    <h2>How AI is changing filmmaking</h2>
+    <span class="mod-source">Lesson 1 · 3m 23s</span>
+  </div>
+
+  <p>Filmmaking used to be a list of things you needed before you were allowed to start: a camera, a crew, actors, a location, editors, and — more than any of those — time. That list was the gate. No money, no gear, no connections meant the film stayed a script, or stayed a dream. Even for working professionals, a finished piece of visual storytelling took weeks or months, because every shot and every cut had to be built by hand.</p>
+
+  <p>None of those requirements has disappeared technically — each one has been replaced, in turn, by a tool that does the same job from a laptop. That substitution is the whole module in miniature:</p>
+
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>What it used to take</th><th>What replaces it</th><th>Tool</th></tr></thead>
+      <tbody>
+        <tr><td>A screenwriter, weeks of drafts</td><td>Ideation, structure, and pacing in minutes</td><td>ChatGPT</td></tr>
+        <tr><td>A location scout and a cinematographer</td><td>Cinematic shots from a text description</td><td>Midjourney / Nano Banana Pro</td></tr>
+        <tr><td>Voice actors, studio time</td><td>Cloned or synthetic voices, any accent, any emotion</td><td>ElevenLabs</td></tr>
+        <tr><td>Actors, a camera operator, a crew</td><td>Character performance, camera motion, lip-sync</td><td>Kling / Higgsfield / Seedance</td></tr>
+        <tr><td>An edit suite and a colourist</td><td>Assembly, sound, captions, the finishing pass</td><td>CapCut</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>What that substitution actually changes is who gets to direct. A 16-year-old in Indonesia can tell a sci-fi story at a Hollywood visual standard. A solo creator can recreate a historical epic with no set. A startup can go from idea to a cinematic ad in 48 hours. None of that requires a studio — it requires a vision and the willingness to keep prompting until the frame matches what's in your head. That role has a name now: <strong>prompt engineer</strong>, or, less awkwardly, director. The rest of this module is the workflow that role actually runs, day to day.</p>
+
+  <p><a href="https://www.loom.com/share/9b05baca64934c3fadf0da69aebc3e24">Lesson video: How AI Is Changing Filmmaking (3m 23s)</a></p>
+</section>
+
+<!-- ═══════════ 2. STORY ═══════════ -->
+<section class="mod" id="story" data-group="Foundations" data-nav="Hook, conflict, resolution">
+  <div class="mod-head">
+    <span class="mod-num">02</span>
+    <h2>Storytelling and ChatGPT scriptwriting</h2>
+    <span class="mod-source">Lesson 2 · 4m 46s</span>
+  </div>
+
+  <p>The tell of a technically perfect AI video that nobody finishes watching is always the same: stunning visuals, epic music, and no story underneath. Humans have been wired for narrative since the campfire; the tools changed, the structure that makes people stay didn't. Every story that works — a three-hour film or a thirty-second TikTok — runs the same four beats.</p>
+
+  <div class="rows numbered">
+    <div class="row">
+      <div class="row-idx">L1</div>
+      <div><div class="row-name">Start with a hook</div></div>
+      <div class="row-body"><p>Two seconds to give someone a reason to care: a question, a mystery, something unexpected. <em>POV: you wake up in ancient Egypt and everyone thinks you're a god.</em> The hook doesn't have to be text — a single strong visual works the same way, the way one 170-million-view short opens on a turtle trapped on the road about to be hit by a bus.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">L2</div>
+      <div><div class="row-name">Introduce conflict</div></div>
+      <div class="row-body"><p>A problem, danger, a secret, a twist — anything that makes someone want to know what happens next. <em>Your father left you a message: don't trust anyone in the palace.</em> That's suspense, and suspense is what keeps a viewer past the first three seconds.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">L3</div>
+      <div><div class="row-name">Close the loop</div></div>
+      <div class="row-body"><p>Wrap it up. Don't leave the viewer hanging unless that's a deliberate choice, not an accident.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">L4</div>
+      <div><div class="row-name">Answer the question</div></div>
+      <div class="row-body"><p>The reveal, ideally a twist. <em>You weren't sent to save the kingdom — you were sent to destroy it.</em> That kind of turn is what earns a follow, not just a view.</p></div>
+    </div>
+  </div>
+
+  <h3>Getting ChatGPT to write it for you</h3>
+  <p>You don't need to be a screenwriter — you need a chain of increasingly specific prompts. The pattern that works:</p>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">The scriptwriting chain</span><span class="entry-tag">chatgpt</span></div>
+    <p class="entry-flow">"Write a 60-second fantasy story in first-person POV, add a dramatic hook, a central conflict, and a twist ending" → "make it more emotional, add a betrayal scene, give it a tragic ending like Game of Thrones" → "write a dramatic first-person POV voiceover script for this story" → paste into ElevenLabs</p>
+    <p>The first prompt returns a full short story built for cinematic AI video. Don't settle for that draft — the second round is where the tone gets shaped. By the time you ask for the voiceover version, ChatGPT already has the finished story in context, so the narration matches it exactly instead of restating it generically.</p>
+  </div>
+
+  <p>Combine strong structure with the tool chain — ChatGPT for the story, Midjourney for the frame, Kling for the motion, ElevenLabs for the voice — and the output stops being a demo reel and starts being a story someone finishes.</p>
+
+  <p><a href="https://www.loom.com/share/b68de2fd0a3e4c15934d8f269695ec3e">Lesson video: Storytelling &amp; ChatGPT Scriptwriting (4m 46s)</a></p>
+</section>
+
+<!-- ═══════════ 3. SHOT LIST ═══════════ -->
+<section class="mod" id="shotlist" data-group="Pipeline" data-nav="Script to shot list">
+  <div class="mod-head">
+    <span class="mod-num">03</span>
+    <h2>Planning motion — from script to shot list</h2>
+    <span class="mod-source">Lesson 3 · 5m 48s</span>
+  </div>
+
+  <p>A script is words. A film is a sequence of camera decisions — a wide shot to make a character feel small and lost, a close-up to get inside their head, a slow pan to build tension, a fast zoom for depth, a shaky handheld for something that feels raw. None of that happens by accident, and none of it has to be decided shot-by-shot from scratch: hand the whole script to ChatGPT and ask it to direct.</p>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">The shot-list prompt</span><span class="entry-tag">chatgpt</span></div>
+    <p class="entry-when">Run this once you already have a script from the previous step — paste the script underneath the instruction so ChatGPT knows exactly what it's shot-listing.</p>
+    <p class="entry-flow">"Turn this [genre] script into a cinematic shot list. For each, describe the camera angle, movement, and emotional tone, and write a matching Midjourney prompt for a hyper-realistic 4K image. There should be [12] camera angles for the [6] scenes. Vary the camera angles — for example a close-up and a wide shot."</p>
+    <p>What comes back is two shots per scene, each with a camera direction and a ready-to-paste Midjourney prompt — a full shot list built in one message. You're the director; ChatGPT is the assistant cinematographer, and it takes notes exactly like one: "replace shot 3 with a slow pan instead of handheld," "make the creature design more grotesque in the prompts." Treat the first output as a rough guide, not a contract — cut a scene you don't like, add one you thought of afterward.</p>
+  </div>
+
+  <h3>The rest of the chain, in order</h3>
+  <ol>
+    <li><strong>Midjourney</strong> — generate each shot's image from the prompt ChatGPT wrote for it.</li>
+    <li><strong>Kling</strong> — paste ChatGPT's <em>camera movement</em> line straight into the video prompt box, so the motion matches what was planned rather than whatever the model defaults to.</li>
+    <li><strong>CapCut</strong> — cut the generations together; split a clip into multiple fast segments where a scene needs pace, and add transitions.</li>
+    <li><strong>Pixabay</strong> — go scene by scene and imagine what you'd actually hear, then search and stack. One shot in the source example carries over thirteen layered sound effects — growl, background noise, heavy breathing — because a single sound effect never reads as a real environment.</li>
+  </ol>
+
+  <div class="note">
+    <strong>The quality ceiling is time, not the tools.</strong> A mix of close-ups, mid-range shots, handheld action and drone aerials is what makes a sequence read as directed rather than generated. How far you push the fine-tuning on the edit is the only variable left that isn't already automated.
+  </div>
+
+  <p><a href="https://www.loom.com/share/3e50f0404613459d8f7d462f77667841">Lesson video: Planning Motion (5m 48s)</a></p>
+</section>
+
+<!-- ═══════════ 4. PIPELINE ═══════════ -->
+<section class="mod" id="pipeline" data-group="Pipeline" data-nav="The 9-step pipeline">
+  <div class="mod-head">
+    <span class="mod-num">04</span>
+    <h2>Bringing it together — the short-film pipeline</h2>
+    <span class="mod-source">Lesson 4 · 7m 32s</span>
+  </div>
+
+  <p>This is the full pipeline in the order it actually ran, end to end, for a real short-film trailer — the one ChatGPT named <strong>Frostfall</strong> when asked for an idea, and the same project the case study below shows finished. Nine steps, one tool per step, nothing skipped.</p>
+
+  <div class="rows numbered">
+    <div class="row">
+      <div class="row-idx">1</div>
+      <div><div class="row-name">The idea and the script</div></div>
+      <div class="row-body"><p>One simple prompt to ChatGPT: a 1-minute-30 script and idea for a short-film trailer, including Midjourney prompts. Don't overcomplicate the ask — the simple version is the one that works.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">2</div>
+      <div><div class="row-name">Push the prompts for detail</div></div>
+      <div class="row-body"><p>The first pass of Midjourney prompts is rarely detailed enough — ask ChatGPT to make them more detailed and specific. If a scene isn't clear yet, change the ask instead: "give me the scenes, camera angles, and dialogue for the opening scene."</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">3</div>
+      <div><div class="row-name">Lock a character, then direct around it</div></div>
+      <div class="row-body"><p>Once a generated character or alien looks right, feed that image back into ChatGPT and let it tailor every following prompt around that specific look — the story direction and the visual reference develop together instead of separately.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">4</div>
+      <div><div class="row-name">Generate images, with Omni Reference for consistency</div></div>
+      <div class="row-body"><p>Take every prompt into Midjourney. Anywhere a character or alien recurs, use Omni Reference at a value between <strong>300 and 1000</strong> to keep the same face across scenes. Re-run a prompt as many times as it takes — getting the one shot that's actually usable matters more than getting it fast.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">5</div>
+      <div><div class="row-name">Clean and upscale every image</div></div>
+      <div class="row-body"><p>Canva for lighting fixes and removing anything unwanted from the frame, then upscale with <strong>Topaz Gigapixel AI</strong>. Do this to every single image, not just the hero shots — consistent resolution going in is what keeps the animated results consistent coming out.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">6</div>
+      <div><div class="row-name">Animate</div></div>
+      <div class="row-body"><p>Kling, on simple prompts — muted colours and subtle motion, especially toward the end of the clip. A model like Minimax/Hailuo (its Model 2 gives clean generations) is worth mixing in alongside Kling for variety across a longer piece.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">7</div>
+      <div><div class="row-name">Assemble in CapCut</div></div>
+      <div class="row-body"><p>Order the clips, then shorten the ones that need to move faster — some cut down so far they flash rather than play. Keep transitions minimal: mostly black fades. Reserve actual effects for moments that specifically need them — a camera shake exactly when the spaceship hits the mountain, a screen glitch for impact — rather than applying one effect everywhere.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">8</div>
+      <div><div class="row-name">Sound effects, layered</div></div>
+      <div class="row-body"><p>Go scene by scene: picture what you'd hear there, search it on Pixabay, download, stack. Layer as many as it takes per scene and adjust each one's volume individually until it reads as one environment instead of one sound effect playing under a picture.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">9</div>
+      <div><div class="row-name">Music</div></div>
+      <div class="row-body"><p>Sourced from YouTube, downloaded with Cobalt. Credit the artist when you do this.</p></div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>This is the reference sequence for the rest of the module.</strong> Every case study below is this same nine-step chain applied to a different premise — the tools and the order don't change; only the idea at step one does.
+  </div>
+
+  <p><a href="https://www.loom.com/share/6138864b5e23422aa8bafeefdf99fae3">Lesson video: Bringing It Together, Creating Short Films (7m 32s)</a></p>
+</section>
+
+<!-- ═══════════ 5. ANIMATION ═══════════ -->
+<section class="mod" id="animation" data-group="Pipeline" data-nav="Any style, one workflow">
+  <div class="mod-head">
+    <span class="mod-num">05</span>
+    <h2>Animation — any style, the same workflow</h2>
+    <span class="mod-source">Lesson 5 · 5m 10s</span>
+  </div>
+
+  <p>Animation used to mean a team: illustrators, animators, voice actors, editors, and months of work before a single finished scene existed. The pipeline from the last section doesn't change to produce one — it just points at a different style. Name almost any visual language in a Midjourney prompt and it comes back recognisable: Pixar, anime, Disney, stop-motion, Rick and Morty, Wallace and Gromit. If there's a show or franchise you already love the look of, typing its name in is enough — Midjourney references the style directly.</p>
+
+  <div class="cards">
+    <div class="card">
+      <p class="card-kicker">Style lock</p>
+      <p class="card-title">Reuse the image you like as the style reference</p>
+      <p>The moment a generated frame looks exactly like the scene in your head, feed it back into Midjourney as the style reference for every image after it — that's what keeps a whole animated short visually consistent scene to scene.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Character lock</p>
+      <p class="card-title">Omni Reference, 300–1000</p>
+      <p>Same technique as the live-action pipeline: a character you love stays the same character across every scene at an Omni Reference value between 300 and 1000. Style reference and Omni Reference can run at the same time on one generation.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Voice</p>
+      <p class="card-title">ElevenLabs, chosen or cloned</p>
+      <p>Pick a stock voice for each character or clone one you already have, then generate the line from either your own script or the one ChatGPT wrote.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Often: skip lip-sync entirely</p>
+      <p class="card-title">Stylised mouths move too fast to need it</p>
+      <p>Most animated styles don't hold still on a mouth long enough for lip-sync to matter — generate the motion straight and cut the audio in afterward. Kling's higher-quality tier (1080p) is enough for this when there's no lip-sync to worry about.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Course update — read this before choosing a lip-sync model.</strong> The lesson recommends Hedra for scenes that do need lip-sync (start frame + audio + a short prompt). The course's own follow-up notes supersede that: use <strong>Gemini Omni or Seedance</strong> for lip-sync instead — Hedra is now outdated. Likewise, reach for <strong>Kling 3.0</strong> specifically for movement and cinematic shots, and generate the frames themselves in <strong>Nano Banana Pro, GPT Image 2.0, or Midjourney</strong> — whichever renders the chosen style best.
+  </div>
+
+  <p>Everything downstream is identical to the live-action pipeline: CapCut for assembly, Pixabay for sound effects and music, captions on top. Nothing about "it's animated" changes the assembly — only the reference images and the voice choice do. There's nothing stopping the same workflow from carrying a full anime miniseries, one episode at a time.</p>
+
+  <p><a href="https://www.loom.com/share/12d19fa592964a7cac8d80bfa7ddbedc">Lesson video: Animation (5m 10s)</a></p>
+</section>
+
+<!-- ═══════════ 6. FROSTFALL ═══════════ -->
+<section class="mod" id="frostfall" data-group="Case studies" data-nav="Frostfall">
+  <div class="mod-head">
+    <span class="mod-num">06</span>
+    <h2>Case study — Frostfall</h2>
+    <span class="mod-source">Lesson 6 · 2m 10s · video only, no transcript</span>
+  </div>
+
+  <p>Frostfall is the project the previous two sections describe building — a short-film trailer that started as a single ChatGPT prompt ("give me a 1m30 script and idea for a short film, with Midjourney prompts") and came back with its own title. This lesson has no written transcript; it's the finished 2-minute cut, watchable at the link below. What's worth carrying forward is what the nine-step pipeline actually produced at each link, concretely:</p>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Frostfall — the chain, start to finish</span><span class="entry-tag">case study</span></div>
+    <p class="entry-flow">ChatGPT (idea + script + Midjourney prompts, refined twice for detail) → Midjourney (images, Omni Reference 300–1000 on the recurring alien/character) → Canva (lighting, object removal) → Topaz Gigapixel (upscale every frame, no exceptions) → Kling + Minimax/Hailuo Model 2 (animate, muted colour, subtle motion at each clip's end) → CapCut (order, shorten for pace, black-fade transitions only, a camera shake exactly on the spaceship-into-mountain impact, a screen glitch for effect) → Pixabay (scene-by-scene layered sound effects) → YouTube via Cobalt (music, credited)</p>
+    <p>Two details worth keeping as defaults rather than one-offs: the animation prompts stayed deliberately simple — muted colours, subtle motion — because a plain instruction survives a 15-second generation better than an elaborate one; and only two effects were used across the whole edit, each tied to a specific beat, rather than a shake or a glitch applied indiscriminately across every cut.</p>
+  </div>
+
+  <p><a href="https://vimeo.com/1103061296?share=copy">Watch: Frostfall (2m 10s, Vimeo)</a></p>
+</section>
+
+<!-- ═══════════ 7. WARCRAFT ═══════════ -->
+<section class="mod" id="warcraft" data-group="Case studies" data-nav="World of Warcraft">
+  <div class="mod-head">
+    <span class="mod-num">07</span>
+    <h2>Case study — World of Warcraft</h2>
+    <span class="mod-source">Lesson 7 · 1m 41s · video only, no transcript</span>
+  </div>
+
+  <p>The shortest lesson in the module, and also video-only with no transcript — there's no shot-by-shot breakdown of this one to reconstruct. What it demonstrates, based on the technique the Animation lesson already establishes, is the one variable the pipeline changes for an existing franchise rather than an original idea: <strong>the style input stops being invented and starts being named.</strong></p>
+
+  <p>Lesson 5 states the technique directly — type a known show, film, or game into the image prompt and the model references its visual language without any further art direction needed. World of Warcraft applies that same move to an established fantasy universe instead of an original premise like Frostfall: name the franchise in the Midjourney/Nano Banana prompt, generate the world's characters and environments in its own recognisable style, then run the identical assembly chain from the sections above — Omni Reference to hold a hero character's face across shots, Kling for camera-directed motion, CapCut for the cut, Pixabay for sound.</p>
+
+  <div class="note warn">
+    <strong>What's confirmed versus inferred.</strong> Everything in this section beyond "it's a World of Warcraft short built with the module's pipeline" is extrapolated from the named-franchise technique in Lesson 5, not from a transcript of this video — there isn't one. Watch the clip itself for the actual shots and prompts used.
+  </div>
+
+  <p><a href="https://vimeo.com/1103058663?share=copy">Watch: World Of Warcraft (1m 41s, Vimeo)</a></p>
+</section>
+
+<footer class="sheet-footer">
+  Skool AI Video Bootcamp · Module 06 — AI Filmmaking · 7 lessons · 30m 30s total<br />
+  Story Structure · Shot Lists · The 9-Step Pipeline · Any-Style Animation · Frostfall · World of Warcraft
+</footer>
+
+</main>
+
+<script>
+(function(){
+  const HASH = "2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e";
+  const gate = document.getElementById('password-gate');
+  const input = document.getElementById('password-input');
+  const error = document.getElementById('password-error');
+
+  async function sha256(str) {
+    const buf = new TextEncoder().encode(str);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  async function check() {
+    const digest = await sha256(input.value);
+    if (digest === HASH) {
+      gate.classList.add('hidden');
+      localStorage.setItem('pages_pass', digest);
+    } else {
+      error.style.display = 'block';
+      setTimeout(() => error.style.display = 'none', 2000);
+    }
+  }
+
+  // Auto-check stored hash
+  (async function(){
+    const stored = localStorage.getItem('pages_pass');
+    if (stored === HASH) { gate.classList.add('hidden'); return; }
+  })();
+
+  input.addEventListener('keydown', function(e){ if (e.key === 'Enter') check(); });
+})();
+</script>
+<script src="/pages/shared/paper.js"></script>
+<script src="/pages/shared/menu.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Advanced Flows — Field Guide</title>
+<link rel="icon" href="/pages/shared/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/pages/shared/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/pages/shared/apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/pages/shared/paper.css" />
+<link rel="stylesheet" href="/pages/shared/menu.css" />
+</head>
+<body class="paper"
+      data-title="ADVANCED FLOWS"
+      data-meta="FIELD GUIDE · MODULE 03
+SKOOL AI VIDEO BOOTCAMP
+7 SECTIONS · 7 LESSONS">
+
+<div id="password-gate">
+  <div class="gate-box">
+    <div style="font-size:40px;margin-bottom:16px;">🔐</div>
+    <h1>Password Required</h1>
+    <p>Enter the passcode to view</p>
+    <input type="password" id="password-input" placeholder="passcode" autocomplete="off" />
+    <div class="error" id="password-error">Incorrect password</div>
+  </div>
+</div>
+
+<main class="sheet">
+
+<nav class="tabs">
+  <a class="tab" href="#flows-intro">Why Flows</a>
+  <a class="tab" href="#canvas">Canvas</a>
+  <a class="tab" href="#image-nodes">Image Nodes</a>
+  <a class="tab" href="#video-audio-nodes">Video &amp; Audio</a>
+  <a class="tab" href="#toolkit">Toolkit</a>
+  <a class="tab" href="#magicflow">MagicFlow</a>
+  <a class="tab" href="#ten-minute-ad">10-Minute Ad</a>
+</nav>
+
+<header class="hero">
+  <h1>You already know the tools. Flows is where you stop running them one at a time.</h1>
+  <p class="lede">Everything from Module 03, reorganised into the order you'd actually build in: understand why the canvas exists, learn what a node is and how two run modes handle the sequencing, chain image → video → audio, pick up the supporting tools that remove the usual stalls, then let MagicFlow lay the whole thing down for you — end to end, in the time it takes to make coffee.</p>
+</header>
+
+<div class="callout">
+  <p class="callout-label">The big idea</p>
+  <p>A flow is not a shortcut for making one video — it's a machine you build once and run again. Connect an image node into a video node and that image becomes the start frame automatically; connect it into a storyboard node instead and one image becomes an entire scene's worth of continuation shots. No downloading, re-uploading, or losing track of which file was which. Build the chain by hand when you know exactly what you want, or describe the concept to <strong>MagicFlow</strong> and let it lay down the whole canvas — nodes, prompts, and running order — for you to approve shot by shot before a single credit is spent on video. Either way the destination is the same: press <strong>Run Flow</strong> once and walk away with a finished ad.</p>
+</div>
+
+<!-- ═══════════ 1. FLOWS INTRO ═══════════ -->
+<section class="mod" id="flows-intro" data-group="Foundations" data-nav="Why flows exists">
+  <div class="mod-head">
+    <span class="mod-num">01</span>
+    <h2>Why flows exists — multiplication, not replacement</h2>
+    <span class="mod-source">Lesson 1 · 1m 43s</span>
+  </div>
+
+  <p>Everything before this module taught the individual parts of AI creation: tools, models, prompts, images, video, consistency, motion, the thinking that has to happen before you generate anything at all. Flows is where those parts start connecting to each other instead of living as separate, disconnected steps.</p>
+
+  <p>Flows is PromptWise's node-based creation system — a visual canvas where each AI step becomes a block, and blocks connect to each other with lines. Instead of generating an image, downloading it, and re-uploading it into a video tool, you draw one connection and the output moves forward on its own. Build the chain once; the system runs the steps in the correct order every time after that.</p>
+
+  <div class="note">
+    <strong>Flows doesn't change what makes a good generation — only what happens after it.</strong> The prompt framework you already use still matters here exactly as much as it did before: subject, environment, camera, lighting, mood, style, motion, consistency. Nodes are the same core tools as PromptWise's Studio, not a simplified version of them. What changes is that a strong image doesn't dead-end at "download" anymore — it becomes the input to the next step automatically.
+  </div>
+</section>
+
+<!-- ═══════════ 2. THE CANVAS ═══════════ -->
+<section class="mod" id="canvas" data-group="Foundations" data-nav="The canvas, nodes &amp; running">
+  <div class="mod-head">
+    <span class="mod-num">02</span>
+    <h2>The canvas — nodes, connections, and two ways to run them</h2>
+    <span class="mod-source">Lesson 2 · 7m 08s</span>
+  </div>
+
+  <p>Think of the canvas as a big creative whiteboard. Every block you place on it is a <strong>node</strong>, and every node does exactly one job — generate an image, generate a video, hold a gallery, store a prompt. You place nodes by clicking them in the sidebar or dragging them onto the canvas, drop images or video straight in from your desktop (leave them as loose visual reference, or hit <em>convert</em> to turn them into a working node), and draw a connection by dragging from one node's corner to another. Whatever a node produces becomes available to whatever it's connected to — dynamically, so if you regenerate the upstream node, the change propagates forward.</p>
+
+  <p>Basic canvas mechanics: scroll to zoom, click-drag the background to pan, the <em>centre</em> button snaps you back to the middle when you lose your place, <em>clear</em> wipes the whole canvas, and Shift-click selects several nodes to drag as a group. Resize a node from its bottom-left handle; delete one with the delete button; click a connector line (or its X on hover) to remove just that link.</p>
+
+  <h3>Run Node vs. Run Flow</h3>
+  <div class="cards">
+    <div class="card">
+      <p class="card-kicker">Test one step</p>
+      <p class="card-title">Run Node</p>
+      <p>Executes a single node in isolation. Use this while you're still deciding whether an image is strong enough to commit to animating — check the result before anything downstream fires.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Execute the chain</p>
+      <p class="card-title">Run Flow</p>
+      <p>Runs every connected node in dependency order. If a video node needs an image that doesn't exist yet, Flows generates the image first, waits for it to finish, then feeds it forward and runs the video node — you never have to sequence it manually.</p>
+    </div>
+  </div>
+
+  <p>A <em>rerun selection</em> redoes every node currently on the canvas; a <em>stop</em> button cancels a flow mid-run. Cost is calculated automatically from whichever models and settings are attached to each node. And once a chain works, it isn't a one-off — save it and reuse it as a template, swapping individual steps for the next piece of content instead of starting from a blank canvas every time.</p>
+
+  <h3>The node palette</h3>
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Node</th><th>Job</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Image generator</strong></td><td>Text-to-image, or animate an uploaded/connected reference — the starting point for almost everything downstream</td></tr>
+        <tr><td><strong>Video generator</strong></td><td>Turns a prompt or a connected image into motion; accepts start/end frames and omni-reference sets</td></tr>
+        <tr><td><strong>Audio generator</strong></td><td>ElevenLabs voices, sound effects, music — the sound layer of the piece</td></tr>
+        <tr><td><strong>Prompt</strong></td><td>A text box that feeds the same copy into several other nodes at once</td></tr>
+        <tr><td><strong>Storyboard</strong></td><td>Analyses a connected image and writes a run of continuation shots that keep it consistent</td></tr>
+        <tr><td><strong>Remove Background</strong></td><td>Cuts the subject out onto a transparent background</td></tr>
+        <tr><td><strong>Upscale</strong></td><td>Raises resolution (2× or 4×) before a hero shot or a video model needs the detail</td></tr>
+        <tr><td><strong>Galleries</strong></td><td>Image and video collection nodes that keep a busy canvas organised</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ 3. IMAGE NODES ═══════════ -->
+<section class="mod" id="image-nodes" data-group="Generators" data-nav="Image nodes: references &amp; carousel">
+  <div class="mod-head">
+    <span class="mod-num">03</span>
+    <h2>Image nodes — still the foundation of everything else</h2>
+    <span class="mod-source">Lesson 3 · 5m 46s</span>
+  </div>
+
+  <p>The image generator is the node everything else in a flow tends to hang off, for the same reason it mattered before Flows existed: images are cheaper, faster and easier to control than video, and a bad image produces a bad video every time. If the character looks fake at the still-image stage, motion only makes it more obvious. The node itself holds nothing new — prompt, model, aspect ratio, quality, the <em>wise enhanced</em> prompt option — but what you can attach to it and do with its output afterward is where the leverage is.</p>
+
+  <h3>Two ways to add references</h3>
+  <p>Upload manually from your desktop when you already have a product photo, a character shot, or a mood board to follow. Or — the faster way — connect an already-completed image node straight into a new one: generate a character in one node, a product in another, connect both into a third, and ask that third node for an image of the character holding the product. Up to eight image references can feed a single image generator node at once, each shown as a thumbnail so you can see exactly what's feeding what. This is the mechanism behind consistent AI-influencer content, product ads, and any brand visual that needs the same subject to reappear.</p>
+
+  <h3>The carousel</h3>
+  <p>Running an image node a second time doesn't overwrite the first result — it appends a new one into a carousel you flick between. That matters because AI generation is rarely perfect on attempt one: the first pass might be decent, the second has better lighting, the third has a better pose. Instead of losing track of versions across separate downloads, they stay attached to the node, and whichever one is selected in the carousel is the one that flows downstream to whatever's connected next.</p>
+
+  <h3>Quick actions, once an image exists</h3>
+  <div class="cards">
+    <div class="card">
+      <p class="card-kicker">Bring it to life</p>
+      <p class="card-title">Animate</p>
+      <p>Spawns a connected video generator node with the image already loaded as the start frame — the fastest path from a still you like to motion.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Isolate the subject</p>
+      <p class="card-title">Remove Background</p>
+      <p>Spins up a connected Remove Background node against the image, no manual wiring needed.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Explore nearby</p>
+      <p class="card-title">Variations</p>
+      <p>Keeps the general concept and idea but changes surface details — pose, outfit, colour — when a result is close but not quite right. A gallery spawns to hold the batch.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Cover more ground</p>
+      <p class="card-title">Angles</p>
+      <p>Generates the same subject from a wider set of camera angles — the tool for campaigns, product shoots, and anything needing several consistent shots of one setup rather than one perfect one.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Change what exists</p>
+      <p class="card-title">Edit vs. Rerun</p>
+      <p>Edit repopulates the image into the reference box so you can type a targeted change ("make the ice cream pink") to the <em>same</em> image. Rerun is a full redo — it regenerates from the original prompt and references from scratch, rather than editing the current result.</p>
+    </div>
+  </div>
+
+  <p>Image nodes can also be lined up in sequence on the canvas purely as a visual planning tool — arranging them shot by shot turns the canvas itself into a storyboard before a single video node has run.</p>
+</section>
+
+<!-- ═══════════ 4. VIDEO & AUDIO NODES ═══════════ -->
+<section class="mod" id="video-audio-nodes" data-group="Generators" data-nav="Video &amp; audio nodes">
+  <div class="mod-head">
+    <span class="mod-num">04</span>
+    <h2>Video and audio nodes — the same models, wired instead of copy-pasted</h2>
+    <span class="mod-source">Lesson 4 · 2m 07s</span>
+  </div>
+
+  <p>Video generator nodes carry the same settings as their Studio counterparts — text-to-video, start/end frames, omni-reference on models that support it. What changes is how they get fed: connect an image node into a video node and that image snaps into the start-frame slot automatically. Add a second connected image and it becomes the end frame. Delete either image and the connection breaks with it — the video node simply reverts to whatever's left attached.</p>
+
+  <p>Omni-reference models such as Seedance accept up to nine connected references inside the node, each populating as a thumbnail exactly like the image node's reference bank. Multi-shot toggles (Kling) work the same way here as in Studio — toggle it on and add shots directly on the node.</p>
+
+  <div class="note">
+    <strong>Generate Prompt for Me.</strong> Connect an image and you don't have to write the motion prompt yourself — this button analyses the frame and returns a prompt suited to that specific scene. It's one more place the module removes a step that used to require a decision.
+  </div>
+
+  <p>Audio nodes generate ElevenLabs voices, sound effects and music, and pair well with free sources like Pixabay for extra layering. Audio behaves differently from the image → video chain: most of the time it's created on its own and dropped into the final edit rather than wired directly into a video node. The exception is omni-reference models — toggle omni reference on and an audio slot appears, so connecting an audio node sends the sound in as a reference the video generation actually reacts to.</p>
+</section>
+
+<!-- ═══════════ 5. THE TOOLKIT ═══════════ -->
+<section class="mod" id="toolkit" data-group="Toolkit" data-nav="Prompt, upscale, storyboard &amp; galleries">
+  <div class="mod-head">
+    <span class="mod-num">05</span>
+    <h2>The rest of the toolkit — small nodes that save the real time</h2>
+    <span class="mod-source">Lesson 5 · 7m 16s</span>
+  </div>
+
+  <p>Image, video and audio nodes are the core of most flows, but the smaller tools around them are what stop a canvas from turning into repetitive, disorganised busywork once it grows past a handful of nodes.</p>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Prompt node — one script, many generators</span><span class="entry-tag">text only</span></div>
+    <p class="entry-when">Use when the same idea needs testing across several models, or you just want one place to store and reuse copy instead of retyping it.</p>
+    <p class="entry-flow">write once → connect to node 1, node 2, node 3 → edit the prompt node → every connection updates</p>
+    <p>The propagation is one-directional: the prompt node is the source of truth, but you can still hand-edit the copy inside any individual connected node without it flowing back upstream.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Upscale node — resolution before it matters</span><span class="entry-tag">2× / 4×</span></div>
+    <p class="entry-when">Use before a hero image goes to a client, a website, or into a video node that needs more detail to animate.</p>
+    <p class="entry-flow">1K source → 2× (2K) or 4× (4K)</p>
+    <p>Easy step to skip, but the extra resolution feeding a video model shows up as a genuinely clearer motion result, not just a sharper still.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Remove Background node</span><span class="entry-tag">cutout</span></div>
+    <p class="entry-when">Product shots, thumbnails, stickers — anywhere the subject needs to sit on a different background than the one it generated against.</p>
+    <p class="entry-flow">connect image → run → transparent cutout</p>
+    <p>Small and simple, but constantly reached for once you're assembling layouts rather than single images.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Storyboard node — the one that answers "what's the next shot"</span><span class="entry-tag">continuation</span></div>
+    <p class="entry-when">The most common beginner stall: one strong image exists, and no idea what the other four shots of the ad should be. Storyboard exists specifically to remove that stall.</p>
+    <p class="entry-flow">connect 1–2 reference images → set shot count, aspect ratio, quality → generate → gallery of continuation shots</p>
+    <p>It analyses the connected image and writes a run of prompts that carry the story forward while holding subject and style steady — a woman on a beach day starts reading, then orders a cocktail, then takes photos, without the visual language drifting between shots. Feed it two references at once (an influencer plus a product) and it builds the sequence around both together. This is not the same job as Angles: Angles reshoots the <em>same</em> moment from different cameras; Storyboard invents the <em>next</em> moments.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head"><span class="entry-name">Image &amp; video galleries — collection, not generation</span><span class="entry-tag">image / video</span></div>
+    <p class="entry-when">Once a canvas passes a handful of nodes, loose outputs floating separately become impossible to track. Galleries hold a set in one place.</p>
+    <p class="entry-flow">send outputs to gallery → compare, reopen, convert back to a node → (image galleries) Animate All</p>
+    <p>A gallery also works as a reference bank: connect one to an omni-reference slot, or to a start/end-frame pair, and a pop-up lets you pick which stored images feed that generation — no re-uploading. <strong>Animate All</strong> is the shortcut that turns storyboard → gallery → finished clips into a single action: run it and every image in the gallery gets sent to video generation at once.</p>
+  </div>
+</section>
+
+<!-- ═══════════ 6. MAGICFLOW ═══════════ -->
+<section class="mod" id="magicflow" data-group="Toolkit" data-nav="MagicFlow: describe it, don't build it">
+  <div class="mod-head">
+    <span class="mod-num">06</span>
+    <h2>MagicFlow — describe the concept, get the whole canvas back</h2>
+    <span class="mod-source">Lesson 6 · 4m 46s</span>
+  </div>
+
+  <p>Everything so far assumes you're building node by node, which is powerful because you control every decision — but sometimes the idea exists before the plan does. You know you want a cinematic shoe commercial, or a coffee-brand story, or a sci-fi trailer, and that's genuinely all you know yet. MagicFlow, powered by <em>wise</em>, takes a short description and builds the entire flow for you: nodes placed, prompts written, connections made.</p>
+
+  <div class="rows numbered">
+    <div class="row">
+      <div class="row-idx">1</div>
+      <div><div class="row-name">Describe the concept</div></div>
+      <div class="row-body"><p>Keep it short and directional rather than exhaustive — <em>"a cinematic sports drink advert set in a hot desert, focused on energy, endurance and speed"</em> is enough. You're pointing wise at a direction, not scripting every scene.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">2</div>
+      <div><div class="row-name">Choose scene count</div></div>
+      <div class="row-body"><p>More scenes means a more complete piece, but also more generations and more credits spent before you've reviewed anything. Five scenes is plenty for a short ad or reel; go higher only for a longer cinematic sequence.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">3</div>
+      <div><div class="row-name">Set aspect ratio up front</div></div>
+      <div class="row-body"><p>9:16 for TikTok, Reels and Shorts; 16:9 for YouTube and widescreen ads. Deciding this after generation is the same wasted afternoon it always was.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">4</div>
+      <div><div class="row-name">Pick image quality and a default video model</div></div>
+      <div class="row-body"><p>Sets the baseline every generated node in the flow will inherit.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">5</div>
+      <div><div class="row-name">Attach references — optional but recommended</div></div>
+      <div class="row-body"><p>A product photo, a character reference, a style board. References let MagicFlow understand what you actually want instead of guessing from words alone.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">6</div>
+      <div><div class="row-name">Generate</div></div>
+      <div class="row-body"><p>The canvas populates with nodes already built. Image nodes start running immediately; video nodes arrive pre-loaded with motion prompts tailored to each image, but sit idle rather than firing on their own.</p></div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>The video nodes don't auto-run, and that's deliberate.</strong> If one of the generated images isn't right, you simply never run its video — the setup is automated, but the judgement call on what's worth animating stays yours. From there the images become a starting point, not a finished set: run angles, storyboards or variations on any of them until they're actually ready.
+  </div>
+
+  <p>The two demonstrated examples land the same point differently — a desert energy-drink ad built from two attached references, and a claymation soap advert where an animated character reference and a product reference produced ten consistent, on-style images from one short prompt, with no individual prompt written by hand. MagicFlow's job isn't to replace creative judgement; it's to remove the blank canvas as the first obstacle.</p>
+</section>
+
+<!-- ═══════════ 7. THE 10-MINUTE AD ═══════════ -->
+<section class="mod" id="ten-minute-ad" data-group="Production" data-nav="Ship an ad in 10 minutes">
+  <div class="mod-head">
+    <span class="mod-num">07</span>
+    <h2>Shipping an ad in under 10 minutes — the full chain, worked</h2>
+    <span class="mod-source">Lesson 7 · 6m 00s</span>
+  </div>
+
+  <p>The proof of everything above, run as one real brief: a face-oil advert commissioned by a skincare brand. The entire production — every node in this guide used in sequence — took about ten minutes of actual work, and the majority of that was reviewing outputs, not creating anything by hand.</p>
+
+  <div class="rows numbered">
+    <div class="row">
+      <div class="row-idx">1</div>
+      <div><div class="row-name">Brief MagicFlow</div></div>
+      <div class="row-body"><p>Upload the avatar reference and the product photo, write one short prompt describing the ad, choose eight images.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">2</div>
+      <div><div class="row-name">Review the eight assets</div></div>
+      <div class="row-body"><p>Check avatar consistency, bottle rendering, and label text across every image before spending anything on video — exactly the checkpoint MagicFlow's non-auto-run design exists for.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">3</div>
+      <div><div class="row-name">Run all the video nodes</div></div>
+      <div class="row-body"><p>Motion prompts were already written by <em>Generate Prompt for Me</em> during setup — no manual prompting at this stage either.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">4</div>
+      <div><div class="row-name">Run Angles on the strongest still</div></div>
+      <div class="row-body"><p>A close-up bottle shot earned four more angle variations — extra coverage without a new generation from scratch.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">5</div>
+      <div><div class="row-name">Run Storyboard on a hero image</div></div>
+      <div class="row-body"><p>Continued the story on the woman shot, generating further consistent scenes to round out the set.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">6</div>
+      <div><div class="row-name">Animate All on the resulting gallery</div></div>
+      <div class="row-body"><p>Selected Kling and ran every storyboard image to video in one action — ten more finished clips, including a crane shot rising above the model's head that turned out to be one of the strongest in the set.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">7</div>
+      <div><div class="row-name">Generate music with an audio node</div></div>
+      <div class="row-body"><p>The last generative step — a soundtrack sized to the ad, produced alongside everything else rather than sourced separately.</p></div>
+    </div>
+    <div class="row">
+      <div class="row-idx">8</div>
+      <div><div class="row-name">Assemble in CapCut</div></div>
+      <div class="row-body"><p>Download every clip, drop them in, add transitions, tighten pacing by trimming some clips, reorder for a stronger flow, lay in the generated music. Ordinary edit craft — nothing here that a CapCut pass from earlier in the course didn't already cover.</p></div>
+    </div>
+  </div>
+
+  <div class="note warn">
+    <strong>The only prompt written by hand for the entire advert was the MagicFlow brief at the start.</strong> Everything after it — the per-shot motion prompts, the angle variations, the continuation storyboard, the batch animation — was generated, reviewed, and approved rather than typed. It can always be improved with more time: extra sound effects, finer pacing, more deliberate shot selection. But the baseline it replaces is a camera crew, a location, actors and a production budget, compressed into a workflow one person runs from a laptop.
+  </div>
+</section>
+
+<footer class="sheet-footer">
+  Skool AI Video Bootcamp · Module 03 — Advanced Flows · 7 lessons<br />
+  Why Flows · The Canvas &amp; Run Modes · Image Nodes &amp; the Carousel · Video &amp; Audio Nodes · Prompt, Upscale, Storyboard &amp; Galleries · MagicFlow · Shipping an Ad in 10 Minutes
+</footer>
+
+</main>
+
+<script>
+(function(){
+  const HASH = "2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e";
+  const gate = document.getElementById('password-gate');
+  const input = document.getElementById('password-input');
+  const error = document.getElementById('password-error');
+
+  async function sha256(str) {
+    const buf = new TextEncoder().encode(str);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  async function check() {
+    const digest = await sha256(input.value);
+    if (digest === HASH) {
+      gate.classList.add('hidden');
+      localStorage.setItem('pages_pass', digest);
+    } else {
+      error.style.display = 'block';
+      setTimeout(() => error.style.display = 'none', 2000);
+    }
+  }
+
+  // Auto-check stored hash
+  (async function(){
+    const stored = localStorage.getItem('pages_pass');
+    if (stored === HASH) { gate.classList.add('hidden'); return; }
+  })();
+
+  input.addEventListener('keydown', function(e){ if (e.key === 'Enter') check(); });
+})();
+</script>
+<script src="/pages/shared/paper.js"></script>
+<script src="/pages/shared/menu.js"></script>
+
+</body>
+</html>

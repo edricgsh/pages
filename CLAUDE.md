@@ -39,28 +39,37 @@ The old SHA-256 gate only *hid* content visually — the full plaintext was stil
 
 **Limits, so nobody over-trusts this:** it's encryption at rest on GitHub's CDN. Anyone with the password can read and re-share the plaintext, and one shared password means no per-visitor revocation.
 
-## The 12 published artifacts
+## The 19 published artifacts
 
-The four bootcamp modules use the paper style. The other eight are still on
-the retired dark theme — convert one when you next touch it, don't leave it half-done.
+All seven bootcamp modules use the paper style. Some of the other twelve are
+still on the retired dark theme — convert one when you next touch it, don't
+leave it half-done.
 
 | Collection | Folder | Title | Emoji |
 |---|--------|-------|-------|
 | 🎬 AI Video Bootcamp | `ai-images` | AI Images — Field Guide | 🖼️ |
 | 🎬 AI Video Bootcamp | `ai-videos` | AI Videos — Field Guide | 🎥 |
+| 🎬 AI Video Bootcamp | `advanced-flows` | Advanced Flows — Field Guide | 🔀 |
 | 🎬 AI Video Bootcamp | `ai-advertising-ugc` | AI Advertising &amp; UGC — Complete Playbook | 📢 |
 | 🎬 AI Video Bootcamp | `social-media-viral` | Social Media &amp; Going Viral — Field Guide | 📱 |
+| 🎬 AI Video Bootcamp | `ai-filmmaking` | AI Filmmaking — Field Guide | 🎞️ |
+| 🎬 AI Video Bootcamp | `clone-yourself` | Clone Yourself — Field Guide | 🧬 |
 | 📈 Growth & Brand | `postiz-saas-growth` | Postiz: $17K → $143K MRR in 4 Months | 🚀 |
 | 📈 Growth & Brand | `sharran-srivatsaa-formula` | The Man That Makes Billionaires — Sharran Srivatsaa | 📈 |
 | 📈 Growth & Brand | `personal-brand-course` | How to Build a Personal Brand — Full Course | 🎯 |
+| 📈 Growth & Brand | `dopamine-ladder` | The Dopamine Ladder — How to Become a Storytelling Genius | 🧠 |
+| 📈 Growth & Brand | `dopamine-ladder-key` | The Dopamine Ladder — Key Breakdown | 🧠 |
+| 📈 Growth & Brand | `learn-marketing-fast` | How I'd Learn Marketing FAST in 2026 — Joanna Wiebe | 🧭 |
 | 🌐 Markets & Money | `tariff-trade-breakdown` | Tariffs, Trade & Trump's Strategy | 🌐 |
 | 🌐 Markets & Money | `circular-financing` | AI Circular Financing — The $800B Money Loop | 🔄 |
+| 🌐 Markets & Money | `japan-economy` | Japan's Economy: Bubble to Yen Crash | 🌐 |
 | 🌐 Markets & Money | `payment-reconciliation-research` | Payment Reconciliation Market Map | 💳 |
 | ⚡ Craft & Mindset | `pragmatic-engineer` | The Pragmatic Engineer | 📬 |
 | ⚡ Craft & Mindset | `jensen-huang-mindset` | Jensen Huang: The Mindset That Built NVIDIA | ⚡ |
 
-Bootcamp modules are ordered by their **course** module number (01, 02, 04, 05), not
-alphabetically or by publish date — `order` in the manifest carries that.
+Bootcamp modules are ordered by their **course** module number (01–07), not
+alphabetically or by publish date — `order` in the manifest carries that. The
+whole Skool course is now covered; there is no Module 08.
 
 ## Collections
 

@@ -45,6 +45,15 @@
             "order": 2
         },
         {
+            "slug": "advanced-flows",
+            "title": "Advanced Flows — Field Guide",
+            "description": "Skool AI Video Bootcamp Module 03 — chaining image, video and audio generators into repeatable flows, the node toolkit, MagicFlow, and shipping an ad in under 10 minutes",
+            "emoji": "🔀",
+            "group": "ai-video-bootcamp",
+            "kicker": "Module 03",
+            "order": 3
+        },
+        {
             "slug": "ai-advertising-ugc",
             "title": "AI Advertising & UGC — Complete Playbook",
             "description": "Skool AI Video Bootcamp Module 04 — 5 awareness levels, 10 psych principles, 16 script frameworks, 6 AI ad formats, 100+ hooks, 10 UGC templates",
@@ -61,6 +70,24 @@
             "group": "ai-video-bootcamp",
             "kicker": "Module 05",
             "order": 5
+        },
+        {
+            "slug": "ai-filmmaking",
+            "title": "AI Filmmaking — Field Guide",
+            "description": "Skool AI Video Bootcamp Module 06 — ChatGPT scriptwriting, planning motion, the nine-step short film pipeline, animation, and two worked case studies",
+            "emoji": "🎞️",
+            "group": "ai-video-bootcamp",
+            "kicker": "Module 06",
+            "order": 6
+        },
+        {
+            "slug": "clone-yourself",
+            "title": "Clone Yourself — Field Guide",
+            "description": "Skool AI Video Bootcamp Module 07 — ElevenLabs voice cloning, HeyGen headshot lip-sync, and repurposing one digital double across six content jobs",
+            "emoji": "🧬",
+            "group": "ai-video-bootcamp",
+            "kicker": "Module 07",
+            "order": 7
         },
         {
             "slug": "postiz-saas-growth",
