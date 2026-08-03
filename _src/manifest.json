@@ -95,6 +95,14 @@
             "order": 4
         },
         {
+            "slug": "dopamine-ladder-key",
+            "title": "The Dopamine Ladder — Key Breakdown",
+            "description": "Kallaway's 6-level attention framework, condensed — one mechanism and one tactic per rung, message vs messenger split, Citizen worked example, publish checklist",
+            "emoji": "🧠",
+            "group": "growth-brand",
+            "order": 5
+        },
+        {
             "slug": "tariff-trade-breakdown",
             "title": "Tariffs, Trade & Trump's Strategy",
             "description": "3-part visual breakdown — tariff mechanics, Triffin dilemma, Trump's restructuring playbook",
