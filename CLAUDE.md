@@ -39,7 +39,7 @@ The old SHA-256 gate only *hid* content visually — the full plaintext was stil
 
 **Limits, so nobody over-trusts this:** it's encryption at rest on GitHub's CDN. Anyone with the password can read and re-share the plaintext, and one shared password means no per-visitor revocation.
 
-## The 19 published artifacts
+## The 18 published artifacts
 
 All seven bootcamp modules use the paper style. Some of the other twelve are
 still on the retired dark theme — convert one when you next touch it, don't
@@ -57,7 +57,6 @@ leave it half-done.
 | 📈 Growth & Brand | `postiz-saas-growth` | Postiz: $17K → $143K MRR in 4 Months | 🚀 |
 | 📈 Growth & Brand | `sharran-srivatsaa-formula` | The Man That Makes Billionaires — Sharran Srivatsaa | 📈 |
 | 📈 Growth & Brand | `personal-brand-course` | How to Build a Personal Brand — Full Course | 🎯 |
-| 📈 Growth & Brand | `dopamine-ladder` | The Dopamine Ladder — How to Become a Storytelling Genius | 🧠 |
 | 📈 Growth & Brand | `dopamine-ladder-key` | The Dopamine Ladder — Key Breakdown | 🧠 |
 | 📈 Growth & Brand | `learn-marketing-fast` | How I'd Learn Marketing FAST in 2026 — Joanna Wiebe | 🧭 |
 | 🌐 Markets & Money | `tariff-trade-breakdown` | Tariffs, Trade & Trump's Strategy | 🌐 |

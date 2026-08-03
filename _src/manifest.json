@@ -114,20 +114,12 @@
             "order": 3
         },
         {
-            "slug": "dopamine-ladder",
-            "title": "The Dopamine Ladder — How to Become a Storytelling Genius",
-            "description": "Kallaway's 6-level attention framework — stimulation, captivation, anticipation, validation, affection, revelation — with a full worked example and checklist",
-            "emoji": "🧠",
-            "group": "growth-brand",
-            "order": 4
-        },
-        {
             "slug": "dopamine-ladder-key",
             "title": "The Dopamine Ladder — Key Breakdown",
             "description": "Kallaway's 6-level attention framework, condensed — one mechanism and one tactic per rung, message vs messenger split, Citizen worked example, publish checklist",
             "emoji": "🧠",
             "group": "growth-brand",
-            "order": 5
+            "order": 4
         },
         {
             "slug": "learn-marketing-fast",
@@ -135,7 +127,7 @@
             "description": "6 moves to a high-income marketing career: performance vs growth, AI as pressure tester, answer-engine optimization, specialization, owning the ecosystem, and not being boring",
             "emoji": "🧭",
             "group": "growth-brand",
-            "order": 6
+            "order": 5
         },
         {
             "slug": "tariff-trade-breakdown",
