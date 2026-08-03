@@ -95,6 +95,14 @@
             "order": 1
         },
         {
+            "slug": "japan-economy",
+            "title": "Japan's Economy: Bubble to Yen Crash",
+            "description": "2-part breakdown — the keiretsu system, credit overexpansion, zombie companies, and the BOJ's 2022 battle over the 0.25% JGB cap",
+            "emoji": "🌐",
+            "group": "markets-money",
+            "order": 2
+        },
+        {
             "slug": "circular-financing",
             "title": "AI Circular Financing — The $800B Money Loop",
             "description": "How chipmakers and cloud providers invest in their own customers — NVIDIA, Google, OpenAI, Anthropic circular deals and the bubble risk",
