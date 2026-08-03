@@ -103,6 +103,14 @@
             "order": 5
         },
         {
+            "slug": "learn-marketing-fast",
+            "title": "How I'd Learn Marketing FAST in 2026 — Joanna Wiebe",
+            "description": "6 moves to a high-income marketing career: performance vs growth, AI as pressure tester, answer-engine optimization, specialization, owning the ecosystem, and not being boring",
+            "emoji": "🧭",
+            "group": "growth-brand",
+            "order": 6
+        },
+        {
             "slug": "tariff-trade-breakdown",
             "title": "Tariffs, Trade & Trump's Strategy",
             "description": "3-part visual breakdown — tariff mechanics, Triffin dilemma, Trump's restructuring playbook",
