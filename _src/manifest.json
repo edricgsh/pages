@@ -179,8 +179,8 @@
         },
         {
             "slug": "two-tier-money",
-            "title": "Two-Tier Money — How Central and Commercial Banks Connect",
-            "description": "Reserves vs deposits, the corridor-to-floor shift, why the rate cascade forks into short and long branches, and why Singapore has no policy rate",
+            "title": "Two Kinds of Money — How Banks and Central Banks Connect",
+            "description": "Plain English: the money banks use with each other vs the money you use, the one price a central bank sets, the two roads it travels to reach your rate, and why Singapore has no rate at all",
             "emoji": "🏦",
             "group": "markets-money",
             "order": 4
