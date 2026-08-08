@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Two-Tier Money — How Central and Commercial Banks Connect</title>
+<link rel="icon" href="/pages/shared/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/pages/shared/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/pages/shared/apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/pages/shared/paper.css" />
+<link rel="stylesheet" href="/pages/shared/menu.css" />
+</head>
+<body class="paper"
+      data-title="TWO-TIER MONEY"
+      data-meta="HOW CENTRAL AND COMMERCIAL BANKS CONNECT
+US SPINE · SINGAPORE CONTRAST
+10 SECTIONS · 4 DIAGRAMS">
+
+<div id="password-gate">
+  <div class="gate-box">
+    <div style="font-size:40px;margin-bottom:16px;">🔐</div>
+    <h1>Password Required</h1>
+    <p>Enter the passcode to view</p>
+    <input type="password" id="password-input" placeholder="passcode" autocomplete="off" />
+    <div class="error" id="password-error">Incorrect password</div>
+  </div>
+</div>
+
+<main class="sheet">
+
+<nav class="tabs">
+  <a class="tab" href="#two-moneys">Two moneys</a>
+  <a class="tab" href="#settlement">Settlement</a>
+  <a class="tab" href="#floor">Corridor → floor</a>
+  <a class="tab" href="#constraint">The real constraint</a>
+  <a class="tab" href="#fork">The fork</a>
+  <a class="tab" href="#anatomy">Anatomy of a rate</a>
+  <a class="tab" href="#reference">Reference rates</a>
+  <a class="tab" href="#beta">Beta &amp; lag</a>
+  <a class="tab" href="#singapore">Singapore</a>
+  <a class="tab" href="#limits">Limits</a>
+</nav>
+
+<header class="hero">
+  <h1>Two moneys, one system, and a membrane nothing crosses.</h1>
+  <p class="lede">Central banks and commercial banks aren't two pools of the same money — they run two different moneys on two levels that never mix. Understanding where the boundary sits explains almost everything else: why banks borrow from each other overnight, why a policy move ripples into dozens of rates instead of one, and why hiking the short rate can push long rates the other way.</p>
+</header>
+
+<div class="callout">
+  <p class="callout-label">The one idea</p>
+  <p>There are <strong>reserves</strong> — the money banks hold at the central bank and settle with each other in — and there are <strong>deposits</strong>, the money everyone else holds. <strong>Neither converts into the other.</strong> The public cannot hold reserves; banks cannot pay each other in deposits. Commercial banks create deposits by lending; only the central bank creates reserves. Every rate in the economy is a price quoted somewhere in the gap between those two facts.</p>
+</div>
+
+<div class="figure">
+  <svg viewBox="0 0 900 540" role="img" aria-label="Two-tier money: a reserves tier holding the central bank and banks' reserve accounts, separated by an impermeable membrane from a deposits tier holding banks' customer ledgers and the public" style="display:block;width:100%;height:auto;">
+    <defs>
+      <marker id="f1-arw" markerWidth="9" markerHeight="7" refX="8.5" refY="3.5" orient="auto">
+        <polygon points="0 0, 9 3.5, 0 7" fill="var(--ink-3)" />
+      </marker>
+      <marker id="f1-arw-s" markerWidth="9" markerHeight="7" refX="8.5" refY="3.5" orient="auto-start-reverse">
+        <polygon points="0 0, 9 3.5, 0 7" fill="var(--ink-3)" />
+      </marker>
+    </defs>
+
+    <!-- TIER 1 -->
+    <rect x="30" y="30" width="840" height="200" rx="6" fill="var(--paper-sunk)" stroke="var(--rule)" />
+    <text x="48" y="52" font-family="var(--mono)" font-size="11" font-weight="700" letter-spacing="0.12em" fill="var(--ink-3)">TIER 1 · RESERVES — BANKS AND THE CENTRAL BANK ONLY</text>
+
+    <rect x="330" y="68" width="240" height="64" rx="5" fill="var(--ramp-1)" stroke="var(--rust)" stroke-width="1.5" />
+    <text x="450" y="95" text-anchor="middle" font-family="var(--sans)" font-size="15" font-weight="700" fill="var(--rust-ink)">CENTRAL BANK</text>
+    <text x="450" y="115" text-anchor="middle" font-family="var(--mono)" font-size="9" letter-spacing="0.06em" fill="var(--ink-3)">issues reserves · sets what they earn</text>
+
+    <line x1="386" y1="132" x2="250" y2="160" stroke="var(--rule)" stroke-width="1.5" />
+    <line x1="514" y1="132" x2="650" y2="160" stroke="var(--rule)" stroke-width="1.5" />
+    <text x="450" y="150" text-anchor="middle" font-family="var(--mono)" font-size="9" letter-spacing="0.1em" fill="var(--ink-3)">ACCOUNTS HELD AT THE CENTRAL BANK</text>
+
+    <rect x="60" y="160" width="230" height="58" rx="5" fill="var(--paper-raised)" stroke="var(--rule)" />
+    <text x="175" y="184" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="0.08em" fill="var(--ink)">BANK A · RESERVE A/C</text>
+    <text x="175" y="203" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">settlement money</text>
+
+    <rect x="610" y="160" width="230" height="58" rx="5" fill="var(--paper-raised)" stroke="var(--rule)" />
+    <text x="725" y="184" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="0.08em" fill="var(--ink)">BANK B · RESERVE A/C</text>
+    <text x="725" y="203" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">settlement money</text>
+
+    <line x1="300" y1="190" x2="600" y2="190" stroke="var(--ink-3)" stroke-width="1.6" marker-end="url(#f1-arw)" marker-start="url(#f1-arw-s)" />
+    <text x="450" y="180" text-anchor="middle" font-family="var(--mono)" font-size="10" font-weight="700" letter-spacing="0.1em" fill="var(--ink)">SETTLEMENT</text>
+    <text x="450" y="209" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">in reserves — never in deposits</text>
+
+    <!-- MEMBRANE -->
+    <text x="450" y="252" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="0.12em" fill="var(--rust-ink)">NOTHING CONVERTS ACROSS THIS LINE</text>
+    <line x1="30" y1="262" x2="870" y2="262" stroke="var(--ink)" stroke-width="2.5" />
+    <text x="450" y="280" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">the public can't hold reserves · banks can't settle in deposits</text>
+
+    <line x1="175" y1="218" x2="175" y2="332" stroke="var(--ink-3)" stroke-width="1.2" stroke-dasharray="4 4" />
+    <line x1="725" y1="218" x2="725" y2="332" stroke="var(--ink-3)" stroke-width="1.2" stroke-dasharray="4 4" />
+    <text x="175" y="287" text-anchor="middle" font-family="var(--mono)" font-size="8.5" letter-spacing="0.08em" fill="var(--ink-3)">ONE BANK, TWO LEDGERS</text>
+    <text x="725" y="287" text-anchor="middle" font-family="var(--mono)" font-size="8.5" letter-spacing="0.08em" fill="var(--ink-3)">ONE BANK, TWO LEDGERS</text>
+
+    <!-- TIER 2 -->
+    <rect x="30" y="294" width="840" height="216" rx="6" fill="var(--paper-sunk)" stroke="var(--rule)" />
+    <text x="48" y="316" font-family="var(--mono)" font-size="11" font-weight="700" letter-spacing="0.12em" fill="var(--ink-3)">TIER 2 · DEPOSITS — WHAT EVERYONE ELSE HOLDS</text>
+
+    <rect x="60" y="332" width="230" height="54" rx="5" fill="var(--paper-raised)" stroke="var(--rule)" />
+    <text x="175" y="354" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="0.08em" fill="var(--ink)">BANK A · DEPOSIT LEDGER</text>
+    <text x="175" y="373" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">creates deposits when it lends</text>
+
+    <rect x="610" y="332" width="230" height="54" rx="5" fill="var(--paper-raised)" stroke="var(--rule)" />
+    <text x="725" y="354" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="0.08em" fill="var(--ink)">BANK B · DEPOSIT LEDGER</text>
+    <text x="725" y="373" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">creates deposits when it lends</text>
+
+    <rect x="60" y="418" width="230" height="54" rx="5" fill="var(--paper-raised)" stroke="var(--rule)" />
+    <text x="175" y="441" text-anchor="middle" font-family="var(--sans)" font-size="13" font-weight="700" fill="var(--ink)">EMPLOYER</text>
+    <text x="175" y="460" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">customer of Bank A</text>
+
+    <rect x="610" y="418" width="230" height="54" rx="5" fill="var(--paper-raised)" stroke="var(--rule)" />
+    <text x="725" y="441" text-anchor="middle" font-family="var(--sans)" font-size="13" font-weight="700" fill="var(--ink)">YOU</text>
+    <text x="725" y="460" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">customer of Bank B</text>
+
+    <line x1="300" y1="445" x2="600" y2="445" stroke="var(--rust)" stroke-width="1.8" marker-end="url(#f1-arw)" />
+    <text x="450" y="434" text-anchor="middle" font-family="var(--mono)" font-size="10" font-weight="700" letter-spacing="0.1em" fill="var(--rust-ink)">SALARY · $5,000</text>
+    <text x="450" y="464" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">a claim on Bank B, not cash that moved</text>
+    <text x="450" y="494" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">Bank A now owes Bank B — and pays in Tier 1</text>
+  </svg>
+  <p class="figure-caption">The whole system in one picture: banks are the only entities with a foot in both tiers, which is exactly what makes them banks.</p>
+</div>
+
+<!-- ═══════════ 01 · TWO MONEYS ═══════════ -->
+<section class="mod" id="two-moneys" data-group="The plumbing" data-nav="Two moneys">
+  <div class="mod-head">
+    <span class="mod-num">01</span>
+    <h2>Two moneys, and neither one converts</h2>
+    <span class="mod-source">The membrane</span>
+  </div>
+
+  <p>Start with the thing most explanations skip. When your employer pays you, no money travels. Your employer holds a claim on Bank A; after payday you hold a claim on Bank B. Those are different liabilities of different institutions, and the payment is a matter of one ledger shrinking and another growing.</p>
+
+  <p>But Bank A now owes Bank B, and that obligation has to be settled in something both banks accept. That something is <strong>reserves</strong>: balances banks hold in accounts at the central bank. You cannot open a reserve account. Your employer cannot. Reserves circulate only inside the closed loop of banks plus the central bank, and deposits circulate only outside it.</p>
+
+  <p>The two are related by a promise — a deposit is a claim that the bank will produce settlement money on demand — but they never <em>become</em> each other. This is why the folk model of banking is wrong. Banks do not take in deposits and lend them out. When a bank makes a loan it writes a new deposit into existence on the spot, expanding both sides of its balance sheet at once. It creates Tier 2 money with a keystroke.</p>
+
+  <div class="note">
+    <p><strong>Reserves work the other way round.</strong> No amount of commercial bank lending creates a single reserve. Reserves enter existence only when the central bank puts them there — by lending to a bank, or by buying an asset (which is what quantitative easing is). And once created, the banking system cannot collectively get rid of them: one bank can pay reserves to another, but the total only shrinks when the central bank shrinks it.</p>
+  </div>
+</section>
+
+<!-- ═══════════ 02 · SETTLEMENT ═══════════ -->
+<section class="mod" id="settlement" data-group="The plumbing" data-nav="Settlement">
+  <div class="mod-head">
+    <span class="mod-num">02</span>
+    <h2>Settlement is where the central bank's grip actually lands</h2>
+    <span class="mod-source">The overnight market</span>
+  </div>
+
+  <p>All day, payments run in both directions between every pair of banks. By the close, each bank has a net position: it owes reserves, or it is owed them. A bank that ends short has to find reserves before the system closes, and the cheapest place to find them is another bank that ended long.</p>
+
+  <p>That overnight market for reserves is small, boring, and the single most important price in finance — because it is the one price the central bank can set directly. It doesn't need to touch mortgages or corporate bonds. It only has to make holding reserves worth a particular amount, and every other rate has to arrange itself relative to that.</p>
+
+  <p>Two mechanics make this work. The central bank can change how many reserves exist. And it can change what reserves earn. The history of monetary policy over the last two decades is the story of the second tool completely displacing the first.</p>
+</section>
+
+<!-- ═══════════ 03 · CORRIDOR → FLOOR ═══════════ -->
+<section class="mod" id="floor" data-group="The plumbing" data-nav="Corridor → floor">
+  <div class="mod-head">
+    <span class="mod-num">03</span>
+    <h2>The corridor became a floor</h2>
+    <span class="mod-source">Pre-2008 vs now</span>
+  </div>
+
+  <p>The textbook version is a <strong>corridor</strong>. Reserves are deliberately scarce. A lending facility sits above the target — a bank short of reserves can always borrow from the central bank, at a penalty. A deposit facility sits below — the central bank pays something on reserves left with it overnight. No bank borrows above the ceiling or lends below the floor, so the market rate is trapped between them, and the central bank fine-tunes reserve supply every single day to keep it near the middle.</p>
+
+  <p>That is not how the major central banks work now. After 2008, and again after 2020, quantitative easing left the system with reserves in enormous abundance. You cannot make a scarce good scarcer by adding to it, and the daily supply operations lost their bite. So the Fed, the Bank of England and the ECB all shifted to a <strong>floor</strong> system: flood the system with reserves and simply set the rate paid on them. No bank lends reserves to another bank for meaningfully less than it can earn parking them at the central bank, so the market rate sits on the floor rather than in the middle of a corridor.</p>
+
+  <div class="figure">
+    <svg viewBox="0 0 900 400" role="img" aria-label="Corridor system with the market rate oscillating mid-band versus floor system with the market rate pinned just under the interest on reserves line" style="display:block;width:100%;height:auto;">
+      <defs>
+        <marker id="f2-arw" markerWidth="9" markerHeight="7" refX="8.5" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--ink-3)" />
+        </marker>
+      </defs>
+      <text x="230" y="34" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="0.12em" fill="var(--ink)">CORRIDOR · SCARCE RESERVES · PRE-2008</text>
+      <text x="670" y="34" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="0.12em" fill="var(--ink)">FLOOR · ABUNDANT RESERVES · NOW</text>
+
+      <!-- PANEL A -->
+      <rect x="30" y="50" width="400" height="290" rx="6" fill="var(--paper-sunk)" stroke="var(--rule)" />
+      <rect x="70" y="110" width="340" height="170" fill="var(--ramp-1)" fill-opacity="0.55" />
+      <line x1="70" y1="110" x2="410" y2="110" stroke="var(--ink-3)" stroke-width="1.5" />
+      <text x="74" y="104" font-family="var(--mono)" font-size="9" letter-spacing="0.08em" fill="var(--ink-3)">LENDING FACILITY — CEILING</text>
+      <line x1="70" y1="280" x2="410" y2="280" stroke="var(--ink-3)" stroke-width="1.5" />
+      <text x="74" y="296" font-family="var(--mono)" font-size="9" letter-spacing="0.08em" fill="var(--ink-3)">DEPOSIT FACILITY — FLOOR</text>
+      <line x1="70" y1="195" x2="410" y2="195" stroke="var(--rust)" stroke-width="1.2" stroke-dasharray="6 4" />
+      <text x="406" y="212" text-anchor="end" font-family="var(--mono)" font-size="9" font-weight="700" letter-spacing="0.08em" fill="var(--rust-ink)">TARGET</text>
+      <polyline points="74,202 120,186 166,207 212,190 258,200 304,184 350,205 406,192" fill="none" stroke="var(--rust)" stroke-width="2.2" />
+      <text x="230" y="326" text-anchor="middle" font-family="var(--mono)" font-size="8.5" fill="var(--ink-3)">the CB moves reserve supply daily to hold the middle</text>
+
+      <!-- PANEL B -->
+      <rect x="470" y="50" width="400" height="290" rx="6" fill="var(--paper-sunk)" stroke="var(--rule)" />
+      <line x1="510" y1="110" x2="850" y2="110" stroke="var(--ink-3)" stroke-width="1.2" stroke-dasharray="5 5" />
+      <text x="514" y="104" font-family="var(--mono)" font-size="9" letter-spacing="0.08em" fill="var(--ink-3)">DISCOUNT WINDOW / SRF — RARELY TOUCHED</text>
+      <rect x="510" y="175" width="340" height="30" fill="var(--ramp-1)" fill-opacity="0.55" />
+      <line x1="510" y1="175" x2="850" y2="175" stroke="var(--ink)" stroke-width="2" />
+      <text x="514" y="168" font-family="var(--mono)" font-size="9" font-weight="700" letter-spacing="0.08em" fill="var(--ink)">INTEREST ON RESERVES — THE FLOOR</text>
+      <line x1="510" y1="205" x2="850" y2="205" stroke="var(--ink-3)" stroke-width="1.5" />
+      <text x="514" y="221" font-family="var(--mono)" font-size="9" letter-spacing="0.08em" fill="var(--ink-3)">ON RRP — SUB-FLOOR FOR NON-BANKS</text>
+      <polyline points="514,184 560,186 606,183 652,185 698,184 744,187 790,184 846,185" fill="none" stroke="var(--rust)" stroke-width="2.2" />
+      <path d="M790 258 L790 210" fill="none" stroke="var(--ink-3)" stroke-width="1.2" marker-end="url(#f2-arw)" />
+      <text x="690" y="278" text-anchor="middle" font-family="var(--mono)" font-size="9" font-weight="700" letter-spacing="0.1em" fill="var(--ink-3)">ALL THAT'S LEFT OF THE CORRIDOR</text>
+      <text x="670" y="326" text-anchor="middle" font-family="var(--mono)" font-size="8.5" fill="var(--ink-3)">supply barely matters — the CB just sets what reserves earn</text>
+
+      <line x1="30" y1="368" x2="62" y2="368" stroke="var(--rust)" stroke-width="2.2" />
+      <text x="72" y="372" font-family="var(--mono)" font-size="9" letter-spacing="0.08em" fill="var(--ink-3)">THE ACTUAL INTERBANK RATE · VERTICAL AXIS IS RATE, HORIZONTAL IS TIME</text>
+    </svg>
+    <p class="figure-caption">Same target, different machinery. In a corridor the rate is steered; in a floor it is simply announced.</p>
+  </div>
+
+  <p>One detail is worth carrying around, because it explains an oddity in the data. In the US, the effective fed funds rate usually prints a few basis points <em>below</em> the interest paid on reserve balances. That looks like an arbitrage until you notice who is doing the lending: government-sponsored enterprises and the Federal Home Loan Banks hold accounts at the Fed but are not eligible to earn interest on them. Zero is worse than a few basis points, so they lend into the market below the floor, and banks happily take the other side. The Fed's overnight reverse repo facility sets a genuine sub-floor for those non-bank cash pools.</p>
+
+  <p>The ceiling has similarly aged. The discount window carries stigma — a bank that uses it risks being read as distressed — so it does not reliably cap anything. The Fed's Standing Repo Facility exists largely to give the ceiling teeth without the reputational cost.</p>
+</section>
+
+<!-- ═══════════ 04 · THE REAL CONSTRAINT ═══════════ -->
+<section class="mod" id="constraint" data-group="The plumbing" data-nav="The real constraint">
+  <div class="mod-head">
+    <span class="mod-num">04</span>
+    <h2>What actually limits lending — and it isn't reserves</h2>
+    <span class="mod-source">Capital, liquidity, demand</span>
+  </div>
+
+  <p>It's tempting to close the loop by saying the central bank sets a price and banks lend within the boundary that price defines. Half right. The price shifts how much borrowing people <em>want</em>; it is not the thing that caps how much banks <em>can</em> do. Three constraints do that work, and none of them is the reserve balance.</p>
+
+  <div class="rows">
+    <div class="row">
+      <div class="row-chip" data-level="5"></div>
+      <div>
+        <div class="row-name">Capital</div>
+        <div class="row-sub">The binding one</div>
+      </div>
+      <div class="row-body">
+        <p>Every loan consumes regulatory capital, weighted by how risky the asset is. A bank at its capital floor cannot write another mortgage no matter how many reserves it holds or how attractive the spread looks. This is the real ceiling on credit creation.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-chip" data-level="3"></div>
+      <div>
+        <div class="row-name">Liquidity rules</div>
+        <div class="row-sub">Shape, not size</div>
+      </div>
+      <div class="row-body">
+        <p>Coverage and funding ratios force banks to hold enough high-quality liquid assets to survive a run and to fund long assets with stable liabilities. They constrain the <em>composition</em> of the balance sheet more than its total.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-chip" data-level="2"></div>
+      <div>
+        <div class="row-name">Loan demand</div>
+        <div class="row-sub">The quiet one</div>
+      </div>
+      <div class="row-body">
+        <p>Someone creditworthy has to want to borrow. In a balance-sheet recession this is what binds, which is why cutting rates into a demand collapse pushes on a string — and why abundant reserves after QE did not mechanically produce abundant credit.</p>
+      </div>
+    </div>
+  </div>
+
+  <p>So the honest version of the causal chain is: the central bank sets the price of settlement liquidity; commercial banks set the price and volume of credit within capital and demand limits; and the policy rate is an input to their pricing, not a quota on their lending.</p>
+</section>
+
+<!-- ═══════════ 05 · THE FORK ═══════════ -->
+<section class="mod" id="fork" data-group="The rate stack" data-nav="The fork">
+  <div class="mod-head">
+    <span class="mod-num">05</span>
+    <h2>The cascade forks — it isn't one ladder</h2>
+    <span class="mod-source">Short branch, long branch</span>
+  </div>
+
+  <p>Rates are usually drawn as a single descending ladder: policy rate, interbank, prime, retail, deposits, bonds. That ordering has a real error in it. Bond yields aren't at the bottom of the chain, downstream of everything else. They are a parallel channel, and long-term retail rates hang off <em>them</em>, not off the policy rate.</p>
+
+  <p>The system forks immediately below the policy rate. One branch transmits <strong>today's rate</strong>: overnight to term to floating-rate credit. The other transmits the <strong>expected path</strong> of the rate over years, plus compensation for locking money up that long, into government yields and everything priced against them.</p>
+
+  <div class="figure">
+    <svg viewBox="0 0 900 600" role="img" aria-label="Rate cascade forking below the policy rate into a short branch of overnight, term and floating credit rates, and a long branch of expected policy path, government yields and long-dated fixed credit" style="display:block;width:100%;height:auto;">
+      <defs>
+        <marker id="f3-arw" markerWidth="9" markerHeight="7" refX="8.5" refY="3.5" orient="auto">
+          <polygon points="0 0, 9 3.5, 0 7" fill="var(--ink-3)" />
+        </marker>
+      </defs>
+
+      <rect x="330" y="30" width="240" height="54" rx="5" fill="var(--ramp-1)" stroke="var(--rust)" stroke-width="1.5" />
+      <text x="450" y="55" text-anchor="middle" font-family="var(--sans)" font-size="15" font-weight="700" fill="var(--rust-ink)">POLICY RATE</text>
+      <text x="450" y="73" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">what the central bank pays on reserves</text>
+
+      <path d="M450 84 L450 106 L230 106 L230 112" fill="none" stroke="var(--ink-3)" stroke-width="1.5" marker-end="url(#f3-arw)" />
+      <path d="M450 106 L670 106 L670 112" fill="none" stroke="var(--ink-3)" stroke-width="1.5" marker-end="url(#f3-arw)" />
+
+      <!-- LEFT BRANCH -->
+      <rect x="80" y="112" width="300" height="30" rx="4" fill="var(--ramp-2)" />
+      <text x="230" y="132" text-anchor="middle" font-family="var(--mono)" font-size="10" font-weight="700" letter-spacing="0.12em" fill="var(--ink)">SHORT BRANCH · TODAY'S RATE</text>
+
+      <rect x="80" y="156" width="300" height="52" rx="5" fill="var(--paper-raised)" stroke="var(--rule)" />
+      <text x="230" y="180" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="0.08em" fill="var(--ink)">OVERNIGHT INTERBANK</text>
+      <text x="230" y="198" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">EFFR unsecured · SOFR secured repo</text>
+      <line x1="230" y1="208" x2="230" y2="222" stroke="var(--ink-3)" stroke-width="1.5" marker-end="url(#f3-arw)" />
+
+      <rect x="80" y="222" width="300" height="52" rx="5" fill="var(--paper-raised)" stroke="var(--rule)" />
+      <text x="230" y="246" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="0.08em" fill="var(--ink)">TERM RATES</text>
+      <text x="230" y="264" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">1M / 3M compounded SOFR, SONIA, SORA</text>
+      <line x1="230" y1="274" x2="230" y2="288" stroke="var(--ink-3)" stroke-width="1.5" marker-end="url(#f3-arw)" />
+
+      <rect x="80" y="288" width="300" height="66" rx="5" fill="var(--paper-raised)" stroke="var(--rule)" />
+      <text x="230" y="312" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="0.08em" fill="var(--ink)">FLOATING CREDIT</text>
+      <text x="230" y="330" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">cards &amp; HELOCs — prime = target + 300bp</text>
+      <text x="230" y="346" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">ARMs · revolvers · margin loans</text>
+      <line x1="230" y1="354" x2="230" y2="368" stroke="var(--ink-3)" stroke-width="1.5" marker-end="url(#f3-arw)" />
+
+      <rect x="80" y="368" width="300" height="66" rx="5" fill="var(--paper-raised)" stroke="var(--rule)" />
+      <text x="230" y="392" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="0.08em" fill="var(--ink)">DEPOSIT RATES</text>
+      <text x="230" y="410" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">savings &amp; time deposits — bank's discretion</text>
+      <text x="230" y="426" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">passes through slowly, and only partly</text>
+
+      <!-- RIGHT BRANCH -->
+      <rect x="520" y="112" width="300" height="30" rx="4" fill="var(--ramp-2)" />
+      <text x="670" y="132" text-anchor="middle" font-family="var(--mono)" font-size="10" font-weight="700" letter-spacing="0.12em" fill="var(--ink)">LONG BRANCH · EXPECTED PATH</text>
+
+      <rect x="520" y="156" width="300" height="52" rx="5" fill="var(--paper-raised)" stroke="var(--rule)" />
+      <text x="670" y="180" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="0.08em" fill="var(--ink)">EXPECTED POLICY PATH</text>
+      <text x="670" y="198" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">average expected rate + term premium</text>
+      <line x1="670" y1="208" x2="670" y2="222" stroke="var(--ink-3)" stroke-width="1.5" marker-end="url(#f3-arw)" />
+
+      <rect x="520" y="222" width="300" height="52" rx="5" fill="var(--paper-raised)" stroke="var(--rule)" />
+      <text x="670" y="246" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="0.08em" fill="var(--ink)">GOVERNMENT YIELD CURVE</text>
+      <text x="670" y="264" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">2y · 10y · 30y — Treasuries, gilts, SGS</text>
+      <line x1="670" y1="274" x2="670" y2="288" stroke="var(--ink-3)" stroke-width="1.5" marker-end="url(#f3-arw)" />
+
+      <rect x="520" y="288" width="300" height="66" rx="5" fill="var(--paper-raised)" stroke="var(--rule)" />
+      <text x="670" y="312" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="0.08em" fill="var(--ink)">LONG-DATED FIXED CREDIT</text>
+      <text x="670" y="330" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">30y fixed mortgage = 10y yield + MBS spread</text>
+      <text x="670" y="346" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">it is not priced off prime</text>
+      <line x1="670" y1="354" x2="670" y2="368" stroke="var(--ink-3)" stroke-width="1.5" marker-end="url(#f3-arw)" />
+
+      <rect x="520" y="368" width="300" height="66" rx="5" fill="var(--paper-raised)" stroke="var(--rule)" />
+      <text x="670" y="392" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="0.08em" fill="var(--ink)">CORPORATE BONDS</text>
+      <text x="670" y="410" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">government yield + credit spread</text>
+      <text x="670" y="426" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-3)">spread widens as growth expectations fall</text>
+
+      <rect x="80" y="468" width="740" height="68" rx="5" fill="var(--ramp-1)" stroke="var(--rust)" stroke-width="1.2" />
+      <text x="450" y="492" text-anchor="middle" font-family="var(--mono)" font-size="10" font-weight="700" letter-spacing="0.12em" fill="var(--rust-ink)">WHY THE FORK MATTERS</text>
+      <text x="450" y="512" text-anchor="middle" font-family="var(--sans)" font-size="12.5" font-weight="600" fill="var(--ink)">A hike lifts the left branch within days. It can push the right branch down.</text>
+      <text x="450" y="530" text-anchor="middle" font-family="var(--sans)" font-size="12.5" fill="var(--ink-2)">If markets read the hike as slower growth ahead, long yields fall while short rates rise.</text>
+
+      <text x="450" y="570" text-anchor="middle" font-family="var(--mono)" font-size="9.5" letter-spacing="0.12em" fill="var(--ink-3)">TRANSMISSION LAG · 12–18 MONTHS TO PEAK EFFECT ON THE REAL ECONOMY</text>
+    </svg>
+    <p class="figure-caption">One policy move, two channels, opposite possible signs. A single ladder cannot draw an inverted curve; a fork can.</p>
+  </div>
+
+  <p>This is what a yield curve inversion is. Short rates rise because the central bank raised them; long rates fall because the market now expects those rates to be cut in a few years' time, and is willing to lock in today's yield to get ahead of it. A single-ladder model has no way to express that, which is why it can't explain the most closely watched signal in markets.</p>
+</section>
+
+<!-- ═══════════ 06 · ANATOMY ═══════════ -->
+<section class="mod" id="anatomy" data-group="The rate stack" data-nav="Anatomy of a rate">
+  <div class="mod-head">
+    <span class="mod-num">06</span>
+    <h2>Anatomy of a single rate</h2>
+    <span class="mod-source">Four components</span>
+  </div>
+
+  <p>Every rate in the system decomposes into the same four things. Once you can name them, the ladder stops being a list to memorise and becomes an equation you can apply to any instrument you encounter:</p>
+
+  <div class="chips">
+    <span class="chip">Expected policy path</span>
+    <span class="chip">Term premium</span>
+    <span class="chip">Credit &amp; prepayment spread</span>
+    <span class="chip">Intermediation margin</span>
+  </div>
+
+  <p>The first is the base cost of time — what the risk-free rate is expected to average over the life of the claim. The second is compensation for being locked in while that expectation could turn out wrong. The third pays for the borrower possibly not paying, and for the borrower possibly paying <em>early</em>, which is its own risk when you have priced a thirty-year asset. The fourth is the bank's cut for doing the work and carrying the balance sheet.</p>
+
+  <div class="figure">
+    <svg viewBox="0 0 900 400" role="img" aria-label="Stacked decomposition of the policy rate, a ten-year government yield, a thirty-year fixed mortgage and a savings deposit into expected policy path, term premium, credit spread and bank margin" style="display:block;width:100%;height:auto;">
+      <text x="110" y="112" text-anchor="end" font-family="var(--mono)" font-size="9.5" font-weight="700" letter-spacing="0.06em" fill="var(--ink)">POLICY RATE</text>
+      <rect x="120" y="90" width="417" height="34" fill="var(--ramp-2)" />
+      <text x="545" y="112" font-family="var(--mono)" font-size="10" font-weight="700" fill="var(--ink)">4.00</text>
+
+      <text x="110" y="172" text-anchor="end" font-family="var(--mono)" font-size="9.5" font-weight="700" letter-spacing="0.06em" fill="var(--ink)">10Y GOVERNMENT</text>
+      <rect x="120" y="150" width="386" height="34" fill="var(--ramp-2)" />
+      <rect x="506" y="150" width="52" height="34" fill="var(--ramp-3)" />
+      <text x="566" y="172" font-family="var(--mono)" font-size="10" font-weight="700" fill="var(--ink)">4.20</text>
+
+      <text x="110" y="232" text-anchor="end" font-family="var(--mono)" font-size="9.5" font-weight="700" letter-spacing="0.06em" fill="var(--ink)">30Y FIXED MORTGAGE</text>
+      <rect x="120" y="210" width="386" height="34" fill="var(--ramp-2)" />
+      <rect x="506" y="210" width="52" height="34" fill="var(--ramp-3)" />
+      <rect x="558" y="210" width="141" height="34" fill="var(--ramp-4)" />
+      <rect x="699" y="210" width="42" height="34" fill="var(--ramp-5)" />
+      <text x="749" y="232" font-family="var(--mono)" font-size="10" font-weight="700" fill="var(--ink)">5.95</text>
+
+      <text x="110" y="292" text-anchor="end" font-family="var(--mono)" font-size="9.5" font-weight="700" letter-spacing="0.06em" fill="var(--ink)">SAVINGS DEPOSIT</text>
+      <rect x="120" y="270" width="146" height="34" fill="var(--ramp-2)" />
+      <text x="258" y="292" text-anchor="end" font-family="var(--mono)" font-size="10" font-weight="700" fill="var(--ink)">1.40</text>
+      <rect x="266" y="270" width="271" height="34" fill="var(--paper-sunk)" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="4 3" />
+      <text x="401" y="291" text-anchor="middle" font-family="var(--mono)" font-size="8.5" letter-spacing="0.06em" fill="var(--ink-3)">KEPT BY THE BANK · 2.60</text>
+
+      <line x1="120" y1="318" x2="850" y2="318" stroke="var(--rule)" stroke-width="1.5" />
+      <g font-family="var(--mono)" font-size="9" fill="var(--ink-3)" text-anchor="middle">
+        <text x="120" y="336">0%</text>
+        <text x="224" y="336">1%</text>
+        <text x="329" y="336">2%</text>
+        <text x="433" y="336">3%</text>
+        <text x="537" y="336">4%</text>
+        <text x="641" y="336">5%</text>
+        <text x="746" y="336">6%</text>
+        <text x="850" y="336">7%</text>
+      </g>
+
+      <g font-family="var(--mono)" font-size="8.5" letter-spacing="0.06em" fill="var(--ink-3)">
+        <rect x="120" y="362" width="12" height="12" fill="var(--ramp-2)" /><text x="138" y="372">EXPECTED POLICY PATH</text>
+        <rect x="300" y="362" width="12" height="12" fill="var(--ramp-3)" /><text x="318" y="372">TERM PREMIUM</text>
+        <rect x="440" y="362" width="12" height="12" fill="var(--ramp-4)" /><text x="458" y="372">CREDIT / PREPAYMENT</text>
+        <rect x="640" y="362" width="12" height="12" fill="var(--ramp-5)" /><text x="658" y="372">BANK MARGIN</text>
+      </g>
+    </svg>
+    <p class="figure-caption">Illustrative figures, not live quotes — the point is the shape of the stack, not the levels. Note that the deposit bar runs the other way: the bank's margin is what it withholds, not what it adds.</p>
+  </div>
+
+  <p>The deposit bar is the one worth staring at. Every other rate is built by <em>adding</em> markups to the base. A deposit rate is built by <em>subtracting</em> from it. Same four components, opposite sign — which is the entire business model of a bank drawn as one picture.</p>
+</section>
+
+<!-- ═══════════ 07 · REFERENCE RATES ═══════════ -->
+<section class="mod" id="reference" data-group="The rate stack" data-nav="Reference rates">
+  <div class="mod-head">
+    <span class="mod-num">07</span>
+    <h2>The reference rates, layer by layer</h2>
+    <span class="mod-source">US · UK · Singapore</span>
+  </div>
+
+  <p>The acronyms get thrown around interchangeably, and they aren't. The sharpest distinction is <strong>secured versus unsecured</strong>. An unsecured overnight rate is what one bank charges another on trust alone. A secured rate is collateralised by government bonds, so it carries almost no credit risk — and that is where the volume actually is. US repo turns over trillions a day; unsecured interbank lending is a fraction of it, which is precisely why the world replaced LIBOR with repo-based benchmarks.</p>
+
+  <div class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>Layer</th><th>United States</th><th>United Kingdom</th><th>Singapore</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Policy instrument</strong></td><td>Fed funds target range, steered via interest on reserve balances</td><td>Bank Rate</td><td><em>No policy rate.</em> MAS steers the S$NEER band</td></tr>
+        <tr><td><strong>Overnight, unsecured</strong></td><td>EFFR</td><td>SONIA</td><td>SORA</td></tr>
+        <tr><td><strong>Overnight, secured</strong></td><td>SOFR — Treasury repo</td><td>Gilt repo</td><td>SGD repo — thin market</td></tr>
+        <tr><td><strong>Ceiling</strong></td><td>Discount window · Standing Repo Facility</td><td>Operational lending facility</td><td>MAS SGD Facility</td></tr>
+        <tr><td><strong>Floor</strong></td><td>Interest on reserve balances · ON RRP for non-banks</td><td>Reserves remunerated at Bank Rate</td><td>Set indirectly by the exchange-rate stance</td></tr>
+        <tr><td><strong>Loan reference</strong></td><td>Term SOFR · prime = target upper bound + 300bp</td><td>SONIA-linked · bank base rates</td><td>Compounded SORA 1M/3M · bank board rates</td></tr>
+        <tr><td><strong>Long end</strong></td><td>Treasury curve</td><td>Gilt curve</td><td>SGS curve</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Note what the prime rate actually is in the US: a convention, not a calculation. It sits a fixed 300 basis points above the top of the fed funds target range and moves mechanically when that range moves. It anchors credit cards, home equity lines and some small business credit — and essentially nothing else. Reading it as "the rate banks charge good customers, derived from their costs" overstates it considerably.</p>
+</section>
+
+<!-- ═══════════ 08 · BETA AND LAG ═══════════ -->
+<section class="mod" id="beta" data-group="The rate stack" data-nav="Beta &amp; lag">
+  <div class="mod-head">
+    <span class="mod-num">08</span>
+    <h2>Deposit beta, and why nothing moves at once</h2>
+    <span class="mod-source">The friction layer</span>
+  </div>
+
+  <p>Saying deposit rates sit below the policy rate is true but incomplete. The mechanism has a name — <strong>deposit beta</strong>, the share of a policy move a bank passes through to savers. Across a tightening cycle it typically lands somewhere between 0.2 and 0.5, and it is asymmetric in both direction and speed.</p>
+
+  <div class="cards">
+    <div class="card">
+      <p class="card-kicker">Up</p>
+      <p class="card-title">Assets reprice fast</p>
+      <p>Floating loans reset with the reference rate on a contractual schedule. The bank's income moves almost immediately.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Up</p>
+      <p class="card-title">Deposits reprice slowly</p>
+      <p>Savings rates are administered — the bank raises them when it needs to, not when the policy rate moves. Margin expands in the gap.</p>
+    </div>
+    <div class="card">
+      <p class="card-kicker">Down</p>
+      <p class="card-title">The reverse, promptly</p>
+      <p>Deposit rates fall quickly on cuts. The asymmetry is the point: the lag is always in the direction that favours the bank.</p>
+    </div>
+  </div>
+
+  <p>What disciplines this is competition — specifically, the depositor's ability to leave. When money market funds pay meaningfully more than a savings account and moving takes a few taps, a low beta becomes a funding risk rather than a free margin. The US regional bank failures of 2023 were, in large part, a repricing of exactly that assumption: banks that had held deposit rates low discovered their depositors had noticed.</p>
+
+  <p>Then there is the lag. Peak effect on output and inflation lands roughly twelve to eighteen months after a policy move — long enough that the central bank is always steering by a picture of the road it saw a year ago. That is why the diagram is a flow rather than a switch, and why the debate is rarely about whether transmission works and almost always about when.</p>
+</section>
+
+<!-- ═══════════ 09 · SINGAPORE ═══════════ -->
+<section class="mod" id="singapore" data-group="The exception" data-nav="Singapore">
+  <div class="mod-head">
+    <span class="mod-num">09</span>
+    <h2>Singapore has no policy rate at all</h2>
+    <span class="mod-source">The instructive exception</span>
+  </div>
+
+  <p>Everything above assumed a central bank that sets an interest rate. The Monetary Authority of Singapore doesn't. It runs monetary policy through the <strong>exchange rate</strong>, managing the trade-weighted Singapore dollar — the S$NEER — inside an undisclosed band with three parameters it can adjust: the slope of the band, its width, and where it is centred. Tightening means steepening the appreciation slope, not raising a rate.</p>
+
+  <p>The logic is that Singapore is small and extraordinarily open. Imported goods dominate the consumption basket, so the exchange rate is a far more direct lever on domestic inflation than the price of overnight credit would be.</p>
+
+  <div class="note warn">
+    <p><strong>The trilemma bill comes due.</strong> With free capital movement, no economy can control both its exchange rate and its domestic interest rates. Singapore chose the exchange rate — which means it accepts whatever domestic rates the world hands it. SGD rates track USD rates minus the expected appreciation of the Singapore dollar. When the Fed hikes, SGD rates rise, and MAS neither chose it nor can prevent it.</p>
+  </div>
+
+  <p>So SORA is not a target being defended. It is an outcome — the volume-weighted average of actual unsecured overnight interbank lending in Singapore dollars, published after the fact. It became the benchmark because the alternatives were worse: SOR was derived from FX swaps and inherited USD LIBOR's problems, and SIBOR was a submitted rate rather than a transacted one. Both have since been retired.</p>
+
+  <p>Local mortgages then reference compounded SORA over one or three months plus a spread, or sit on a bank's internally-set board rate, or fix for two to three years priced off swap rates. The layers stack exactly as they do everywhere else. The only missing rung is the top one.</p>
+
+  <p>This is the case that proves the general model isn't a law. The ladder is a description of how a rate-targeting regime propagates a price. Remove the price at the top and the structure below it survives intact, sourcing its anchor from abroad instead.</p>
+</section>
+
+<!-- ═══════════ 10 · LIMITS ═══════════ -->
+<section class="mod" id="limits" data-group="The exception" data-nav="Limits">
+  <div class="mod-head">
+    <span class="mod-num">10</span>
+    <h2>Where this model stops explaining things</h2>
+    <span class="mod-source">Honest edges</span>
+  </div>
+
+  <p>Three places the two-tier picture goes quiet, worth knowing before leaning on it too hard.</p>
+
+  <div class="rows numbered">
+    <div class="row">
+      <div class="row-idx">1</div>
+      <div>
+        <div class="row-name">Most credit no longer comes from banks</div>
+      </div>
+      <div class="row-body">
+        <p>Private credit funds, insurers, money market funds and bond markets intermediate an enormous share of lending, and none of them creates deposits or holds reserves. They fund from the Tier 2 world and lend into it, sitting entirely outside the membrane. Policy still reaches them — through asset prices and the expected path — but not through the reserve channel at all.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">2</div>
+      <div>
+        <div class="row-name">Quantitative easing works on the other branch</div>
+      </div>
+      <div class="row-body">
+        <p>QE is not a rate cut in disguise. It creates reserves to buy long-dated bonds, compressing the term premium directly — an intervention on the right branch of the fork while the left branch is stuck at zero. Which is exactly why it was invented, and why its effects are so much harder to measure.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-idx">3</div>
+      <div>
+        <div class="row-name">Fiscal policy sets the quantity of safe assets</div>
+      </div>
+      <div class="row-body">
+        <p>The government yield curve isn't purely an expectations machine. How much debt is issued, at what maturities, and who is obliged to hold it all move the term premium independently of anything the central bank does.</p>
+      </div>
+    </div>
+  </div>
+
+  <p>None of that unbuilds the frame. It just marks where the frame ends. The core claim survives all three: the central bank prices settlement, commercial banks price credit, the two live on opposite sides of a membrane, and a single policy move reaches the economy through two channels that can move in opposite directions.</p>
+
+  <p>Which is the real answer to why one policy decision produces dozens of different rates. It isn't a fixed stock of value being rationed downward. It is a base price for time, forked into two transmission channels, with every layer along each channel adding its own charge for risk, duration and the work of intermediating — and the layers all move at different speeds.</p>
+</section>
+
+<footer class="sheet-footer">
+  Concept note · two-tier money and the rate stack · US mechanics with a Singapore contrast · illustrative figures throughout, not live market quotes
+</footer>
+
+</main>
+
+<script>
+(function(){
+  const HASH = "2ff51fba4b8b1137a97ed27dfbd357e5b690665b2f016c308d95b05febf5bf7e";
+  const gate = document.getElementById('password-gate');
+  const input = document.getElementById('password-input');
+  const error = document.getElementById('password-error');
+
+  async function sha256(str) {
+    const buf = new TextEncoder().encode(str);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  async function check() {
+    const digest = await sha256(input.value);
+    if (digest === HASH) {
+      gate.classList.add('hidden');
+      localStorage.setItem('pages_pass', digest);
+    } else {
+      error.style.display = 'block';
+      setTimeout(() => error.style.display = 'none', 2000);
+    }
+  }
+
+  (async function(){
+    const stored = localStorage.getItem('pages_pass');
+    if (stored === HASH) { gate.classList.add('hidden'); return; }
+  })();
+
+  input.addEventListener('keydown', function(e){ if (e.key === 'Enter') check(); });
+})();
+</script>
+<script src="/pages/shared/paper.js"></script>
+<script src="/pages/shared/menu.js"></script>
+</body>
+</html>
